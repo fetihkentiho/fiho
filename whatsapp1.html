@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WhatsApp Mesaj Gönderici</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--bg:#f3f1ea;--sf:#fff;--ink:#17302b;--mut:#5d6f6a;--ln:#d9d5c8;--ac:#0b6e4f;--ac2:#e9f4ee;--wa:#1faa59;--warn:#a55b00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101b18;--sf:#18272a;--ink:#e7efec;--mut:#9fb2ac;--ln:#2b403c;--ac:#4cc58f;--ac2:#1b3a30;--wa:#2bc46c;--warn:#f0b04e}}
+:root[data-theme="dark"]{--bg:#101b18;--sf:#18272a;--ink:#e7efec;--mut:#9fb2ac;--ln:#2b403c;--ac:#4cc58f;--ac2:#1b3a30;--wa:#2bc46c;--warn:#f0b04e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",system-ui,sans-serif}
+header{padding:22px 18px 8px;max-width:1100px;margin:auto}
+h1{font:700 26px/1.2 Georgia,"Times New Roman",serif;margin:0 0 4px}
+header p{margin:0;color:var(--mut)}
+main{max-width:1100px;margin:auto;padding:10px 18px 40px;display:grid;gap:16px;grid-template-columns:1fr 1fr}
+@media(max-width:820px){main{grid-template-columns:1fr}}
+section{background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:16px}
+section.wide{grid-column:1/-1}
+h2{font:700 18px Georgia,serif;margin:0 0 10px}
+button,.btn{font:inherit;border:1px solid var(--ln);background:var(--sf);color:var(--ink);padding:8px 12px;border-radius:7px;cursor:pointer}
+button:hover{border-color:var(--ac)}
+button.pri{background:var(--ac);border-color:var(--ac);color:#fff}
+:root[data-theme="dark"] button.pri{color:#06241a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.pri{color:#06241a}}
+button.wa{background:var(--wa);border-color:var(--wa);color:#04210f;font-weight:700}
+button:disabled{opacity:.5;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+input[type=text],input[type=search],textarea{width:100%;font:inherit;padding:9px;border:1px solid var(--ln);border-radius:7px;background:var(--bg);color:var(--ink)}
+textarea{min-height:130px;resize:vertical}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.chip{border-radius:99px;padding:5px 12px;font-size:14px}
+.chip.on{background:var(--ac2);border-color:var(--ac);color:var(--ac)}
+.list{max-height:320px;overflow:auto;border:1px solid var(--ln);border-radius:7px}
+.list label{display:flex;gap:10px;padding:8px 10px;border-bottom:1px solid var(--ln);cursor:pointer;align-items:center}
+.list label:last-child{border:0}
+.list small{color:var(--mut);display:block}
+.mut{color:var(--mut);font-size:14px}
+.prev{background:var(--ac2);border-radius:10px;padding:10px 12px;white-space:pre-wrap;min-height:50px;margin-top:8px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--ln);vertical-align:top}
+.queue{border:2px solid var(--wa);border-radius:10px;padding:12px;margin-top:12px}
+.bar{height:8px;background:var(--ln);border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--wa);width:0}
+.note{border-left:4px solid var(--warn);padding:6px 10px;font-size:14px;color:var(--mut);margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+<h1>WhatsApp Mesaj Gönderici</h1>
+<p>Excel’den rehberi yükleyin, kişileri seçin, mesajı yazın ve gönderin.</p>
+</header>
+<main>
+<section>
+<h2>1. Rehber</h2>
+<div class="row">
+<input type="file" id="file" accept=".xlsx,.xls,.csv" hidden>
+<button class="pri" id="pick">Excel dosyası yükle</button>
+<button id="tpl">Örnek Excel indir</button>
+<button id="clr">Rehberi temizle</button>
+</div>
+<p class="mut" id="info">Henüz rehber yüklenmedi. Her sayfa (sheet) bir grup olur; isterseniz “Grup” sütunu da kullanabilirsiniz. Sütunlar: Ad, Telefon, Grup ve istediğiniz ek sütunlar (Devamsızlık vb.).</p>
+<div class="row" id="groups"></div>
+<input type="search" id="q" placeholder="Kişi ara…">
+<div class="row"><button id="all">Görünenleri seç</button><button id="none">Seçimi kaldır</button><span class="mut" id="cnt"></span></div>
+<div class="list" id="list"></div>
+</section>
+
+<section>
+<h2>2. Mesaj</h2>
+<textarea id="msg" placeholder="Örn: Sayın veli, {Ad} bugün okula gelmedi. Bu dönemki devamsızlığı: {Devamsızlık} gün."></textarea>
+<p class="mut" style="margin:8px 0 4px">Excel sütunlarını mesaja ekleyin (tıklayın):</p>
+<div class="row" id="fields"><span class="mut">Rehber yüklenince sütunlar burada görünür.</span></div>
+<p class="mut" style="margin:8px 0 0">Önizleme (ilk seçili kişi için):</p>
+<div class="prev" id="prev"></div>
+<div class="row"><button class="wa" id="send" disabled>Gönder</button><span class="mut" id="sc"></span></div>
+<div id="queue"></div>
+<div class="note">Tarayıcıdaki bir sayfa WhatsApp’a kendi kendine mesaj gönderemez. Gönder’e basınca her kişi için WhatsApp mesaj hazır şekilde açılır; sizin WhatsApp’ta yeşil gönder okuna basmanız gerekir. Tam otomatik gönderim için WhatsApp Business API gerekir.</div>
+</section>
+
+<section class="wide">
+<h2>3. Gönderim raporu</h2>
+<div class="row"><button id="xl">Raporu Excel olarak indir</button><button id="rc">Raporu temizle</button><span class="mut" id="rn"></span></div>
+<div class="tbl"><table><thead><tr><th>Tarih</th><th>Saat</th><th>Ad</th><th>Telefon</th><th>Grup</th><th>Mesaj</th></tr></thead><tbody id="rep"></tbody></table></div>
+</section>
+</main>
+
+<script>
+var S={contacts:[],cols:[],sel:new Set(),grp:"Tümü",log:[],queue:[],qi:0};
+var $=function(i){return document.getElementById(i)};
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function save(){try{localStorage.setItem("wa_contacts",JSON.stringify({c:S.contacts,k:S.cols}));localStorage.setItem("wa_log",JSON.stringify(S.log))}catch(e){}}
+function load(){try{var c=JSON.parse(localStorage.getItem("wa_contacts")||"null");if(c){S.contacts=c.c;S.cols=c.k}S.log=JSON.parse(localStorage.getItem("wa_log")||"[]")}catch(e){}}
+function phone(p){var d=String(p).replace(/\D/g,"");if(d.indexOf("00")===0)d=d.slice(2);if(d.length===11&&d[0]==="0")d="90"+d.slice(1);else if(d.length===10&&d[0]==="5")d="90"+d;return d}
+function find(keys,re){for(var i=0;i<keys.length;i++)if(re.test(keys[i]))return keys[i];return null}
+function parse(buf){
+ var wb=XLSX.read(buf,{type:"array"}),all=[],cols=[];
+ wb.SheetNames.forEach(function(sn){
+  var rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{defval:"",raw:false});
+  if(!rows.length)return;
+  var keys=Object.keys(rows[0]);
+  var kn=find(keys,/^(ad|ad soyad|adı soyadı|isim|öğrenci|ogrenci|name)/i)||keys[0];
+  var kp=find(keys,/(tel|gsm|numara|phone|cep)/i)||keys[1];
+  var kg=find(keys,/(grup|sınıf|sinif|group)/i);
+  keys.forEach(function(k){if(cols.indexOf(k)<0&&k!==kg&&k!==kp)cols.push(k)});
+  rows.forEach(function(r){
+   var ph=phone(r[kp]);if(!ph)return;
+   var f={};keys.forEach(function(k){f[k]=r[k]});
+   f["Ad"]=f["Ad"]||r[kn];
+   all.push({id:all.length,name:String(r[kn]),phone:ph,group:(kg&&r[kg])?String(r[kg]):sn,f:f});
+  });
+ });
+ if(cols.indexOf("Ad")<0)cols.unshift("Ad");
+ S.contacts=all;S.cols=cols;S.sel=new Set();S.grp="Tümü";save();render();
+}
+function groups(){var g=[];S.contacts.forEach(function(c){if(g.indexOf(c.group)<0)g.push(c.group)});return g}
+function visible(){var q=$("q").value.toLowerCase();return S.contacts.filter(function(c){return(S.grp==="Tümü"||c.group===S.grp)&&(c.name+c.phone).toLowerCase().indexOf(q)>=0})}
+function fill(t,c){return t.replace(/\{([^}]+)\}/g,function(m,k){k=k.trim();return(c.f[k]!==undefined&&c.f[k]!=="")?c.f[k]:m})}
+function render(){
+ var g=["Tümü"].concat(groups());
+ $("groups").innerHTML=S.contacts.length?g.map(function(x){return '<button class="chip'+(x===S.grp?' on':'')+'" data-g="'+esc(x)+'">'+esc(x)+'</button>'}).join("")+'<button class="chip" id="selg">Bu grubu seç</button>':"";
+ var v=visible();
+ $("list").innerHTML=v.length?v.map(function(c){return '<label><input type="checkbox" data-id="'+c.id+'"'+(S.sel.has(c.id)?' checked':'')+'><span>'+esc(c.name)+'<small>+'+c.phone+' · '+esc(c.group)+'</small></span></label>'}).join(""):'<p class="mut" style="padding:10px">Gösterilecek kişi yok.</p>';
+ $("info").textContent=S.contacts.length?S.contacts.length+" kişi, "+groups().length+" grup yüklendi.":$("info").textContent;
+ $("fields").innerHTML=S.cols.length?S.cols.map(function(k){return '<button class="chip" data-f="'+esc(k)+'">{'+esc(k)+'}</button>'}).join(""):$("fields").innerHTML;
+ stat();rep();
+}
+function stat(){
+ $("cnt").textContent=S.sel.size+" kişi seçili";
+ $("sc").textContent=S.sel.size?S.sel.size+" kişiye gönderilecek":"";
+ $("send").disabled=!S.sel.size||!$("msg").value.trim();
+ var first=S.contacts.filter(function(c){return S.sel.has(c.id)})[0]||S.contacts[0];
+ $("prev").textContent=first&&$("msg").value?fill($("msg").value,first):"";
+}
+function rep(){
+ $("rn").textContent=S.log.length+" kayıt";
+ $("rep").innerHTML=S.log.length?S.log.slice().reverse().map(function(l){return '<tr><td>'+l.d+'</td><td>'+l.t+'</td><td>'+esc(l.n)+'</td><td>+'+l.p+'</td><td>'+esc(l.g)+'</td><td>'+esc(l.m)+'</td></tr>'}).join(""):'<tr><td colspan="6" class="mut">Henüz gönderim yok. Mesajlar gönderildikçe burada tarih ve saatiyle listelenir.</td></tr>';
+}
+function showQ(){
+ var q=S.queue,i=S.qi,el=$("queue");
+ if(!q.length){el.innerHTML="";return}
+ if(i>=q.length){el.innerHTML='<div class="queue"><b>Tamamlandı.</b> '+q.length+' mesaj WhatsApp’a aktarıldı. Aşağıdaki raporda tarih ve saatleri görebilirsiniz.</div>';S.queue=[];return}
+ var c=q[i];
+ el.innerHTML='<div class="queue"><b>'+(i+1)+' / '+q.length+' — '+esc(c.name)+'</b><div class="bar"><i style="width:'+(i/q.length*100)+'%"></i></div><div class="prev">'+esc(fill($("msg").value,c))+'</div><div class="row"><button class="wa" id="go">WhatsApp’ta aç</button><button id="skip">Atla</button><button id="stop">Durdur</button></div><p class="mut" style="margin:0">WhatsApp’ta gönder okuna basın, sonra bu sayfaya dönüp tekrar “WhatsApp’ta aç”a tıklayın.</p></div>';
+}
+function two(n){return n<10?"0"+n:""+n}
+document.addEventListener("click",function(e){
+ var t=e.target;
+ if(t.id==="pick")$("file").click();
+ if(t.dataset&&t.dataset.g){S.grp=t.dataset.g;render()}
+ if(t.id==="selg"){visible().forEach(function(c){S.sel.add(c.id)});render()}
+ if(t.id==="all"){visible().forEach(function(c){S.sel.add(c.id)});render()}
+ if(t.id==="none"){S.sel.clear();render()}
+ if(t.id==="clr"){if(confirm("Yüklenen rehber silinsin mi?")){S.contacts=[];S.cols=[];S.sel.clear();save();$("fields").innerHTML="";render()}}
+ if(t.dataset&&t.dataset.f){var m=$("msg"),s=m.selectionStart||m.value.length;m.value=m.value.slice(0,s)+"{"+t.dataset.f+"}"+m.value.slice(m.selectionEnd||s);m.focus();stat()}
+ if(t.id==="send"){S.queue=S.contacts.filter(function(c){return S.sel.has(c.id)});S.qi=0;showQ()}
+ if(t.id==="go"){
+  var c=S.queue[S.qi],txt=fill($("msg").value,c),n=new Date();
+  window.open("https://wa.me/"+c.phone+"?text="+encodeURIComponent(txt),"_blank");
+  S.log.push({d:two(n.getDate())+"."+two(n.getMonth()+1)+"."+n.getFullYear(),t:two(n.getHours())+":"+two(n.getMinutes())+":"+two(n.getSeconds()),n:c.name,p:c.phone,g:c.group,m:txt});
+  S.qi++;save();rep();showQ();
+ }
+ if(t.id==="skip"){S.qi++;showQ()}
+ if(t.id==="stop"){S.queue=[];showQ()}
+ if(t.id==="rc"){if(confirm("Rapor silinsin mi?")){S.log=[];save();rep()}}
+ if(t.id==="xl"){
+  var rows=S.log.map(function(l){return{Tarih:l.d,Saat:l.t,Ad:l.n,Telefon:l.p,Grup:l.g,Mesaj:l.m}});
+  var wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),"Rapor");XLSX.writeFile(wb,"mesaj-raporu.xlsx");
+ }
+ if(t.id==="tpl"){
+  var d=[{Ad:"Ayşe Yılmaz",Telefon:"0532 000 00 01",Devamsızlık:"2"},{Ad:"Ali Demir",Telefon:"0533 000 00 02",Devamsızlık:"5"}];
+  var d2=[{Ad:"Zeynep Kaya",Telefon:"0534 000 00 03",Devamsızlık:"0"}];
+  var wb2=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb2,XLSX.utils.json_to_sheet(d),"5-A");XLSX.utils.book_append_sheet(wb2,XLSX.utils.json_to_sheet(d2),"5-B");XLSX.writeFile(wb2,"rehber-ornek.xlsx");
+ }
+});
+document.addEventListener("change",function(e){
+ var t=e.target;
+ if(t.id==="file"&&t.files[0]){var r=new FileReader();r.onload=function(){try{parse(new Uint8Array(r.result))}catch(x){alert("Dosya okunamadı. .xlsx veya .csv dosyası seçin.")}};r.readAsArrayBuffer(t.files[0]);t.value=""}
+ if(t.dataset&&t.dataset.id){var id=+t.dataset.id;t.checked?S.sel.add(id):S.sel.delete(id);stat()}
+});
+$("msg").addEventListener("input",stat);
+$("q").addEventListener("input",render);
+load();render();
+</script>
+</body>
+</html>
