@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp Rehber Gönderici</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+  :root{--g:#128c7e;--gd:#075e54;--bg:#f0f2f5;--c:#fff;--t:#111b21;--m:#667781;--b:#e2e5e9}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--t)}
+  header{background:var(--gd);color:#fff;padding:14px 20px;font-size:18px;font-weight:600}
+  .wrap{display:grid;grid-template-columns:240px 1fr 360px;gap:14px;padding:14px;max-width:1300px;margin:auto}
+  @media(max-width:950px){.wrap{grid-template-columns:1fr}}
+  .card{background:var(--c);border:1px solid var(--b);border-radius:10px;padding:14px}
+  h3{margin:0 0 10px;font-size:15px}
+  button{background:var(--g);color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:14px;cursor:pointer}
+  button:hover{background:var(--gd)} button.sec{background:#e9edef;color:var(--t)} button.sec:hover{background:#d9dee1}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .grp{display:flex;justify-content:space-between;padding:8px 10px;border-radius:8px;cursor:pointer;font-size:14px}
+  .grp:hover{background:var(--bg)} .grp.on{background:#d9fdd3;font-weight:600}
+  .grp span{color:var(--m)}
+  .list{max-height:60vh;overflow:auto;border:1px solid var(--b);border-radius:8px}
+  .row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--b);font-size:14px}
+  .row:last-child{border:0} .row small{color:var(--m);margin-left:auto}
+  input[type=text],input[type=number],input[type=password],textarea,select{width:100%;padding:9px;border:1px solid var(--b);border-radius:8px;font:inherit}
+  textarea{min-height:140px;resize:vertical}
+  label{display:block;font-size:13px;color:var(--m);margin:10px 0 4px}
+  .bar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+  #log{font-size:12px;background:#111b21;color:#cfe;border-radius:8px;padding:8px;max-height:150px;overflow:auto;margin-top:10px;white-space:pre-wrap}
+  .note{font-size:12px;color:var(--m);margin-top:8px;line-height:1.4}
+  .api{display:none;border-top:1px dashed var(--b);margin-top:8px;padding-top:4px}
+</style>
+</head>
+<body>
+<header>📱 WhatsApp Rehber Gönderici</header>
+<div class="wrap">
+
+  <div class="card">
+    <h3>1) Rehber (Excel)</h3>
+    <input type="file" id="file" accept=".xlsx,.xls,.csv" style="width:100%;font-size:13px">
+    <div class="bar" style="margin-top:10px">
+      <button class="sec" onclick="sample()">Örnek Excel indir</button>
+    </div>
+    <p class="note">Sütunlar: <b>Ad</b>, <b>Telefon</b>, <b>Grup</b>. Başlıklar Türkçe/İngilizce olabilir. Grup boşsa "Genel" olur.</p>
+    <h3 style="margin-top:16px">Gruplar</h3>
+    <div id="groups"><p class="note">Henüz rehber yüklenmedi.</p></div>
+  </div>
+
+  <div class="card">
+    <h3>Kişiler <span id="count" style="color:var(--m);font-weight:400"></span></h3>
+    <div class="bar">
+      <button class="sec" onclick="selGroup(true)">Gruptakileri seç</button>
+      <button class="sec" onclick="selGroup(false)">Seçimi kaldır</button>
+      <button class="sec" onclick="preview()">Önizleme</button>
+      <input type="text" id="q" placeholder="Ara..." oninput="render()" style="max-width:200px">
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <div class="card">
+    <h3>2) Mesaj</h3>
+    <div style="font-size:13px;margin-bottom:6px">Seçili: <b id="selCount">0</b> kişi</div>
+    <textarea id="msg" placeholder="Örn: Değerli velimiz, öğrenciniz {öğrenci} {gün} gün devamsızlık yapmıştır.&#10;&#10;{ ... } içine Excel sütun başlığını yazın; her kişi için kendi satırındaki değer gelir. Kutu boş bırakılırsa Excel'deki 'Mesaj' sütunu kullanılır."></textarea>
+
+    <label>Gönderim yöntemi</label>
+    <select id="mode" onchange="modeChange()">
+      <option value="web">WhatsApp Web/Uygulama (kendi hesabım, her sohbette Gönder'e basılır)</option>
+      <option value="api">WhatsApp Cloud API (tam otomatik, Business hesabı gerekir)</option>
+    </select>
+
+    <label>Varsayılan ülke kodu</label>
+    <input type="text" id="cc" value="90">
+
+    <div class="api" id="apiBox">
+      <label>Phone Number ID</label><input type="text" id="pid">
+      <label>Erişim Token'ı</label><input type="password" id="tok">
+      <label>Mesajlar arası bekleme (sn)</label><input type="number" id="delay" value="3" min="1">
+      <label><input type="checkbox" id="useTpl" onchange="$('tplBox').style.display=this.checked?'block':'none'"> Onaylı şablon kullan (24 saat kuralı için gerekli)</label>
+      <div id="tplBox" style="display:none">
+        <label>Şablon adı</label><input type="text" id="tplName" placeholder="ornek_duyuru">
+        <label>Dil kodu</label><input type="text" id="tplLang" value="tr">
+        <label>Şablon değişkenleri (sırayla {{1}}, {{2}}… için Excel sütun adları, virgülle)</label>
+        <input type="text" id="tplVars" placeholder="öğrenci, gün">
+        <p class="note">Şablon kullanılırsa mesaj kutusundaki metin yerine Meta'da onaylı şablon metni gider.</p>
+      </div>
+    </div>
+
+    <div class="bar" style="margin-top:14px">
+      <button id="sendBtn" onclick="send()">Gönder</button>
+      <button class="sec" id="nextBtn" onclick="openNext()" style="display:none">Sıradakini aç</button>
+      <button class="sec" id="stopBtn" onclick="stop()" style="display:none">Durdur</button>
+    </div>
+    <div id="log"></div>
+    <p class="note" id="modeNote"></p>
+  </div>
+</div>
+
+<script>
+let contacts=[], curGroup='Tümü', selected=new Set(), queue=[], stopped=false;
+
+const $=id=>document.getElementById(id);
+const log=t=>{const l=$('log');l.textContent+=t+'\n';l.scrollTop=l.scrollHeight};
+
+function normPhone(p){
+  let d=String(p||'').replace(/\D/g,'');
+  if(!d) return '';
+  const cc=($('cc').value||'90').replace(/\D/g,'');
+  if(d.startsWith('00')) d=d.slice(2);
+  else if(d.startsWith('0')) d=cc+d.slice(1);
+  else if(cc==='90' && d.length===10) d=cc+d;
+  return d;
+}
+
+$('file').addEventListener('change',e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const wb=XLSX.read(ev.target.result,{type:'array'});
+    const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
+    contacts=rows.map((r,i)=>{
+      const k={};Object.keys(r).forEach(x=>k[x.toString().trim().toLowerCase()]=r[x]);
+      const name=k['ad']??k['isim']??k['ad soyad']??k['name']??'';
+      const phone=k['telefon']??k['tel']??k['numara']??k['phone']??k['gsm']??'';
+      const grp=(k['grup']??k['group']??'').toString().trim()||'Genel';
+      k['ilkad']=String(name).trim().split(/\s+/)[0]||'';
+      return {id:i,name:String(name),phone:String(phone),group:grp,f:k};
+    }).filter(c=>normPhone(c.phone));
+    selected.clear(); curGroup='Tümü';
+    render(); log(contacts.length+' kişi yüklendi.');
+  };
+  r.readAsArrayBuffer(f);
+});
+
+function sample(){
+  const ws=XLSX.utils.aoa_to_sheet([['Ad','Telefon','Grup','Öğrenci','Gün'],['Veli 1','0532 111 22 33','5-A','Telli Bozer',10],['Veli 2','0533 444 55 66','5-A','Hesna Begüm Bozer',5],['Veli 3','0544 777 88 99','6-B','Ali Kaya',3]]);
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Rehber');
+  XLSX.writeFile(wb,'rehber-ornek.xlsx');
+}
+
+function render(){
+  const gs={};contacts.forEach(c=>gs[c.group]=(gs[c.group]||0)+1);
+  let h=`<div class="grp ${curGroup==='Tümü'?'on':''}" onclick="setGroup('Tümü')">Tümü <span>${contacts.length}</span></div>`;
+  Object.keys(gs).sort().forEach(g=>{
+    h+=`<div class="grp ${curGroup===g?'on':''}" data-g="${encodeURIComponent(g)}" onclick="setGroup(decodeURIComponent(this.dataset.g))">${esc(g)} <span>${gs[g]}</span></div>`;
+  });
+  $('groups').innerHTML=contacts.length?h:'<p class="note">Henüz rehber yüklenmedi.</p>';
+  const q=$('q').value.toLowerCase();
+  const vis=contacts.filter(c=>(curGroup==='Tümü'||c.group===curGroup)&&(c.name+c.phone).toLowerCase().includes(q));
+  $('count').textContent='('+vis.length+')';
+  $('list').innerHTML=vis.map(c=>`<label class="row" style="margin:0;color:inherit"><input type="checkbox" ${selected.has(c.id)?'checked':''} onchange="tog(${c.id},this.checked)"> ${esc(c.name||'(isimsiz)')} <small>${esc(c.phone)} · ${esc(c.group)}</small></label>`).join('')||'<div class="row">Kişi yok</div>';
+  $('selCount').textContent=selected.size;
+}
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function setGroup(g){curGroup=g;render()}
+function tog(id,on){on?selected.add(id):selected.delete(id);$('selCount').textContent=selected.size}
+function selGroup(on){
+  const q=$('q').value.toLowerCase();
+  contacts.filter(c=>(curGroup==='Tümü'||c.group===curGroup)&&(c.name+c.phone).toLowerCase().includes(q))
+    .forEach(c=>on?selected.add(c.id):selected.delete(c.id));
+  render();
+}
+
+function modeChange(){
+  const api=$('mode').value==='api';
+  $('apiBox').style.display=api?'block':'none';
+  $('modeNote').innerHTML=api
+    ?'Cloud API: Meta Business hesabı gerekir. Kişiyle son 24 saat içinde yazışma yoksa serbest metin yerine onaylı <b>şablon</b> gerekir; aksi halde Meta mesajı reddeder.'
+    :'Bu yöntemde her kişi için sohbet kendi WhatsApp\'ınızda mesaj hazır şekilde açılır; WhatsApp kuralları gereği son <b>Gönder</b> tuşuna siz basarsınız. Hesabınızın engellenmemesi için en güvenli yöntemdir.';
+}
+modeChange();
+
+// {sütun adı} yazılan her yer, o kişinin Excel satırındaki değerle değişir.
+function personalize(c){
+  const t=$('msg').value.trim()||String(c.f['mesaj']??'');
+  return t.replace(/\{([^}]+)\}/g,(m,key)=>{
+    const v=c.f[key.trim().toLowerCase()];
+    return v===undefined?m:String(v).trim();
+  });
+}
+function preview(){
+  const list=contacts.filter(c=>selected.has(c.id));
+  if(!list.length) return alert('Önce kişi seçin.');
+  log('--- Önizleme (ilk '+Math.min(3,list.length)+') ---');
+  list.slice(0,3).forEach(c=>log('→ '+c.phone+': '+personalize(c)));
+}
+
+function send(){
+  const list=contacts.filter(c=>selected.has(c.id));
+  if(!list.length) return alert('Önce kişi seçin.');
+  const bad=list.filter(c=>{const t=personalize(c).trim();return !t||/\{[^}]+\}/.test(t)});
+  if(bad.length&&!$('useTpl').checked) return alert('Şu kişilerde mesaj boş veya {değişken} Excel sütunuyla eşleşmedi: '+bad.slice(0,5).map(c=>c.name||c.phone).join(', ')+'\nÖnizleme ile kontrol edin.');
+  stopped=false;
+  if($('mode').value==='api') return sendApi(list);
+  queue=list.slice();
+  $('nextBtn').style.display='inline-block';
+  $('stopBtn').style.display='inline-block';
+  log('Kuyruk hazır: '+queue.length+' kişi. "Sıradakini aç"a basın.');
+  openNext();
+}
+
+function openNext(){
+  if(!queue.length){log('Tamamlandı ✔');$('nextBtn').style.display='none';$('stopBtn').style.display='none';return}
+  const c=queue.shift();
+  const url='https://wa.me/'+normPhone(c.phone)+'?text='+encodeURIComponent(personalize(c));
+  window.open(url,'_blank');
+  log('Açıldı: '+(c.name||c.phone)+' — kalan '+queue.length);
+  $('nextBtn').textContent=queue.length?'Sıradakini aç ('+queue.length+')':'Bitir';
+}
+
+function stop(){stopped=true;queue=[];$('nextBtn').style.display='none';$('stopBtn').style.display='none';log('Durduruldu.')}
+
+async function sendApi(list){
+  const pid=$('pid').value.trim(),tok=$('tok').value.trim();
+  if(!pid||!tok) return alert('Phone Number ID ve Token girin.');
+  const d=Math.max(1,+$('delay').value||3)*1000;
+  $('stopBtn').style.display='inline-block';$('sendBtn').disabled=true;
+  for(const c of list){
+    if(stopped) break;
+    try{
+      const r=await fetch(`https://graph.facebook.com/v20.0/${pid}/messages`,{
+        method:'POST',
+        headers:{'Authorization':'Bearer '+tok,'Content-Type':'application/json'},
+        body:JSON.stringify($('useTpl').checked
+          ? {messaging_product:'whatsapp',to:normPhone(c.phone),type:'template',template:{
+              name:$('tplName').value.trim(),language:{code:$('tplLang').value.trim()||'tr'},
+              components:$('tplVars').value.trim()?[{type:'body',parameters:$('tplVars').value.split(',').map(s=>({type:'text',text:String(c.f[s.trim().toLowerCase()]??'-').trim()}))}]:[]}}
+          : {messaging_product:'whatsapp',to:normPhone(c.phone),type:'text',text:{body:personalize(c)}})
+      });
+      const j=await r.json();
+      log((r.ok?'✔ ':'✘ ')+(c.name||c.phone)+(r.ok?'':' → '+(j.error?.message||r.status)));
+    }catch(e){log('✘ '+(c.name||c.phone)+' → '+e.message)}
+    await new Promise(r=>setTimeout(r,d));
+  }
+  $('sendBtn').disabled=false;$('stopBtn').style.display='none';log('Bitti.');
+}
+</script>
+</body>
+</html>
