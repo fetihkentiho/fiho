@@ -250,6 +250,37 @@
   @media (max-width:520px){ .od-sat, .od-imza{grid-template-columns:1fr;} }
 
 
+  /* ---------- EK-2 Öğrenci Sözleşmesi ve EK-3 Sevk ---------- */
+  .od-ek2{border:2px solid #111;border-radius:0;padding:12px;background:#fff;color:#111;font-family:"Times New Roman",serif;}
+  .od-ek2-head{position:relative;text-align:center;padding:4px 30px 0;}
+  .od-ek2-ust{font-weight:700;font-size:.9rem;line-height:1.25;}
+  .od-ek2-kod{position:absolute;right:0;bottom:0;font-weight:700;font-size:.8rem;}
+  .od-ek2-title{text-align:center;font-size:1.25rem;font-weight:900;letter-spacing:.08em;margin:22px 0 18px;}
+  .od-ek2-table{display:grid;grid-template-columns:1fr 1fr;border:1px solid #111;margin-bottom:12px;}
+  .od-ek2-full{grid-column:1/-1;padding:7px;border-bottom:1px solid #111;}
+  .od-ek2-table label{display:flex;align-items:center;gap:8px;border-bottom:1px solid #111;padding:5px 7px;font-weight:700;font-size:.86rem;}
+  .od-ek2-table label:nth-last-child(-n+2){border-bottom:0;}
+  .od-ek2-table input{min-width:0;flex:1;border:0;border-left:1px solid #111;border-radius:0;background:#fff;padding:5px;font:inherit;}
+  .od-ek2-metin{font-size:.9rem;line-height:1.8;text-align:justify;}
+  .od-ek2-metin input[type=date]{display:inline-block;width:145px;max-width:48%;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;padding:2px;font:inherit;}
+  .od-ek2-metin textarea{display:block;width:100%;min-height:82px;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;resize:vertical;font:inherit;line-height:1.6;padding:3px;}
+  .od-ek2-imza-tarih{text-align:left;margin-top:6px;}
+  .od-ek2-imza{width:58%;margin:24px 0 0 auto;font-size:.9rem;}
+  .od-ek2-imza div{display:flex;align-items:center;gap:6px;margin:10px 0;}
+  .od-ek2-imza input{min-width:0;flex:1;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;padding:3px;font:inherit;}
+  .od-ek2 input[readonly]{background:#fff;color:#111;}
+  .sk-kagit{border:2px solid #111;border-radius:0;padding:22px 24px;min-height:760px;font-family:"Times New Roman",serif;color:#111;}
+  .sk-kagit .vt-baslik{font-size:1.35rem;margin:44px 0 42px;}
+  .sk-alici{text-align:center;font-weight:700;font-size:.9rem;margin-bottom:36px;}
+  .sk-metin{font-size:.95rem;line-height:2.1;text-align:justify;text-indent:30px;white-space:normal;}
+  .sk-metin u{font-weight:700;text-decoration:underline;}
+  .sk-alt{position:relative;min-height:220px;margin-top:40px;font-size:.88rem;}
+  .sk-tarih{text-align:right;margin:0 0 30px;}
+  .sk-iletisim{width:55%;line-height:1.8;}
+  .sk-imza{position:absolute;right:0;top:65px;width:42%;text-align:center;line-height:1.7;}
+  .sk-kagit small{font-size:.75rem;}
+  @media(max-width:520px){.od-ek2-table{grid-template-columns:1fr;}.od-ek2-imza{width:100%;}.sk-kagit{padding:14px 12px;}.sk-imza{position:static;width:100%;margin-top:28px;}.sk-iletisim{width:100%;}}
+
   /* ---------- Servis Listesi ---------- */
   .ko-satir{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 2px;font-size:.9rem;border-bottom:1px solid #eef3f4;cursor:pointer;}
   .ko-satir:last-child{border-bottom:none;}
@@ -816,6 +847,7 @@
       <button type="button" class="menu-box" onClick="openOtModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>ÖDDK Öğrenci Tutanağı</span></button>
       <button type="button" class="menu-box" onClick="openOddkModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8M8 17h5"/><path d="M8 10l1.2 1.2L11.5 9"/></svg><span>ÖDDK Öğrenci Sözleşmesi</span></button>
       <button type="button" class="menu-box" onClick="openVeliModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="12.5" r="1.8"/><path d="M6.8 18c.4-1.8 1.7-2.8 3.2-2.8s2.8 1 3.2 2.8"/><path d="M15 12h2M15 15h2"/></svg><span>ÖDDK Veli Tutanağı</span></button>
+      <button type="button" class="menu-box" onClick="openSevkModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16h16V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/><path d="m14 19 2 2 4-4"/></svg><span>ÖDDK'ya Sevk</span></button>
       <button type="button" class="menu-box" onClick="openDpModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 13h2M12 13h2M16 13h2M8 17h2M12 17h2"/></svg><span>Öğretmen Ders Programı</span></button>
       <button type="button" class="menu-box" onClick="openSpModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="12" rx="1.5"/><path d="M7 7h6M7 11h10M8 21l4-6 4 6M7 19h10"/></svg><span>Sınıf Ders Programı</span></button>
       <button type="button" class="menu-box" onClick="sddAc()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16M3 14.5h18"/><path d="M12 11.5h3M12 17h6"/></svg><span>Sınıf Ders Dağılım Çizelgeleri</span></button>
@@ -4935,39 +4967,31 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       <div class="modal-field"><label for="odOgrenciSec">Öğrenci (Öğrenci Bilgileri'nden)</label><select id="odOgrenciSec" onChange="odOgrenciSecildi()"><option value="">(Öğrenci seçiniz)</option></select></div>
     </div>
 
-    <div class="od-kagit">
-      <div class="od-baslik"><div class="s1">T.C. MİLLÎ EĞİTİM BAKANLIĞI</div><div class="s2">FETİHKENT İMAM HATİP ORTAOKULU</div><div class="s3">ÖĞRENCİ SÖZLEŞMESİ</div></div>
+    <div class="od-kagit od-ek2">
+      <div class="od-ek2-head">
+        <div class="od-ek2-ust">T.C.<br>KARATAY KAYMAKAMLIĞI<br>Fetihkent İmam Hatip Ortaokulu Müdürlüğü</div>
+        <div class="od-ek2-kod">EK-2</div>
+        <div class="od-ek2-title">ÖĞRENCİ SÖZLEŞMESİ</div>
+      </div>
       <div class="od-govde">
-        <div class="od-sat">
-          <div><label for="odAd">Öğrencinin Adı Soyadı:</label><input type="text" id="odAd" readonly></div>
-          <div><label for="odSinif">Sınıfı / Şubesi:</label><input type="text" id="odSinif" readonly></div>
-          <div><label for="odNo">Okul Numarası:</label><input type="text" id="odNo" readonly></div>
-          <div><label for="odTarih">Tarih:</label><input type="text" id="odTarih" placeholder="gg.aa.yyyy"></div>
+        <div class="od-ek2-table">
+          <strong class="od-ek2-full">ÖĞRENCİNİN:</strong>
+          <label>Adı <input type="text" id="odAdi" readonly></label>
+          <label>Soyadı <input type="text" id="odSoyadi" readonly></label>
+          <label>Sınıfı <input type="text" id="odSinif" readonly></label>
+          <label>Numarası <input type="text" id="odNo" readonly></label>
         </div>
-
-        <div class="od-gri">
-          <div class="od-bas" style="text-align:left;">SÖZLEŞMEYE KONU OLAN DAVRANIŞ</div>
-          <textarea id="odD1" rows="5"></textarea>
+        <div class="od-ek2-metin">
+          Ben <input type="date" id="odDavranisTarih"> tarihinde
+          <textarea id="odD1" rows="3" placeholder="Sözleşmeye konu olan davranışı yazınız"></textarea>
+          davranışında bulundum. <input type="date" id="odUyariTarih"> tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum.
+          <div class="od-ek2-imza-tarih"><input type="date" id="odTarih"></div>
         </div>
-
-        <div class="od-metin">
-          Yukarıda belirtilen davranışımla ilgili öğretmenim tarafından benimle görüşme yapılmış, davranışımın sonuçları ve okul kurallarına uygun davranmanın önemi konusunda bilgilendirilmiş bulunmaktayım.
-          <div style="font-weight:700;margin-top:8px;">Bundan sonra;</div>
-          <ul>
-            <li>Okul ve sınıf kurallarına uymaya,</li>
-            <li>Arkadaşlarımın ve öğretmenlerimin haklarına saygı göstermeye,</li>
-            <li>Yukarıda belirtilen olumsuz davranışı tekrarlamamaya,</li>
-            <li>Benzer bir sorun yaşadığımda uygun ve şiddetsiz çözüm yollarını kullanmaya,</li>
-            <li>Davranışlarımı olumlu yönde değiştirmek için çaba göstermeye söz veriyorum.</li>
-          </ul>
-          Bu sözleşmede belirtilen hususları okudum, anladım ve davranışlarımın sorumluluğunu kabul ediyorum.
+        <div class="od-ek2-imza">
+          <div><b>İmza:</b><input type="text" id="odOgrImza" placeholder="Öğrenci imzası"></div>
+          <div><b>Ad-Soyad:</b><input type="text" id="odAdSoyadImza" readonly></div>
         </div>
-
-        <div class="od-imza">
-          <div class="od-gri"><div class="od-bas">ÖĞRENCİ</div><div class="od-alt">Adı Soyadı / İmza</div><input type="text" id="odOgrImza"></div>
-          <div class="od-gri"><div class="od-bas">GÖRÜŞMEYİ YAPAN ÖĞRETMEN</div><div class="od-alt">Adı Soyadı / Branşı / İmza</div><input type="text" id="odOgrt" list="odOgrtListe" placeholder="Öğretmen seçin veya yazın"><datalist id="odOgrtListe"></datalist></div>
-        </div>
-        <div class="od-not">Not: Bu form, öğrencinin davranışını fark etmesi ve olumlu yönde değiştirmesini desteklemek amacıyla kullanılır.</div>
+        <div class="od-not">*Öğrenci tarafından doldurulacaktır.</div>
       </div>
     </div>
 
@@ -5717,6 +5741,49 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   </div>
 </div>
 
+
+<!-- ================= ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ MODAL ================= -->
+<div id="sevkOverlay" class="modal-overlay" onClick="if(event.target===this) closeSevkModal()">
+  <div class="modal-box wide-modal">
+    <button type="button" class="modal-close" onClick="closeSevkModal()">×</button>
+    <h2 class="modal-title">ÖDDK'ya Öğrenci Sevk Dilekçesi</h2>
+    <div class="modal-field"><label for="skOgrTutSec">Kayıtlı Öğrenci Tutanakları (otomatik bilgi aktarımı)</label><select id="skOgrTutSec" onChange="skTutanaktanDoldur()"><option value="">(Öğrenci tutanağı seçiniz)</option></select></div>
+    <div class="modal-field"><label for="skKayit">Kayıtlı Sevk Dilekçeleri</label><select id="skKayit" onChange="skKayitSec()"><option value="">(Yeni sevk dilekçesi)</option></select></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="skSinif">Sınıfı</label><input id="skSinif" readonly></div>
+      <div class="modal-field"><label for="skNo">Okul Numarası</label><input id="skNo" readonly></div>
+    </div>
+    <div class="modal-field"><label for="skAd">Öğrencinin Adı Soyadı</label><input id="skAd" readonly></div>
+    <div class="modal-field"><label for="skDavranis">Tüm ikazlara ve gerekli rehberliğe rağmen devam eden davranış / açıklama</label><textarea id="skDavranis" rows="4" onInput="skOnizle()"></textarea></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="skTarih">Dilekçe Tarihi</label><input type="date" id="skTarih" onInput="skOnizle()"></div>
+      <div class="modal-field"><label for="skOgretmen">Öğretmen Adı Soyadı</label><input type="text" id="skOgretmen" list="skOgretmenListe" onInput="skOnizle()" autocomplete="off"><datalist id="skOgretmenListe"></datalist></div>
+    </div>
+    <div class="modal-field"><label for="skAdres">Adres (öğretmen adresi / kurum adresi)</label><textarea id="skAdres" rows="3" onInput="skOnizle()"></textarea></div>
+    <div class="modal-field"><label for="skTelefon">Telefon</label><input type="tel" id="skTelefon" placeholder="0(5xx) xxx xx xx" onInput="skOnizle()"></div>
+    <div class="vt-kagit sk-kagit" id="skKagit">
+      <div class="vt-ust">T.C.<br><span id="skIlce"></span><br><span id="skOkul"></span><br><small>EK-3</small></div>
+      <div class="vt-baslik">ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ</div>
+      <div class="sk-alici">FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE</div>
+      <div class="sk-metin">Okulumuz <u id="skOnSinif">……/……</u> sınıfı <u id="skOnNo">………</u> nolu öğrencilerinden <u id="skOnAd">………………………………………….</u> tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen <u id="skOnDavranis">…………………………………………………………………………</u> Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda; Gereğini bilgilerinize arz ederim.</div>
+      <div class="sk-alt">
+        <div class="sk-tarih" id="skOnTarih">…./…./202…</div>
+        <div class="sk-iletisim"><b>Adres :</b><span id="skOnAdres">…………………………………</span><br><br><b>Telefon:</b> <span id="skOnTelefon">0(……)……………………</span></div>
+        <div class="sk-imza"><span id="skOnOgretmen">………………………</span><br>Öğretmeni</div>
+      </div>
+    </div>
+    <div class="modal-actions-single-row modal-actions-six">
+      <button type="button" class="modal-btn primary" onClick="skKaydet()">Kaydet</button>
+      <button type="button" class="modal-btn danger" onClick="skSil()">Sil</button>
+      <button type="button" class="modal-btn secondary" onClick="skEOkul()">e-Okul</button>
+      <button type="button" class="modal-btn" onClick="skYeni()">Yeni</button>
+      <button type="button" class="modal-btn pdf" onClick="skCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn excel" onClick="skCikti('excel')">Excel</button>
+    </div>
+    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('oddkSevk')">Tümünü Sil</button></div>
+    <div id="skDurum" class="modal-status"></div>
+  </div>
+</div>
 
 <!-- ================= ÖDDK ÖĞRENCİ TUTANAĞI (SÖZLÜ UYARI) MODAL ================= -->
 <div id="otOverlay" class="modal-overlay" onClick="if(event.target===this) closeOtModal()">
@@ -9127,6 +9194,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     ogrTut:      {ad: 'ÖDDK Öğrenci Tutanağı',      keys: ['ogrenciTutanaklari'],                                 ac: function(){ openOtModal(); },                durum: 'otDurum'},
     servis:      {ad: 'Servis Listesi',                  keys: ['servisKayitlari'],                                   ac: function(){ openServisModal(); },               durum: 'svDurum'},
     oddk:        {ad: 'ÖDDK Öğrenci Sözleşmesi',        keys: ['oddkSozlesmeleri'],                                  ac: function(){ openOddkModal(); },                durum: 'odDurum'},
+    oddkSevk:    {ad: "ÖDDK'ya Sevk", keys: ['oddkSevkleri'], ac: function(){ openSevkModal(); }, durum: 'skDurum'},
     ogretmenDers: {ad: 'Öğretmen Dersleri', keys: ['ogretmenDersleri'], ac: function(){ openOgretmenDersModal(); }, durum: 'odrsDurum'},
     sinifDers:   {ad: 'Sınıf Dersleri', keys: ['sinifDersleri'], ac: function(){ openSinifDersModal(); }, durum: 'sdrsDurum'},
     ebf:         {ad: 'E-Okul Bilgi Formu',      keys: ['eokulBilgiFormlari'], ac: function(){ openEbfModal(); },   durum: 'ebDurum'},
@@ -12044,7 +12112,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'oddkSevkleri', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -12529,7 +12597,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   /* ================= ÖDDK TUTANAK VE SÖZLEŞME SCRIPT ================= */
   /* Sınıf, okul no, ad ve soyad "Öğrenci Bilgileri" bölümündeki kayıtlardan (ogbOgrenciler) alınır. */
   var OD_SECILI = null;   // seçili kayıtlı sözleşmenin sırası
-  var OD_ALANLAR = {sinif:'odSinif', no:'odNo', ad:'odAd', tarih:'odTarih', d1:'odD1', ogrImza:'odOgrImza', ogrt:'odOgrt'};
+  var OD_ALANLAR = {sinif:'odSinif', no:'odNo', adi:'odAdi', soyadi:'odSoyadi', davranisTarih:'odDavranisTarih', d1:'odD1', uyariTarih:'odUyariTarih', tarih:'odTarih', ogrImza:'odOgrImza', adSoyadImza:'odAdSoyadImza'};
 
   function odKayitlar(){ return rapLoad('oddkSozlesmeleri', []); }
   function odKayitlariYaz(l){ localStorage.setItem('oddkSozlesmeleri', JSON.stringify(l)); }
@@ -12577,10 +12645,15 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     var tarih = k.tutanakTarih || k.tarih;
     OD_SECILI = null;
     document.getElementById('odKayit').value = '';
+    var ogrKaydi = ogbOgrenciler().filter(function(o){ return String(o.no) === String(k.no); })[0];
     odFormYaz({
-      sinif: k.sinif || '', no: k.no || '', ad: k.ad || '',
-      tarih: tarih ? dsTarihYaz(tarih) : odBugun(),
-      d1: k.davranis || '', ogrImza: k.ad || '', ogrt: ogrt
+      sinif: k.sinif || '', no: k.no || '',
+      adi: ogrKaydi ? (ogrKaydi.adi || '') : ((k.ad || '').trim().split(/\s+/).slice(0, -1).join(' ')),
+      soyadi: ogrKaydi ? (ogrKaydi.soyadi || '') : ((k.ad || '').trim().split(/\s+/).slice(-1).join(' ')),
+      davranisTarih: k.tarih || '',
+      d1: k.davranis || '',
+      uyariTarih: k.tutanakTarih || k.tarih || '',
+      tarih: odBugun(), ogrImza: '', adSoyadImza: k.ad || ''
     });
     document.getElementById('odSinifSec').value = 'TUMU';
     odOgrenciDoldur();
@@ -12590,7 +12663,6 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 
   function openOddkModal(){
     odTutListeDoldur();
-    odOgretmenListeDoldur();
     odSinifDoldur();
     odOgrenciDoldur();
     odKayitDoldur(null);
@@ -12621,10 +12693,12 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   function odOgrenciSecildi(){
     var no = document.getElementById('odOgrenciSec').value;
     var o = odOgrenciler().filter(function(x){ return x.no === no; })[0];
-    document.getElementById('odAd').value = o ? o.ad : '';
     document.getElementById('odSinif').value = o ? o.sinif : '';
     document.getElementById('odNo').value = o ? o.no : '';
-    document.getElementById('odOgrImza').value = o ? o.ad : '';
+    document.getElementById('odAdSoyadImza').value = o ? o.ad : '';
+    var ogr = o ? ogbOgrenciler().filter(function(x){ return x.no === no; })[0] : null;
+    document.getElementById('odAdi').value = ogr ? (ogr.adi || '') : '';
+    document.getElementById('odSoyadi').value = ogr ? (ogr.soyadi || '') : '';
   }
 
   function odFormYaz(k){
@@ -12633,6 +12707,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   function odFormOku(){
     var k = {};
     Object.keys(OD_ALANLAR).forEach(function(a){ k[a] = document.getElementById(OD_ALANLAR[a]).value.trim(); });
+    k.ad = ((k.adi || '') + ' ' + (k.soyadi || '')).trim();
     return k;
   }
   function odKayitDoldur(sec){
@@ -12651,6 +12726,10 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     var k = odKayitlar()[Number(v)];
     if(!k) return;
     if(k.d2 || k.d3){ k = Object.assign({}, k, {d1: [k.d1, k.d2, k.d3].filter(Boolean).join(' '), d2: '', d3: ''}); }
+    if(!k.adi && k.ad){ var eskiAd = String(k.ad).trim().split(/\s+/); k.adi = eskiAd.slice(0,-1).join(' '); k.soyadi = eskiAd.slice(-1).join(' '); }
+    if(k.davranisTarih === undefined) k.davranisTarih = '';
+    if(k.uyariTarih === undefined) k.uyariTarih = '';
+    if(k.adSoyadImza === undefined) k.adSoyadImza = k.ad || '';
     OD_SECILI = Number(v);
     odFormYaz(k);
     var sel = document.getElementById('odOgrenciSec');
@@ -12699,37 +12778,36 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   }
 
   function odPdfDok(k){
-    var GRI = '#e6e6e8', KOYU = '#3b3b40';
-    var cizgiAlt = {hLineWidth: function(){ return 1; }, vLineWidth: function(){ return 0; }, hLineColor: function(){ return '#222'; }, paddingLeft: function(){ return 2; }, paddingRight: function(){ return 2; }, paddingTop: function(){ return 1; }, paddingBottom: function(){ return 1; }};
-    var kutuYok = {hLineWidth: function(){ return 0; }, vLineWidth: function(){ return 0; }, paddingLeft: function(){ return 10; }, paddingRight: function(){ return 10; }, paddingTop: function(){ return 8; }, paddingBottom: function(){ return 8; }};
-    var cizgiAlan = function(etiket, deger, gen){
-      return {table: {widths: ['auto', gen || '*'], body: [[{text: etiket, bold: true, border: [false, false, false, false]}, {text: deger || ' ', bold: true, border: [false, false, false, true]}]]}, layout: cizgiAlt};
-    };
+    var line = {hLineWidth:function(){return .7;},vLineWidth:function(){return .7;},hLineColor:function(){return '#111';},vLineColor:function(){return '#111';},paddingLeft:function(){return 6;},paddingRight:function(){return 6;},paddingTop:function(){return 5;},paddingBottom:function(){return 5;}};
+    var dotted = {hLineWidth:function(i,node){return i===node.table.body.length?0.7:0;},vLineWidth:function(){return 0;},hLineColor:function(){return '#111';},paddingLeft:function(){return 2;},paddingRight:function(){return 2;},paddingTop:function(){return 3;},paddingBottom:function(){return 3;}};
     return {
-      pageSize: 'A4',
-      pageMargins: [40, 0, 40, 40],
-      defaultStyle: {fontSize: 11},
-      footer: function(){ return {text: 'Not: Bu form, öğrencinin davranışını fark etmesi ve olumlu yönde değiştirmesini desteklemek amacıyla kullanılır.', fontSize: 8, color: '#444', margin: [40, 0, 40, 18]}; },
-      content: [
-        {margin: [-40, 0, -40, 14], table: {widths: ['*'], body: [[{stack: [
-          {text: 'T.C. MİLLÎ EĞİTİM BAKANLIĞI', fontSize: 10, bold: true},
-          {text: 'FETİHKENT İMAM HATİP ORTAOKULU', fontSize: 14, bold: true, margin: [0, 2, 0, 0]},
-          {text: 'ÖĞRENCİ SÖZLEŞMESİ', fontSize: 17, bold: true, margin: [0, 2, 0, 0]}
-        ], alignment: 'center', color: '#ffffff', fillColor: KOYU}]]}, layout: kutuYok},
-        {columns: [cizgiAlan('Öğrencinin Adı Soyadı:', k.ad), {width: 130, ...cizgiAlan('Sınıfı / Şubesi:', k.sinif)}], columnGap: 24, margin: [0, 0, 0, 10]},
-        {columns: [cizgiAlan('Okul Numarası:', k.no), cizgiAlan('Tarih:', k.tarih)], columnGap: 24, margin: [0, 0, 0, 12]},
-        {table: {widths: ['*'], body: [[{stack: [
-          {text: 'SÖZLEŞMEYE KONU OLAN DAVRANIŞ', bold: true, margin: [0, 0, 0, 5]},
-          {table: {widths: ['*'], heights: [108], body: [[{text: k.d1 || ' ', fillColor: '#ffffff'}]]}, layout: {hLineWidth: function(){ return 0.8; }, vLineWidth: function(){ return 0.8; }, hLineColor: function(){ return '#777'; }, vLineColor: function(){ return '#777'; }, paddingLeft: function(){ return 6; }, paddingTop: function(){ return 5; }}}
-        ], fillColor: GRI}]]}, layout: kutuYok, margin: [0, 0, 0, 14]},
-        {text: 'Yukarıda belirtilen davranışımla ilgili öğretmenim tarafından benimle görüşme yapılmış, davranışımın sonuçları ve okul kurallarına uygun davranmanın önemi konusunda bilgilendirilmiş bulunmaktayım.', margin: [0, 0, 0, 8], lineHeight: 1.25},
-        {text: 'Bundan sonra;', bold: true, margin: [0, 0, 0, 5]},
-        {ul: ['Okul ve sınıf kurallarına uymaya,', 'Arkadaşlarımın ve öğretmenlerimin haklarına saygı göstermeye,', 'Yukarıda belirtilen olumsuz davranışı tekrarlamamaya,', 'Benzer bir sorun yaşadığımda uygun ve şiddetsiz çözüm yollarını kullanmaya,', 'Davranışlarımı olumlu yönde değiştirmek için çaba göstermeye söz veriyorum.'], margin: [10, 0, 0, 12], lineHeight: 1.3},
-        {text: 'Bu sözleşmede belirtilen hususları okudum, anladım ve davranışlarımın sorumluluğunu kabul ediyorum.', margin: [0, 0, 0, 22], lineHeight: 1.25},
-        {columns: [
-          {table: {widths: ['*'], body: [[{stack: [{text: 'ÖĞRENCİ', bold: true, alignment: 'center'}, {text: 'Adı Soyadı / İmza', fontSize: 9, alignment: 'center', margin: [0, 2, 0, 6]}, {text: k.ogrImza || ' ', bold: true, fontSize: 10, alignment: 'center'}, {canvas: [{type: 'line', x1: 6, y1: 46, x2: 214, y2: 46, lineWidth: 1}], margin: [0, 0, 0, 4]}], fillColor: GRI}]]}, layout: kutuYok},
-          {table: {widths: ['*'], body: [[{stack: [{text: 'GÖRÜŞMEYİ YAPAN ÖĞRETMEN', bold: true, alignment: 'center'}, {text: 'Adı Soyadı / Branşı / İmza', fontSize: 9, alignment: 'center', margin: [0, 2, 0, 6]}, {text: k.ogrt || ' ', bold: true, fontSize: 10, alignment: 'center'}, {canvas: [{type: 'line', x1: 6, y1: 46, x2: 214, y2: 46, lineWidth: 1}], margin: [0, 0, 0, 4]}], fillColor: GRI}]]}, layout: kutuYok}
-        ], columnGap: 16}
+      pageSize:'A4', pageMargins:[42,30,42,42],
+      defaultStyle:{font:'Roboto',fontSize:10.5,lineHeight:1.25},
+      content:[
+        {text:'T.C.',alignment:'center',bold:true,fontSize:11},
+        {text:'KARATAY KAYMAKAMLIĞI',alignment:'center',bold:true,fontSize:12},
+        {text:'Fetihkent İmam Hatip Ortaokulu Müdürlüğü',alignment:'center',bold:true,fontSize:11},
+        {text:'EK-2',alignment:'right',bold:true,margin:[0,0,0,8]},
+        {text:'ÖĞRENCİ SÖZLEŞMESİ',alignment:'center',bold:true,fontSize:19,margin:[0,8,0,18]},
+        {table:{widths:['*'],body:[[{text:'ÖĞRENCİNİN:',bold:true}]]},layout:line,margin:[0,0,0,0]},
+        {table:{widths:[95,12,'*'],body:[
+          [{text:'Adı',bold:true},{text:':'},{text:k.adi||''}],
+          [{text:'Soyadı',bold:true},{text:':'},{text:k.soyadi||''}],
+          [{text:'Sınıfı',bold:true},{text:':'},{text:k.sinif||''}],
+          [{text:'Numarası',bold:true},{text:':'},{text:k.no||''}]
+        ]},layout:line,margin:[0,0,0,12]},
+        {text:[
+          'Ben ',{text:k.davranisTarih?dsTarihYaz(k.davranisTarih):'……/…../202…',bold:true,decoration:'underline'},
+          ' tarihinde ',{text:k.d1||'…………………………………………………………………………',bold:true,decoration:'underline'},
+          ' davranışında bulundum. ',{text:k.uyariTarih?dsTarihYaz(k.uyariTarih):'……/…../202…',bold:true,decoration:'underline'},
+          ' tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum. ',
+          {text:k.tarih?dsTarihYaz(k.tarih):'……/……/202…',bold:true,decoration:'underline'}
+        ],alignment:'justify',fontSize:11,lineHeight:1.65,margin:[0,0,0,38]},
+        {columns:[{width:'*',text:''},{width:235,stack:[
+          {text:'İmza:  '+(k.ogrImza||'……………………………………'),bold:true,margin:[0,0,0,20]},
+          {text:'Ad-Soyad:  '+(k.adSoyadImza||((k.adi||'')+' '+(k.soyadi||''))),bold:true}
+        ]}]},
+        {text:'*Öğrenci tarafından doldurulacaktır.',bold:true,italics:true,fontSize:9,margin:[0,100,0,0]}
       ]
     };
   }
@@ -12753,41 +12831,24 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     }catch(err){ durum.textContent = 'PDF oluşturulamadı.'; }
   }
   function odExcelOlustur(k){
-    var wb = new ExcelJS.Workbook();
-    var ws = wb.addWorksheet('Öğrenci Sözleşmesi', {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1}});
-    ws.columns = [{width: 24}, {width: 26}, {width: 16}, {width: 20}];
-    var font = function(b, s){ return {name: 'Calibri', size: s || 11, bold: !!b}; };
-    var kenar = {top: {style: 'thin'}, bottom: {style: 'thin'}, left: {style: 'thin'}, right: {style: 'thin'}};
-    var gri = {type: 'pattern', pattern: 'solid', fgColor: {argb: 'FFE6E6E8'}};
-    function birlestir(r, c1, c2, text, o){
-      ws.mergeCells(r, c1, r, c2);
-      var h = ws.getCell(r, c1);
-      h.value = text; o = o || {};
-      h.font = o.font || font(false); h.alignment = {horizontal: o.h || 'left', vertical: o.v || 'middle', wrapText: true};
-      if(o.fill) h.fill = o.fill; if(o.border) h.border = o.border;
-      if(o.height) ws.getRow(r).height = o.height;
+    var wb=new ExcelJS.Workbook(), ws=wb.addWorksheet('Öğrenci Sözleşmesi',{pageSetup:{paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1}});
+    ws.columns=[{width:20},{width:5},{width:75}];
+    function row(r,label,value,height){
+      ws.mergeCells(r,1,r,1); ws.getCell(r,1).value=label; ws.getCell(r,1).font={bold:true,name:'Times New Roman',size:11};
+      ws.getCell(r,2).value=':'; ws.getCell(r,3).value=value||'';
+      [1,2,3].forEach(c=>{ws.getCell(r,c).border={top:{style:'thin'},bottom:{style:'thin'},left:{style:'thin'},right:{style:'thin'}};ws.getCell(r,c).alignment={vertical:'middle',wrapText:true};});
+      if(height)ws.getRow(r).height=height;
     }
-    var kor = {type: 'pattern', pattern: 'solid', fgColor: {argb: 'FF3B3B40'}};
-    var beyaz = function(s){ return {name: 'Calibri', size: s, bold: true, color: {argb: 'FFFFFFFF'}}; };
-    birlestir(1, 1, 4, 'T.C. MİLLÎ EĞİTİM BAKANLIĞI', {font: beyaz(10), h: 'center', fill: kor, height: 18});
-    birlestir(2, 1, 4, 'FETİHKENT İMAM HATİP ORTAOKULU', {font: beyaz(13), h: 'center', fill: kor, height: 22});
-    birlestir(3, 1, 4, 'ÖĞRENCİ SÖZLEŞMESİ', {font: beyaz(15), h: 'center', fill: kor, height: 26});
-    birlestir(5, 1, 1, 'Öğrencinin Adı Soyadı:', {font: font(true)}); birlestir(5, 2, 2, k.ad, {border: kenar});
-    birlestir(5, 3, 3, 'Sınıfı / Şubesi:', {font: font(true), h: 'right'}); birlestir(5, 4, 4, k.sinif, {border: kenar});
-    birlestir(6, 1, 1, 'Okul Numarası:', {font: font(true)}); birlestir(6, 2, 2, k.no, {border: kenar});
-    birlestir(6, 3, 3, 'Tarih:', {font: font(true), h: 'right'}); birlestir(6, 4, 4, k.tarih, {border: kenar});
-    birlestir(8, 1, 4, 'SÖZLEŞMEYE KONU OLAN DAVRANIŞ', {font: font(true), fill: gri, height: 20});
-    birlestir(9, 1, 4, k.d1, {fill: gri, border: kenar, v: 'top', height: 100});
-    birlestir(11, 1, 4, 'Yukarıda belirtilen davranışımla ilgili öğretmenim tarafından benimle görüşme yapılmış, davranışımın sonuçları ve okul kurallarına uygun davranmanın önemi konusunda bilgilendirilmiş bulunmaktayım.', {height: 48});
-    birlestir(12, 1, 4, 'Bundan sonra;', {font: font(true)});
-    ['Okul ve sınıf kurallarına uymaya,', 'Arkadaşlarımın ve öğretmenlerimin haklarına saygı göstermeye,', 'Yukarıda belirtilen olumsuz davranışı tekrarlamamaya,', 'Benzer bir sorun yaşadığımda uygun ve şiddetsiz çözüm yollarını kullanmaya,', 'Davranışlarımı olumlu yönde değiştirmek için çaba göstermeye söz veriyorum.'].forEach(function(t, i){
-      birlestir(13 + i, 1, 4, '•  ' + t, {});
-    });
-    birlestir(19, 1, 4, 'Bu sözleşmede belirtilen hususları okudum, anladım ve davranışlarımın sorumluluğunu kabul ediyorum.', {height: 32});
-    birlestir(21, 1, 2, 'ÖĞRENCİ', {font: font(true), h: 'center', fill: gri}); birlestir(21, 3, 4, 'GÖRÜŞMEYİ YAPAN ÖĞRETMEN', {font: font(true), h: 'center', fill: gri});
-    birlestir(22, 1, 2, 'Adı Soyadı / İmza', {h: 'center', fill: gri}); birlestir(22, 3, 4, 'Adı Soyadı / Branşı / İmza', {h: 'center', fill: gri});
-    birlestir(23, 1, 2, k.ogrImza, {h: 'center', fill: gri, border: {bottom: {style: 'thin'}}, height: 48}); birlestir(23, 3, 4, k.ogrt, {h: 'center', fill: gri, border: {bottom: {style: 'thin'}}});
-    birlestir(25, 1, 4, 'Not: Bu form, öğrencinin davranışını fark etmesi ve olumlu yönde değiştirmesini desteklemek amacıyla kullanılır.', {font: {name: 'Calibri', size: 8}});
+    ws.mergeCells('A1:C1');ws.getCell('A1').value='T.C.\\nKARATAY KAYMAKAMLIĞI\\nFetihkent İmam Hatip Ortaokulu Müdürlüğü';ws.getCell('A1').font={bold:true,size:12,name:'Times New Roman'};ws.getCell('A1').alignment={horizontal:'center',vertical:'middle',wrapText:true};ws.getRow(1).height=52;
+    ws.mergeCells('A2:C2');ws.getCell('A2').value='EK-2';ws.getCell('A2').alignment={horizontal:'right'};
+    ws.mergeCells('A3:C3');ws.getCell('A3').value='ÖĞRENCİ SÖZLEŞMESİ';ws.getCell('A3').font={bold:true,size:17,name:'Times New Roman'};ws.getCell('A3').alignment={horizontal:'center'};ws.getRow(3).height=32;
+    ws.mergeCells('A4:C4');ws.getCell('A4').value='ÖĞRENCİNİN:';ws.getCell('A4').font={bold:true};
+    row(5,'Adı',k.adi);row(6,'Soyadı',k.soyadi);row(7,'Sınıfı',k.sinif);row(8,'Numarası',k.no);
+    ws.mergeCells('A10:C13');ws.getCell('A10').value='Ben '+(k.davranisTarih?dsTarihYaz(k.davranisTarih):'……/…../202…')+' tarihinde '+(k.d1||'………………………………')+' davranışında bulundum. '+(k.uyariTarih?dsTarihYaz(k.uyariTarih):'……/…../202…')+' tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum. '+(k.tarih?dsTarihYaz(k.tarih):'……/……/202…');
+    ws.getCell('A10').alignment={wrapText:true,vertical:'top'};ws.getCell('A10').font={name:'Times New Roman',size:12};ws.getRow(10).height=100;
+    ws.mergeCells('B16:C16');ws.getCell('B16').value='İmza: '+(k.ogrImza||'……………………………………');ws.getCell('B16').font={bold:true};
+    ws.mergeCells('B18:C18');ws.getCell('B18').value='Ad-Soyad: '+(k.adSoyadImza||((k.adi||'')+' '+(k.soyadi||'')));ws.getCell('B18').font={bold:true};
+    ws.getCell('A27').value='*Öğrenci tarafından doldurulacaktır.';ws.getCell('A27').font={bold:true,italic:true};
     return wb.xlsx.writeBuffer();
   }
 
@@ -16496,6 +16557,128 @@ window.addEventListener('load', menuSigdirPlanla);
 document.addEventListener('DOMContentLoaded', menuSigdirPlanla);
 if(document.fonts && document.fonts.ready){ document.fonts.ready.then(menuSigdirPlanla); }
 menuSigdirPlanla();
+
+  /* ================= ÖDDK'YA SEVK DİLEKÇESİ ================= */
+  var SK_SECILI = null;
+  function skKayitlar(){return rapLoad('oddkSevkleri',[]);}
+  function skYaz(l){localStorage.setItem('oddkSevkleri',JSON.stringify(l));}
+  function skTarihBugun(){return new Date().toISOString().slice(0,10);}
+  function skOgretmenDoldur(){
+    var l=rapLoad('ogretmenListesi',[]);
+    document.getElementById('skOgretmenListe').innerHTML=l.filter(function(x){return x&&x.ad;}).map(function(x){return '<option value="'+escapeHtml(x.ad)+'"></option>';}).join('');
+  }
+  function skBaslik(){
+    var b=vtBaslik();
+    document.getElementById('skIlce').textContent=b.ilce;
+    document.getElementById('skOkul').textContent=b.okul;
+  }
+  function skTutListe(){
+    var sel=document.getElementById('skOgrTutSec'), old=sel.value;
+    sel.innerHTML='<option value="">(Öğrenci tutanağı seçiniz)</option>'+otKayitlar().map(function(k,i){
+      return '<option value="'+i+'">'+escapeHtml((k.ad||'(adsız)')+(k.sinif?' ('+k.sinif+')':'')+(k.tarih?' - '+dsTarihYaz(k.tarih):''))+'</option>';
+    }).join('');
+    if(old&&Array.prototype.some.call(sel.options,function(o){return o.value===old;}))sel.value=old;
+  }
+  function skOku(){
+    return {sinif:document.getElementById('skSinif').value.trim(),no:document.getElementById('skNo').value.trim(),ad:document.getElementById('skAd').value.trim(),
+      davranis:document.getElementById('skDavranis').value.trim(),tarih:document.getElementById('skTarih').value,ogretmen:document.getElementById('skOgretmen').value.trim(),
+      adres:document.getElementById('skAdres').value.trim(),telefon:document.getElementById('skTelefon').value.trim()};
+  }
+  function skYazForm(k){
+    ['sinif','no','ad','davranis','tarih','ogretmen','adres','telefon'].forEach(function(a){document.getElementById('sk'+a.charAt(0).toUpperCase()+a.slice(1)).value=k[a]||'';});
+    skOnizle();
+  }
+  function skOnizle(){
+    var k=skOku(), f=function(v){return v||'………………………………';};
+    document.getElementById('skOnSinif').textContent=k.sinif||'……/……';
+    document.getElementById('skOnNo').textContent=k.no||'………';
+    document.getElementById('skOnAd').textContent=k.ad||'………………………………………….';
+    document.getElementById('skOnDavranis').textContent=f(k.davranis);
+    document.getElementById('skOnTarih').textContent=k.tarih?dsTarihYaz(k.tarih):'…./…./202…';
+    document.getElementById('skOnOgretmen').textContent=k.ogretmen||'………………………';
+    document.getElementById('skOnAdres').textContent=k.adres||'…………………………………';
+    document.getElementById('skOnTelefon').textContent=k.telefon||'0(……)……………………';
+  }
+  function skTutanaktanDoldur(){
+    var v=document.getElementById('skOgrTutSec').value;if(v==='')return;
+    var k=otKayitlar()[Number(v)], durum=document.getElementById('skDurum');
+    if(!k){durum.textContent='Öğrenci tutanağı bulunamadı.';return;}
+    SK_SECILI=null;document.getElementById('skKayit').value='';
+    skYazForm({sinif:k.sinif||'',no:k.no||'',ad:k.ad||'',davranis:k.davranis||'',tarih:skTarihBugun(),ogretmen:k.ogretmen||'',adres:'',telefon:''});
+    durum.textContent='Öğrenci tutanağındaki sınıf, numara, ad-soyad ve davranış bilgileri sevk dilekçesine aktarıldı.';
+  }
+  function skKayitDoldur(sec){
+    var sel=document.getElementById('skKayit');
+    sel.innerHTML='<option value="">(Yeni sevk dilekçesi)</option>'+skKayitlar().map(function(k,i){return '<option value="'+i+'">'+escapeHtml((k.ad||'(adsız)')+(k.sinif?' ('+k.sinif+')':'')+(k.tarih?' - '+dsTarihYaz(k.tarih):''))+'</option>';}).join('');
+    sel.value=sec==null?'':String(sec);
+  }
+  function skKayitSec(){
+    var v=document.getElementById('skKayit').value;
+    if(v===''){SK_SECILI=null;skYazForm({tarih:skTarihBugun()});return;}
+    var k=skKayitlar()[Number(v)];if(!k)return;SK_SECILI=Number(v);skYazForm(k);
+  }
+  function skKaydet(){
+    var k=skOku(),d=document.getElementById('skDurum');
+    if(!k.ad){d.textContent='Önce ÖDDK Öğrenci Tutanağı seçiniz.';return;}
+    if(!k.davranis){d.textContent='Sevk gerekçesini / davranış açıklamasını giriniz.';return;}
+    var l=skKayitlar();if(SK_SECILI!==null&&l[SK_SECILI])l[SK_SECILI]=k;else{l.push(k);SK_SECILI=l.length-1;}
+    skYaz(l);skKayitDoldur(SK_SECILI);d.textContent='Sevk dilekçesi kaydedildi.';
+  }
+  function skSil(){
+    var d=document.getElementById('skDurum');if(SK_SECILI===null){d.textContent='Silmek için kayıtlı sevk dilekçesi seçiniz.';return;}
+    if(!confirm('Seçili sevk dilekçesi silinsin mi?'))return;
+    var l=skKayitlar();l.splice(SK_SECILI,1);skYaz(l);skYeni();d.textContent='Sevk dilekçesi silindi.';
+  }
+  function skYeni(){SK_SECILI=null;document.getElementById('skOgrTutSec').value='';skKayitDoldur(null);skYazForm({tarih:skTarihBugun()});document.getElementById('skDurum').textContent='';}
+  function skEOkul(){skTutListe();skOgretmenDoldur();skBaslik();document.getElementById('skDurum').textContent='Öğrenci tutanağı, öğretmen ve okul bilgileri yenilendi.';}
+  function openSevkModal(){
+    skBaslik();skTutListe();skOgretmenDoldur();skKayitDoldur(null);skYazForm({tarih:skTarihBugun()});
+    document.getElementById('skDurum').textContent='';document.getElementById('sevkOverlay').classList.add('active');
+  }
+  function closeSevkModal(){document.getElementById('sevkOverlay').classList.remove('active');}
+  function skPdfDok(k){
+    var b=vtBaslik();
+    return {pageSize:'A4',pageMargins:[52,38,52,48],defaultStyle:{font:'Roboto',fontSize:11,lineHeight:1.45},content:[
+      {text:'T.C.',alignment:'center',bold:true,fontSize:12},
+      {text:b.ilce,alignment:'center',bold:true,fontSize:12},
+      {text:b.okul,alignment:'center',bold:true,fontSize:11},
+      {text:'EK-3',alignment:'right',bold:true,margin:[0,0,0,20]},
+      {text:"ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ",alignment:'center',bold:true,fontSize:17,margin:[0,12,0,48]},
+      {text:'FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE',alignment:'center',bold:true,margin:[0,0,0,40]},
+      {text:[
+        'Okulumuz ',{text:k.sinif||'……/……',bold:true,decoration:'underline'},' sınıfı ',
+        {text:k.no||'………',bold:true,decoration:'underline'},' nolu öğrencilerinden ',
+        {text:k.ad||'………………………………………….',bold:true,decoration:'underline'},
+        ' tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen ',
+        {text:k.davranis||'…………………………………………………………………………',bold:true,decoration:'underline'},
+        ' Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda;\\n\\n       Gereğini bilgilerinize arz ederim.'
+      ],alignment:'justify',fontSize:12,lineHeight:1.8,margin:[0,0,0,58]},
+      {text:k.tarih?dsTarihYaz(k.tarih):'…./…./202…',alignment:'right',margin:[0,0,0,24]},
+      {columns:[{width:'55%',stack:[{text:'Adres : '+(k.adres||'…………………………………'),fontSize:10,lineHeight:1.5},{text:'Telefon: '+(k.telefon||'0(……)……………………'),margin:[0,22,0,0],fontSize:10}]},
+        {width:'45%',stack:[{text:k.ogretmen||'………………………',alignment:'center',margin:[0,22,0,0]},{text:'Öğretmeni',alignment:'center'}]}]}
+    ]};
+  }
+  function skExcelOlustur(k){
+    var wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('ÖDDK Sevk',{pageSetup:{paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1}});
+    ws.columns=[{width:25},{width:75}];
+    function sat(r,t,b,h){ws.mergeCells(r,1,r,2);ws.getCell(r,1).value=t;ws.getCell(r,1).font={name:'Times New Roman',size:11,bold:!!b};ws.getCell(r,1).alignment={horizontal:'center',vertical:'middle',wrapText:true};if(h)ws.getRow(r).height=h;}
+    sat(1,'T.C.\\n'+vtBaslik().ilce+'\\n'+vtBaslik().okul,true,54);sat(2,'EK-3',true,20);sat(4,"ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ",true,36);sat(6,'FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE',true,28);
+    sat(9,'Okulumuz '+(k.sinif||'……/……')+' sınıfı '+(k.no||'………')+' nolu öğrencilerinden '+(k.ad||'……………………')+' tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen '+(k.davranis||'……………………')+' Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda; Gereğini bilgilerinize arz ederim.',false,140);
+    sat(13,k.tarih?dsTarihYaz(k.tarih):'…./…./202…',false,24);sat(15,'Adres: '+(k.adres||''),false,30);sat(17,'Telefon: '+(k.telefon||''),false,24);sat(19,(k.ogretmen||'')+'\\nÖğretmeni',false,42);
+    return wb.xlsx.writeBuffer();
+  }
+  function skCikti(tur){
+    var d=document.getElementById('skDurum'),k=skOku();
+    if(!k.ad){d.textContent='Önce ÖDDK Öğrenci Tutanağı seçiniz.';return;}
+    var ad=rapDosyaAdi('ODDK_Sevk_Dilekcesi_');
+    if(tur==='excel'){
+      if(typeof ExcelJS==='undefined'){d.textContent='Excel oluşturulamadı (internet bağlantısını kontrol edin).';return;}
+      skExcelOlustur(k).then(function(buf){rapIndir(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),ad+'.xlsx');d.textContent='Sevk dilekçesi Excel olarak indirildi.';}).catch(function(){d.textContent='Excel oluşturulamadı.';});return;
+    }
+    if(typeof pdfMake==='undefined'){d.textContent='PDF oluşturulamadı (internet bağlantısını kontrol edin).';return;}
+    try{pdfMake.createPdf(skPdfDok(k)).download(ad+'.pdf');d.textContent='Sevk dilekçesi PDF olarak indirildi.';}catch(e){d.textContent='PDF oluşturulamadı.';}
+  }
+
 </script>
 </body>
 </html>
