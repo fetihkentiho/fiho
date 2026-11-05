@@ -352,7 +352,7 @@
   .dp-drow button{border:1px solid #e0b4b4;background:#fff3f3;color:#b01e1e;border-radius:8px;cursor:pointer;font-weight:700;}
   .dp-ekle{border:1px dashed #1f5f66;background:#fff;color:#1f5f66;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:.82rem;margin:2px 0 8px;}
   .dp-kap{container-type:inline-size;margin-bottom:12px;}
-  .dp-kagit{aspect-ratio:210/297;background:#fff;border:1px solid #cfd8da;box-shadow:0 3px 14px rgba(0,0,0,.12);padding:5.5% 6%;font-family:Arial,Helvetica,sans-serif;color:#111;font-size:11px;font-size:1.75cqw;line-height:1.3;}
+  .dp-kagit{aspect-ratio:297/210;background:#fff;border:1px solid #cfd8da;box-shadow:0 3px 14px rgba(0,0,0,.12);padding:3.5% 4%;font-family:Arial,Helvetica,sans-serif;color:#111;font-size:11px;font-size:1.35cqw;line-height:1.25;}
   .dp-ust{text-align:center;font-weight:700;line-height:1.4;font-size:1.1em;}
   .dp-cizgi{height:.3em;border-top:.1em solid #111;border-bottom:.1em solid #111;margin:.8em auto 1em;width:45%;}
   .dp-satir{display:flex;justify-content:space-between;align-items:flex-start;gap:1em;}
@@ -15537,14 +15537,14 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       {width: '*', alignment: 'center', stack: [{text: 'Tebliğ Alan', bold: true}, {text: d.ad, margin: [0, 2, 0, 0]}, {text: 'İmza : ..................', margin: [0, 18, 0, 0], fontSize: 9.5}]},
       {width: '*', alignment: 'center', stack: [{text: d.mudur, bold: true}, {text: d.mudurUnvan, margin: [0, 2, 0, 0]}]}
     ]});
-    return {pageSize: 'A4', pageMargins: [34, 30, 34, 30], defaultStyle: {fontSize: 10}, content: icerik};
+    return {pageSize: 'A4', pageOrientation: 'landscape', pageMargins: [28, 24, 28, 24], defaultStyle: {fontSize: 10}, content: icerik};
   }
 
   /* ---- Excel: A4 dikey ---- */
   function dpExcelOlustur(d){
     var c = dpIcerik(d);
     var wb = new ExcelJS.Workbook();
-    var ws = wb.addWorksheet('Ders Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
+    var ws = wb.addWorksheet('Ders Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
     ws.columns = [{width: 14}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}];
     var TEAL = 'FF1F5F66', ACIK = 'FFEAF3F4', KENAR = {style: 'thin', color: {argb: 'FF9BB8BC'}};
     var r = 1;
@@ -15887,14 +15887,14 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       {width: '*', alignment: 'center', stack: [{text: 'Sınıf Rehber Öğretmeni', bold: true}, {text: d.rehber || ' ', margin: [0, 2, 0, 0]}, {text: 'İmza : ..................', margin: [0, 18, 0, 0], fontSize: 9.5}]},
       {width: '*', alignment: 'center', stack: [{text: d.mudur, bold: true}, {text: d.mudurUnvan, margin: [0, 2, 0, 0]}]}
     ]});
-    return {pageSize: 'A4', pageMargins: [34, 30, 34, 30], defaultStyle: {fontSize: 10}, content: icerik};
+    return {pageSize: 'A4', pageOrientation: 'landscape', pageMargins: [28, 24, 28, 24], defaultStyle: {fontSize: 10}, content: icerik};
   }
 
   /* ---- Excel: A4 dikey ---- */
   function spExcelOlustur(d){
     var c = dpIcerik(d);
     var wb = new ExcelJS.Workbook();
-    var ws = wb.addWorksheet('Sınıf Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
+    var ws = wb.addWorksheet('Sınıf Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
     ws.columns = [{width: 14}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}];
     var TEAL = 'FF1F5F66', ACIK = 'FFEAF3F4', KENAR = {style: 'thin', color: {argb: 'FF9BB8BC'}};
     var r = 1;
