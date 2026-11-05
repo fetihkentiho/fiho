@@ -95,13 +95,19 @@
     border:1px solid rgba(255,255,255,0.15);
   }
   .header-clock-box .digital-clock{
-    font-size:1.55rem;
+    font-size:1.86rem;
     font-weight:700;
     letter-spacing:0.5px;
   }
   .header-clock-box .lesson-status{
-    font-size:0.88rem;
+    font-size:1.32rem;
     color:#bfe0e3;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .header-clock-box .lesson-time{
+    font-size:0.95rem;
+    color:#dff3f4;
     font-weight:600;
     white-space:nowrap;
   }
@@ -150,8 +156,9 @@
   @media (max-width:600px){
     .brand .name{font-size:1.32rem;}
     .brand .role{font-size:0.88rem;}
-    .header-clock-box .digital-clock{font-size:1.3rem;}
-    .header-clock-box .lesson-status{font-size:0.76rem;}
+    .header-clock-box .digital-clock{font-size:1.56rem;}
+    .header-clock-box .lesson-status{font-size:1.14rem;}
+    .header-clock-box .lesson-time{font-size:0.82rem;}
   }
 
   @media (max-width:360px){
@@ -702,6 +709,7 @@
       <div class="header-clock-box">
         <div class="digital-clock" id="liveClock">00:00:00</div>
         <div class="lesson-status" id="lessonStatus">Hesaplanıyor...</div>
+        <div class="lesson-time" id="lessonTime"></div>
       </div>
     </nav>
   </div>
@@ -881,6 +889,7 @@ main{max-width:900px;margin:auto;padding:14px}
     &lt;button class=&quot;btn primary&quot; id=&quot;groupsButton&quot; type=&quot;button&quot;&gt;📂 Gruplar&lt;/button&gt;
     &lt;button class=&quot;btn green&quot; id=&quot;addGroup&quot; type=&quot;button&quot;&gt;＋ Grup Ekle&lt;/button&gt;
     &lt;button class=&quot;btn orange&quot; id=&quot;uploadBtn&quot; type=&quot;button&quot;&gt;📥 Rehber Yükle&lt;/button&gt;
+    &lt;button class=&quot;btn orange&quot; id=&quot;downloadBtn&quot; type=&quot;button&quot;&gt;📤 Rehber İndir&lt;/button&gt;
     &lt;input type=&quot;file&quot; id=&quot;excelFileInput&quot; accept=&quot;.xls,.xlsx,.csv&quot; class=&quot;hidden&quot;&gt;
   &lt;/nav&gt;
 
@@ -1107,7 +1116,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
         // Excel&#x27;deki her bir sekmeyi (Sheet) tek tek Grup olarak işle
         workbook.SheetNames.forEach(sheetName =&gt; {
           const cleanSheetName = sheetName.trim();
-          if (!cleanSheetName) return;
+          if (!cleanSheetName || cleanSheetName === &quot;Öğretmenler&quot;) return;
 
           const newGroup = { id: uid(), name: cleanSheetName };
           data.groups.push(newGroup);
@@ -1153,7 +1162,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
         view = &quot;groups&quot;; // Yükleme sonrası doğrudan Gruplarım sayfasına geç
         editing = false;
         updateView();
-        alert(`İşlem Başarılı!\n• Excel&#x27;deki ${workbook.SheetNames.length} sekme grup olarak yüklendi.\n• Toplam ${totalAdded} kişi gruplara eklendi.\n• Ana Sayfaya hiçbir numara atanmadı.`);
+        alert(`İşlem Başarılı!\n• Excel&#x27;deki ${data.groups.length} sekme grup olarak yüklendi.\n• Toplam ${totalAdded} kişi gruplara eklendi.\n• Ana Sayfaya hiçbir numara atanmadı.`);
 
       } catch (err) {
         console.error(err);
@@ -1164,6 +1173,51 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     };
 
     reader.readAsArrayBuffer(file);
+  };
+
+  // --- Excel İndirme: Kayıtlı rehberi Excel olarak indirir (Öğretmenler + her grup ayrı sekme) ---
+  $(&quot;downloadBtn&quot;).onclick = () =&gt; {
+    if (typeof XLSX === &quot;undefined&quot;) {
+      alert(&quot;Excel kütüphanesi yüklenemedi. İnternet bağlantınızı kontrol edin.&quot;);
+      return;
+    }
+    const homePeople = data.people.filter(p =&gt; !p.groupId);
+    if (data.people.length === 0) {
+      alert(&quot;İndirilecek kayıtlı rehber bulunamadı.&quot;);
+      return;
+    }
+
+    const wb = XLSX.utils.book_new();
+    const used = {};
+    const sheetName = (name) =&gt; {
+      const base = String(name || &quot;Sayfa&quot;).replace(/[\\\/\?\*\[\]:]/g, &quot; &quot;).replace(/\s+/g, &quot; &quot;).trim().slice(0, 31) || &quot;Sayfa&quot;;
+      let n = base, i = 2;
+      while (used[n.toLocaleLowerCase(&quot;tr-TR&quot;)]) {
+        const suf = &quot; (&quot; + (i++) + &quot;)&quot;;
+        n = base.slice(0, 31 - suf.length) + suf;
+      }
+      used[n.toLocaleLowerCase(&quot;tr-TR&quot;)] = true;
+      return n;
+    };
+    const addSheet = (name, people) =&gt; {
+      const rows = [[&quot;Ad Soyad&quot;, &quot;Telefon&quot;]].concat(people.map(p =&gt; [p.name || &quot;&quot;, p.phone || &quot;&quot;]));
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      ws[&quot;!cols&quot;] = [{ wch: 42 }, { wch: 18 }];
+      XLSX.utils.book_append_sheet(wb, ws, sheetName(name));
+    };
+
+    if (homePeople.length) addSheet(&quot;Öğretmenler&quot;, homePeople);
+    data.groups.forEach(g =&gt; addSheet(g.name, data.people.filter(p =&gt; p.groupId === g.id)));
+
+    const buf = XLSX.write(wb, { bookType: &quot;xlsx&quot;, type: &quot;array&quot; });
+    const blob = new Blob([buf], { type: &quot;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet&quot; });
+    const d = new Date(), z = n =&gt; (n &lt; 10 ? &quot;0&quot; : &quot;&quot;) + n;
+    const a = document.createElement(&quot;a&quot;);
+    a.href = URL.createObjectURL(blob);
+    a.download = &quot;Rehber_&quot; + d.getFullYear() + &quot;-&quot; + z(d.getMonth() + 1) + &quot;-&quot; + z(d.getDate()) + &quot;.xlsx&quot;;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() =&gt; { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
   };
 
   // Olay Dinleyicileri (Event Listeners)
@@ -1547,6 +1601,11 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     #notlar-body .note-cell.status-done, #vukuat-body .note-cell.status-done { border-left-color: #1d4ed8; border-color: #3b82f6; }
     #notlar-body .note-cell.status-incomplete, #vukuat-body .note-cell.status-incomplete { border-left-color: #b91c1c; border-color: #ef4444; }
     #notlar-body .note-cell.status-attention, #vukuat-body .note-cell.status-attention { border-left-color: #15803d; border-color: #22c55e; }
+    /* NOTLAR: basılı tutup sürükleyerek sıralama */
+    #notlar-body .note-cell { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+    #notlar-body tr.note-dragging { position: relative; z-index: 5; }
+    #notlar-body tr.note-dragging .note-cell { transform: scale(1.02); box-shadow: 0 8px 20px rgba(11, 35, 65, 0.35); opacity: 0.95; transition: none; cursor: grabbing; }
+    #notlar-body.note-sorting, #notlar-body.note-sorting .note-cell { cursor: grabbing; }
     #arsiv-body .note-cell, #vukuat-arsiv-body .note-cell {
       border: 1px solid #e2e8f0;
       border-left: 5px solid #9ca3af;
@@ -1585,6 +1644,9 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       animation: alarmBlink 0.8s steps(1) infinite;
       font-weight: 800;
     }
+    /* Alarmı kapatılmış (TAMAM&#x27;a basılmış) notlarda duran mavi saat */
+    .alarm-done-icon { display: inline-block; vertical-align: -0.18em; margin-right: 0.3em; line-height: 0; }
+    .alarm-done-icon svg { width: 1.15em; height: 1.15em; }
     #alarm-box {
       position: fixed;
       top: 10px; left: 50%;
@@ -2197,7 +2259,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 
       &lt;!-- NOTLAR BÖLÜMÜ --&gt;
       &lt;div class=&quot;section-title&quot; style=&quot;display:flex; justify-content:space-between; align-items:center; padding: 4px 8px;&quot;&gt;
-        &lt;span&gt;NOTLAR&lt;/span&gt;
+        &lt;span title=&quot;Bir notu basılı tutup yukarı/aşağı sürükleyerek sıralayabilirsiniz&quot;&gt;NOTLAR&lt;/span&gt;
         &lt;span style=&quot;display:flex; gap:4px;&quot;&gt;
           &lt;button class=&quot;btn btn-warning&quot; onclick=&quot;openNoteModal(null)&quot; style=&quot;padding:2px 8px; font-size:0.75rem;&quot;&gt;YENİ&lt;/button&gt;
           &lt;button class=&quot;btn btn-primary&quot; id=&quot;btn-archive-toggle&quot; onclick=&quot;toggleArchive()&quot; style=&quot;padding:2px 8px; font-size:0.75rem; background:#6b7280;&quot;&gt;ARŞİV&lt;/button&gt;
@@ -2568,6 +2630,15 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     } else {
       notesList = [{ text: &quot;&quot;, status: &quot;normal&quot; }];
     }
+    // Tek seferlik: eski renk sıralamasını başlangıç sırası olarak kaydet (bundan sonra sıra elle belirlenir)
+    if (!store.get(&#x27;nobet1_notes_manual_v1&#x27;, false)) {
+      const prio = { incomplete: 0, attention: 1, done: 2 };
+      notesList = notesList.map((n, i) =&gt; ({ n: n, i: i })).sort((a, b) =&gt; {
+        return ((prio[a.n.status] ?? 3) - (prio[b.n.status] ?? 3)) || (a.i - b.i);
+      }).map(x =&gt; x.n);
+      store.set(&#x27;nobet1_notes_v2&#x27;, notesList);
+      store.set(&#x27;nobet1_notes_manual_v1&#x27;, true);
+    }
     initBosDerslerTable();
     vukuatList = store.get(VUKUAT_KEY, []);
     renderNotes();
@@ -2726,17 +2797,16 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 
   /* NOTLARI LİSTELEME VE DURUM RENKLENDİRMESİ */
   function renderNotes() {
+    // Sürükleme sürerken liste yeniden çizilmez; bırakılınca çizilir
+    if (noteDragActive) { noteRenderPending = true; return; }
     const tbody = document.getElementById(&#x27;notlar-body&#x27;);
+    initNoteDrag(tbody);
     const arsivBody = document.getElementById(&#x27;arsiv-body&#x27;);
     tbody.innerHTML = &#x27;&#x27;;
     arsivBody.innerHTML = &#x27;&#x27;;
     let arsivSayisi = 0;
-    // Sıralama: kırmızı &gt; yeşil &gt; mavi &gt; beyaz (aynı renkte eklenme sırası korunur)
-    const prio = { incomplete: 0, attention: 1, done: 2 };
-    const order = notesList.map((_, i) =&gt; i).sort((a, b) =&gt; {
-      const pa = prio[notesList[a].status] ?? 3, pb = prio[notesList[b].status] ?? 3;
-      return pa - pb || a - b;
-    });
+    // Sıralama: elle belirlenen sıra (listedeki sıra) kullanılır; nota basılı tutup sürükleyerek değiştirilir
+    const order = notesList.map((_, i) =&gt; i);
     order.forEach(index =&gt; {
       const noteObj = notesList[index];
       let tr = document.createElement(&#x27;tr&#x27;);
@@ -2752,16 +2822,119 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       const hasAlarm = noteObj.alarm &amp;&amp; !noteObj.alarmAck;
       td.innerText = (hasAlarm ? &#x27;⏰ &#x27; : &#x27;&#x27;) + (noteObj.text ? noteObj.text.split(&#x27;\n&#x27;)[0] : &quot;&quot;);
       if (hasAlarm) td.title = &#x27;Alarm: &#x27; + alarmLabel(noteObj.alarm);
+      if (noteObj.alarm &amp;&amp; noteObj.alarmAck) { td.insertBefore(alarmDoneIcon(), td.firstChild); td.title = &#x27;Alarm kapatıldı: &#x27; + alarmLabel(noteObj.alarm); }
       td.onclick = () =&gt; openNoteModal(index);
       tr.appendChild(td);
       if (noteObj.archived) { arsivBody.appendChild(tr); arsivSayisi++; }
-      else tbody.appendChild(tr);
+      else { tr.dataset.idx = index; tbody.appendChild(tr); }
     });
     if (arsivSayisi === 0) {
       arsivBody.innerHTML = &#x27;&lt;tr&gt;&lt;td class=&quot;note-cell&quot; style=&quot;cursor:default; color:#888;&quot;&gt;Arşivde not yok&lt;/td&gt;&lt;/tr&gt;&#x27;;
     }
     document.getElementById(&#x27;btn-archive-toggle&#x27;).innerText = arsivSayisi ? &#x27;ARŞİV (&#x27; + arsivSayisi + &#x27;)&#x27; : &#x27;ARŞİV&#x27;;
     syncAlarmUI();
+  }
+
+  /* NOTLARI ELLE SIRALAMA: nota basılı tut (~0,35 sn), yukarı/aşağı sürükle, bırak */
+  const NOTE_HOLD_MS = 350;
+  let noteDragActive = false, noteRenderPending = false, noteClickBlockUntil = 0;
+  function initNoteDrag(tbody) {
+    if (tbody._dragInit) return;
+    tbody._dragInit = true;
+    let pending = null, drag = null;
+
+    // Sürükleme sonrası gelen tıklama, not penceresini açmasın
+    tbody.addEventListener(&#x27;click&#x27;, e =&gt; {
+      if (Date.now() &lt; noteClickBlockUntil) { e.stopPropagation(); e.preventDefault(); }
+    }, true);
+    // Uzun basışta çıkan menü / metin seçimi engellenir
+    tbody.addEventListener(&#x27;contextmenu&#x27;, e =&gt; { if (pending || drag) e.preventDefault(); });
+    // Sürükleme sırasında dokunmatik ekranda sayfa kaymasın
+    tbody.addEventListener(&#x27;touchmove&#x27;, e =&gt; { if (drag) e.preventDefault(); }, { passive: false });
+
+    function cancelPending() { if (pending) { clearTimeout(pending.timer); pending = null; } }
+
+    function startDrag() {
+      if (!pending) return;
+      const info = pending; pending = null;
+      try { info.td.setPointerCapture(info.id); } catch (err) {}
+      const rect = info.tr.getBoundingClientRect();
+      drag = { tr: info.tr, td: info.td, id: info.id, grab: info.y - rect.top, dy: 0, startY: info.y, moved: false };
+      noteDragActive = true;
+      info.tr.classList.add(&#x27;note-dragging&#x27;);
+      tbody.classList.add(&#x27;note-sorting&#x27;);
+      if (navigator.vibrate) { try { navigator.vibrate(15); } catch (err) {} }
+    }
+
+    function dragTo(clientY) {
+      const tr = drag.tr;
+      const layoutTop = tr.getBoundingClientRect().top - drag.dy;
+      drag.dy = (clientY - drag.grab) - layoutTop;
+      tr.style.transform = &#x27;translateY(&#x27; + drag.dy + &#x27;px)&#x27;;
+      if (Math.abs(clientY - drag.startY) &gt; 6) drag.moved = true;
+      // Sürüklenen satırın merkezi hangi satırın yarısını geçtiyse onun önüne/arkasına yerleştir
+      const center = (clientY - drag.grab) + tr.getBoundingClientRect().height / 2;
+      let before = null;
+      const sibs = Array.prototype.filter.call(tbody.children, r =&gt; r !== tr);
+      for (let k = 0; k &lt; sibs.length; k++) {
+        const b = sibs[k].getBoundingClientRect();
+        if (center &lt; b.top + b.height / 2) { before = sibs[k]; break; }
+      }
+      if (before !== tr.nextElementSibling) {
+        tbody.insertBefore(tr, before);
+        const lt = tr.getBoundingClientRect().top - drag.dy;
+        drag.dy = (clientY - drag.grab) - lt;
+        tr.style.transform = &#x27;translateY(&#x27; + drag.dy + &#x27;px)&#x27;;
+      }
+    }
+
+    function endDrag(commit) {
+      cancelPending();
+      if (!drag) return;
+      const d = drag; drag = null;
+      try { d.td.releasePointerCapture(d.id); } catch (err) {}
+      d.tr.classList.remove(&#x27;note-dragging&#x27;);
+      d.tr.style.transform = &#x27;&#x27;;
+      tbody.classList.remove(&#x27;note-sorting&#x27;);
+      noteDragActive = false;
+      if (d.moved) noteClickBlockUntil = Date.now() + 400;
+      if (commit &amp;&amp; d.moved) {
+        // Yeni görünen sırayı listeye işle (arşivlenmiş notlar yerinde kalır)
+        const yeni = Array.prototype.map.call(tbody.children, r =&gt; notesList[Number(r.dataset.idx)]);
+        let k = 0;
+        notesList = notesList.map(n =&gt; n.archived ? n : yeni[k++]);
+        store.set(&#x27;nobet1_notes_v2&#x27;, notesList);
+      }
+      if (d.moved || noteRenderPending) { noteRenderPending = false; renderNotes(); }
+    }
+
+    tbody.addEventListener(&#x27;pointerdown&#x27;, e =&gt; {
+      if (e.pointerType === &#x27;mouse&#x27; &amp;&amp; e.button !== 0) return;
+      const td = e.target.closest ? e.target.closest(&#x27;td.note-cell&#x27;) : null;
+      if (!td || drag) return;
+      const tr = td.parentNode;
+      if (tr.dataset.idx === undefined) return;
+      cancelPending();
+      pending = { tr: tr, td: td, id: e.pointerId, x: e.clientX, y: e.clientY, timer: setTimeout(startDrag, NOTE_HOLD_MS) };
+    });
+    tbody.addEventListener(&#x27;pointermove&#x27;, e =&gt; {
+      if (pending &amp;&amp; e.pointerId === pending.id) {
+        // Basılı tutma süresi dolmadan parmak/fare kayarsa sürükleme değil, kaydırma sayılır
+        if (Math.abs(e.clientX - pending.x) &gt; 10 || Math.abs(e.clientY - pending.y) &gt; 10) cancelPending();
+        return;
+      }
+      if (!drag || e.pointerId !== drag.id) return;
+      e.preventDefault();
+      dragTo(e.clientY);
+    });
+    tbody.addEventListener(&#x27;pointerup&#x27;, e =&gt; {
+      if (pending &amp;&amp; e.pointerId === pending.id) { cancelPending(); return; }
+      if (drag &amp;&amp; e.pointerId === drag.id) endDrag(true);
+    });
+    tbody.addEventListener(&#x27;pointercancel&#x27;, e =&gt; {
+      if (pending &amp;&amp; e.pointerId === pending.id) { cancelPending(); return; }
+      if (drag &amp;&amp; e.pointerId === drag.id) endDrag(false);
+    });
   }
 
   /* ARŞİV LİSTESİ (pencere olarak açılır) */
@@ -2775,6 +2948,12 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 
   /* NOT ALARMLARI */
   const alarmLabel = v =&gt; { const d = new Date(v); return isNaN(d) ? v : d.toLocaleString(&#x27;tr-TR&#x27;, {day: &#x27;2-digit&#x27;, month: &#x27;2-digit&#x27;, year: &#x27;numeric&#x27;, hour: &#x27;2-digit&#x27;, minute: &#x27;2-digit&#x27;}); };
+  function alarmDoneIcon() {
+    const sp = document.createElement(&#x27;span&#x27;);
+    sp.className = &#x27;alarm-done-icon&#x27;;
+    sp.innerHTML = &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;10&quot; fill=&quot;#2563eb&quot;/&gt;&lt;path d=&quot;M12 6.5V12l3.6 2.2&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+    return sp;
+  }
   function isAlarmActive(n) {
     if (!n || !n.alarm || n.alarmAck) return false;
     const t = new Date(n.alarm).getTime();
@@ -3013,6 +3192,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       const hasAlarm = obj.alarm &amp;&amp; !obj.alarmAck;
       td.innerText = (hasAlarm ? &#x27;⏰ &#x27; : &#x27;&#x27;) + (obj.text ? obj.text.split(&#x27;\n&#x27;)[0] : &quot;&quot;);
       if (hasAlarm) td.title = &#x27;Alarm: &#x27; + alarmLabel(obj.alarm);
+      if (obj.alarm &amp;&amp; obj.alarmAck) { td.insertBefore(alarmDoneIcon(), td.firstChild); td.title = &#x27;Alarm kapatıldı: &#x27; + alarmLabel(obj.alarm); }
       td.onclick = () =&gt; openVukuatModal(index);
       tr.appendChild(td);
       if (obj.archived) { arsivBody.appendChild(tr); arsivSayisi++; }
@@ -3693,6 +3873,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       <button type="button" onClick="yedekAl()" title="Yedekle" aria-label="Yedekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></button>
       <button type="button" onClick="document.getElementById('yedekDosyaSec').click()" title="Güncelle" aria-label="Güncelle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 5h16"/></svg></button>
       <input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
+      <button type="button" id="btnGithubGuncelle" onClick="githubGuncelle()" title="GitHub'dan Güncelle" aria-label="GitHub'dan Güncelle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/><path d="M12 8v5"/><path d="M9.5 10.5L12 8l2.5 2.5"/></svg></button>
     </nav>
   </div>
 </div>
@@ -5497,6 +5678,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     <h2 class="modal-title">ÖDDK Veli Tutanağı</h2>
 
     <div class="modal-field"><label for="vtKayit">Kayıtlı Tutanaklar</label><select id="vtKayit" onChange="vtKayitSec()"><option value="">(Yeni tutanak)</option></select></div>
+    <div class="modal-field"><label for="vtOgrTutSec">Kayıtlı Öğrenci Tutanakları (ÖDDK Öğrenci Tutanağı'ndan)</label><select id="vtOgrTutSec" onChange="vtOgrTutanaktanDoldur()"><option value="">(Tutanak seçiniz)</option></select></div>
     <div class="modal-row">
       <div class="modal-field"><label for="vtSinifSec">Sınıf</label><select id="vtSinifSec" onChange="vtOgrenciDoldur()"><option value="TUMU">Tüm Sınıflar</option></select></div>
       <div class="modal-field"><label for="vtOgrenciSec">Öğrenci (Öğrenci Bilgileri'nden)</label><select id="vtOgrenciSec" onChange="vtOgrenciSecildi()"><option value="">(Öğrenci seçiniz)</option></select></div>
@@ -5843,32 +6025,62 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 
     var totalMins = now.getHours() * 60 + now.getMinutes();
 
-    var schedule = [
-      { name: '1. Ders', start: 8*60 + 50, end: 9*60 + 30 },
-      { name: '1. Teneffüs', start: 9*60 + 30, end: 9*60 + 40 },
-      { name: '2. Ders', start: 9*60 + 40, end: 10*60 + 20 },
-      { name: '2. Teneffüs', start: 10*60 + 20, end: 10*60 + 30 },
-      { name: '3. Ders', start: 10*60 + 30, end: 11*60 + 10 },
-      { name: '3. Teneffüs', start: 11*60 + 10, end: 11*60 + 20 },
-      { name: '4. Ders', start: 11*60 + 20, end: 12*60 + 0 },
-      { name: '4. Teneffüs', start: 12*60 + 0, end: 12*60 + 10 },
-      { name: '5. Ders', start: 12*60 + 10, end: 12*60 + 50 },
-      { name: 'Öğle Arası', start: 12*60 + 50, end: 13*60 + 50 },
-      { name: '6. Ders', start: 13*60 + 50, end: 14*60 + 30 },
-      { name: '5. Teneffüs', start: 14*60 + 30, end: 14*60 + 40 },
-      { name: '7. Ders', start: 14*60 + 40, end: 15*60 + 20 }
-    ];
+    /* Zaman çizelgesi (zaman_çizelgesi görseline göre): Pazartesi-Perşembe 7 ders, Cuma 8 ders */
+    function dk(sa, d){ return sa * 60 + d; }
+    var gun = now.getDay();   // 0 Pazar ... 6 Cumartesi
+    var schedule = [];
+    if(gun >= 1 && gun <= 4){
+      schedule = [
+        { name: 'Toplanma',    start: dk(12,45), end: dk(13,0) },
+        { name: '1. Ders',     start: dk(13,0),  end: dk(13,40) },
+        { name: '1. Teneffüs', start: dk(13,40), end: dk(13,50) },
+        { name: '2. Ders',     start: dk(13,50), end: dk(14,30) },
+        { name: '2. Teneffüs', start: dk(14,30), end: dk(14,40) },
+        { name: '3. Ders',     start: dk(14,40), end: dk(15,20) },
+        { name: '3. Teneffüs', start: dk(15,20), end: dk(15,30) },
+        { name: '4. Ders',     start: dk(15,30), end: dk(16,10) },
+        { name: '4. Teneffüs', start: dk(16,10), end: dk(16,20) },
+        { name: '5. Ders',     start: dk(16,20), end: dk(17,0) },
+        { name: '5. Teneffüs', start: dk(17,0),  end: dk(17,10) },
+        { name: '6. Ders',     start: dk(17,10), end: dk(17,50) },
+        { name: '6. Teneffüs', start: dk(17,50), end: dk(18,0) },
+        { name: '7. Ders',     start: dk(18,0),  end: dk(18,40) }
+      ];
+    } else if(gun === 5){
+      schedule = [
+        { name: 'Toplanma',    start: dk(13,20), end: dk(13,30) },
+        { name: '1. Ders',     start: dk(13,30), end: dk(14,0) },
+        { name: '1. Teneffüs', start: dk(14,0),  end: dk(14,10) },
+        { name: '2. Ders',     start: dk(14,10), end: dk(14,40) },
+        { name: '2. Teneffüs', start: dk(14,40), end: dk(14,50) },
+        { name: '3. Ders',     start: dk(14,50), end: dk(15,20) },
+        { name: '3. Teneffüs', start: dk(15,20), end: dk(15,30) },
+        { name: '4. Ders',     start: dk(15,30), end: dk(16,0) },
+        { name: '4. Teneffüs', start: dk(16,0),  end: dk(16,10) },
+        { name: '5. Ders',     start: dk(16,10), end: dk(16,40) },
+        { name: '5. Teneffüs', start: dk(16,40), end: dk(16,50) },
+        { name: '6. Ders',     start: dk(16,50), end: dk(17,20) },
+        { name: '6. Teneffüs', start: dk(17,20), end: dk(17,30) },
+        { name: '7. Ders',     start: dk(17,30), end: dk(18,0) },
+        { name: '7. Teneffüs', start: dk(18,0),  end: dk(18,10) },
+        { name: '8. Ders',     start: dk(18,10), end: dk(18,40) }
+      ];
+    }
+    function hhmm(m){ return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
 
-    var currentStatus = 'Ders Dışı Saat';
+    var currentStatus = 'Ders Dışı Saat', currentTime = '';
     for(var i = 0; i < schedule.length; i++){
       if(totalMins >= schedule[i].start && totalMins < schedule[i].end){
         currentStatus = schedule[i].name;
+        currentTime = hhmm(schedule[i].start) + ' - ' + hhmm(schedule[i].end);
         break;
       }
     }
 
     var statusElem = document.getElementById('lessonStatus');
     if(statusElem) statusElem.textContent = currentStatus;
+    var timeElem = document.getElementById('lessonTime');
+    if(timeElem) timeElem.textContent = currentTime;
   }
   setInterval(updateLiveClockAndLesson, 1000);
   updateLiveClockAndLesson();
@@ -11832,7 +12044,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -11844,6 +12056,54 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     a.href = URL.createObjectURL(blob);
     a.download = 'yedek-' + new Date().toISOString().slice(0,10) + '.json';
     a.click();
+  }
+  /* GitHub'dan güncelle: https://github.com/fetihkentiho/fiho deposundaki en yeni yedek-*.json dosyasını doğrudan indirip yükler */
+  var GH_YEDEK = {owner: 'fetihkentiho', repo: 'fiho', dal: 'main'};
+  function githubYedekAdayi(){
+    /* Önce depo listesinden en yeni yedek-*.json; olmazsa bugünden geriye doğru tarihli adlar ve yedek.json denenir */
+    var raw = 'https://raw.githubusercontent.com/' + GH_YEDEK.owner + '/' + GH_YEDEK.repo + '/' + GH_YEDEK.dal + '/';
+    return fetch('https://api.github.com/repos/' + GH_YEDEK.owner + '/' + GH_YEDEK.repo + '/contents/?ref=' + GH_YEDEK.dal, {cache: 'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('liste'); return r.json(); })
+      .then(function(l){
+        var d = l.filter(function(f){ return f.type === 'file' && /^yedek.*\.json$/i.test(f.name); })
+                 .sort(function(a, b){ return b.name.localeCompare(a.name); });
+        if(!d.length) throw new Error('yok');
+        return [raw + encodeURIComponent(d[0].name)];
+      })
+      .catch(function(){
+        var adaylar = [], t = new Date();
+        for(var i = 0; i < 60; i++){
+          var g = new Date(t.getTime() - i * 86400000);
+          adaylar.push(raw + 'yedek-' + g.toISOString().slice(0, 10) + '.json');
+        }
+        adaylar.push(raw + 'yedek.json');
+        return adaylar;
+      });
+  }
+  async function githubGuncelle(){
+    var btn = document.getElementById('btnGithubGuncelle');
+    if(btn){ btn.disabled = true; btn.style.opacity = '.5'; }
+    try{
+      var adaylar = await githubYedekAdayi(), veri = null, ad = '';
+      for(var i = 0; i < adaylar.length && !veri; i++){
+        try{
+          var r = await fetch(adaylar[i] + (adaylar[i].indexOf('?') < 0 ? '?t=' + Date.now() : ''), {cache: 'no-store'});
+          if(!r.ok) continue;
+          var d = JSON.parse(await r.text());
+          if(d && typeof d === 'object'){ veri = d; ad = decodeURIComponent(adaylar[i].split('/').pop().split('?')[0]); }
+        }catch(e){}
+      }
+      if(!veri) throw new Error('GitHub deposunda (fetihkentiho/fiho) yedek dosyası bulunamadı.');
+      if(!confirm('GitHub\'daki "' + ad + '" yedeği yüklenecek. Bu cihazdaki kayıtlı bilgilerin üzerine yazılır. Devam edilsin mi?')) return;
+      var n = 0;
+      YEDEK_KEYS.forEach(function(k){ if(veri[k]){ localStorage.setItem(k, JSON.stringify(veri[k])); n++; } });
+      alert('GitHub yedeği yüklendi (' + ad + ', ' + n + ' bölüm).');
+      location.reload();
+    }catch(err){
+      alert('GitHub\'dan güncelleme başarısız: ' + (err.message || err));
+    }finally{
+      if(btn){ btn.disabled = false; btn.style.opacity = ''; }
+    }
   }
   function yedekGeriYukle(event){
     var file = event.target.files && event.target.files[0];
@@ -14184,6 +14444,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   }
   function openVeliModal(){
     vtBaslikYaz();
+    vtOgrTutListeDoldur();
     vtSinifDoldur();
     vtOgrenciDoldur();
     vtKayitDoldur(null);
@@ -14210,6 +14471,34 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     sel.innerHTML = '<option value="">(Öğrenci seçiniz' + (liste.length ? ' - ' + liste.length + ' öğrenci' : '') + ')</option>' + liste.map(function(o){
       return '<option value="' + escapeHtml(o.no) + '">' + escapeHtml(o.no + ' - ' + svAd(o) + (sinif === 'TUMU' && o.sinif ? ' (' + o.sinif + ')' : '')) + '</option>';
     }).join('');
+  }
+  /* ÖDDK Öğrenci Tutanağı'nda kayıtlı tutanaklardan seçim: sınıf, no, ad soyad, tarih ve saat bilgilerini veli tutanağına aktarır */
+  function vtOgrTutListeDoldur(){
+    var sel = document.getElementById('vtOgrTutSec');
+    if(!sel) return;
+    var onceki = sel.value;
+    sel.innerHTML = '<option value="">(Tutanak seçiniz)</option>' + rapLoad('ogrenciTutanaklari', []).map(function(k, i){
+      return '<option value="' + i + '">' + escapeHtml((k.ad || '(adsız)') + (k.sinif ? ' (' + k.sinif + ')' : '') + (k.tarih ? ' - ' + dsTarihYaz(k.tarih) : '')) + '</option>';
+    }).join('');
+    if(onceki && Array.prototype.some.call(sel.options, function(o){ return o.value === onceki; })) sel.value = onceki;
+  }
+  function vtOgrTutanaktanDoldur(){
+    var v = document.getElementById('vtOgrTutSec').value;
+    var durum = document.getElementById('vtDurum');
+    if(v === '') return;
+    var k = rapLoad('ogrenciTutanaklari', [])[Number(v)];
+    if(!k){ durum.textContent = 'Öğrenci tutanağı bulunamadı.'; return; }
+    VT_SECILI = null;
+    document.getElementById('vtKayit').value = '';
+    vtFormYaz({
+      sinif: k.sinif || '', no: k.no || '', ad: k.ad || '',
+      tarih: k.tarih || '', saat: k.saat || '',
+      veli: document.getElementById('vtVeli').value.trim()
+    });
+    document.getElementById('vtSinifSec').value = 'TUMU';
+    vtOgrenciDoldur();
+    document.getElementById('vtOgrenciSec').value = k.no || '';
+    durum.textContent = 'Öğrenci tutanağındaki bilgiler getirildi. Gerekirse kutucukları düzenleyebilirsiniz.';
   }
   function vtOgrenciSecildi(){
     var no = document.getElementById('vtOgrenciSec').value;
@@ -14301,6 +14590,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   }
   function vtYeni(){
     VT_SECILI = null;
+    document.getElementById('vtOgrTutSec').value = '';
     vtKayitDoldur(null);
     document.getElementById('vtOgrenciSec').value = '';
     vtFormYaz({});
@@ -14309,6 +14599,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   /* e-Okul: okul başlığını ve öğrenci listesini günceller */
   function vtEOkul(){
     vtBaslikYaz();
+    vtOgrTutListeDoldur();
     vtSinifDoldur();
     vtOgrenciDoldur();
     var n = ogbOgrenciler().length;
