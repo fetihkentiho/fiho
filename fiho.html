@@ -250,37 +250,6 @@
   @media (max-width:520px){ .od-sat, .od-imza{grid-template-columns:1fr;} }
 
 
-  /* ---------- EK-2 Öğrenci Sözleşmesi ve EK-3 Sevk ---------- */
-  .od-ek2{border:2px solid #111;border-radius:0;padding:12px;background:#fff;color:#111;font-family:"Times New Roman",serif;}
-  .od-ek2-head{position:relative;text-align:center;padding:4px 30px 0;}
-  .od-ek2-ust{font-weight:700;font-size:.9rem;line-height:1.25;}
-  .od-ek2-kod{position:absolute;right:0;bottom:0;font-weight:700;font-size:.8rem;}
-  .od-ek2-title{text-align:center;font-size:1.25rem;font-weight:900;letter-spacing:.08em;margin:22px 0 18px;}
-  .od-ek2-table{display:grid;grid-template-columns:1fr 1fr;border:1px solid #111;margin-bottom:12px;}
-  .od-ek2-full{grid-column:1/-1;padding:7px;border-bottom:1px solid #111;}
-  .od-ek2-table label{display:flex;align-items:center;gap:8px;border-bottom:1px solid #111;padding:5px 7px;font-weight:700;font-size:.86rem;}
-  .od-ek2-table label:nth-last-child(-n+2){border-bottom:0;}
-  .od-ek2-table input{min-width:0;flex:1;border:0;border-left:1px solid #111;border-radius:0;background:#fff;padding:5px;font:inherit;}
-  .od-ek2-metin{font-size:.9rem;line-height:1.8;text-align:justify;}
-  .od-ek2-metin input[type=date]{display:inline-block;width:145px;max-width:48%;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;padding:2px;font:inherit;}
-  .od-ek2-metin textarea{display:block;width:100%;min-height:82px;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;resize:vertical;font:inherit;line-height:1.6;padding:3px;}
-  .od-ek2-imza-tarih{text-align:left;margin-top:6px;}
-  .od-ek2-imza{width:58%;margin:24px 0 0 auto;font-size:.9rem;}
-  .od-ek2-imza div{display:flex;align-items:center;gap:6px;margin:10px 0;}
-  .od-ek2-imza input{min-width:0;flex:1;border:0;border-bottom:1px dotted #111;border-radius:0;background:#fff;padding:3px;font:inherit;}
-  .od-ek2 input[readonly]{background:#fff;color:#111;}
-  .sk-kagit{border:2px solid #111;border-radius:0;padding:22px 24px;min-height:760px;font-family:"Times New Roman",serif;color:#111;}
-  .sk-kagit .vt-baslik{font-size:1.35rem;margin:44px 0 42px;}
-  .sk-alici{text-align:center;font-weight:700;font-size:.9rem;margin-bottom:36px;}
-  .sk-metin{font-size:.95rem;line-height:2.1;text-align:justify;text-indent:30px;white-space:normal;}
-  .sk-metin u{font-weight:700;text-decoration:underline;}
-  .sk-alt{position:relative;min-height:220px;margin-top:40px;font-size:.88rem;}
-  .sk-tarih{text-align:right;margin:0 0 30px;}
-  .sk-iletisim{width:55%;line-height:1.8;}
-  .sk-imza{position:absolute;right:0;top:65px;width:42%;text-align:center;line-height:1.7;}
-  .sk-kagit small{font-size:.75rem;}
-  @media(max-width:520px){.od-ek2-table{grid-template-columns:1fr;}.od-ek2-imza{width:100%;}.sk-kagit{padding:14px 12px;}.sk-imza{position:static;width:100%;margin-top:28px;}.sk-iletisim{width:100%;}}
-
   /* ---------- Servis Listesi ---------- */
   .ko-satir{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 2px;font-size:.9rem;border-bottom:1px solid #eef3f4;cursor:pointer;}
   .ko-satir:last-child{border-bottom:none;}
@@ -352,7 +321,7 @@
   .dp-drow button{border:1px solid #e0b4b4;background:#fff3f3;color:#b01e1e;border-radius:8px;cursor:pointer;font-weight:700;}
   .dp-ekle{border:1px dashed #1f5f66;background:#fff;color:#1f5f66;border-radius:8px;padding:6px 12px;font-weight:700;cursor:pointer;font-size:.82rem;margin:2px 0 8px;}
   .dp-kap{container-type:inline-size;margin-bottom:12px;}
-  .dp-kagit{aspect-ratio:297/210;background:#fff;border:1px solid #cfd8da;box-shadow:0 3px 14px rgba(0,0,0,.12);padding:3.5% 4%;font-family:Arial,Helvetica,sans-serif;color:#111;font-size:11px;font-size:1.35cqw;line-height:1.25;}
+  .dp-kagit{aspect-ratio:210/297;background:#fff;border:1px solid #cfd8da;box-shadow:0 3px 14px rgba(0,0,0,.12);padding:5.5% 6%;font-family:Arial,Helvetica,sans-serif;color:#111;font-size:11px;font-size:1.75cqw;line-height:1.3;}
   .dp-ust{text-align:center;font-weight:700;line-height:1.4;font-size:1.1em;}
   .dp-cizgi{height:.3em;border-top:.1em solid #111;border-bottom:.1em solid #111;margin:.8em auto 1em;width:45%;}
   .dp-satir{display:flex;justify-content:space-between;align-items:flex-start;gap:1em;}
@@ -847,7 +816,7 @@
       <button type="button" class="menu-box" onClick="openOtModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>ÖDDK Öğrenci Tutanağı</span></button>
       <button type="button" class="menu-box" onClick="openOddkModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h8M8 17h5"/><path d="M8 10l1.2 1.2L11.5 9"/></svg><span>ÖDDK Öğrenci Sözleşmesi</span></button>
       <button type="button" class="menu-box" onClick="openVeliModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="12.5" r="1.8"/><path d="M6.8 18c.4-1.8 1.7-2.8 3.2-2.8s2.8 1 3.2 2.8"/><path d="M15 12h2M15 15h2"/></svg><span>ÖDDK Veli Tutanağı</span></button>
-      <button type="button" class="menu-box" onClick="openSevkModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16h16V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/><path d="m14 19 2 2 4-4"/></svg><span>ÖDDK'ya Sevk</span></button>
+      <button type="button" class="menu-box" onClick="openOdsModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 15h7M12.5 12.5L15 15l-2.5 2.5"/></svg><span>ÖDDK'ya Sevk</span></button>
       <button type="button" class="menu-box" onClick="openDpModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 13h2M12 13h2M16 13h2M8 17h2M12 17h2"/></svg><span>Öğretmen Ders Programı</span></button>
       <button type="button" class="menu-box" onClick="openSpModal()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="12" rx="1.5"/><path d="M7 7h6M7 11h10M8 21l4-6 4 6M7 19h10"/></svg><span>Sınıf Ders Programı</span></button>
       <button type="button" class="menu-box" onClick="sddAc()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16M3 14.5h18"/><path d="M12 11.5h3M12 17h6"/></svg><span>Sınıf Ders Dağılım Çizelgeleri</span></button>
@@ -4967,32 +4936,25 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       <div class="modal-field"><label for="odOgrenciSec">Öğrenci (Öğrenci Bilgileri'nden)</label><select id="odOgrenciSec" onChange="odOgrenciSecildi()"><option value="">(Öğrenci seçiniz)</option></select></div>
     </div>
 
-    <div class="od-kagit od-ek2">
-      <div class="od-ek2-head">
-        <div class="od-ek2-ust">T.C.<br>KARATAY KAYMAKAMLIĞI<br>Fetihkent İmam Hatip Ortaokulu Müdürlüğü</div>
-        <div class="od-ek2-kod">EK-2</div>
-        <div class="od-ek2-title">ÖĞRENCİ SÖZLEŞMESİ</div>
+    <div class="vt-kagit">
+      <div class="ot-ek">EK-2</div>
+      <div class="vt-ust">T.C.<br><span id="odIlce"></span><br><span id="odOkul"></span></div>
+      <div class="vt-baslik">ÖĞRENCİ SÖZLEŞMESİ</div>
+      <div class="vt-grid">
+        <div class="tam" style="font-weight:800;">ÖĞRENCİNİN:</div>
+        <div><label for="odAdi">Adı</label><input type="text" id="odAdi" readonly></div>
+        <div><label for="odSoyadi">Soyadı</label><input type="text" id="odSoyadi" readonly></div>
+        <div><label for="odSinif">Sınıfı</label><input type="text" id="odSinif" readonly></div>
+        <div><label for="odNo">Numarası</label><input type="text" id="odNo" readonly></div>
+        <div><label for="odOlayTarih">Davranış Tarihi (Ben ../../202… tarihinde)</label><input type="date" id="odOlayTarih" onInput="odOnizle()"></div>
+        <div><label for="odUyariTarih">Uyarı Tarihi (../../202… tarihinde … öğretmenim tarafından uyarıldım)</label><input type="date" id="odUyariTarih" onInput="odOnizle()"></div>
+        <div class="tam"><label for="odDavranis">Davranış (noktalı satırlar)</label><textarea id="odDavranis" onInput="odOnizle()" placeholder="Örn: ders sırasında arkadaşlarını rahatsız edici şekilde konuşma"></textarea></div>
+        <div><label for="odOgretmen">Uyaran Öğretmen Adı Soyadı</label><input type="text" id="odOgretmen" list="odOgrtListe" onInput="odOnizle()" autocomplete="off"><datalist id="odOgrtListe"></datalist></div>
+        <div><label for="odTarih">Sözleşme Tarihi</label><input type="date" id="odTarih" onInput="odOnizle()"></div>
+        <div class="tam"><label for="odImzaAd">İmza Bölümü - Öğrenci Ad-Soyad</label><input type="text" id="odImzaAd" onInput="odOnizle()"></div>
       </div>
-      <div class="od-govde">
-        <div class="od-ek2-table">
-          <strong class="od-ek2-full">ÖĞRENCİNİN:</strong>
-          <label>Adı <input type="text" id="odAdi" readonly></label>
-          <label>Soyadı <input type="text" id="odSoyadi" readonly></label>
-          <label>Sınıfı <input type="text" id="odSinif" readonly></label>
-          <label>Numarası <input type="text" id="odNo" readonly></label>
-        </div>
-        <div class="od-ek2-metin">
-          Ben <input type="date" id="odDavranisTarih"> tarihinde
-          <textarea id="odD1" rows="3" placeholder="Sözleşmeye konu olan davranışı yazınız"></textarea>
-          davranışında bulundum. <input type="date" id="odUyariTarih"> tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum.
-          <div class="od-ek2-imza-tarih"><input type="date" id="odTarih"></div>
-        </div>
-        <div class="od-ek2-imza">
-          <div><b>İmza:</b><input type="text" id="odOgrImza" placeholder="Öğrenci imzası"></div>
-          <div><b>Ad-Soyad:</b><input type="text" id="odAdSoyadImza" readonly></div>
-        </div>
-        <div class="od-not">*Öğrenci tarafından doldurulacaktır.</div>
-      </div>
+      <div class="vt-metin" id="odMetin"></div>
+      <div class="vt-not">*Öğrenci tarafından doldurulacaktır.</div>
     </div>
 
     <div class="modal-actions-single-row modal-actions-six">
@@ -5005,6 +4967,50 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('oddk')">Tümünü Sil</button></div>
     <div id="odDurum" class="modal-status"></div>
+  </div>
+</div>
+
+<!-- ================= ÖDDK'YA SEVK MODAL ================= -->
+<div id="odsOverlay" class="modal-overlay" onClick="if(event.target===this) closeOdsModal()">
+  <div class="modal-box wide-modal">
+    <button type="button" class="modal-close" onClick="closeOdsModal()">×</button>
+    <h2 class="modal-title">ÖDDK'ya Sevk</h2>
+
+    <div class="modal-field"><label for="odsKayit">Kayıtlı Sevk Dilekçeleri</label><select id="odsKayit" onChange="odsKayitSec()"><option value="">(Yeni dilekçe)</option></select></div>
+    <div class="modal-field"><label for="odsTutSec">Kayıtlı Öğrenci Tutanakları (ÖDDK Öğrenci Tutanağı'ndan)</label><select id="odsTutSec" onChange="odsTutanaktanDoldur()"><option value="">(Tutanak seçiniz)</option></select></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="odsSinifSec">Sınıf</label><select id="odsSinifSec" onChange="odsOgrenciDoldur()"><option value="TUMU">Tüm Sınıflar</option></select></div>
+      <div class="modal-field"><label for="odsOgrenciSec">Öğrenci (Öğrenci Bilgileri'nden)</label><select id="odsOgrenciSec" onChange="odsOgrenciSecildi()"><option value="">(Öğrenci seçiniz)</option></select></div>
+    </div>
+
+    <div class="vt-kagit">
+      <div class="ot-ek">EK-3</div>
+      <div class="vt-ust">T.C.<br><span id="odsIlce"></span><br><span id="odsOkul"></span></div>
+      <div class="vt-baslik">ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ</div>
+      <div style="text-align:center;font-weight:700;font-size:.84rem;margin-bottom:10px;" id="odsMakam"></div>
+      <div class="vt-grid">
+        <div><label for="odsSinif">Sınıfı</label><input type="text" id="odsSinif" readonly></div>
+        <div><label for="odsNo">Numarası (… nolu öğrenci)</label><input type="text" id="odsNo" readonly></div>
+        <div class="tam"><label for="odsAd">Öğrencinin Adı Soyadı</label><input type="text" id="odsAd" readonly></div>
+        <div class="tam"><label for="odsGerekce">Tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen… (noktalı satırlar)</label><textarea id="odsGerekce" onInput="odsOnizle()" placeholder="Örn: derslerde sürekli arkadaşlarını rahatsız etmeye devam etmektedir"></textarea></div>
+        <div><label for="odsTarih">Dilekçe Tarihi</label><input type="date" id="odsTarih" onInput="odsOnizle()"></div>
+        <div><label for="odsOgretmen">Öğretmen Adı Soyadı</label><input type="text" id="odsOgretmen" list="odsOgrtListe" onInput="odsOnizle()" autocomplete="off"><datalist id="odsOgrtListe"></datalist></div>
+        <div class="tam"><label for="odsAdres">Adres (en çok 4 satır)</label><textarea id="odsAdres" rows="3" onInput="odsOnizle()"></textarea></div>
+        <div class="tam"><label for="odsTelefon">Telefon</label><input type="text" id="odsTelefon" placeholder="Örn: 0(332) 000 00 00" onInput="odsOnizle()"></div>
+      </div>
+      <div class="vt-metin" id="odsMetin"></div>
+    </div>
+
+    <div class="modal-actions-single-row modal-actions-six">
+      <button type="button" class="modal-btn primary" onClick="odsKaydet()">Kaydet</button>
+      <button type="button" class="modal-btn danger" onClick="odsSil()">Sil</button>
+      <button type="button" class="modal-btn secondary" onClick="odsEOkul()">e-Okul</button>
+      <button type="button" class="modal-btn" onClick="odsYeni()">Yeni</button>
+      <button type="button" class="modal-btn pdf" onClick="odsCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn excel" onClick="odsCikti('excel')">Excel</button>
+    </div>
+    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('oddkSevk')">Tümünü Sil</button></div>
+    <div id="odsDurum" class="modal-status"></div>
   </div>
 </div>
 
@@ -5741,49 +5747,6 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   </div>
 </div>
 
-
-<!-- ================= ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ MODAL ================= -->
-<div id="sevkOverlay" class="modal-overlay" onClick="if(event.target===this) closeSevkModal()">
-  <div class="modal-box wide-modal">
-    <button type="button" class="modal-close" onClick="closeSevkModal()">×</button>
-    <h2 class="modal-title">ÖDDK'ya Öğrenci Sevk Dilekçesi</h2>
-    <div class="modal-field"><label for="skOgrTutSec">Kayıtlı Öğrenci Tutanakları (otomatik bilgi aktarımı)</label><select id="skOgrTutSec" onChange="skTutanaktanDoldur()"><option value="">(Öğrenci tutanağı seçiniz)</option></select></div>
-    <div class="modal-field"><label for="skKayit">Kayıtlı Sevk Dilekçeleri</label><select id="skKayit" onChange="skKayitSec()"><option value="">(Yeni sevk dilekçesi)</option></select></div>
-    <div class="modal-row">
-      <div class="modal-field"><label for="skSinif">Sınıfı</label><input id="skSinif" readonly></div>
-      <div class="modal-field"><label for="skNo">Okul Numarası</label><input id="skNo" readonly></div>
-    </div>
-    <div class="modal-field"><label for="skAd">Öğrencinin Adı Soyadı</label><input id="skAd" readonly></div>
-    <div class="modal-field"><label for="skDavranis">Tüm ikazlara ve gerekli rehberliğe rağmen devam eden davranış / açıklama</label><textarea id="skDavranis" rows="4" onInput="skOnizle()"></textarea></div>
-    <div class="modal-row">
-      <div class="modal-field"><label for="skTarih">Dilekçe Tarihi</label><input type="date" id="skTarih" onInput="skOnizle()"></div>
-      <div class="modal-field"><label for="skOgretmen">Öğretmen Adı Soyadı</label><input type="text" id="skOgretmen" list="skOgretmenListe" onInput="skOnizle()" autocomplete="off"><datalist id="skOgretmenListe"></datalist></div>
-    </div>
-    <div class="modal-field"><label for="skAdres">Adres (öğretmen adresi / kurum adresi)</label><textarea id="skAdres" rows="3" onInput="skOnizle()"></textarea></div>
-    <div class="modal-field"><label for="skTelefon">Telefon</label><input type="tel" id="skTelefon" placeholder="0(5xx) xxx xx xx" onInput="skOnizle()"></div>
-    <div class="vt-kagit sk-kagit" id="skKagit">
-      <div class="vt-ust">T.C.<br><span id="skIlce"></span><br><span id="skOkul"></span><br><small>EK-3</small></div>
-      <div class="vt-baslik">ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ</div>
-      <div class="sk-alici">FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE</div>
-      <div class="sk-metin">Okulumuz <u id="skOnSinif">……/……</u> sınıfı <u id="skOnNo">………</u> nolu öğrencilerinden <u id="skOnAd">………………………………………….</u> tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen <u id="skOnDavranis">…………………………………………………………………………</u> Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda; Gereğini bilgilerinize arz ederim.</div>
-      <div class="sk-alt">
-        <div class="sk-tarih" id="skOnTarih">…./…./202…</div>
-        <div class="sk-iletisim"><b>Adres :</b><span id="skOnAdres">…………………………………</span><br><br><b>Telefon:</b> <span id="skOnTelefon">0(……)……………………</span></div>
-        <div class="sk-imza"><span id="skOnOgretmen">………………………</span><br>Öğretmeni</div>
-      </div>
-    </div>
-    <div class="modal-actions-single-row modal-actions-six">
-      <button type="button" class="modal-btn primary" onClick="skKaydet()">Kaydet</button>
-      <button type="button" class="modal-btn danger" onClick="skSil()">Sil</button>
-      <button type="button" class="modal-btn secondary" onClick="skEOkul()">e-Okul</button>
-      <button type="button" class="modal-btn" onClick="skYeni()">Yeni</button>
-      <button type="button" class="modal-btn pdf" onClick="skCikti('pdf')">PDF</button>
-      <button type="button" class="modal-btn excel" onClick="skCikti('excel')">Excel</button>
-    </div>
-    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('oddkSevk')">Tümünü Sil</button></div>
-    <div id="skDurum" class="modal-status"></div>
-  </div>
-</div>
 
 <!-- ================= ÖDDK ÖĞRENCİ TUTANAĞI (SÖZLÜ UYARI) MODAL ================= -->
 <div id="otOverlay" class="modal-overlay" onClick="if(event.target===this) closeOtModal()">
@@ -9193,8 +9156,8 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     veli:        {ad: 'ÖDDK Veli Tutanağı',              keys: ['veliTutanaklari'],                                   ac: function(){ openVeliModal(); },                durum: 'vtDurum'},
     ogrTut:      {ad: 'ÖDDK Öğrenci Tutanağı',      keys: ['ogrenciTutanaklari'],                                 ac: function(){ openOtModal(); },                durum: 'otDurum'},
     servis:      {ad: 'Servis Listesi',                  keys: ['servisKayitlari'],                                   ac: function(){ openServisModal(); },               durum: 'svDurum'},
+    oddkSevk:    {ad: "ÖDDK'ya Sevk", keys: ['oddkSevkListesi'], ac: function(){ openOdsModal(); }, durum: 'odsDurum'},
     oddk:        {ad: 'ÖDDK Öğrenci Sözleşmesi',        keys: ['oddkSozlesmeleri'],                                  ac: function(){ openOddkModal(); },                durum: 'odDurum'},
-    oddkSevk:    {ad: "ÖDDK'ya Sevk", keys: ['oddkSevkleri'], ac: function(){ openSevkModal(); }, durum: 'skDurum'},
     ogretmenDers: {ad: 'Öğretmen Dersleri', keys: ['ogretmenDersleri'], ac: function(){ openOgretmenDersModal(); }, durum: 'odrsDurum'},
     sinifDers:   {ad: 'Sınıf Dersleri', keys: ['sinifDersleri'], ac: function(){ openSinifDersModal(); }, durum: 'sdrsDurum'},
     ebf:         {ad: 'E-Okul Bilgi Formu',      keys: ['eokulBilgiFormlari'], ac: function(){ openEbfModal(); },   durum: 'ebDurum'},
@@ -12112,7 +12075,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'oddkSevkleri', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'oddkSevkListesi', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -12594,67 +12557,176 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   }
 
 
-  /* ================= ÖDDK TUTANAK VE SÖZLEŞME SCRIPT ================= */
-  /* Sınıf, okul no, ad ve soyad "Öğrenci Bilgileri" bölümündeki kayıtlardan (ogbOgrenciler) alınır. */
-  var OD_SECILI = null;   // seçili kayıtlı sözleşmenin sırası
-  var OD_ALANLAR = {sinif:'odSinif', no:'odNo', adi:'odAdi', soyadi:'odSoyadi', davranisTarih:'odDavranisTarih', d1:'odD1', uyariTarih:'odUyariTarih', tarih:'odTarih', ogrImza:'odOgrImza', adSoyadImza:'odAdSoyadImza'};
+  /* ================= ÖDDK ÖĞRENCİ SÖZLEŞMESİ (EK-2) VE ÖDDK'YA SEVK (EK-3) SCRIPT ================= */
+  /* Sınıf, okul no, ad ve soyad "Öğrenci Bilgileri"nden (ogbOgrenciler); davranış, tarih ve öğretmen bilgileri "ÖDDK Öğrenci Tutanağı"ndan alınır.
+     Rapor: sozlesme.pdf (EK-2) ve ÖDDK sevk.pdf (EK-3) örneklerinin yerleşimi (A4, Times New Roman 12, logolu başlık, çerçeve). */
+  var EK_LOGO_MEB = 'data:image/jpeg;base64,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';
+  var EK_LOGO_OKUL = 'data:image/jpeg;base64,/9j/7gAOQWRvYmUAZAAAAAAB/9sAQwAHBQYGBgUHBgYGCAgHCQsSDAsKCgsXEBENEhsXHBwaFxoZHSEqJB0fKCAZGiUyJSgsLS8wLx0jNDg0LjcqLi8u/9sAQwEICAgLCgsWDAwWLh4aHi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4uLi4u/8AAEQgAwQDBAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+jqKKKACiiigAooqK4nhtoXnnkWONRksxxSbSV2CJainnht08yeZIkH8TsAP1rgPFfxI07SUZIZVR8EruGZH642p744ZuM8HFeO+I/H2t3lwJIFe3RxvjlnXdI67jyM/KF9gDg55qIOpWdqMbru9hzcKfxv/ADPf9S8ZaTZRPKHLooBMj4jQc4wS3T8u9cVqvxcsIDOsE0JZBgJCjSNn2fhDXi+haRrnjHU1tLJ3vLhY9zSTTZ8uIMAWJJyQC3QZPoDUvg7w6PEt9dWX2+Ozkjt/MiaVco8pdI0QkfdDNIozg/Q10rAN61anyRzvF/yR+87vUPi9dyRKlut1Jn724pDj6FQSf0rPX4ragODa3R/7f2/+JrD8E6Ro8utanY+K4pIbe2h2SMJNj28rTRwhiScYUyZOcjjv0OpN4St9N8D+IW1SxUa7p80UiXCyuR5TTmHaFyB96KQ5IOQy/hbwGFvaSb+bIWKrtXTS+SLB+K2oYOLW7B/7CDf/ABNWdO+Ll/DMRNFcpERywmEx/AMB/OuU+GulWGt+NdM0zU4PPtJvN3x72XdtidhypB6gVb1TQrS18ANrUlrZrqE2sGBWtroTpHCYt4QbZGAII/iy2Dz1Bpyy/CqXKk0/V/5iji67V7r7keh6b8YrUxn7TLtw3S4tzuYe2zI/Ou40rx3pOobgCpCsAzQSrMq/XH+FfNU2heT4Z/tl7tftIuIo2shHlkikR2jlZs/Lu8s4BHTaejDMtv4a1xrWDVNKQXkReNUkspNzrMUEnlheGLqpydoIGDz8pxnLAW/h1GvXU0ji39uH3H1tZX9nfJvtbhJAACQOo+o6irVfKmjeIvE+naUusSL9q01LkWwmkkAdZdpfaGB3ZxzkgjgV6f4P+KMF8Y7a5LNJ08qXCydB91ujd+vJ74rmmqtH+LHTuv60N4Tp1PgevZnrlFVNP1C01CIS2swfj5l/iX6jtVuqjJSV0Npp2YUUUVQgooooAKKKKACiiigAoorD8Ta/baHZvJI6CXaWAY8KP7x9v51E5qCuxpXdkTa7rllo0Je4ceZtLBcgYA7knoPf/CvAvG3xHvL25aKxlVmjPFyACi88hFIIPYbjnOPoawvF3iq+8UXws7RZnimkACgZkuHzheB26YUf4YzdKjtrSyGsxIl9Pb+bHc2dxArJFvQpFLg7g6hzzkABgqn7wJ3oYNz9+v8AKP8Amc9XE292l83/AJFK903WEs4tYv7S6FvdPhLiYH94cZByeSCOh6HDYzg46Yn7d4Hh1vT57uPVtDuI4LqVrl2dYGBELIxxsUMWQJH65PY0viGaHxZoUHiZriFddtNtpqcbbIVmGHMUqkkb3KoVKgknbwoA557w9qeq6bc3S6PGJLi8tntXTyBMWjJDMNpBB4XByDxmvS3h2sce0u9z1HUvFNmj3PiwwLZ62La2eOKKTYmowNPBIFWTu6KrRPwc4PYFV4TUr/SNN1bxBLoN6ksVzIv2QDT0aB4Gbe8TJKPl2ts2kKc+X/DnjY0P4b+INblWe/dlUBVYBt7BVwoXcflHygYwTgY44xXpWh/CTQ7Py3uws7ruDbv3m4Hp1+X/AMd/xrheKpQ0heX5fedKoVJay0PF/EHica1qlzqH9mL9ovbJLW4MsrOZZF24mGzYA3ypwBtyOlTX1/41vV1GOa0vtupR26XYNoW87ylAQksCQeMnGMkmvpKy8K6HaW6W0dp8kfC/MVHr0XA/StH+zNNG1FsLfHvGDWf1up0gl87mn1aPWTPkvSrbxLpV6t9Y6bfRTqjoG+ysSAylWxxkcEjIwRng1LLqt7Y6JaeG77SY4rSO9F+6yLLHLcNjadxLYAK/L8oHTPXOfrH+zdO3YNhbY/65L/hVebQdIlcu1moY8HYxUfkDij65VvdxT+bD6rC1k2fM8Him0l0TxVpt5BKn9qPFJaGOKN/J8t8rGzfKdgUKi44UZwoHFLq15FD4f8OaF4evTcTxXMlzPNZl1Ml2WATarAOCq7QGwAc8cg49s1b4X+Hb5cpAiyby5JXaWb3ZNp/PNea+I/hHf2UTS6dKZIlHzeb8wPUk5AyB9V/GtIY2n9tOP4ozlhp/Zd/zI9Q0BLjX/D/gMRwLDpdssuq3vlAOhJaaUecF4jUSELnA3Nzk4Ncf4k0KDT7LTdXsLiWXTNUM5tluECzII5NuHxkHgryOvPAxzPdar4k0eHVLK/jIutTVUlvpwWuNgIJVJgclWwoYEkYGMDmstG1TxJrNlbXN/LdXtzJHaxS3czPt3NhQWOSFyxP4muynquZPQ5pvo1qdF4T8d6jpNyi3k80sWSfPBJlXPIBJPzLkdD6+2K+hPCniqz122jcPGJJBujZT8sg9s9CO4PP648Em8NeHrzX28JaC99dalFHIH1GSVUheZELMvl7eEyhUNu4LZ+YAZ5fQtev9EnV7aQtBv3PAThX/AMD059h16Vw1sHvUw+j7dGddLEte7V1Xc+yaK4nwH4xtdds4YzPvdvlR2+9kfwN6MP1/U9tXNTmprzOmUbBRRRViCiiigAooqOaVIIXmlbbGilmb0ApN2V2BQ13VItKsXmZl85hiNGPU+v0HevmPxl4ovPE+oC0tPNlieQAbQS9y5OB8vp02r/8AWA6L4teLpb28fTbeV0LD94VwAsRziM98nOT+HY4rlE8JaqdJhlj0q9nvbqJL23EURZTbbijYxyzFnibA6LyTzitcHRU37ept9lfqY4mo1+6h8/8AImn0q/8AC6/bbSXUbfXtLnQ3RWFRFbiQfJhidzcgqx27G3YBIIL9Fq/xA1uN47u5Ol35Ikt5dM1G0VpLGXG2VRjD7WBIBYnglTkqSaA1W6tPDTaD440XUGjt0E2lNcLLCzMrAeSTgbowHJ6gqMgEblxF4P8AC2p+NNZk1K/LPHPK0sjn5TOxOW6fdUHqR9Bz07KlSMI89Tp+Poc0Iyk+WBk+GvCuoeJ78/Zbb7NayMxVlUso5OFXccnHqTwByfX6C8JeANK0CAEwLJMcb+chiMYJJ69OnC8niuk0fSrTR7JLe2RdwUKWCgZx0AHYDsO1aIbPBwDXmVak6zvU27HdTpxpr3d+4i7UQIibVHAUDGBQMqOQPw4pScHPbFISCCoyT7UiwAycsOfSuZ8eeKLfwnokt2DE99L8trbuf9Y3c8fwrnJ6dhkEiq/jbx3o/hSII5+16i/C2kLjcvGcuf4R07ZOeAeceJadZeIfiZ4qklml54M8+D5VpFnhVH57V6k5JP3mrsw+Gv789Io5K9e3uQ1Z6/8ACvxeviTRxY3si/2rZKFcFyWnjAAEhz37N15543AV3pXHQAGvm/xr4b1fwH4jTVdJaWKwMm+zuozkRn/nk2e+OOeGHr8wHp/gT4k6b4jxZan5Wn6mNoCs+I7gnj5Ce+f4TzyMFucVXw6a9pS1X5Co12n7OpuegAlgcDFKCQMEdPSkHHBGKM5YYJwK4TrOf8ReFNJ162eO5tYlZjnJQHJ5ycevJ5GD714F4v8AA2reFb06lp/mLBA4ljZTl4ipzuB7gEA56jPI4Jr6eLYHqfSq19aW1/bPbXKZU88HlT6iiEpUnzU/mujFOEaitI+aPDGrTanPdaPpmnaFor6jbyJqGouWGy3HzSbRI+1RtByqjng/KFyN3X9O0FPDktqHsrLR7ewa60x5m/06+uWcKJfL+8EcRY6Y2srHlcR0Pib4BfQ5XvdPgzaNlnRF4A7sB2A7gdOvTph2MR8Yzo2ra3Z6Xa6Tp8UTPKjHEEfyjYoHzNkjgtkl+M9B6VKpGqueLtbddThnF03yy17FPRr7UPCOu7L2CeBwE+0W7fK6ggMpx2YAgjOPTjNfTfg7xDDr2nJKJo5JMZDL/wAtF/vY7ehHY+nSvnLxHrPhzU9Gh0/TdNeyXTFSOyllJe4uVZnMnmEfKBk7u+DkKMMdtv4aeJrjSdUhs3lPls2bffgrG/OR9GzjjueOpNc+MoNf7RFardd0bYaqr+yk9Oh9SUVWsLuK+tIrqEnZIM8jBB6EfnVmsIyUldHQ1Z2YUUUUwCuC+J/iOLSNKkiJDYAZ1yPmbPyr+fJ9hXdSyJDE8sjbURSzH0Ar5q+JWoT69rc1pHPDGLaJ7qUTThMnGQi7sbmC4wFyTn2NZyj7WcaXff0G5ckHPt+ZyWg2+m6xrkg8QauNPinEjtceUWzKfu8KMY3HJ6DAIyOK9DsJPGPw/mGka/FcXHhiRwZrm2eTZCHYZeOZcMhDH7pxk54+bNc7p2pQ+GzB4d8YeDo5beCZrnLhln3khTINxKSJhMbcbG2gknBzneI7pYJrjR/D3iK91bS9RkW6lR42V2mLHCtn77Y25I4Y44yox67V9Oh5idteo7RtP1Lxx4j2S3d7Oi8b7mYzSLHu+WPeRjPJ5wB9447V9O6FpcGi6dFaxRqrBQGK98DAA9h0Fcr8LfC8Wh6NFM8YM7ncWJz8xADMP5DgcD3rvM7iOOBXk1Kntp8/Rbf5no06fs4269RVHcgZoYZ5AGaQEjII4z1oyScAcZ60iwB3HkYHWvGPiD8U3EtzpHhdlCAbJNRU5JPcRj07b/rjs1XPjh4pnsYoPDdjJJC9zH5t1InG6IkgJnryQc9OAByCRVj4WfD61sbK28Qa5altSYiW3hl6W6/wkr/e789OOARXfRpQpw9rU17I4qtSdSfs6fzZyfg/4Yavr8ran4jluLG1lLswfIupXz94hgcAnJy3Jx0wc17rpmn2OlWMVhplqlvaxjCqgx+J7k+55NWgzdSOO3tSrgDANYVsROq9djalQjT23I7iGGeCW3uYUmgkUq6OoZWB6gg9RXiXjf4TS2qyaj4XLzW6ozvZSMWkHPSPj5uOx546sTivcWIAOTxTQzbcKPzqaVeVJ3iOrRjUVmeD+CfibqOjXC6P4pE1xbJKVeebcZ7c9w2eWAPY/MMnrgCvdoZYpoo57eRJYZFDI6MCrg8ggjqK4b4i+A7LxJZXGoWNuI9cRMo6EL5+P4H7E4GAe3HOBXE/BXxLd2mrt4UvzK0Mu826OOYJFBZ155AIByOxHTk11VIQrQdSno1ujnpznSmqc9U9me5qOpIGaGUEHjn1pOVJGPl65pGJIIUZ7VwHcQX1pb6jbtbXEe5TyD3U+oPrXzD8SfCk3h3VnmSNUtZn+VVGAje3scEj05GBivqc/LyOmK5nx1oMGu6NcRyREsEwSo+Zl68e4PI69PelGo6M/aL5+hM6aqR5GeH+Ho/Dd1Dda5feHorHRrC4jfzQ0krTnk/Z8PIVdydn8AG3cTs+WuG1e6hv9Tu7y3sorKGaVnS2i+7ECeFH+QPQDpW/4bR7HxNHo2rW4vLeGaSQWDs3lXFwsT+UMd9zbQOOQ2CCDiun1e68Y6zouqXvjZRYaOiv5CXFmkcguOGijhBHmck4LcjYHycjI9eMle+6Z5ri7W6o7n4R+J/7Qs0gnb53O184GJQOvb7w/XivU6+Svh9q76Zr0Ue/alyVUN/dkByh6evH/AvavqzTrpb6yhukwBIuSAc7T3GfY15Lp+wqypdN16HpQn7Wmp9dmWaKKKsDn/Gl6tlocpaQRiQ4Zy23ao5Y/TAwfrXzLodjd+KPEN3NtvSRHNdObRfNliwDs2qSC2HKLgEHHp1Hs/xsv2t9HkiRkRvJ2qW/i8xgrKB67QT/APqrxbQoteh0559GtCZbufyYbi2lYXStGN7rGqMGK7WBb5WXhTwQK0wMbynU+SMMVKyjD5mvY+MNb0q6/sjxJDJqmlpMPOs9Wt/MkRcjLLuO5XCg4GcDJ+tO+GekHxD4qa6ljhAjff5caKqqzEnIXGAFAY4GMELiq2seK/Fs/hw6VrUkk1tPtijmnjXzFETfOm7G7duEZbcc/Kp/iyfV/gfpH2TQvtsiOrzfvMMQR83TH/AVX/vr8K3xkuWlyreTtp+Jlho81S/RanqMaLHGsUagIoCqB0AoyAxPUUhPOBnb3p4xjjpXAuyO4afm4HTuRUN1d2thbyXF7dQ29vHy0s0gRV+pNcP8U/G7eFdOWz05ojq919zcQTBH/wA9Svfnhc8E5PO0g+QeH/Dfij4i6jc6jLdblRgs17dE7Qc52IAOSASdowB7ZGeulhuaPtJuyOWriOWXJFXZpeJ1std+MSRwvDe2N1d2is0cgZJI9ke7DDrxnpX0W2Cw9B1ryTRfg+2laxYalH4kMhtLmOYoLTbv2sCRnecZHFeq215aXhkFtcRStG22RVYEo3ow7H2NPFTjNRUHdJCw8XFtz0bZZ/SmjnP14pAPmI521xfiTXLk3r2dpMYoojtLRthmbvz2x0xXm4jERox5pHdTpubsjtCCFY96cMYGOlcDouv3cF3HHcXBlgdgG8187cn72T6V3jZzwTg9aWHxMa8eaI6tJ03ZhkB854/rXzr4oittN+NKlSsEA1K1ndmbgbvLd2JPQZLH2r6Eu7uzsIRNeXUNvFnG+Vwgz9TXm3i34XDxNr93ro11rUXQjIia0LbMIq93HpnGB1r0sJOMG+d2TRw4mLmko6tM9GsdQsNTg+0adfW13Bu2mS3lWRc+mRmrP3fXFfNHi3wJ4i8EFNXtrtprWN9q3toWjkhJGAXA5XOSMgkdiRkA+kfCfx/ceI/O0fXJojqafPBIAENwn8QwBjcvtjIPT5SadTDWj7SDugp4i8uSasz08kHGOmeTT/qKQjscYqPvjJ2Vxs6j54+NWgJp2qx6jCqpHKfLK8DIIJUjH0YZJ6Bab4esfDOrael5rGp6tqo02yE8iXcxis7QcJ5DONzglgSoQDcNowcGvU/ixpH9p+GpvKR2lClQEwNx+8uT6blA/wCBV4b4YXUta0S58Orq1tpei28hv72ackK2fLRQcD5iCMqvGSfUDHXg5Xpunf4X+DOTEK01K2/5mZ4pgFprC3dnYRaXBcItxbQ2t8tyIwCVJWVT/fRvp07V9G/DLVRqehq2RgqsoAk3bdw5X8CDn3NfPWv6V4astNjl0XxS2q3HnbXhNk8AVSp+b5uvKgfiPSvTPgVfsY1tmCHa8kIx1C4EmT+OR/8AqpZhHSFRdHb7x4SXvSg+up7bRRRWJ0Hgnx3uU+1JauWMjTq6egVY8H9XH61x+j61p2l6Ppy6v4LN5bq8k1refapbdpJt2HdXUYO0CNcD7pTOcnA2vjUzPq1szcnzrgD6AoKoaXqHgSysjFPP4lFzcWKW9xJYSIE+bY8igPg43AqRypy3qDXRgLPDp2vdt/icuKf7617WS/I5/wATXmkXCWKaHHNbWWxp5LOWQyfZ52ba4DkDcNkcWP8AHNfTvgqzhsvD1rBbhhHyAGOcBflA/Ja+ZBHo58YWcejGeXS2uLfyxdgeYchN4bHH3tw449K+rNGiWLSLNUH/ACzVvxPJ/nWeNf7yCXRNl4X4ZPzNDHtxScBuwBo3DucUDlskVgdB8z/GGS4ufiHqMBdpPLEMUKk/dBjU4Hp8zE/jX0BajRPC+lWeli6tLG3ij2RCaRYy/q3bJJySe5JNeBfE7/kqOof9drf/ANFR19F6np9lqdsbXULaOeBuzj7pwRkHqDgnkcivQxbtTprpY8+gpc03Hcks7u1u4Vms7mKeI8B4nDA/iK5Pxn4UfUXOtaG7WuuQjh422eeMYwT2bHAP4HjBHLeLvBU+jK2r6NJK1tE/mMi5324HIYHqQD36jg88mqfhvx7qemMsOotJf2fT52/eJzyQx+916H0HIrCNP7UGclbHR5vY4qHL5/qdL4L8em9u10XX0FtqAPlpKw2CRxxtYfwv+hPHBwDY8U6HdJfPeWcLTRTtkrGpLI3fPseuf/rZ4/4raTaTwW/i7SWElpd4W4KZxu6K2O3TaemCB3Jrr/hb4vXxDph0+8kX+07JAGy+Wmj6CTnnPY9ecH+LFc+MwcMRTvsdWX42pSqujN37PuitoOg311exvc2zQ28bAv5yEb8dgD1z/n0q/wCOvHMHh5hYWKx3GptgsrcpCO27HUnsPTn0zd+IHiqHwtohmUq19cEx20RIznHLkd1XjPuVHGc15h8LNIGp6rceIdVkY2di3mmaZz882d2Sx64+8ec5K9QanBYKFCDZeY46pOapU9G+vZHf+DvDtzKY/EPiYy3OqyfNEk//AC7rnI+Xse+O2egOa7S4ngt4XmuZo4olGWeRgoH4mvKfFXj+8u5JbPRXNtajK+eOJJBgg4/ujnjvwDkdKqeGPB+oeJJ21DVpbiK0cAiZjmWY9sbs8YxyfbGecdUqbfvTdjhpY6EZexw0eZ9X+p6pBqGj6sktlFe2N8joVkhWRZQyEYIKgnIr5u0FG0P4oW1pYSyBbbWDaK74LNH5pjOeMcrnt3r6U0nSdN0mIw6baRwKfvkDLN1xljyep6183/8ANXW/7GE/+lNb4N/GltY7MRzWg573Pp48t24pccYxxSN1BAyaNw9a889AzteiEuj3kZJUBN4x/s84/Svla1huIvEGpaVpumf2gJWlt/sxVmdo0ff8uCDuHlg55zjkEHB+tZ4VuIJonB2yIUPrgjFfL9/qEGjfEC8vGkntkEMiebaqDJG8lsVDgbl5DNu+8K1wjarNd1+X/DmOJX7tPs/zIbqw1uLTr1D4ANijQ/vbs2tyDGisrk5lcqPu44HQkVsfBu4WLX3gDlZZJIWAHdQxDf8AoQ/OsPUNS8awzz2dxf8AiB4pY5V8u98zMkOxtxMbEgfJknrjrnjNT/DJ2i8RyzL96O2LA/R0NdWOX+zSv5M58M/30bH1XRSUV5fMd583fGcEapbgjB8+5/8AQlrzWvXfjra5v0uwwURTeXtx13oDn/xz9a8i4yK9bK7LDqPZv8zz8d/Fv3S/I0PD+Tr2mYHP2uL/ANDFfX2kkHSrMggjyV/kK+NIZZbeeOeFyksbB0YdmByDX194XZZNDgAYMyFgec4O4nH5EVz49NV4vumbYN3pteZr4JO78hShhx6+lKOlIuMk5zXMdJ81fE7n4o349Zrf/wBFR19KkEnnpXA6/outTi71C18H+GLnUpGDl7idp3kwAoxujTacAfxAcVz118SPGPh95F8UeEowu4IkkJaKMsRnAc71bj0PY+ld0068YqPTzOKDVGUnLqev5OACOOleT/EDweLAy6zpigWbHM0A/wCWRP8AEv8As+3btx00NC+LfhzUWig1COfTJmGWaT54g2QAocc985KgDB59fQUez1Cy3K8N1aToRuUh0kU/oRWHLUoy95CxNGljKfLfXoeLeEw2q2OseFXZSuo2zNbiRmCrOoyp46DgE/7gHPSuC+F2palF4+0ZNM+d55vKlQthWhIzJnkZwoLAeqjg9K9Nn0m48L+PdOFvj7PPcKYG2nAR22smT3AOOvcHvTPDnh1fClz4h1owG3vNSvLm1sYgGTyLVZTlgOnzYXHsFIPJq62IjSpym9rHn5bhpzkqcvii7fI4/wCOGpahJ41EVycWEdtG1jtbKyRsMs/UjJbcM8ZCr6ZrdumXSvAfh7RbeVd97CNRumVChfzOUB55wOP+AKeK0/iLob+J/Dk9vZxPLq2iTSSW0a7maaAnDoBuxkYUjgn5QAOTVjXtKuNe+Is2mK58mNY93OPKhCqWx+Lce7UsNiI1acZIrM8POm5KOrlZL5lXwF4Tk1i5TUL6PGmRHgMP9ew7D/ZHc/h649kXCgIigKOBjjFV4IrPTNPWGER29pbpgEnCoB1JJ/UmuJ1z4qeF9Kd4LaWXU5/m/wCPVf3asMYBckAg56ru6H2zLU60vdR2YTD0sHSs3r1O/UEY7+tfMIP/ABd1v+xhP/pTXeQfFLxLrjC38NeE1e4DqJGZ2nRdxwN20Jt78k44PpW1o+ieILsnUNb8F+F4r77Ss6NHKbeYSB928uiyZyefvc85HNdFOMsPfn6ruXUlGvbl6HpBYZI700g53ADPpSL5hjiaVVSXALhW3AHHIBwM/XAqTiuDc7UNeREjeR2CooySewr5d1O9TTfiJNeyMiNGv7qWSPesUpgxHIRg8K5VuhIxwCcCvpXWGSPSL13IUGJhn6jAr5G8QyPLr2pO7lz9pkUHOeAxA/TFbYOPNX+X5mGKlal8zsrbXfHdzaahZHX7O8sJLS4MvnXsDmSMROW2rnzc4BwMDBxnAzWZ8NFaTxBPGgyz2zKPrvSuP6V6F8HLVZPELXWWLxvFGFA6hnyT/wCOCurHxUcNNd7HPhZOVaJ9MUUtFeVynonkvxw04z6W1wITIyIsibeoKthifojH/Ir59r628eafFf6DIJFBVflfsdjfKQD+I/Kvk24hktriW2mAWWJyjgHOCDg816OWytKdP5/ecWNjdRn8hn4V9LfB3Ulu/C8EAVUZEUBd2SdvyE/+Og/jXzTXp3wU1tbDV5bCVwsch8wZwARwrZP/AHyf+AmtMyh7iqL7L/AzwUrTce59E7TjGTXK+J7rUriVbSwtb1YYm+Z0jYb29uOg/X8Aa6zg9D1r5u1hfitpmv3scVx4kuhDOwjmjSR4pVz8rBVymCMHb26HkV57w31iLgpWO51/YtSauehy3XiCx2zvLfxKDgGXdt57Ybirtt4sleFrTV7OG8tpF2SZUfMp65U8NwenFeTp8UPH+lagY9RuRJJFxJa3lmqdRxkKFYevWug074p6JqZSHxR4eWCR/v3tif4icZKnnAB/vN06VzPKcVS96lO5ax9CppUjY1/EHw50LxFBJqHhGVLO94aSzkJERJOTxyUPOBj5eMADrXnWi674k8C6zNbL5kMkLlbixnJMbEgckA4zgKQw7Y5IPPrenwWN/H/avg/WY79YfmManE0XUDKkA84bggZHTNO1aw0jxpZf2draC01uMeXBeBMNu7A/jnKnjnjBPHZhMznGXsMXGxz18FFr2uHZs6Fq+kePtHtby3Pk3dncRTSQMdzwOrZx2yrAMA3TnoCCBnanFPqnih7W4kEB3mJGYYwgzt+uf1JrxvRdT1f4f+LZd8I8+3YwXUDdJYzg8Htngqfp1HB9z8Ux2+oWFjrtixkgnjU7wpG5GGUOD069/UVjnOFcYKUdY7l5dWUpO6tLYo6hHNpnifzLWRZpml8xVHUFiflPvz+Rrf1a70fwnFqniLUZtn2t04H35CqYWNBnk8Me3U54GRR0K1jGtarqlyypBbSyYd+FBycnPsP514p488R3njfxPHb2UYe2jlNvYRJn95lsbznGC2BxxgYHYkzlGGc3KW0Wx5hWjFR6yWxD4r8aa94wu0tmDx2zvshsLbcQxLcZA5dunbr0Aya7Xw78MdM023F/42ulDNgpZQynGCOQ5X5iQWH3DgYzkg1t+HNH0zwFZ7PLivvEcqZmm6rDnoi+g/VupwMAWLiydoTq/ifVEsLbJG+6bax6naqnp0OB+QNdWLzNp+wwiuZYfA3XtcQy0/imK0txZ6FpkFlbJnYNgULnk4ReAcknvms4ah4g1By8U95KyABvIBAH1C1zmp/Ejwro+6Dw9pD6rNgj7XefIgOMqQpGTgnkYTp171zV58WfHF/cxLZ3FvaMfkENraq29iePv7jn6VwxyvF1/eqzsdLx2Hp6Qjc9i8N3Wr2lyVvbO+lt5jhi8bkof73Pb1rtNp6Z49q+aJLj4uajfRMR4lSWRgq7YpIIwTxyAAgHueK+krGKS3sra3nuHuJo4lR5nwGkYDBY47nrXTHCfV4qLlczWI9s7pWOe8faiuneHLh2VXIBcpnBZVG7j8QB+NfJ1e2/HXWlMUWlxEOsjbTxkDaQzEEd87Bz6GvEq7sth8VTvovkcmNlrGHb9Qr2f4E2B8w3hjCszu+8/wAaAbR+TM1eMHABOeK+ofhXpH9maEoZFDBVj4BPzDlyCexZv0pZnO6hT7v8gwMdZT7fqd1RRRXIdhFcQpcW8sEmdkilWx6EYr5Z+JmkNpfiFnZNvnA7uw3rwccdCNp98mvquvNPi74abVdMe4t0zLww46OvQ9e4yvPAyDUqp7GrGr02fowlD2kHD7j5vAqzpl7NpuoQX0IG+F84P8Q7j8RkVAyNG7RupV1O1lYYIPpSEZr3pRjOLT2Z46bi7rofWvgvWoNe0S3uYpNzKgyc5JHbPv1B9wa6LOOD0r5m+FviybQ9UjspS8kMzBYVLcKx6r64Y4+hHTk19K200V1AlxC4eNxkYrwHCVGbpvpt5o9iM1UjzodIiyxukqI8bjaysMgr3Brjtd+Gng3WEYtpaWMpVVE1ifJ2gHP3R8mTyMlScfQY7JSABnr6UKFP1zVxqSi9GKUIy3R896z8NPFfhK6j1rwzevfeQwZGt0Kzp/wDkMOxAznJyMZrW8KeN7Lxf9n0fW0is9cZFWC/GBHeP02uAPlYjGMcE5xjhT7f90HH5Vwvj34daT4rimvYAtprRVdtyM7ZNvRXXvxxu6jA6gYrWcqdePJWXzMlCdJ81J/IwPHfh+XxHossbwbfEekxmRW8tne6gAJKDbyTzkcHnp94kUfgxrC6pompeEblwZIkM9rnJwhPzduNrlT153H0qz4c1rVbXVIfCnitHi8RWfzadfE5W9QdI2bjOQCAxPPIOGyGxNTgTwj8V9H1q1iEOm6nIDtc7EiLny5VP+6Tux0GQO1VRi/ZywtXXqn3RNRrnVeGnc6b4w6o2geFl0m1k23Or3EhkZVKkxA5YZB6/Mi89Rmsb4baEmi6TFrk9usuu6gv/EvjxuaCIjHmYPALc4PPy47FhVHxLBH40+L8tq5jfS9KjC3UkYOfJi+aRTyCT5jMny8jOcHBNdL4r8T3NhqMenaPaveeMdRUC3h25XT4yOM543bcnngDJbA+8qnNGlHDUtHLVvsghyyqOtPZbFXxN4p0zwQzwSxLqniORTJsLZjtSeQXPXcc7uOeOq5BPIaZ4R8cfEW5j1fWruSCzYApcXS4BQqOYohgYIwcjap65Jr0XwJ8MbXR5hrPiORdT1wzGYSM7MkTc88/fbJzuYcHGORk+k/eB7A1NP2eGjyUVr3KlGdZ81R/I4Dw38K/CekpDJdWx1S8Tky3RymduCBH93b1IDbiM9eBXc2ltb2dsltZW0NvbxjEcUSBVUewHAqVlUemaXcOR0PpWcqkpfEzWNOMdkBYnhfzrO1u/i0nTZ7yV1Xap2l+gOD1Pp3PsKvsyxxGR3CKo3MxOAB3rwT4v+MHu7ltItGKqB8zq2MIe3rlsA9uMDnNZ8sqklTju/6uU5KCcnsjz3xVqzazrdxe7i0YOyIt1Kjv0zySW555xWPRQa+gp040oKEdkeNObnJyfU6DwTpcup69BtRjHbsJW2g5JB+VRweS2OPQGvq/S7RbHT4LVcfu15IPVupP55ryz4OeF/sluL66i/ecSPuXkOR8q4I/hHJ7hjXr1eHOp7atKotloj1qcPZ01HruFFFFMoKgu7eK7tpLaZcxyLg+3v8AWp6KTSaswufMnxQ8LzaRqct8kZ8t2xLhMAHs/HZv598muBFfX3ijRINa0+WNo90wRlUZxvBHKn6/5718veKvD0+gXvlks1s5IjdhhgR1Vh2Yfr+YHTgcRyv2E/k/L/M5cXRv+9j8zB9a9b+GHxCmtJk0zVJGkD8I7H/WfX/b9/4uh5wTw3hPWbDSHvFv7Np47iMJlFUnHOVwSODn17fll6ppz2Lo29Z7ScFoLhBhZV/oR0K9QfwravBV5unJcrXwvuZ0pOlFTi733R9i2s8NzAlxBIskb8hlqRumeBXzx4B+JNzpTR2OpNvhY4MzknPpuHY443fTI717tpWr2OrwJNZzKwYbgpIyV4546jkcjjmvNkpU3yVFZ/md0ZRmuaD0ND72PT+dDDHzDg0rcDPftTRk/f4FAzC8XeF7PxNYJFPK9ve2zebZXsXEltJ/eB444GRnnA6EAjzfxvaS+IPAd+LyKP8A4SDQJ1+2RpHudjjDyDptjkUrLwoHynrjI9n3DOAeazdT0a11L7QJmdVubSSznEZC+YjdMnGcr82303t61tTqWav0M6kLp26nlngaZbPw/rXjGezL32u6niyszKg89t5MaKSQR+8Zt2f4Y84457vwZ4TOhm41XU7n7f4jv+b2+Yf+Q06YQYHYZwOAAoWTwl4eXTNI0KK4iSN7CyULAMny7hxmZzyQWJJAOMgM/OHxXTbsHBPNOrUu3bqKnTslfoIAT97nmjhT/Sgk/wAJyaE5HXnvWBsKvPJ70j7QjFiFAHJPaoLu9trKMy3MqxpnjuT9B3rxj4g/E0TJNpukN8w43qQyj3J7kccdATyTjFJNyfJBXf8AW4pNRXNJ2RqfFPx3Ha2zabp0qtM/THOP9oj0HbPU/SvBXd5JGkkZmdjuZmOST61ctLW71a+Kq5eRsySzSt8qL3d27AetbHiLV9MudIsNJ0+J3NmdpuGjCBgFwSoyT8x+Y5x0H4ejQh9Xkopc0nu+xw1Z+2Tbdktl3OZPSus+H3h2TXtXRnjDwROBsdCRIx7fQdT7Y45rF0PSLrWb0W0GERRullI4Rf6n0H/1yPp/wR4bh0HTIAFYS+UECt/CvXn/AGieT70sfiX/AAab1e/kv8x4Shf95LZbG9pllFp9lHaxAYQfMwGNzdzVuiiuOKUVZHa3d6hRRRTEFFFFABXLeM/Ctr4gspAYlMxHI6b/AMezDsfwPt1NFROCkrMadj5C8TeHLzQbjEqs9szbVkxjDf3WHZv5/mBQtNQeC1mspV8+ymO54ScbW6b0P8LY4zyPUEcV9V+J/DFjrtrMksS+bIu056P6bv8AEcj8K+ffF/gTUdHupGtbd3h+U+Ry0i59MfeX3HP5E11UMYn+6xHyff8AyZy1cM0+ej9xzV5pwSN7zT5DdWChS0mMNCT/AAuueDnjPQ9j2qbQvEWq6HJusLjCZ3eW4yu717EH6EdBWdaXVxZzCa2meKQcZU9R6Edx7Hg1ob9Iv0/eqdMu8EmSMGSCQ/MeV+8n8I+XI9hXZOF48tRc0f6/rQ5Yy1vB2Z6/4Z+LlpJ5cGqo0RyFzIc4ycD5wOeOu4Dk9a9J0/xJo+oQrLBeRqGXcC5ABH+990/ga+VZdC1VJNsNo93GfuzWg86Nxkjhlz6dDz7VRtru6tGZrS6mgLD5jFIUz+VcbwSlrQn8nqdSxTjpUifZ67WjUqwIIyCD196UE8ZGDXzBaeI/HWm27am9tdm0Man7RJaMkYViMNvULwcjHOD2q9afEfxakDX81vLLZK/lmZDIqBuu3cSRnHasHh66+yn6M1Vek+tvkfSJPUY5pQB7Zr5rvfirrsqj7Mphb1edmz+W2q2oeLPG+oaWmovbXCWCNkXq27vH1243vuX73H14prD4h/Zt6sPb0u/4H0bc6xptqMS3aFwdu1PmOfTA6fjXnviT4saVZIyaaRPIw+UxkOcYPOfujkepPTivB7/VNR1At9tvZplZt+xn+UH2XoPwp8OjarMqyJYXCxMu/wA2RNke3GdxdsKBjvmtVgmta07Ly/zMni76U43NXxH4y1rXpXM9w8MLZHlo55BzwT3HJ44HtWPYWD3WJZZFtrMMVe6lBCKQMlR/ebH8I5/Dmp/K02wZhOw1CcZHlxOVhU4I5fq2DjhcA9mqrfX1xeuGmYCNSSkKDbHHnsqjgfh1rtpQUY8tFWXf+v1Oacm3eo7vsTTahtsm06yUxWrMGkY/fnI6F/YdlHA9zzRo+kXur3BhtIxheZJG4VB7n+nWtXwt4S1HXrmDETx2rvjd0ZxjPyA/+hHgc9cYr6F8HeDbDQbOEGEeap3hSdwVvUnu3v0HboK5a2LVO9OhrLq+xvSw7n79XRdij8PfBFroNlHNPHunOHG8c7v7zD19B2+vTvaKK44Q5fNs7G7hRRRViCiiigAooooAKKKKACq17ZW19CYbmJXXqM8EfQ9qs0UnFSVmCbWqPJfF/wALra8Mt3ZqfMIJ8yLh+5+Zej9eowx6V5DrPhPWNLkbNu1xEpwXiUkr14Zeo6c9h619cVUvdPsr5dt1bpJ2DdGH4jminOtQ/hu67MmpTp1PiWvdHx7pmpXml3DT2M3lyMhjJ2g8H6+4B/CqdfTeufDfSNS3SCON5Dg5lXDMRxy64OMduelcJqnwfnj3NZyzqFO4sCsoI9FHyt/Oumnj6cW3ODi321/I554ObVoyujDutN1PTPh/qTwNFqSXptxqN7HexSxWyRsoihTa5ZmBIDHoAAACPmq7cGKI6ZPZy20Wnp4Nf7XsZVWUkSKUB6b/AD2T33deaxrz4ba7bOxLwrBnCvMrxk/UbT/M1mXPg7xFCTDHAtxHnOYpgFz9GI/lVrF4eWjqL8iXQrL7IyyS+uvAWrrmVrOx1C0nGSSilknRsdhyY8/Ue1b2habdt4T18asbq3tbuwju4tQ89Hgm8kgRW5yD827jG4MNgXA5B5weDdfeRS2mKpzgM0sZx+tasHw71+4YiF7WRgMkIXYj8lqpYvDr7aJVCs/ss46rd7qV5e21pbXM26G1TZEoUDA/DrwAPw+ufS9M+Ed7Od1zLcGM8YCLCVPHPzEkj8K7fQ/hZpVgySTrEXUjJwZGOOjBm4U554X/AOtFTH0pNOEXJryt+ZcMHUStKVr/ANdDwbStC1PVQHtrciA/8tpPlTqR179D0zXq3hH4UEbLjVUV2I5EyZUcdkPXnu2OuQK9d0/R9PsNpgt18wf8tG5bOMde34YrRrlqVa1b43Zdl/mdFOjTp/CrvuyjpumWemxlLaPDH7ztyzfU1eooqYxUVZI0bbeoUUUVQgooooAKKKKACiiigAooooAKKKKACiiigAooopMBDTX6D60UVyTLQClFFFKAx1FFFdi2MwooopgFFFFABRRRQAUUUUAFFFFAH//Z';
+  var EK_SATIR = 20.65;   // örnek PDF'deki gövde satır aralığı (pt)
+
+  function ekTarih(iso, bos){
+    var m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+    return m ? (m[3] + '/' + m[2] + '/' + m[1]) : bos;
+  }
+  function ekNokta(n){ var a = []; for(var i = 0; i < n; i++) a.push('…………………………'); return a.join(' '); }
+  function ekGen(t, kalin){
+    t = String(t == null ? '' : t);
+    var nok = (t.match(/…/g) || []).length;
+    return (nok * 12 + nakilGenislik(t.replace(/…/g, ''), 12)) * (kalin ? 1.1 : 1.04);
+  }
+  /* [{t, d}] parçalarının kaç satır tutacağı (iki yana yaslı paragraf için tahmin) */
+  function ekSatirSayisi(parcalar, genislik){
+    var top = 0;
+    parcalar.forEach(function(p){ top += ekGen(p.t, !!p.d); });
+    return Math.max(1, Math.ceil(top / (genislik - 14)));
+  }
+  function ekPdfParca(p){ return p.d ? {text: p.t, bold: true, decoration: 'underline'} : {text: p.t}; }
+  function ekPdfOlustur(dok){
+    var vfs = Object.assign({}, pdfMake.vfs, {'tnr-regular.ttf': NAKIL_FONT_REG, 'tnr-bold.ttf': NAKIL_FONT_BOLD});
+    var fonts = {
+      Roboto: {normal: 'Roboto-Regular.ttf', bold: 'Roboto-Medium.ttf', italics: 'Roboto-Italic.ttf', bolditalics: 'Roboto-MediumItalic.ttf'},
+      TNR: {normal: 'tnr-regular.ttf', bold: 'tnr-bold.ttf', italics: 'tnr-regular.ttf', bolditalics: 'tnr-bold.ttf'}
+    };
+    return pdfMake.createPdf(dok, null, fonts, vfs);
+  }
+  function ekYazi(metin, x, y, o){
+    o = o || {};
+    var kol = {width: o.w || 480, text: metin, alignment: o.h || 'left'};
+    if(o.bold) kol.bold = true;
+    if(o.size) kol.fontSize = o.size;
+    if(o.italics) kol.italics = true;
+    return {columns: [kol], absolutePosition: {x: x, y: y}};
+  }
+  function ekOrtala(metin, cx, y, o){ o = o || {}; var w = 420; o.w = w; o.h = 'center'; return ekYazi(metin, cx - w / 2, y, o); }
+  /* Başlık: iki logo, T.C. / ilçe / okul, EK numarası ve başlık (örnek PDF'deki konumlarla) */
+  function ekUst(d, b, baslik){
+    var parcalar = [
+      {image: EK_LOGO_MEB, width: d.l1[2], height: d.l1[3], absolutePosition: {x: d.l1[0], y: d.l1[1]}},
+      {image: EK_LOGO_OKUL, width: d.l2[2], height: d.l2[3], absolutePosition: {x: d.l2[0], y: d.l2[1]}},
+      ekOrtala('T.C.', d.cx, d.ty[0], {bold: true}),
+      ekOrtala(b.ilce, d.cx, d.ty[1], {bold: true}),
+      ekOrtala(b.okul, d.cx, d.ty[2], {bold: true}),
+      ekYazi(d.ek, d.ekx, d.eky, {bold: true, size: 10.1, w: 60})
+    ];
+    var boyut = 19.9, hedef = d.bw;
+    var gen = nakilGenislik(baslik, boyut) * 1.12;
+    if(gen > hedef) boyut = Math.floor(boyut * hedef / gen * 10) / 10;
+    parcalar.push(ekOrtala(baslik, d.bcx, d.by, {bold: true, size: boyut}));
+    return parcalar;
+  }
+  var EK_SOZ = {l1: [59, 48.1, 60.8, 61.7], l2: [463, 48.1, 62.8, 63.1], cx: 292.3, ty: [49.2, 64.1, 80.2], ek: 'EK-2', ekx: 525.6, eky: 102.8, bcx: 294.4, by: 133.6, bw: 191};
+  var EK_SEVK = {l1: [63.4, 45.4, 60.7, 61.7], l2: [464.4, 42.8, 62.9, 62.9], cx: 295.6, ty: [43.7, 58.8, 74.7], ek: 'EK-3', ekx: 529.9, eky: 97.3, bcx: 295.5, by: 130.9, bw: 260};
+  function ekCerceve(tur){
+    if(tur === 'soz') return {canvas: [{type: 'rect', x: 27, y: 27.1, w: 541.4, h: 788, lineWidth: 6, lineColor: '#000000'}]};
+    return {canvas: [
+      {type: 'rect', x: 25.4, y: 25.5, w: 544.6, h: 791.3, lineWidth: 2.8, lineColor: '#000000'},
+      {type: 'rect', x: 27.6, y: 27.7, w: 539.2, h: 785.6, lineWidth: 0.9, lineColor: '#000000'}
+    ]};
+  }
+  function ekSayfalar(liste, sayfaFn){
+    var icerik = [];
+    liste.forEach(function(k, i){
+      icerik.push({text: ' ', fontSize: 1, pageBreak: i ? 'before' : undefined});
+      sayfaFn(k).forEach(function(x){ icerik.push(x); });
+    });
+    return icerik;
+  }
+  function ekBosKapsayici(){ return {}; }
+
+  /* ---- Excel ortak yardımcılar ---- */
+  function ekExcelSayfa(wb, ad, tur){
+    var ws = wb.addWorksheet(ad, {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1,
+      margins: {left: 0.5, right: 0.5, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2}}, views: [{showGridLines: false}]});
+    ws.columns = [{width: 1.5}, {width: 15}, {width: 3}, {width: 17}, {width: 17}, {width: 17}, {width: 17}, {width: 14}, {width: 1.5}];
+    return ws;
+  }
+  function ekExcelUst(wb, ws, d, b, baslik, ekNo){
+    var F = function(sz, bold){ return {name: 'Times New Roman', size: sz, bold: !!bold}; };
+    function sat(r, text, font, h, yuk){
+      ws.mergeCells(r, 2, r, 8);
+      var c = ws.getCell(r, 2); c.value = text; c.font = font; c.alignment = {horizontal: h || 'center', vertical: 'middle', wrapText: true};
+      if(yuk) ws.getRow(r).height = yuk;
+    }
+    ws.getRow(1).height = 8;
+    sat(2, 'T.C.', F(12, true), 'center', 17); sat(3, b.ilce, F(12, true), 'center', 17); sat(4, b.okul, F(12, true), 'center', 17);
+    sat(5, ekNo, F(10, true), 'right', 18);
+    sat(7, baslik, {name: 'Arial Black', size: 18, bold: false}, 'center', 38);
+    try{
+      var i1 = wb.addImage({base64: EK_LOGO_MEB, extension: 'jpeg'}), i2 = wb.addImage({base64: EK_LOGO_OKUL, extension: 'jpeg'});
+      ws.addImage(i1, {tl: {col: 1.05, row: 1.05}, ext: {width: 62, height: 63}});
+      ws.addImage(i2, {tl: {col: 7.0, row: 1.05}, ext: {width: 64, height: 64}});
+    }catch(e){}
+    return F;
+  }
+  /* A4 çerçeve: kullanılan alanın dış kenarlarına kalın çizgi */
+  function ekExcelCerceve(ws, sonSatir, kalin){
+    var st = {style: kalin ? 'thick' : 'medium'};
+    for(var r = 1; r <= sonSatir; r++){
+      for(var c = 1; c <= 9; c++){
+        var h = ws.getCell(r, c), b = Object.assign({}, h.border || {});
+        if(r === 1) b.top = st; if(r === sonSatir) b.bottom = st; if(c === 1) b.left = st; if(c === 9) b.right = st;
+        h.border = b;
+      }
+    }
+  }
+  function ekExcelParagraf(ws, r, parcalar, yuk){
+    ws.mergeCells(r, 2, r, 8);
+    var c = ws.getCell(r, 2);
+    c.value = {richText: parcalar.map(function(p){ return {text: p.t, font: {name: 'Times New Roman', size: 12, bold: !!p.d, underline: !!p.d}}; })};
+    c.alignment = {horizontal: 'justify', vertical: 'top', wrapText: true};
+    ws.getRow(r).height = yuk;
+  }
+
+  /* ================= ÖĞRENCİ SÖZLEŞMESİ (EK-2) ================= */
+  var OD_SECILI = null;
+  var OD_ALANLAR = {sinif: 'odSinif', no: 'odNo', adi: 'odAdi', soyadi: 'odSoyadi', olayTarih: 'odOlayTarih', davranis: 'odDavranis', uyariTarih: 'odUyariTarih', ogretmen: 'odOgretmen', tarih: 'odTarih', imzaAd: 'odImzaAd'};
 
   function odKayitlar(){ return rapLoad('oddkSozlesmeleri', []); }
   function odKayitlariYaz(l){ localStorage.setItem('oddkSozlesmeleri', JSON.stringify(l)); }
   function odOgrenciler(){
-    return ogbOgrenciler().map(function(o){
-      return {no: o.no, ad: ((o.adi || '') + ' ' + (o.soyadi || '')).trim(), sinif: o.sinif || ''};
-    });
+    return ogbOgrenciler().map(function(o){ return {no: o.no, adi: (o.adi || '').trim(), soyadi: (o.soyadi || '').trim(), sinif: o.sinif || ''}; });
   }
-  function odBugun(){
-    var d = new Date(), p = function(n){ return (n < 10 ? '0' : '') + n; };
-    return p(d.getDate()) + '.' + p(d.getMonth() + 1) + '.' + d.getFullYear();
+  function odBaslikYaz(){
+    var b = vtBaslik();
+    document.getElementById('odIlce').textContent = b.ilce;
+    document.getElementById('odOkul').textContent = b.okul;
+  }
+  /* "Ali Can Yılmaz" -> {adi: 'Ali Can', soyadi: 'Yılmaz'} (numara öğrenci bilgilerinde varsa oradaki ad/soyad kullanılır) */
+  function odAdAyir(ad, no){
+    var o = no ? odOgrenciler().filter(function(x){ return x.no === String(no); })[0] : null;
+    if(o && o.adi) return {adi: o.adi, soyadi: o.soyadi};
+    var p = String(ad || '').trim().split(/\s+/);
+    if(p.length < 2) return {adi: p[0] || '', soyadi: ''};
+    return {adi: p.slice(0, -1).join(' '), soyadi: p[p.length - 1]};
   }
   function odOgretmenListeDoldur(){
-    var l = rapLoad('ogretmenListesi', []).slice().sort(function(a, b){
-      var ba = (a.brans || '').trim(), bb = (b.brans || '').trim();
-      if(ba && !bb) return -1; if(!ba && bb) return 1;
-      return ba.localeCompare(bb, 'tr') || (a.ad || '').localeCompare(b.ad || '', 'tr');
-    });
-    document.getElementById('odOgrtListe').innerHTML = l.map(function(o){
-      return '<option value="' + escapeHtml((o.ad || '') + (o.brans ? ' / ' + o.brans : '')) + '"></option>';
-    }).join('');
+    var l = rapLoad('ogretmenListesi', []).filter(function(o){ return o && o.ad; });
+    var html = l.map(function(o){ return '<option value="' + escapeHtml(o.ad) + '"></option>'; }).join('');
+    ['odOgrtListe', 'odsOgrtListe'].forEach(function(id){ var e = document.getElementById(id); if(e) e.innerHTML = html; });
   }
 
-  /* ÖDDK Öğrenci Tutanağı'nda kayıtlı tutanaklardan seçim: öğrenci ve davranış bilgilerini sözleşmeye aktarır */
-  function odTutListeDoldur(){
-    var sel = document.getElementById('odTutSec');
-    if(!sel) return;
-    var onceki = sel.value;
-    sel.innerHTML = '<option value="">(Tutanak seçiniz)</option>' + rapLoad('ogrenciTutanaklari', []).map(function(k, i){
+  /* ÖDDK Öğrenci Tutanağı'ndaki kayıtlardan seçim */
+  function ekTutanakSecenekleri(){
+    return '<option value="">(Tutanak seçiniz)</option>' + rapLoad('ogrenciTutanaklari', []).map(function(k, i){
       return '<option value="' + i + '">' + escapeHtml((k.ad || '(adsız)') + (k.sinif ? ' (' + k.sinif + ')' : '') + (k.tarih ? ' - ' + dsTarihYaz(k.tarih) : '')) + '</option>';
     }).join('');
+  }
+  function odTutListeDoldur(){
+    var sel = document.getElementById('odTutSec'); if(!sel) return;
+    var onceki = sel.value;
+    sel.innerHTML = ekTutanakSecenekleri();
     if(onceki && Array.prototype.some.call(sel.options, function(o){ return o.value === onceki; })) sel.value = onceki;
   }
   function odTutanaktanDoldur(){
-    var v = document.getElementById('odTutSec').value;
-    var durum = document.getElementById('odDurum');
+    var v = document.getElementById('odTutSec').value, durum = document.getElementById('odDurum');
     if(v === '') return;
     var k = rapLoad('ogrenciTutanaklari', [])[Number(v)];
     if(!k){ durum.textContent = 'Tutanak bulunamadı.'; return; }
-    var ogrt = k.ogretmen || '';
-    if(ogrt){
-      var t = rapLoad('ogretmenListesi', []).filter(function(o){ return o && (o.ad || '').trim().toLocaleLowerCase('tr') === ogrt.trim().toLocaleLowerCase('tr'); })[0];
-      if(t && t.brans) ogrt = (t.ad || ogrt) + ' / ' + t.brans;
-    }
-    var tarih = k.tutanakTarih || k.tarih;
+    var ad = odAdAyir(k.ad, k.no);
     OD_SECILI = null;
     document.getElementById('odKayit').value = '';
-    var ogrKaydi = ogbOgrenciler().filter(function(o){ return String(o.no) === String(k.no); })[0];
-    odFormYaz({
-      sinif: k.sinif || '', no: k.no || '',
-      adi: ogrKaydi ? (ogrKaydi.adi || '') : ((k.ad || '').trim().split(/\s+/).slice(0, -1).join(' ')),
-      soyadi: ogrKaydi ? (ogrKaydi.soyadi || '') : ((k.ad || '').trim().split(/\s+/).slice(-1).join(' ')),
-      davranisTarih: k.tarih || '',
-      d1: k.davranis || '',
-      uyariTarih: k.tutanakTarih || k.tarih || '',
-      tarih: odBugun(), ogrImza: '', adSoyadImza: k.ad || ''
-    });
+    odFormYaz({sinif: k.sinif || '', no: k.no || '', adi: ad.adi, soyadi: ad.soyadi, olayTarih: k.tarih || '', davranis: k.davranis || '',
+      uyariTarih: k.tutanakTarih || k.tarih || '', ogretmen: k.ogretmen || '', tarih: vtBugun().tarih, imzaAd: k.ad || ''});
     document.getElementById('odSinifSec').value = 'TUMU';
     odOgrenciDoldur();
     document.getElementById('odOgrenciSec').value = k.no || '';
@@ -12662,11 +12734,13 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   }
 
   function openOddkModal(){
+    odBaslikYaz();
     odTutListeDoldur();
+    odOgretmenListeDoldur();
     odSinifDoldur();
     odOgrenciDoldur();
     odKayitDoldur(null);
-    odFormYaz({tarih: odBugun()});
+    odFormYaz({tarih: vtBugun().tarih});
     document.getElementById('odDurum').textContent = '';
     document.getElementById('oddkOverlay').classList.add('active');
   }
@@ -12685,62 +12759,85 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     var sel = document.getElementById('odOgrenciSec');
     var liste = ogbOgrenciler().filter(function(o){
       return sinif === 'TUMU' || (sinif === '__YOK__' ? !o.sinif : sinifAnahtar(o.sinif) === sinif);
-    });
+    }).sort(svSinifSirala);
     sel.innerHTML = '<option value="">(Öğrenci seçiniz' + (liste.length ? ' - ' + liste.length + ' öğrenci' : '') + ')</option>' + liste.map(function(o){
-      return '<option value="' + escapeHtml(o.no) + '">' + escapeHtml(o.no + ' - ' + o.adi + ' ' + o.soyadi + (sinif === 'TUMU' && o.sinif ? ' (' + o.sinif + ')' : '')) + '</option>';
+      return '<option value="' + escapeHtml(o.no) + '">' + escapeHtml(o.no + ' - ' + svAd(o) + (sinif === 'TUMU' && o.sinif ? ' (' + o.sinif + ')' : '')) + '</option>';
     }).join('');
   }
   function odOgrenciSecildi(){
     var no = document.getElementById('odOgrenciSec').value;
     var o = odOgrenciler().filter(function(x){ return x.no === no; })[0];
+    document.getElementById('odAdi').value = o ? o.adi : '';
+    document.getElementById('odSoyadi').value = o ? o.soyadi : '';
     document.getElementById('odSinif').value = o ? o.sinif : '';
     document.getElementById('odNo').value = o ? o.no : '';
-    document.getElementById('odAdSoyadImza').value = o ? o.ad : '';
-    var ogr = o ? ogbOgrenciler().filter(function(x){ return x.no === no; })[0] : null;
-    document.getElementById('odAdi').value = ogr ? (ogr.adi || '') : '';
-    document.getElementById('odSoyadi').value = ogr ? (ogr.soyadi || '') : '';
+    document.getElementById('odImzaAd').value = o ? (o.adi + ' ' + o.soyadi).trim() : '';
+    odOnizle();
   }
 
   function odFormYaz(k){
     Object.keys(OD_ALANLAR).forEach(function(a){ document.getElementById(OD_ALANLAR[a]).value = k[a] || ''; });
+    odOnizle();
   }
   function odFormOku(){
     var k = {};
     Object.keys(OD_ALANLAR).forEach(function(a){ k[a] = document.getElementById(OD_ALANLAR[a]).value.trim(); });
-    k.ad = ((k.adi || '') + ' ' + (k.soyadi || '')).trim();
     return k;
+  }
+  /* Eski kayıtlar (ad, d1, ogrt, gg.aa.yyyy tarih) yeni alanlara dönüştürülür */
+  function odKayitUyarla(k){
+    k = Object.assign({}, k);
+    if(!k.adi && k.ad){ var a = odAdAyir(k.ad, k.no); k.adi = a.adi; k.soyadi = a.soyadi; }
+    if(!k.davranis && k.d1) k.davranis = [k.d1, k.d2, k.d3].filter(Boolean).join(' ');
+    if(!k.ogretmen && k.ogrt) k.ogretmen = String(k.ogrt).split(' / ')[0];
+    if(!k.imzaAd && k.ogrImza) k.imzaAd = k.ogrImza;
+    var m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(k.tarih || '');
+    if(m) k.tarih = m[3] + '-' + m[2] + '-' + m[1];
+    return k;
+  }
+  /* Şablon metni: [{t, d}] (d: doldurulmuş değer) */
+  function odParcalar(k){
+    var dav = k.davranis ? {t: k.davranis, d: 1} : {t: ekNokta(9)};
+    var ogrt = k.ogretmen ? {t: k.ogretmen, d: 1} : {t: ekNokta(1)};
+    var ol = ekTarih(k.olayTarih, '……/…../202…'), up = ekTarih(k.uyariTarih, '……/…../202…'), sn = ekTarih(k.tarih, '……/……/202…');
+    return [
+      {t: 'Ben '}, {t: ol, d: !!k.olayTarih}, {t: ' tarihinde '}, dav, {t: ' davranışında bulundum. '},
+      {t: up, d: !!k.uyariTarih}, {t: ' tarihinde '}, ogrt,
+      {t: ' öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum. '},
+      {t: sn, d: !!k.tarih}
+    ];
+  }
+  function odOnizle(){
+    var k = odFormOku();
+    var e = document.getElementById('odMetin');
+    if(!e) return;
+    e.innerHTML = odParcalar(k).map(function(p){ return p.d ? '<u>' + escapeHtml(p.t) + '</u>' : escapeHtml(p.t); }).join('');
   }
   function odKayitDoldur(sec){
     var sel = document.getElementById('odKayit');
-    sel.innerHTML = '<option value="">(Yeni sözleşme)</option>' + odKayitlar().map(function(k, i){
-      return '<option value="' + i + '">' + escapeHtml((k.ad || '(adsız)') + (k.sinif ? ' (' + k.sinif + ')' : '') + (k.tarih ? ' - ' + k.tarih : '')) + '</option>';
+    sel.innerHTML = '<option value="">(Yeni sözleşme)</option>' + odKayitlar().map(function(k0, i){
+      var k = odKayitUyarla(k0), ad = ((k.adi || '') + ' ' + (k.soyadi || '')).trim();
+      return '<option value="' + i + '">' + escapeHtml((ad || '(adsız)') + (k.sinif ? ' (' + k.sinif + ')' : '') + (k.tarih ? ' - ' + dsTarihYaz(k.tarih) : '')) + '</option>';
     }).join('');
     sel.value = (sec == null) ? '' : String(sec);
   }
   function odKayitSec(){
-    var v = document.getElementById('odKayit').value;
-    var durum = document.getElementById('odDurum');
+    var v = document.getElementById('odKayit').value, durum = document.getElementById('odDurum');
     durum.textContent = '';
     document.getElementById('odTutSec').value = '';
-    if(v === ''){ OD_SECILI = null; document.getElementById('odOgrenciSec').value = ''; odFormYaz({tarih: odBugun()}); return; }
+    if(v === ''){ OD_SECILI = null; document.getElementById('odOgrenciSec').value = ''; odFormYaz({tarih: vtBugun().tarih}); return; }
     var k = odKayitlar()[Number(v)];
     if(!k) return;
-    if(k.d2 || k.d3){ k = Object.assign({}, k, {d1: [k.d1, k.d2, k.d3].filter(Boolean).join(' '), d2: '', d3: ''}); }
-    if(!k.adi && k.ad){ var eskiAd = String(k.ad).trim().split(/\s+/); k.adi = eskiAd.slice(0,-1).join(' '); k.soyadi = eskiAd.slice(-1).join(' '); }
-    if(k.davranisTarih === undefined) k.davranisTarih = '';
-    if(k.uyariTarih === undefined) k.uyariTarih = '';
-    if(k.adSoyadImza === undefined) k.adSoyadImza = k.ad || '';
+    k = odKayitUyarla(k);
     OD_SECILI = Number(v);
     odFormYaz(k);
-    var sel = document.getElementById('odOgrenciSec');
     document.getElementById('odSinifSec').value = 'TUMU';
     odOgrenciDoldur();
-    sel.value = k.no || '';
+    document.getElementById('odOgrenciSec').value = k.no || '';
   }
   function odKaydet(){
-    var durum = document.getElementById('odDurum');
-    var k = odFormOku();
-    if(!k.ad){ durum.textContent = 'Önce bir öğrenci seçiniz.'; return; }
+    var durum = document.getElementById('odDurum'), k = odFormOku();
+    if(!k.adi && !k.soyadi){ durum.textContent = 'Önce bir öğrenci veya öğrenci tutanağı seçiniz.'; return; }
     var l = odKayitlar();
     if(OD_SECILI !== null && l[OD_SECILI]) l[OD_SECILI] = k; else { l.push(k); OD_SECILI = l.length - 1; }
     odKayitlariYaz(l);
@@ -12762,63 +12859,103 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     document.getElementById('odTutSec').value = '';
     odKayitDoldur(null);
     document.getElementById('odOgrenciSec').value = '';
-    odFormYaz({tarih: odBugun()});
+    odFormYaz({tarih: vtBugun().tarih});
     document.getElementById('odDurum').textContent = '';
   }
-  /* e-Okul: öğrenci listesini "Öğrenci Bilgileri" bölümünden yeniler */
+  /* e-Okul: başlığı, öğrenci / öğretmen listelerini ve tutanak listesini yeniler */
   function odEOkul(){
+    odBaslikYaz();
     odTutListeDoldur();
     odSinifDoldur();
     odOgrenciDoldur();
     odOgretmenListeDoldur();
     var n = ogbOgrenciler().length;
     document.getElementById('odDurum').textContent = n
-      ? ('Öğrenci ve öğretmen listeleri yenilendi (' + n + ' öğrenci).')
+      ? ('Okul başlığı, öğrenci ve öğretmen listeleri yenilendi (' + n + ' öğrenci).')
       : 'Öğrenci bulunamadı. Önce "Öğrenci Sınıf Listeleri" / "Öğrenci Bilgileri" bölümüne e-Okul dosyasını yükleyin.';
   }
+  function odRaporKayitlari(){
+    var k = odFormOku();
+    if(k.adi || k.soyadi) return [k];
+    return odKayitlar().map(odKayitUyarla);
+  }
 
-  function odPdfDok(k){
-    var line = {hLineWidth:function(){return .7;},vLineWidth:function(){return .7;},hLineColor:function(){return '#111';},vLineColor:function(){return '#111';},paddingLeft:function(){return 6;},paddingRight:function(){return 6;},paddingTop:function(){return 5;},paddingBottom:function(){return 5;}};
-    var dotted = {hLineWidth:function(i,node){return i===node.table.body.length?0.7:0;},vLineWidth:function(){return 0;},hLineColor:function(){return '#111';},paddingLeft:function(){return 2;},paddingRight:function(){return 2;},paddingTop:function(){return 3;},paddingBottom:function(){return 3;}};
+  function odSayfa(k){
+    var b = vtBaslik(), c = [];
+    var P = odParcalar(k), P0 = odParcalar({});
+    var kayma = Math.max(0, ekSatirSayisi(P, 471) - ekSatirSayisi(P0, 471)) * EK_SATIR;
+    EK_ICERIK_CIZGI(c);
+    ekUst(EK_SOZ, b, 'ÖĞRENCİ SÖZLEŞMESİ').forEach(function(x){ c.push(x); });
+    /* Öğrenci tablosu: örnek PDF'deki çizgiler */
+    var cz = [], X1 = 63.8, X2 = 525.6;
+    [171.9, 202.9, 232.6, 261.7, 290.2, 321.8].forEach(function(y){ cz.push({type: 'line', x1: X1, y1: y, x2: X2, y2: y, lineWidth: 0.75}); });
+    [X1, X2].forEach(function(x){ cz.push({type: 'line', x1: x, y1: 171.9, x2: x, y2: 321.8, lineWidth: 0.75}); });
+    [155.9, 170.5].forEach(function(x){ cz.push({type: 'line', x1: x, y1: 202.9, x2: x, y2: 321.8, lineWidth: 0.75}); });
+    c.push({canvas: cz, absolutePosition: {x: 0, y: 0}});
+    c.push(ekYazi('ÖĞRENCİNİN:', 71, 181.2, {bold: true}));
+    [['Adı', k.adi, 210.5], ['Soyadı', k.soyadi, 239.5], ['Sınıfı', k.sinif, 268.6], ['Numarası', k.no, 297.4]].forEach(function(r){
+      c.push(ekYazi(r[0], 71, r[2], {bold: true, w: 84}));
+      c.push(ekYazi(':', 160.5, r[2], {bold: true, w: 10}));
+      c.push(ekYazi(r[1] || ' ', 177, r[2], {bold: true, w: 340}));
+    });
+    /* Gövde metni */
+    var runs = P.map(ekPdfParca);
+    runs[0] = {text: ' '.repeat(12) + runs[0].text};
+    c.push({columns: [{width: 471, alignment: 'justify', lineHeight: 1.555, text: runs}], absolutePosition: {x: 43.9, y: 332.2}});
+    var y = 507.4 + kayma;
+    c.push(ekYazi('İmza: ……..………………………….', 198, y, {bold: true, w: 300, h: 'right'}));
+    c.push(ekYazi('Ad-Soyad: ' + (k.imzaAd || '……..………………………….'), 198, y + 32.4, {bold: true, w: 300, h: 'right'}));
+    c.push(ekYazi('*Öğrenci tarafından doldurulacaktır.', 70.8, 777.9, {bold: true}));
+    return c;
+  }
+  function odPdfDok(liste){
     return {
-      pageSize:'A4', pageMargins:[42,30,42,42],
-      defaultStyle:{font:'Roboto',fontSize:10.5,lineHeight:1.25},
-      content:[
-        {text:'T.C.',alignment:'center',bold:true,fontSize:11},
-        {text:'KARATAY KAYMAKAMLIĞI',alignment:'center',bold:true,fontSize:12},
-        {text:'Fetihkent İmam Hatip Ortaokulu Müdürlüğü',alignment:'center',bold:true,fontSize:11},
-        {text:'EK-2',alignment:'right',bold:true,margin:[0,0,0,8]},
-        {text:'ÖĞRENCİ SÖZLEŞMESİ',alignment:'center',bold:true,fontSize:19,margin:[0,8,0,18]},
-        {table:{widths:['*'],body:[[{text:'ÖĞRENCİNİN:',bold:true}]]},layout:line,margin:[0,0,0,0]},
-        {table:{widths:[95,12,'*'],body:[
-          [{text:'Adı',bold:true},{text:':'},{text:k.adi||''}],
-          [{text:'Soyadı',bold:true},{text:':'},{text:k.soyadi||''}],
-          [{text:'Sınıfı',bold:true},{text:':'},{text:k.sinif||''}],
-          [{text:'Numarası',bold:true},{text:':'},{text:k.no||''}]
-        ]},layout:line,margin:[0,0,0,12]},
-        {text:[
-          'Ben ',{text:k.davranisTarih?dsTarihYaz(k.davranisTarih):'……/…../202…',bold:true,decoration:'underline'},
-          ' tarihinde ',{text:k.d1||'…………………………………………………………………………',bold:true,decoration:'underline'},
-          ' davranışında bulundum. ',{text:k.uyariTarih?dsTarihYaz(k.uyariTarih):'……/…../202…',bold:true,decoration:'underline'},
-          ' tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum. ',
-          {text:k.tarih?dsTarihYaz(k.tarih):'……/……/202…',bold:true,decoration:'underline'}
-        ],alignment:'justify',fontSize:11,lineHeight:1.65,margin:[0,0,0,38]},
-        {columns:[{width:'*',text:''},{width:235,stack:[
-          {text:'İmza:  '+(k.ogrImza||'……………………………………'),bold:true,margin:[0,0,0,20]},
-          {text:'Ad-Soyad:  '+(k.adSoyadImza||((k.adi||'')+' '+(k.soyadi||''))),bold:true}
-        ]}]},
-        {text:'*Öğrenci tarafından doldurulacaktır.',bold:true,italics:true,fontSize:9,margin:[0,100,0,0]}
-      ]
+      pageSize: 'A4', pageMargins: [0, 0, 0, 0], defaultStyle: {font: 'TNR', fontSize: 12},
+      background: function(){ return ekCerceve('soz'); },
+      content: ekSayfalar(liste, odSayfa)
     };
+  }
+  function EK_ICERIK_CIZGI(){ }
+  function odExcelOlustur(liste){
+    var wb = new ExcelJS.Workbook(), kullanilan = {}, b = vtBaslik();
+    liste.forEach(function(k, i){
+      var ad = (((k.adi || '') + ' ' + (k.soyadi || '')).trim() || ('Sözleşme ' + (i + 1))).replace(/[\\\/\?\*\[\]:]/g, '').substring(0, 28);
+      if(kullanilan[ad]) ad = ad.substring(0, 24) + ' ' + (i + 1);
+      kullanilan[ad] = true;
+      var ws = ekExcelSayfa(wb, ad, 'soz');
+      var F = ekExcelUst(wb, ws, EK_SOZ, b, 'ÖĞRENCİ SÖZLEŞMESİ', 'EK-2');
+      var ince = {style: 'thin'}, kenar = {top: ince, bottom: ince, left: ince, right: ince};
+      ws.mergeCells(9, 2, 9, 8); var h = ws.getCell(9, 2); h.value = 'ÖĞRENCİNİN:'; h.font = F(12, true); h.alignment = {vertical: 'middle'};
+      for(var c = 2; c <= 8; c++) ws.getCell(9, c).border = kenar;
+      ws.getRow(9).height = 24;
+      [['Adı', k.adi], ['Soyadı', k.soyadi], ['Sınıfı', k.sinif], ['Numarası', k.no]].forEach(function(r, j){
+        var rr = 10 + j;
+        ws.getRow(rr).height = 24;
+        var a = ws.getCell(rr, 2); a.value = r[0]; a.font = F(12, true); a.border = kenar; a.alignment = {vertical: 'middle'};
+        var d = ws.getCell(rr, 3); d.value = ':'; d.font = F(12, true); d.border = kenar; d.alignment = {horizontal: 'center', vertical: 'middle'};
+        ws.mergeCells(rr, 4, rr, 8);
+        var v = ws.getCell(rr, 4); v.value = r[1] || ''; v.font = F(12, true); v.alignment = {vertical: 'middle'};
+        for(var cc = 4; cc <= 8; cc++) ws.getCell(rr, cc).border = kenar;
+      });
+      var P = odParcalar(k).map(function(p, j){ return j === 0 ? {t: '            ' + p.t, d: p.d} : p; });
+      ekExcelParagraf(ws, 15, P, Math.max(120, ekSatirSayisi(P, 471) * 17 + 8));
+      ws.mergeCells(17, 4, 17, 8); var im = ws.getCell(17, 4); im.value = 'İmza: ……..………………………….'; im.font = F(12, true); im.alignment = {horizontal: 'right', vertical: 'middle'};
+      ws.mergeCells(18, 4, 18, 8); var ads = ws.getCell(18, 4); ads.value = 'Ad-Soyad: ' + (k.imzaAd || '……..………………………….'); ads.font = F(12, true); ads.alignment = {horizontal: 'right', vertical: 'middle'};
+      ws.getRow(17).height = 28; ws.getRow(18).height = 28;
+      ws.getRow(20).height = 150;
+      ws.mergeCells(22, 2, 22, 8); var nt = ws.getCell(22, 2); nt.value = '*Öğrenci tarafından doldurulacaktır.'; nt.font = F(12, true);
+      ekExcelCerceve(ws, 23, true);
+    });
+    return wb.xlsx.writeBuffer();
   }
   function odCikti(tur){
     var durum = document.getElementById('odDurum');
-    var k = odFormOku();
-    if(!k.ad){ durum.textContent = 'Önce bir öğrenci seçiniz.'; return; }
-    var dosya = rapDosyaAdi('ODDK_Sozlesme_');
+    var liste = odRaporKayitlari();
+    if(!liste.length){ durum.textContent = 'Rapor için önce bir öğrenci veya öğrenci tutanağı seçiniz.'; return; }
+    var dosya = rapDosyaAdi(liste.length > 1 ? 'ODDK_Sozlesmeler_' : 'ODDK_Sozlesme_');
     if(tur === 'excel'){
       if(typeof ExcelJS === 'undefined'){ durum.textContent = 'Excel oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
-      odExcelOlustur(k).then(function(buf){
+      odExcelOlustur(liste).then(function(buf){
         rapIndir(new Blob([buf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), dosya + '.xlsx');
         durum.textContent = 'Sözleşme Excel olarak indirildi.';
       }).catch(function(){ durum.textContent = 'Excel oluşturulamadı.'; });
@@ -12826,30 +12963,251 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     }
     if(typeof pdfMake === 'undefined'){ durum.textContent = 'PDF oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
     try{
-      pdfMake.createPdf(odPdfDok(k)).download(dosya + '.pdf');
+      ekPdfOlustur(odPdfDok(liste)).download(dosya + '.pdf');
       durum.textContent = 'Sözleşme PDF olarak indirildi.';
     }catch(err){ durum.textContent = 'PDF oluşturulamadı.'; }
   }
-  function odExcelOlustur(k){
-    var wb=new ExcelJS.Workbook(), ws=wb.addWorksheet('Öğrenci Sözleşmesi',{pageSetup:{paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1}});
-    ws.columns=[{width:20},{width:5},{width:75}];
-    function row(r,label,value,height){
-      ws.mergeCells(r,1,r,1); ws.getCell(r,1).value=label; ws.getCell(r,1).font={bold:true,name:'Times New Roman',size:11};
-      ws.getCell(r,2).value=':'; ws.getCell(r,3).value=value||'';
-      [1,2,3].forEach(c=>{ws.getCell(r,c).border={top:{style:'thin'},bottom:{style:'thin'},left:{style:'thin'},right:{style:'thin'}};ws.getCell(r,c).alignment={vertical:'middle',wrapText:true};});
-      if(height)ws.getRow(r).height=height;
+
+  /* ================= ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ (EK-3) ================= */
+  var ODS_SECILI = null;
+  var ODS_ALANLAR = {sinif: 'odsSinif', no: 'odsNo', ad: 'odsAd', gerekce: 'odsGerekce', tarih: 'odsTarih', ogretmen: 'odsOgretmen', adres: 'odsAdres', telefon: 'odsTelefon'};
+
+  function odsKayitlar(){ return rapLoad('oddkSevkListesi', []); }
+  function odsYaz(l){ localStorage.setItem('oddkSevkListesi', JSON.stringify(l)); }
+  function odsBaslikYaz(){
+    var b = vtBaslik();
+    document.getElementById('odsIlce').textContent = b.ilce;
+    document.getElementById('odsOkul').textContent = b.okul;
+    document.getElementById('odsMakam').textContent = vtOkulAdi().toLocaleUpperCase('tr') + ' MÜDÜRLÜĞÜNE';
+  }
+  function odsTutListeDoldur(){
+    var sel = document.getElementById('odsTutSec'), onceki = sel.value;
+    sel.innerHTML = ekTutanakSecenekleri();
+    if(onceki && Array.prototype.some.call(sel.options, function(o){ return o.value === onceki; })) sel.value = onceki;
+  }
+  function odsTutanaktanDoldur(){
+    var v = document.getElementById('odsTutSec').value, durum = document.getElementById('odsDurum');
+    if(v === '') return;
+    var k = rapLoad('ogrenciTutanaklari', [])[Number(v)];
+    if(!k){ durum.textContent = 'Tutanak bulunamadı.'; return; }
+    ODS_SECILI = null;
+    document.getElementById('odsKayit').value = '';
+    var onceki = odsFormOku();
+    odsFormYaz({sinif: k.sinif || '', no: k.no || '', ad: k.ad || '', gerekce: k.davranis || '', tarih: vtBugun().tarih, ogretmen: k.ogretmen || '',
+      adres: onceki.adres, telefon: onceki.telefon});
+    document.getElementById('odsSinifSec').value = 'TUMU';
+    odsOgrenciDoldur();
+    document.getElementById('odsOgrenciSec').value = k.no || '';
+    durum.textContent = 'Tutanak bilgileri sevk dilekçesine aktarıldı. Kaydet ile dilekçeyi saklayabilirsiniz.';
+  }
+  function openOdsModal(){
+    odsBaslikYaz();
+    odsTutListeDoldur();
+    odOgretmenListeDoldur();
+    odsSinifDoldur();
+    odsOgrenciDoldur();
+    odsKayitDoldur(null);
+    odsFormYaz({tarih: vtBugun().tarih});
+    document.getElementById('odsDurum').textContent = '';
+    document.getElementById('odsOverlay').classList.add('active');
+  }
+  function closeOdsModal(){ document.getElementById('odsOverlay').classList.remove('active'); }
+  function odsSinifDoldur(){
+    var sel = document.getElementById('odsSinifSec'), onceki = sel.value;
+    var tum = ogbOgrenciler();
+    sel.innerHTML = '<option value="TUMU">Tüm Sınıflar</option>' + ogbSiniflar(tum).map(function(s){
+      return '<option value="' + escapeHtml(s.anahtar) + '">' + escapeHtml(s.ad) + '</option>';
+    }).join('') + (tum.some(function(o){ return !o.sinif; }) ? '<option value="__YOK__">(Sınıfı belirsiz)</option>' : '');
+    if(onceki && Array.prototype.some.call(sel.options, function(o){ return o.value === onceki; })) sel.value = onceki;
+  }
+  function odsOgrenciDoldur(){
+    var sinif = document.getElementById('odsSinifSec').value;
+    var sel = document.getElementById('odsOgrenciSec');
+    var liste = ogbOgrenciler().filter(function(o){
+      return sinif === 'TUMU' || (sinif === '__YOK__' ? !o.sinif : sinifAnahtar(o.sinif) === sinif);
+    }).sort(svSinifSirala);
+    sel.innerHTML = '<option value="">(Öğrenci seçiniz' + (liste.length ? ' - ' + liste.length + ' öğrenci' : '') + ')</option>' + liste.map(function(o){
+      return '<option value="' + escapeHtml(o.no) + '">' + escapeHtml(o.no + ' - ' + svAd(o) + (sinif === 'TUMU' && o.sinif ? ' (' + o.sinif + ')' : '')) + '</option>';
+    }).join('');
+  }
+  function odsOgrenciSecildi(){
+    var no = document.getElementById('odsOgrenciSec').value;
+    var o = ogbOgrenciler().filter(function(x){ return x.no === no; })[0];
+    document.getElementById('odsAd').value = o ? svAd(o) : '';
+    document.getElementById('odsSinif').value = o ? (o.sinif || '') : '';
+    document.getElementById('odsNo').value = o ? o.no : '';
+    odsOnizle();
+  }
+  function odsFormYaz(k){
+    Object.keys(ODS_ALANLAR).forEach(function(a){ document.getElementById(ODS_ALANLAR[a]).value = k[a] || ''; });
+    odsOnizle();
+  }
+  function odsFormOku(){
+    var k = {};
+    Object.keys(ODS_ALANLAR).forEach(function(a){ k[a] = document.getElementById(ODS_ALANLAR[a]).value.trim(); });
+    return k;
+  }
+  /* Şablon metni: [{t, d}] */
+  function odsParcalar(k){
+    var gerekce = k.gerekce ? {t: k.gerekce, d: 1} : {t: ekNokta(9)};
+    return [
+      {t: 'Okulumuz '}, {t: k.sinif || '……/……', d: !!k.sinif}, {t: ' sınıfı '}, {t: k.no || '………', d: !!k.no}, {t: ' nolu öğrencilerinden '},
+      {t: k.ad || ekNokta(2), d: !!k.ad}, {t: ' tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen '}, gerekce,
+      {t: ' Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda;'}
+    ];
+  }
+  function odsOnizle(){
+    var k = odsFormOku(), e = document.getElementById('odsMetin');
+    if(!e) return;
+    e.innerHTML = odsParcalar(k).map(function(p){ return p.d ? '<u>' + escapeHtml(p.t) + '</u>' : escapeHtml(p.t); }).join('') +
+      '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gereğini bilgilerinize arz ederim.';
+  }
+  function odsKayitDoldur(sec){
+    var sel = document.getElementById('odsKayit');
+    sel.innerHTML = '<option value="">(Yeni dilekçe)</option>' + odsKayitlar().map(function(k, i){
+      return '<option value="' + i + '">' + escapeHtml((k.ad || '(adsız)') + (k.sinif ? ' (' + k.sinif + ')' : '') + (k.tarih ? ' - ' + dsTarihYaz(k.tarih) : '')) + '</option>';
+    }).join('');
+    sel.value = (sec == null) ? '' : String(sec);
+  }
+  function odsKayitSec(){
+    var v = document.getElementById('odsKayit').value;
+    document.getElementById('odsDurum').textContent = '';
+    document.getElementById('odsTutSec').value = '';
+    if(v === ''){ ODS_SECILI = null; document.getElementById('odsOgrenciSec').value = ''; odsFormYaz({tarih: vtBugun().tarih}); return; }
+    var k = odsKayitlar()[Number(v)];
+    if(!k) return;
+    ODS_SECILI = Number(v);
+    odsFormYaz(k);
+    document.getElementById('odsSinifSec').value = 'TUMU';
+    odsOgrenciDoldur();
+    document.getElementById('odsOgrenciSec').value = k.no || '';
+  }
+  function odsKaydet(){
+    var durum = document.getElementById('odsDurum'), k = odsFormOku();
+    if(!k.ad){ durum.textContent = 'Önce bir öğrenci veya öğrenci tutanağı seçiniz.'; return; }
+    var l = odsKayitlar();
+    if(ODS_SECILI !== null && l[ODS_SECILI]) l[ODS_SECILI] = k; else { l.push(k); ODS_SECILI = l.length - 1; }
+    odsYaz(l);
+    odsKayitDoldur(ODS_SECILI);
+    durum.textContent = 'Sevk dilekçesi kaydedildi.';
+  }
+  function odsSil(){
+    var durum = document.getElementById('odsDurum');
+    if(ODS_SECILI === null){ durum.textContent = 'Silmek için kayıtlı dilekçeyi seçiniz.'; return; }
+    if(!confirm('Seçili sevk dilekçesi silinsin mi?')) return;
+    var l = odsKayitlar();
+    l.splice(ODS_SECILI, 1);
+    odsYaz(l);
+    odsYeni();
+    durum.textContent = 'Sevk dilekçesi silindi.';
+  }
+  function odsYeni(){
+    ODS_SECILI = null;
+    document.getElementById('odsTutSec').value = '';
+    odsKayitDoldur(null);
+    document.getElementById('odsOgrenciSec').value = '';
+    odsFormYaz({tarih: vtBugun().tarih});
+    document.getElementById('odsDurum').textContent = '';
+  }
+  function odsEOkul(){
+    odsBaslikYaz();
+    odsTutListeDoldur();
+    odOgretmenListeDoldur();
+    odsSinifDoldur();
+    odsOgrenciDoldur();
+    var n = ogbOgrenciler().length;
+    document.getElementById('odsDurum').textContent = n
+      ? ('Okul başlığı, öğrenci ve öğretmen listeleri yenilendi (' + n + ' öğrenci).')
+      : 'Öğrenci bulunamadı. Önce "Öğrenci Sınıf Listeleri" / "Öğrenci Bilgileri" bölümüne e-Okul dosyasını yükleyin.';
+  }
+  function odsRaporKayitlari(){
+    var k = odsFormOku();
+    if(k.ad) return [k];
+    return odsKayitlar();
+  }
+  function odsSayfa(k){
+    var b = vtBaslik(), c = [];
+    var P = odsParcalar(k), P0 = odsParcalar({});
+    var kayma = Math.max(0, ekSatirSayisi(P, 511) - ekSatirSayisi(P0, 511)) * EK_SATIR;
+    ekUst(EK_SEVK, b, 'ÖDDK’YA ÖĞRENCİ SEVK DİLEKÇESİ').forEach(function(x){ c.push(x); });
+    c.push(ekOrtala(vtOkulAdi().toLocaleUpperCase('tr') + ' MÜDÜRLÜĞÜNE', 298.3, 196.6, {bold: true, size: 11}));
+    var runs = P.map(ekPdfParca);
+    runs[0] = {text: ' '.repeat(12) + runs[0].text};
+    c.push({stack: [
+      {columns: [{width: 511, alignment: 'justify', lineHeight: 1.555, text: runs}]},
+      {text: ' '.repeat(12) + 'Gereğini bilgilerinize arz ederim.', lineHeight: 1.555, margin: [0, 0, 0, 0]}
+    ], absolutePosition: {x: 43.9, y: 247}});
+    var y = kayma;
+    c.push(ekYazi(ekTarih(k.tarih, '…./…./202…'), 43.9, 472.1 + y, {w: 433, h: 'right', bold: !!k.tarih}));
+    c.push(ekYazi('Adres', 71, 498.5 + y, {bold: true, w: 40}));
+    c.push(ekYazi(':', 108, 498.5 + y, {bold: true, w: 8}));
+    var adres = String(k.adres || '').split(/\r?\n/).filter(function(x){ return x.trim(); }).slice(0, 4);
+    for(var i = 0; i < 4; i++){
+      c.push(ekYazi(adres[i] || '…………………………………', i ? 115.7 : 116.2, [498.5, 526.3, 554.4, 581.8][i] + y, {w: 175, bold: !!adres[i]}));
     }
-    ws.mergeCells('A1:C1');ws.getCell('A1').value='T.C.\\nKARATAY KAYMAKAMLIĞI\\nFetihkent İmam Hatip Ortaokulu Müdürlüğü';ws.getCell('A1').font={bold:true,size:12,name:'Times New Roman'};ws.getCell('A1').alignment={horizontal:'center',vertical:'middle',wrapText:true};ws.getRow(1).height=52;
-    ws.mergeCells('A2:C2');ws.getCell('A2').value='EK-2';ws.getCell('A2').alignment={horizontal:'right'};
-    ws.mergeCells('A3:C3');ws.getCell('A3').value='ÖĞRENCİ SÖZLEŞMESİ';ws.getCell('A3').font={bold:true,size:17,name:'Times New Roman'};ws.getCell('A3').alignment={horizontal:'center'};ws.getRow(3).height=32;
-    ws.mergeCells('A4:C4');ws.getCell('A4').value='ÖĞRENCİNİN:';ws.getCell('A4').font={bold:true};
-    row(5,'Adı',k.adi);row(6,'Soyadı',k.soyadi);row(7,'Sınıfı',k.sinif);row(8,'Numarası',k.no);
-    ws.mergeCells('A10:C13');ws.getCell('A10').value='Ben '+(k.davranisTarih?dsTarihYaz(k.davranisTarih):'……/…../202…')+' tarihinde '+(k.d1||'………………………………')+' davranışında bulundum. '+(k.uyariTarih?dsTarihYaz(k.uyariTarih):'……/…../202…')+' tarihinde öğretmenim tarafından uyarıldım ve hatalı olduğumu anladım. Olumsuz davranışın yinelenmesi durumunda uygulanabilecek yaptırımlar konusunda bilgilendirildim. Aynı tür davranışı bir kez daha yapmayacağıma söz veriyorum. '+(k.tarih?dsTarihYaz(k.tarih):'……/……/202…');
-    ws.getCell('A10').alignment={wrapText:true,vertical:'top'};ws.getCell('A10').font={name:'Times New Roman',size:12};ws.getRow(10).height=100;
-    ws.mergeCells('B16:C16');ws.getCell('B16').value='İmza: '+(k.ogrImza||'……………………………………');ws.getCell('B16').font={bold:true};
-    ws.mergeCells('B18:C18');ws.getCell('B18').value='Ad-Soyad: '+(k.adSoyadImza||((k.adi||'')+' '+(k.soyadi||'')));ws.getCell('B18').font={bold:true};
-    ws.getCell('A27').value='*Öğrenci tarafından doldurulacaktır.';ws.getCell('A27').font={bold:true,italic:true};
+    c.push(ekYazi('…………………………………', 404, 526.3 + y, {w: 125}));
+    c.push(ekYazi((k.ogretmen || '………………………') + ' Öğretmeni', 404, 554.4 + y, {w: 150, bold: !!k.ogretmen}));
+    c.push(ekYazi('Telefon:', 70.8, 611.3 + y, {bold: true, w: 50}));
+    c.push(ekYazi(k.telefon || '0(……)………………………….', 121, 611.3 + y, {w: 200, bold: !!k.telefon}));
+    return c;
+  }
+  function odsPdfDok(liste){
+    return {
+      pageSize: 'A4', pageMargins: [0, 0, 0, 0], defaultStyle: {font: 'TNR', fontSize: 12},
+      background: function(){ return ekCerceve('sevk'); },
+      content: ekSayfalar(liste, odsSayfa)
+    };
+  }
+  function odsExcelOlustur(liste){
+    var wb = new ExcelJS.Workbook(), kullanilan = {}, b = vtBaslik();
+    liste.forEach(function(k, i){
+      var ad = String(k.ad || ('Sevk ' + (i + 1))).replace(/[\\\/\?\*\[\]:]/g, '').substring(0, 28) || ('Sevk ' + (i + 1));
+      if(kullanilan[ad]) ad = ad.substring(0, 24) + ' ' + (i + 1);
+      kullanilan[ad] = true;
+      var ws = ekExcelSayfa(wb, ad, 'sevk');
+      var F = ekExcelUst(wb, ws, EK_SEVK, b, 'ÖDDK’YA ÖĞRENCİ SEVK DİLEKÇESİ', 'EK-3');
+      function sat(r, c1, c2, text, font, h, yuk){
+        if(c2 > c1) ws.mergeCells(r, c1, r, c2);
+        var c = ws.getCell(r, c1); c.value = text; c.font = font; c.alignment = {horizontal: h || 'left', vertical: 'middle', wrapText: true};
+        if(yuk) ws.getRow(r).height = yuk;
+      }
+      sat(9, 2, 8, vtOkulAdi().toLocaleUpperCase('tr') + ' MÜDÜRLÜĞÜNE', F(11, true), 'center', 30);
+      var P = odsParcalar(k).map(function(p, j){ return j === 0 ? {t: '            ' + p.t, d: p.d} : p; });
+      ekExcelParagraf(ws, 11, P, Math.max(100, ekSatirSayisi(P, 511) * 17 + 8));
+      sat(12, 2, 8, '            Gereğini bilgilerinize arz ederim.', F(12), 'left', 22);
+      sat(14, 2, 8, ekTarih(k.tarih, '…./…./202…'), F(12, !!k.tarih), 'right', 60);
+      sat(16, 2, 2, 'Adres', F(12, true), 'left', 22); sat(16, 3, 3, ':', F(12, true), 'center'); sat(16, 4, 5, '', F(12), 'left');
+      var adres = String(k.adres || '').split(/\r?\n/).filter(function(x){ return x.trim(); }).slice(0, 4);
+      for(var j = 0; j < 4; j++){
+        sat(16 + j, 4, 5, adres[j] || '…………………………………', F(12, !!adres[j]), 'left', 22);
+      }
+      sat(17, 7, 8, '…………………………………', F(12), 'left');
+      sat(18, 7, 8, (k.ogretmen || '………………………') + ' Öğretmeni', F(12, !!k.ogretmen), 'left');
+      sat(21, 2, 2, 'Telefon:', F(12, true), 'left', 24);
+      sat(21, 4, 6, k.telefon || '0(……)………………………….', F(12, !!k.telefon), 'left');
+      ws.getRow(22).height = 150;
+      ekExcelCerceve(ws, 23, false);
+    });
     return wb.xlsx.writeBuffer();
+  }
+  function odsCikti(tur){
+    var durum = document.getElementById('odsDurum');
+    var liste = odsRaporKayitlari();
+    if(!liste.length){ durum.textContent = 'Rapor için önce bir öğrenci veya öğrenci tutanağı seçiniz.'; return; }
+    var dosya = rapDosyaAdi(liste.length > 1 ? 'ODDK_Sevk_Dilekceleri_' : 'ODDK_Sevk_Dilekcesi_');
+    if(tur === 'excel'){
+      if(typeof ExcelJS === 'undefined'){ durum.textContent = 'Excel oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
+      odsExcelOlustur(liste).then(function(buf){
+        rapIndir(new Blob([buf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), dosya + '.xlsx');
+        durum.textContent = 'Sevk dilekçesi Excel olarak indirildi.';
+      }).catch(function(){ durum.textContent = 'Excel oluşturulamadı.'; });
+      return;
+    }
+    if(typeof pdfMake === 'undefined'){ durum.textContent = 'PDF oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
+    try{
+      ekPdfOlustur(odsPdfDok(liste)).download(dosya + '.pdf');
+      durum.textContent = 'Sevk dilekçesi PDF olarak indirildi.';
+    }catch(err){ durum.textContent = 'PDF oluşturulamadı.'; }
   }
 
 
@@ -15537,14 +15895,14 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       {width: '*', alignment: 'center', stack: [{text: 'Tebliğ Alan', bold: true}, {text: d.ad, margin: [0, 2, 0, 0]}, {text: 'İmza : ..................', margin: [0, 18, 0, 0], fontSize: 9.5}]},
       {width: '*', alignment: 'center', stack: [{text: d.mudur, bold: true}, {text: d.mudurUnvan, margin: [0, 2, 0, 0]}]}
     ]});
-    return {pageSize: 'A4', pageOrientation: 'landscape', pageMargins: [28, 24, 28, 24], defaultStyle: {fontSize: 10}, content: icerik};
+    return {pageSize: 'A4', pageMargins: [34, 30, 34, 30], defaultStyle: {fontSize: 10}, content: icerik};
   }
 
   /* ---- Excel: A4 dikey ---- */
   function dpExcelOlustur(d){
     var c = dpIcerik(d);
     var wb = new ExcelJS.Workbook();
-    var ws = wb.addWorksheet('Ders Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
+    var ws = wb.addWorksheet('Ders Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
     ws.columns = [{width: 14}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}];
     var TEAL = 'FF1F5F66', ACIK = 'FFEAF3F4', KENAR = {style: 'thin', color: {argb: 'FF9BB8BC'}};
     var r = 1;
@@ -15887,14 +16245,14 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       {width: '*', alignment: 'center', stack: [{text: 'Sınıf Rehber Öğretmeni', bold: true}, {text: d.rehber || ' ', margin: [0, 2, 0, 0]}, {text: 'İmza : ..................', margin: [0, 18, 0, 0], fontSize: 9.5}]},
       {width: '*', alignment: 'center', stack: [{text: d.mudur, bold: true}, {text: d.mudurUnvan, margin: [0, 2, 0, 0]}]}
     ]});
-    return {pageSize: 'A4', pageOrientation: 'landscape', pageMargins: [28, 24, 28, 24], defaultStyle: {fontSize: 10}, content: icerik};
+    return {pageSize: 'A4', pageMargins: [34, 30, 34, 30], defaultStyle: {fontSize: 10}, content: icerik};
   }
 
   /* ---- Excel: A4 dikey ---- */
   function spExcelOlustur(d){
     var c = dpIcerik(d);
     var wb = new ExcelJS.Workbook();
-    var ws = wb.addWorksheet('Sınıf Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
+    var ws = wb.addWorksheet('Sınıf Programı', {views: [{showGridLines: false}], pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1, margins: {left: 0.4, right: 0.4, top: 0.4, bottom: 0.4, header: 0.2, footer: 0.2}}});
     ws.columns = [{width: 14}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}, {width: 13}];
     var TEAL = 'FF1F5F66', ACIK = 'FFEAF3F4', KENAR = {style: 'thin', color: {argb: 'FF9BB8BC'}};
     var r = 1;
@@ -16557,128 +16915,6 @@ window.addEventListener('load', menuSigdirPlanla);
 document.addEventListener('DOMContentLoaded', menuSigdirPlanla);
 if(document.fonts && document.fonts.ready){ document.fonts.ready.then(menuSigdirPlanla); }
 menuSigdirPlanla();
-
-  /* ================= ÖDDK'YA SEVK DİLEKÇESİ ================= */
-  var SK_SECILI = null;
-  function skKayitlar(){return rapLoad('oddkSevkleri',[]);}
-  function skYaz(l){localStorage.setItem('oddkSevkleri',JSON.stringify(l));}
-  function skTarihBugun(){return new Date().toISOString().slice(0,10);}
-  function skOgretmenDoldur(){
-    var l=rapLoad('ogretmenListesi',[]);
-    document.getElementById('skOgretmenListe').innerHTML=l.filter(function(x){return x&&x.ad;}).map(function(x){return '<option value="'+escapeHtml(x.ad)+'"></option>';}).join('');
-  }
-  function skBaslik(){
-    var b=vtBaslik();
-    document.getElementById('skIlce').textContent=b.ilce;
-    document.getElementById('skOkul').textContent=b.okul;
-  }
-  function skTutListe(){
-    var sel=document.getElementById('skOgrTutSec'), old=sel.value;
-    sel.innerHTML='<option value="">(Öğrenci tutanağı seçiniz)</option>'+otKayitlar().map(function(k,i){
-      return '<option value="'+i+'">'+escapeHtml((k.ad||'(adsız)')+(k.sinif?' ('+k.sinif+')':'')+(k.tarih?' - '+dsTarihYaz(k.tarih):''))+'</option>';
-    }).join('');
-    if(old&&Array.prototype.some.call(sel.options,function(o){return o.value===old;}))sel.value=old;
-  }
-  function skOku(){
-    return {sinif:document.getElementById('skSinif').value.trim(),no:document.getElementById('skNo').value.trim(),ad:document.getElementById('skAd').value.trim(),
-      davranis:document.getElementById('skDavranis').value.trim(),tarih:document.getElementById('skTarih').value,ogretmen:document.getElementById('skOgretmen').value.trim(),
-      adres:document.getElementById('skAdres').value.trim(),telefon:document.getElementById('skTelefon').value.trim()};
-  }
-  function skYazForm(k){
-    ['sinif','no','ad','davranis','tarih','ogretmen','adres','telefon'].forEach(function(a){document.getElementById('sk'+a.charAt(0).toUpperCase()+a.slice(1)).value=k[a]||'';});
-    skOnizle();
-  }
-  function skOnizle(){
-    var k=skOku(), f=function(v){return v||'………………………………';};
-    document.getElementById('skOnSinif').textContent=k.sinif||'……/……';
-    document.getElementById('skOnNo').textContent=k.no||'………';
-    document.getElementById('skOnAd').textContent=k.ad||'………………………………………….';
-    document.getElementById('skOnDavranis').textContent=f(k.davranis);
-    document.getElementById('skOnTarih').textContent=k.tarih?dsTarihYaz(k.tarih):'…./…./202…';
-    document.getElementById('skOnOgretmen').textContent=k.ogretmen||'………………………';
-    document.getElementById('skOnAdres').textContent=k.adres||'…………………………………';
-    document.getElementById('skOnTelefon').textContent=k.telefon||'0(……)……………………';
-  }
-  function skTutanaktanDoldur(){
-    var v=document.getElementById('skOgrTutSec').value;if(v==='')return;
-    var k=otKayitlar()[Number(v)], durum=document.getElementById('skDurum');
-    if(!k){durum.textContent='Öğrenci tutanağı bulunamadı.';return;}
-    SK_SECILI=null;document.getElementById('skKayit').value='';
-    skYazForm({sinif:k.sinif||'',no:k.no||'',ad:k.ad||'',davranis:k.davranis||'',tarih:skTarihBugun(),ogretmen:k.ogretmen||'',adres:'',telefon:''});
-    durum.textContent='Öğrenci tutanağındaki sınıf, numara, ad-soyad ve davranış bilgileri sevk dilekçesine aktarıldı.';
-  }
-  function skKayitDoldur(sec){
-    var sel=document.getElementById('skKayit');
-    sel.innerHTML='<option value="">(Yeni sevk dilekçesi)</option>'+skKayitlar().map(function(k,i){return '<option value="'+i+'">'+escapeHtml((k.ad||'(adsız)')+(k.sinif?' ('+k.sinif+')':'')+(k.tarih?' - '+dsTarihYaz(k.tarih):''))+'</option>';}).join('');
-    sel.value=sec==null?'':String(sec);
-  }
-  function skKayitSec(){
-    var v=document.getElementById('skKayit').value;
-    if(v===''){SK_SECILI=null;skYazForm({tarih:skTarihBugun()});return;}
-    var k=skKayitlar()[Number(v)];if(!k)return;SK_SECILI=Number(v);skYazForm(k);
-  }
-  function skKaydet(){
-    var k=skOku(),d=document.getElementById('skDurum');
-    if(!k.ad){d.textContent='Önce ÖDDK Öğrenci Tutanağı seçiniz.';return;}
-    if(!k.davranis){d.textContent='Sevk gerekçesini / davranış açıklamasını giriniz.';return;}
-    var l=skKayitlar();if(SK_SECILI!==null&&l[SK_SECILI])l[SK_SECILI]=k;else{l.push(k);SK_SECILI=l.length-1;}
-    skYaz(l);skKayitDoldur(SK_SECILI);d.textContent='Sevk dilekçesi kaydedildi.';
-  }
-  function skSil(){
-    var d=document.getElementById('skDurum');if(SK_SECILI===null){d.textContent='Silmek için kayıtlı sevk dilekçesi seçiniz.';return;}
-    if(!confirm('Seçili sevk dilekçesi silinsin mi?'))return;
-    var l=skKayitlar();l.splice(SK_SECILI,1);skYaz(l);skYeni();d.textContent='Sevk dilekçesi silindi.';
-  }
-  function skYeni(){SK_SECILI=null;document.getElementById('skOgrTutSec').value='';skKayitDoldur(null);skYazForm({tarih:skTarihBugun()});document.getElementById('skDurum').textContent='';}
-  function skEOkul(){skTutListe();skOgretmenDoldur();skBaslik();document.getElementById('skDurum').textContent='Öğrenci tutanağı, öğretmen ve okul bilgileri yenilendi.';}
-  function openSevkModal(){
-    skBaslik();skTutListe();skOgretmenDoldur();skKayitDoldur(null);skYazForm({tarih:skTarihBugun()});
-    document.getElementById('skDurum').textContent='';document.getElementById('sevkOverlay').classList.add('active');
-  }
-  function closeSevkModal(){document.getElementById('sevkOverlay').classList.remove('active');}
-  function skPdfDok(k){
-    var b=vtBaslik();
-    return {pageSize:'A4',pageMargins:[52,38,52,48],defaultStyle:{font:'Roboto',fontSize:11,lineHeight:1.45},content:[
-      {text:'T.C.',alignment:'center',bold:true,fontSize:12},
-      {text:b.ilce,alignment:'center',bold:true,fontSize:12},
-      {text:b.okul,alignment:'center',bold:true,fontSize:11},
-      {text:'EK-3',alignment:'right',bold:true,margin:[0,0,0,20]},
-      {text:"ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ",alignment:'center',bold:true,fontSize:17,margin:[0,12,0,48]},
-      {text:'FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE',alignment:'center',bold:true,margin:[0,0,0,40]},
-      {text:[
-        'Okulumuz ',{text:k.sinif||'……/……',bold:true,decoration:'underline'},' sınıfı ',
-        {text:k.no||'………',bold:true,decoration:'underline'},' nolu öğrencilerinden ',
-        {text:k.ad||'………………………………………….',bold:true,decoration:'underline'},
-        ' tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen ',
-        {text:k.davranis||'…………………………………………………………………………',bold:true,decoration:'underline'},
-        ' Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda;\\n\\n       Gereğini bilgilerinize arz ederim.'
-      ],alignment:'justify',fontSize:12,lineHeight:1.8,margin:[0,0,0,58]},
-      {text:k.tarih?dsTarihYaz(k.tarih):'…./…./202…',alignment:'right',margin:[0,0,0,24]},
-      {columns:[{width:'55%',stack:[{text:'Adres : '+(k.adres||'…………………………………'),fontSize:10,lineHeight:1.5},{text:'Telefon: '+(k.telefon||'0(……)……………………'),margin:[0,22,0,0],fontSize:10}]},
-        {width:'45%',stack:[{text:k.ogretmen||'………………………',alignment:'center',margin:[0,22,0,0]},{text:'Öğretmeni',alignment:'center'}]}]}
-    ]};
-  }
-  function skExcelOlustur(k){
-    var wb=new ExcelJS.Workbook(),ws=wb.addWorksheet('ÖDDK Sevk',{pageSetup:{paperSize:9,orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1}});
-    ws.columns=[{width:25},{width:75}];
-    function sat(r,t,b,h){ws.mergeCells(r,1,r,2);ws.getCell(r,1).value=t;ws.getCell(r,1).font={name:'Times New Roman',size:11,bold:!!b};ws.getCell(r,1).alignment={horizontal:'center',vertical:'middle',wrapText:true};if(h)ws.getRow(r).height=h;}
-    sat(1,'T.C.\\n'+vtBaslik().ilce+'\\n'+vtBaslik().okul,true,54);sat(2,'EK-3',true,20);sat(4,"ÖDDK'YA ÖĞRENCİ SEVK DİLEKÇESİ",true,36);sat(6,'FETİHKENT İMAM HATİP ORTAOKULU MÜDÜRLÜĞÜNE',true,28);
-    sat(9,'Okulumuz '+(k.sinif||'……/……')+' sınıfı '+(k.no||'………')+' nolu öğrencilerinden '+(k.ad||'……………………')+' tüm ikazlarıma ve gerekli rehberliği yapmış olmama rağmen '+(k.davranis||'……………………')+' Adı geçen öğrencimizin durumunun değerlendirilmesi için Öğrenci Davranışları Değerlendirme Kuruluna sevk edilmesi hususunda; Gereğini bilgilerinize arz ederim.',false,140);
-    sat(13,k.tarih?dsTarihYaz(k.tarih):'…./…./202…',false,24);sat(15,'Adres: '+(k.adres||''),false,30);sat(17,'Telefon: '+(k.telefon||''),false,24);sat(19,(k.ogretmen||'')+'\\nÖğretmeni',false,42);
-    return wb.xlsx.writeBuffer();
-  }
-  function skCikti(tur){
-    var d=document.getElementById('skDurum'),k=skOku();
-    if(!k.ad){d.textContent='Önce ÖDDK Öğrenci Tutanağı seçiniz.';return;}
-    var ad=rapDosyaAdi('ODDK_Sevk_Dilekcesi_');
-    if(tur==='excel'){
-      if(typeof ExcelJS==='undefined'){d.textContent='Excel oluşturulamadı (internet bağlantısını kontrol edin).';return;}
-      skExcelOlustur(k).then(function(buf){rapIndir(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}),ad+'.xlsx');d.textContent='Sevk dilekçesi Excel olarak indirildi.';}).catch(function(){d.textContent='Excel oluşturulamadı.';});return;
-    }
-    if(typeof pdfMake==='undefined'){d.textContent='PDF oluşturulamadı (internet bağlantısını kontrol edin).';return;}
-    try{pdfMake.createPdf(skPdfDok(k)).download(ad+'.pdf');d.textContent='Sevk dilekçesi PDF olarak indirildi.';}catch(e){d.textContent='PDF oluşturulamadı.';}
-  }
-
 </script>
 </body>
 </html>
