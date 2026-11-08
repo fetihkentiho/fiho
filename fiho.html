@@ -637,6 +637,7 @@
   .bottombar nav button{width:49px;height:49px;}
   .bottombar nav button svg{width:26px;height:26px;}
   nav button.active{background:#bfe0e3;box-shadow:inset 0 0 0 2px var(--accent);}
+  @media (max-width:480px){.bottombar .header-inner{padding-left:8px;padding-right:8px;}.bottombar nav{gap:5px;}.bottombar nav button{width:44px;height:44px;}.bottombar nav button svg{width:24px;height:24px;}}
 
   /* ---------- Gömülü sayfalar (Rehber / Nöbetçi) ---------- */
   .embed-page{
@@ -652,7 +653,9 @@
   .embed-page.active{display:block;}
   .embed-page iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
   body.view-rehber main, body.view-rehber footer,
-  body.view-nobetci main, body.view-nobetci footer{display:none !important;}
+  body.view-nobetci main, body.view-nobetci footer,
+  body.view-ebys main, body.view-ebys footer,
+  body.view-sinav main, body.view-sinav footer{display:none !important;}
 
   /* ---------- Buton yazıları: en fazla 2 satır, JS ile dinamik boyut ---------- */
   .menu-box{min-width:0;}
@@ -3937,6 +3940,409 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 &lt;/html&gt;"></iframe>
 </div>
 
+<div id="ebysPage" class="embed-page">
+  <iframe title="EBYS" data-srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;tr&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;EBYS – Elektronik Belge Yönetim Sistemi&lt;/title&gt;
+&lt;style&gt;
+:root{--bg:#e9edf2;--pn:#fff;--tx:#1d2733;--mu:#5d6b7a;--bd:#c3ccd6;--hd:#12395f;--ac:#1f5f9e;--sel:#cfe2f6;--hv:#edf4fb;--bar:#dde4ec;--rh:40px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#161b22;--pn:#1f2630;--tx:#e3e9f0;--mu:#93a1b1;--bd:#3a4655;--hd:#0c2a47;--ac:#5aa3e6;--sel:#27425f;--hv:#26303c;--bar:#2a3441;color-scheme:dark}}
+:root[data-theme=&quot;dark&quot;]{--bg:#161b22;--pn:#1f2630;--tx:#e3e9f0;--mu:#93a1b1;--bd:#3a4655;--hd:#0c2a47;--ac:#5aa3e6;--sel:#27425f;--hv:#26303c;--bar:#2a3441;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:13px/1.35 &quot;Segoe UI&quot;,Tahoma,Arial,sans-serif}
+#app{display:flex;flex-direction:column;height:100%}
+header{background:var(--hd);color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
+header b{letter-spacing:.5px;font-size:16px}
+main{flex:1;display:flex;min-height:0}
+#left{width:25%;min-width:250px;background:var(--pn);border-right:1px solid var(--bd);overflow-y:auto}
+#right{width:75%;display:flex;flex-direction:column;min-width:0}
+.srch{padding:6px;background:var(--bar);border-bottom:1px solid var(--bd);display:grid;gap:4px}
+.srch div{display:flex;gap:4px}
+input,textarea{font:inherit;color:var(--tx);background:var(--pn);border:1px solid var(--bd);border-radius:3px;padding:3px 6px;min-width:0}
+.srch input{flex:1}
+button{font:inherit;color:var(--tx);background:linear-gradient(var(--pn),var(--bar));border:1px solid var(--bd);border-radius:3px;padding:3px 10px;cursor:pointer}
+button:hover{border-color:var(--ac);color:var(--ac)}
+.srch button{width:74px;font-size:12px;padding:2px 4px}
+.lh{background:var(--hd);color:#fff;padding:3px 8px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.lh small{font-weight:400;opacity:.8}
+.lh button{padding:1px 10px;font-size:12px}
+.lb{height:calc(var(--rh)*5);overflow-y:auto;border-bottom:1px solid var(--bd)}
+.it{height:var(--rh);padding:3px 8px;border-bottom:1px solid var(--bd);cursor:pointer;overflow:hidden}
+.it:hover{background:var(--hv)}
+.it.on{background:var(--sel);border-left:4px solid var(--ac)}
+.it .n{display:flex;justify-content:space-between;color:var(--ac);font-weight:600;font-size:12px}
+.it .k{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+.it i{font-style:normal;color:var(--mu)}
+#tb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:6px 10px;background:var(--bar);border-bottom:1px solid var(--bd)}
+#tb button{padding:3px 12px;font-size:12px}
+#tur{margin-left:auto;font-weight:600;color:var(--ac)}
+#del.arm{background:#b3261e;color:#fff;border-color:#b3261e}
+#doc{flex:1;display:flex;flex-direction:column;min-height:0;padding:8px 12px;overflow:hidden}
+.g{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:6px 8px;align-items:center;margin-bottom:6px}
+.g label{color:var(--mu);text-align:right}
+.ekr{margin-bottom:4px}
+textarea{flex:1;min-height:120px;resize:none;width:100%}
+.ek{display:inline-flex;gap:6px;align-items:center;margin:0 6px 4px 0;padding:2px 10px;border:1px solid var(--bd);border-radius:14px;background:var(--pn);cursor:pointer;font-size:12px}
+.ek:hover,.ek.on{border-color:var(--ac);background:var(--sel)}
+.pv{flex:1;min-height:200px;display:flex;flex-direction:column;border:1px solid var(--bd);background:var(--pn)}
+.pv .ph{display:flex;justify-content:space-between;padding:4px 8px;background:var(--bar)}
+.pv iframe{flex:1;width:100%;border:0;background:#fff}
+.pv .cd{padding:20px;text-align:center}
+.pv a{color:var(--ac)}
+.empty{color:var(--mu);padding:14px;text-align:center}
+@media (max-width:700px){main{flex-direction:column}#left,#right{width:100%;min-width:0}#left{height:55%}#doc{overflow:auto}.g{grid-template-columns:auto 1fr}}
+&lt;/style&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;div id=&quot;app&quot;&gt;
+&lt;header&gt;&lt;b&gt;EBYS&lt;/b&gt;&lt;span&gt;Elektronik Belge Yönetim Sistemi&lt;/span&gt;&lt;span id=&quot;st&quot;&gt;&lt;/span&gt;&lt;/header&gt;
+&lt;main&gt;
+&lt;aside id=&quot;left&quot;&gt;
+ &lt;div class=&quot;srch&quot;&gt;
+  &lt;div&gt;&lt;input id=&quot;s0&quot; placeholder=&quot;Konu&quot;&gt;&lt;button data-s=&quot;0&quot;&gt;Konu ara&lt;/button&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;input id=&quot;s1&quot; placeholder=&quot;Açıklama&quot;&gt;&lt;button data-s=&quot;1&quot;&gt;Açıklama&lt;/button&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;input id=&quot;s2&quot; placeholder=&quot;Tarih (gg.aa.yyyy)&quot;&gt;&lt;button data-s=&quot;2&quot;&gt;Tarih ara&lt;/button&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;input id=&quot;s3&quot; placeholder=&quot;Sayı&quot;&gt;&lt;button data-s=&quot;3&quot;&gt;Sayı ara&lt;/button&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div class=&quot;lh&quot;&gt;&lt;span&gt;Gelen Yazılar &lt;small id=&quot;c_gelen&quot;&gt;&lt;/small&gt;&lt;/span&gt;&lt;button data-up=&quot;gelen&quot;&gt;Yükle&lt;/button&gt;&lt;/div&gt;
+ &lt;div class=&quot;lb&quot; id=&quot;l_gelen&quot;&gt;&lt;/div&gt;
+ &lt;div class=&quot;lh&quot;&gt;&lt;span&gt;Giden Yazılar &lt;small id=&quot;c_giden&quot;&gt;&lt;/small&gt;&lt;/span&gt;&lt;button data-up=&quot;giden&quot;&gt;Yükle&lt;/button&gt;&lt;/div&gt;
+ &lt;div class=&quot;lb&quot; id=&quot;l_giden&quot;&gt;&lt;/div&gt;
+&lt;/aside&gt;
+&lt;section id=&quot;right&quot;&gt;
+ &lt;div id=&quot;tb&quot;&gt;
+  &lt;button id=&quot;bPdf&quot;&gt;PDF&lt;/button&gt;&lt;button id=&quot;bDoc&quot;&gt;Word&lt;/button&gt;&lt;button id=&quot;bXls&quot;&gt;Excel&lt;/button&gt;
+  &lt;button id=&quot;bNew&quot;&gt;Yeni&lt;/button&gt;&lt;button id=&quot;bSave&quot;&gt;Kaydet&lt;/button&gt;&lt;button id=&quot;del&quot;&gt;Sil&lt;/button&gt;
+  &lt;span id=&quot;tur&quot;&gt;&lt;/span&gt;
+ &lt;/div&gt;
+ &lt;div id=&quot;doc&quot;&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;/main&gt;&lt;/div&gt;
+&lt;input type=&quot;file&quot; id=&quot;fUp&quot; accept=&quot;.pdf&quot; hidden&gt;
+&lt;input type=&quot;file&quot; id=&quot;fPdf&quot; accept=&quot;.pdf&quot; hidden&gt;
+&lt;input type=&quot;file&quot; id=&quot;fDoc&quot; accept=&quot;.doc,.docx&quot; hidden&gt;
+&lt;input type=&quot;file&quot; id=&quot;fXls&quot; accept=&quot;.xls,.xlsx&quot; hidden&gt;
+&lt;script&gt;
+var $=function(i){return document.getElementById(i)};
+var docs=[],cur=null,prev=-1,delArm=false,urls={},upTur=&quot;gelen&quot;;
+try{pdfjsLib.GlobalWorkerOptions.workerSrc=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js&quot;}catch(e){}
+var seed=[
+{id:1,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1041&quot;,tarih:&quot;2026-11-02&quot;,konu:&quot;Veli toplantısı hakkında&quot;,aciklama:&quot;Okul müdürlüğünden gelen duyuru&quot;,icerik:&quot;Kasım ayı veli toplantısı 14 Kasım Cumartesi günü yapılacaktır.&quot;,ekler:[]},
+{id:2,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1042&quot;,tarih:&quot;2026-11-04&quot;,konu:&quot;Ders programı değişikliği&quot;,aciklama:&quot;İlçe MEM yazısı&quot;,icerik:&quot;Haftalık ders programında yapılan değişiklik bildirilmiştir.&quot;,ekler:[]},
+{id:3,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1043&quot;,tarih:&quot;2026-11-06&quot;,konu:&quot;Sınav takvimi&quot;,aciklama:&quot;Zümre başkanlığı&quot;,icerik:&quot;Birinci dönem ortak sınav tarihleri belirlenmiştir.&quot;,ekler:[]},
+{id:4,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1044&quot;,tarih:&quot;2026-11-09&quot;,konu:&quot;Kütüphane etkinliği&quot;,aciklama:&quot;Kitap okuma haftası&quot;,icerik:&quot;Kitap okuma haftası etkinlikleri için görevlendirme yapılmıştır.&quot;,ekler:[]},
+{id:5,tur:&quot;giden&quot;,sayi:&quot;G-2026/501&quot;,tarih:&quot;2026-11-03&quot;,konu:&quot;Servis araçları denetimi&quot;,aciklama:&quot;İlçe MEM’e cevap&quot;,icerik:&quot;Servis araçlarının denetimi tamamlanmıştır.&quot;,ekler:[]},
+{id:6,tur:&quot;giden&quot;,sayi:&quot;G-2026/502&quot;,tarih:&quot;2026-11-07&quot;,konu:&quot;Öğrenci nakil bildirimi&quot;,aciklama:&quot;Müdürlüğe bildirim&quot;,icerik:&quot;Nakil işlemleri hakkında bilgi verilmiştir.&quot;,ekler:[]}];
+function esc(s){return String(s==null?&quot;&quot;:s).replace(/[&amp;&lt;&gt;&quot;]/g,function(c){return{&quot;&amp;&quot;:&quot;&amp;amp;&quot;,&quot;&lt;&quot;:&quot;&amp;lt;&quot;,&quot;&gt;&quot;:&quot;&amp;gt;&quot;,&#x27;&quot;&#x27;:&quot;&amp;quot;&quot;}[c]})}
+function fd(d){var p=(d||&quot;&quot;).split(&quot;-&quot;);return p.length==3?p[2]+&quot;.&quot;+p[1]+&quot;.&quot;+p[0]:&quot;&quot;}
+function say(m){$(&quot;st&quot;).textContent=m;setTimeout(function(){$(&quot;st&quot;).textContent=&quot;&quot;},5000)}
+function load(){try{var r=localStorage.getItem(&quot;ebys&quot;);docs=r?JSON.parse(r):seed.slice()}catch(e){docs=seed.slice()}if(!docs.length)docs=seed.slice();docs.forEach(function(d){if(!d.tur)d.tur=&quot;gelen&quot;})}
+function persist(){try{localStorage.setItem(&quot;ebys&quot;,JSON.stringify(docs));return true}catch(e){say(&quot;Depolama dolu: değişiklikler bu oturumda kalır&quot;);return false}}
+function sorted(){return docs.slice().sort(function(a,b){return a.tarih&lt;b.tarih?1:a.tarih&gt;b.tarih?-1:b.id-a.id})}
+function filt(t){
+ var q=[0,1,2,3].map(function(i){return $(&quot;s&quot;+i).value.trim().toLowerCase()});
+ return sorted().filter(function(d){
+  return d.tur==t&amp;&amp;(!q[0]||d.konu.toLowerCase().indexOf(q[0])&gt;-1)&amp;&amp;(!q[1]||d.aciklama.toLowerCase().indexOf(q[1])&gt;-1)&amp;&amp;
+  (!q[2]||fd(d.tarih).indexOf(q[2])&gt;-1||d.tarih.indexOf(q[2])&gt;-1)&amp;&amp;(!q[3]||d.sayi.toLowerCase().indexOf(q[3])&gt;-1)})}
+function box(t){
+ var l=filt(t);
+ $(&quot;l_&quot;+t).innerHTML=l.length?l.map(function(d){
+  return &#x27;&lt;div class=&quot;it&#x27;+(cur&amp;&amp;cur.id==d.id?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-id=&quot;&#x27;+d.id+&#x27;&quot;&gt;&lt;div class=&quot;n&quot;&gt;&lt;span&gt;&#x27;+esc(d.sayi)+&#x27;&lt;/span&gt;&lt;span&gt;&#x27;+fd(d.tarih)+(d.ekler.length?&quot; · &quot;+d.ekler.length+&quot; ek&quot;:&quot;&quot;)+&#x27;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;k&quot;&gt;&lt;b&gt;&#x27;+esc(d.konu)+&#x27;&lt;/b&gt; &lt;i&gt;&#x27;+esc(d.aciklama)+&#x27;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;div class=&quot;empty&quot;&gt;Kayıt yok&lt;/div&gt;&#x27;;
+ $(&quot;c_&quot;+t).textContent=&quot;(&quot;+l.length+&quot;)&quot;}
+function drawList(){box(&quot;gelen&quot;);box(&quot;giden&quot;)}
+function grab(){
+ if(!cur||!$(&quot;fk&quot;))return;
+ cur.sayi=$(&quot;fs&quot;).value;cur.tarih=$(&quot;ft&quot;).value;cur.konu=$(&quot;fk&quot;).value;cur.aciklama=$(&quot;fa&quot;).value;
+ if($(&quot;fi&quot;))cur.icerik=$(&quot;fi&quot;).value}
+function blobUrl(e){
+ var k=e.ad+e.url.length;if(urls[k])return urls[k];
+ var b=atob(e.url.split(&quot;,&quot;)[1]),u=new Uint8Array(b.length);
+ for(var i=0;i&lt;b.length;i++)u[i]=b.charCodeAt(i);
+ return urls[k]=URL.createObjectURL(new Blob([u],{type:e.tip==&quot;pdf&quot;?&quot;application/pdf&quot;:&quot;application/octet-stream&quot;}))}
+function drawDoc(){
+ $(&quot;tur&quot;).textContent=cur?(cur.tur==&quot;gelen&quot;?&quot;Gelen Yazı&quot;:&quot;Giden Yazı&quot;):&quot;&quot;;
+ if(!cur){$(&quot;doc&quot;).innerHTML=&#x27;&lt;div class=&quot;empty&quot;&gt;Belge seçilmedi&lt;/div&gt;&#x27;;return}
+ var h=&#x27;&lt;div class=&quot;g&quot;&gt;&lt;label&gt;Sayı&lt;/label&gt;&lt;input id=&quot;fs&quot; value=&quot;&#x27;+esc(cur.sayi)+&#x27;&quot;&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input id=&quot;ft&quot; type=&quot;date&quot; value=&quot;&#x27;+esc(cur.tarih)+&#x27;&quot;&gt;&#x27;+
+ &#x27;&lt;label&gt;Konu&lt;/label&gt;&lt;input id=&quot;fk&quot; value=&quot;&#x27;+esc(cur.konu)+&#x27;&quot;&gt;&lt;label&gt;Açıklama&lt;/label&gt;&lt;input id=&quot;fa&quot; value=&quot;&#x27;+esc(cur.aciklama)+&#x27;&quot;&gt;&lt;/div&gt;&#x27;+
+ &#x27;&lt;div class=&quot;ekr&quot;&gt;&lt;b&gt;Ekler:&lt;/b&gt; &#x27;+(cur.ekler.length?cur.ekler.map(function(e,i){
+  return &#x27;&lt;span class=&quot;ek&#x27;+(i==prev?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-e=&quot;&#x27;+i+&#x27;&quot;&gt;&#x27;+({pdf:&quot;PDF&quot;,word:&quot;Word&quot;,excel:&quot;Excel&quot;}[e.tip])+&#x27; · &#x27;+esc(e.ad)+&#x27;&lt;/span&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;span style=&quot;color:var(--mu)&quot;&gt;yok&lt;/span&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;;
+ if(prev&gt;-1&amp;&amp;cur.ekler[prev]){
+  var e=cur.ekler[prev],u=blobUrl(e);
+  h+=&#x27;&lt;div class=&quot;pv&quot;&gt;&lt;div class=&quot;ph&quot;&gt;&lt;b&gt;&#x27;+esc(e.ad)+&#x27;&lt;/b&gt;&lt;span&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Yeni sekmede aç / indir&lt;/a&gt; &lt;button data-x=&quot;1&quot;&gt;Kapat&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;&#x27;+
+  (e.tip==&quot;pdf&quot;?&#x27;&lt;iframe src=&quot;&#x27;+u+&#x27;&quot; title=&quot;PDF&quot;&gt;&lt;/iframe&gt;&#x27;:&#x27;&lt;div class=&quot;cd&quot;&gt;&#x27;+esc(e.ad)+&#x27; tarayıcıda önizlenemez.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Dosyayı aç / indir&lt;/a&gt;&lt;/div&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;}
+ else h+=&#x27;&lt;textarea id=&quot;fi&quot; placeholder=&quot;Yazı içeriği&quot;&gt;&#x27;+esc(cur.icerik)+&#x27;&lt;/textarea&gt;&#x27;;
+ $(&quot;doc&quot;).innerHTML=h}
+function show(id){
+ grab();
+ cur=docs.filter(function(d){return d.id==id})[0]||null;
+ prev=cur?cur.ekler.findIndex(function(e){return e.ana}):-1;
+ delArm=false;$(&quot;del&quot;).classList.remove(&quot;arm&quot;);$(&quot;del&quot;).textContent=&quot;Sil&quot;;
+ drawList();drawDoc()}
+function rd(f){return new Promise(function(ok,no){var r=new FileReader();r.onload=function(){ok(r.result)};r.onerror=no;r.readAsDataURL(f)})}
+function nid(){return docs.reduce(function(m,d){return Math.max(m,d.id)},0)+1}
+function today(){return new Date().toISOString().slice(0,10)}
+function newNo(t,n){return t==&quot;gelen&quot;?&quot;E-2026/&quot;+(1040+n):&quot;G-2026/&quot;+(500+n)}
+function parsePdf(u){
+ return new Promise(function(ok){
+  var to=setTimeout(function(){ok({})},8000);
+  try{
+   var b=atob(u.split(&quot;,&quot;)[1]),a=new Uint8Array(b.length);for(var i=0;i&lt;b.length;i++)a[i]=b.charCodeAt(i);
+   pdfjsLib.getDocument({data:a}).promise.then(function(p){return p.getPage(1)}).then(function(pg){return pg.getTextContent()}).then(function(tc){
+    var rows={},out={};
+    tc.items.forEach(function(it){var y=Math.round(it.transform[5]/4);(rows[y]=rows[y]||[]).push(it)});
+    Object.keys(rows).forEach(function(y){
+     var ln=rows[y].sort(function(p,q){return p.transform[4]-q.transform[4]}).map(function(it){return it.str}).join(&quot; &quot;).replace(/\s+/g,&quot; &quot;),m;
+     if(!out.sayi&amp;&amp;(m=ln.match(/Sayı\s*:\s*(\S+)/))){out.sayi=m[1];var d=ln.match(/(\d{2})\.(\d{2})\.(\d{4})/);if(d)out.tarih=d[3]+&quot;-&quot;+d[2]+&quot;-&quot;+d[1]}
+     if(!out.konu&amp;&amp;(m=ln.match(/Konu\s*:\s*(.+)/)))out.konu=m[1].replace(/(\s[-\d]+)+\s*$/,&quot;&quot;).trim()});
+    clearTimeout(to);ok(out)}).catch(function(){clearTimeout(to);ok({})})
+  }catch(e){clearTimeout(to);ok({})}})}
+document.querySelectorAll(&quot;[data-up]&quot;).forEach(function(b){b.onclick=function(){upTur=b.dataset.up;$(&quot;fUp&quot;).click()}});
+$(&quot;fUp&quot;).onchange=function(ev){
+ var f=ev.target.files[0],t=upTur;ev.target.value=&quot;&quot;;if(!f)return;
+ say(&quot;PDF okunuyor…&quot;);
+ rd(f).then(function(u){return parsePdf(u).then(function(m){return[u,m]})}).then(function(r){
+  grab();var u=r[0],m=r[1],n=nid();
+  var d={id:n,tur:t,sayi:m.sayi||newNo(t,n),tarih:m.tarih||today(),konu:m.konu||f.name.replace(/\.pdf$/i,&quot;&quot;),aciklama:&quot;&quot;,icerik:&quot;&quot;,ekler:[{ad:f.name,tip:&quot;pdf&quot;,url:u,ana:true}]};
+  docs.push(d);persist();show(d.id);
+  var a=$(&quot;fa&quot;);if(a)a.focus();
+  say(m.sayi?&quot;Sayı, tarih ve konu PDF’den alındı. Açıklamayı yazıp Kaydet’e basın&quot;:&quot;PDF’den bilgi okunamadı; alanları elle doldurun&quot;)})};
+$(&quot;bPdf&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fPdf&quot;).click()};
+$(&quot;bDoc&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fDoc&quot;).click()};
+$(&quot;bXls&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fXls&quot;).click()};
+function attach(tip){return function(ev){
+ var f=ev.target.files[0];ev.target.value=&quot;&quot;;if(!f||!cur)return;
+ rd(f).then(function(u){
+  grab();cur.ekler.push({ad:f.name,tip:tip,url:u});prev=cur.ekler.length-1;
+  persist();drawList();drawDoc();say(&quot;Ek eklendi&quot;)})}}
+$(&quot;fPdf&quot;).onchange=attach(&quot;pdf&quot;);$(&quot;fDoc&quot;).onchange=attach(&quot;word&quot;);$(&quot;fXls&quot;).onchange=attach(&quot;excel&quot;);
+$(&quot;bNew&quot;).onclick=function(){
+ grab();var n=nid(),t=cur?cur.tur:&quot;gelen&quot;;
+ var d={id:n,tur:t,sayi:newNo(t,n),tarih:today(),konu:&quot;Yeni yazı&quot;,aciklama:&quot;&quot;,icerik:&quot;&quot;,ekler:[]};
+ docs.push(d);persist();show(d.id)};
+$(&quot;bSave&quot;).onclick=function(){if(!cur)return;grab();if(persist())say(&quot;Kaydedildi: &quot;+(cur.tur==&quot;gelen&quot;?&quot;Gelen&quot;:&quot;Giden&quot;)+&quot; yazılar&quot;);drawList()};
+$(&quot;del&quot;).onclick=function(){
+ if(!cur)return;
+ if(!delArm){delArm=true;this.classList.add(&quot;arm&quot;);this.textContent=&quot;Emin misiniz?&quot;;var b=this;setTimeout(function(){delArm=false;b.classList.remove(&quot;arm&quot;);b.textContent=&quot;Sil&quot;},3000);return}
+ docs=docs.filter(function(d){return d.id!=cur.id});persist();
+ var s=sorted();cur=null;show(s.length?s[0].id:null);say(&quot;Silindi&quot;)};
+$(&quot;left&quot;).onclick=function(ev){var t=ev.target.closest(&quot;.it&quot;);if(t)show(+t.dataset.id)};
+$(&quot;doc&quot;).onclick=function(ev){
+ var e=ev.target.closest(&quot;.ek&quot;);
+ if(e){grab();prev=+e.dataset.e;drawDoc();return}
+ if(ev.target.dataset.x){grab();prev=-1;drawDoc()}};
+document.querySelectorAll(&quot;.srch button&quot;).forEach(function(b){b.onclick=drawList});
+document.querySelectorAll(&quot;.srch input&quot;).forEach(function(i){i.oninput=drawList;i.onkeydown=function(e){if(e.key==&quot;Enter&quot;)drawList()}});
+load();show(sorted()[0].id);
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+"></iframe>
+</div>
+<div id="sinavPage" class="embed-page">
+  <iframe title="Sınav Hazırlama" data-srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;tr&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Sınav Hazırlama Stüdyosu&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/mammoth@1.6.0/mammoth.browser.min.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+:root{--bg:#f4f5fb;--card:#fff;--ink:#1b1f3b;--mut:#6b7094;--brd:#e3e5f2;--acc:#5b5bf0;--soft:#eef0ff;--ok:#0e9f6e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#12142a;--card:#1b1e3b;--ink:#eceefc;--mut:#9aa0cc;--brd:#2c3060;--soft:#262a55;color-scheme:dark}}
+:root[data-theme=&quot;dark&quot;]{--bg:#12142a;--card:#1b1e3b;--ink:#eceefc;--mut:#9aa0cc;--brd:#2c3060;--soft:#262a55;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,&#x27;Segoe UI&#x27;,Roboto,sans-serif}
+header{background:linear-gradient(120deg,#4f46e5,#0ea5a4);color:#fff;padding:18px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+h1{margin:0;font-size:21px}.sub{opacity:.85;font-size:13px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:9px 14px;font-weight:600;color:var(--ink);background:var(--soft)}
+.hb{background:rgba(255,255,255,.2);color:#fff;display:inline-block}.hb:hover{background:rgba(255,255,255,.34)}
+.main{display:grid;grid-template-columns:minmax(320px,440px) 1fr;gap:18px;padding:18px;max-width:1500px;margin:auto}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:16px;box-shadow:0 2px 10px rgba(30,30,80,.06);margin-bottom:18px}
+.card h3{margin:0 0 10px;font-size:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{padding:7px 10px;font-size:13px}.tabs button.a,.pt.a{background:var(--acc);color:#fff}
+.tabs em{font-style:normal;opacity:.8;font-size:12px;margin-left:4px}
+.tools{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.tools button{padding:6px 10px;font-size:13px}
+input[type=text],input[type=number],input[type=search]{font:inherit;padding:7px 10px;border:1px solid var(--brd);border-radius:9px;background:var(--bg);color:var(--ink);width:100%}
+.tools input[type=number]{width:60px}
+#list{max-height:68vh;overflow:auto;padding-right:4px}
+.qi{display:flex;gap:10px;padding:10px;border:1px solid var(--brd);border-radius:12px;margin-bottom:8px;cursor:pointer;align-items:flex-start}
+.qi:hover{border-color:var(--acc)}.qi.on{background:var(--soft);border-color:var(--acc)}
+.nb{background:var(--acc);color:#fff;border-radius:8px;min-width:26px;height:26px;display:grid;place-items:center;font-size:12px;font-weight:700;flex:none}
+.qt{font-size:14px}.qo{display:grid;gap:2px;font-size:13px;color:var(--mut);margin-top:4px}.qo .ok{color:var(--ok);font-weight:700}
+.qa{font-size:12px;color:var(--ok);margin-top:4px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.grid label{font-size:12px;color:var(--mut);display:block}
+.seg{display:flex;gap:6px}.seg button.a{background:var(--acc);color:#fff}
+.tot{font-weight:700}.mut{color:var(--mut)}
+.pts{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:10px}
+.pbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.pt{padding:7px 12px}
+.empty{text-align:center;padding:50px 10px;color:var(--mut)}
+.paper{background:#fff;color:#111;font-family:&#x27;Times New Roman&#x27;,Georgia,serif;font-size:14px;max-width:794px;margin:0 auto;box-shadow:0 6px 24px rgba(0,0,0,.2);border-radius:4px}
+.pg{padding:26px 44px;page-break-after:always}.pg:last-child{page-break-after:auto}
+.ph{width:100%;border-bottom:2px solid #111;margin-bottom:8px}.ph td{vertical-align:middle;padding:2px 4px}
+.ph h2{margin:2px 0;font-size:19px;text-align:center}.ph .sc{text-align:center;font-weight:bold;font-size:15px}.ph .ds{text-align:center;font-size:13px}
+.grp{width:54px;height:54px;border:3px solid #111;text-align:center;font-size:32px;font-weight:bold;line-height:50px}
+.st{width:100%;border-collapse:collapse;margin:8px 0}.st td{border:1px solid #111;padding:6px 8px;width:25%;font-size:13px}.st td:nth-child(odd){background:#eee;font-weight:bold}
+.sh{margin:14px 0 2px;padding:4px 8px;background:#e8e8e8;border-left:5px solid #111;font-size:14px}
+.in{margin:2px 0 6px;font-style:italic;font-size:12.5px}
+.bank{border:1.5px dashed #555;padding:6px 10px;margin:4px 0 8px;font-size:13px;text-align:center;font-weight:bold}
+.q{margin:7px 0;page-break-inside:avoid}.bl{display:inline-block;border-bottom:1px solid #111;width:130px;vertical-align:baseline}
+.op{width:100%;border-collapse:collapse;margin:2px 0 0 14px}.op td{padding:1px 6px;vertical-align:top;font-size:13.5px}
+.ln{border-bottom:1px dotted #444;height:22px}.ft{text-align:right;font-size:12px;margin-top:14px;font-style:italic}
+.kr{margin:6px 0}.ck{display:inline-block;border:1px solid #555;border-radius:4px;padding:0 6px;margin:2px;font-size:13px}
+#hold{position:fixed;left:-9999px;top:0;width:794px}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#111;color:#fff;padding:10px 18px;border-radius:30px;font-size:14px;opacity:0;transition:.3s;pointer-events:none;z-index:9}
+#toast.s{opacity:1}
+.ov{position:fixed;inset:0;background:rgba(10,12,30,.55);display:flex;align-items:center;justify-content:center;padding:18px;z-index:20}.ov[hidden]{display:none}.box{background:var(--card);color:var(--ink);border:1px solid var(--brd);border-radius:16px;padding:18px;width:min(520px,100%);max-height:85vh;display:flex;flex-direction:column;gap:6px;box-shadow:0 20px 50px rgba(0,0,0,.35)}.box h3{margin:0 0 6px}.box #arch{overflow:auto;max-height:none;flex:1}.row{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+.ai .nm b,.ai .nm small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ai .nm small{font-weight:400;opacity:.8;font-size:11.5px}.ai .nm.on small{color:#fff}
+#arch{max-height:210px;overflow:auto}.ai{display:flex;gap:6px;align-items:center;padding:8px;border:1px solid var(--brd);border-radius:12px;margin-bottom:6px}.ai.on{background:var(--soft);border-color:var(--acc)}.ai .nm{flex:1;min-width:0;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ai .nm.on{background:var(--acc);color:#fff}.ai .at{flex:1;min-width:0}.ai b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ai small{color:var(--mut);font-size:11.5px}.ai button{padding:5px 9px;font-size:12px}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;
+&lt;header&gt;&lt;div&gt;&lt;h1&gt;📝 Sınav Hazırlama Stüdyosu&lt;/h1&gt;&lt;div class=&quot;sub&quot; id=&quot;meta&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;btns&quot;&gt;&lt;button class=&quot;hb&quot; id=&quot;bNew&quot;&gt;＋ Yeni&lt;/button&gt;&lt;label class=&quot;hb btn&quot; for=&quot;up&quot;&gt;⬆ Yükle&lt;/label&gt;&lt;input id=&quot;up&quot; type=&quot;file&quot; accept=&quot;.docx&quot; hidden&gt;&lt;button class=&quot;hb&quot; id=&quot;bSave&quot;&gt;💾 Arşivle&lt;/button&gt;&lt;button class=&quot;hb&quot; id=&quot;bArc&quot;&gt;📂 Arşiv&lt;/button&gt;&lt;button class=&quot;hb&quot; id=&quot;bPdf&quot;&gt;PDF&lt;/button&gt;&lt;button class=&quot;hb&quot; id=&quot;bDoc&quot;&gt;Word&lt;/button&gt;&lt;button class=&quot;hb&quot; id=&quot;bXls&quot;&gt;Excel&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;
+&lt;div class=&quot;main&quot;&gt;
+&lt;section&gt;&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;Soru havuzu &lt;span class=&quot;mut&quot; id=&quot;cnt&quot;&gt;&lt;/span&gt;&lt;/h3&gt;
+&lt;div class=&quot;tabs&quot; id=&quot;groupPick&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;tools&quot;&gt;&lt;button id=&quot;saveNext&quot;&gt;💾 Grubu Kaydet ve Sonraki Gruba Geç&lt;/button&gt;&lt;/div&gt;
+&lt;div class=&quot;tabs&quot; id=&quot;tabs&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;tools&quot;&gt;&lt;button id=&quot;all&quot;&gt;Tümünü seç&lt;/button&gt;&lt;button id=&quot;none&quot;&gt;Temizle&lt;/button&gt;&lt;input type=&quot;number&quot; id=&quot;rn&quot; value=&quot;5&quot; min=&quot;1&quot;&gt;&lt;button id=&quot;rb&quot;&gt;Rastgele seç&lt;/button&gt;&lt;/div&gt;
+&lt;input type=&quot;search&quot; id=&quot;q&quot; placeholder=&quot;Soru ara…&quot; style=&quot;margin-bottom:10px&quot;&gt;&lt;div id=&quot;list&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;
+&lt;section&gt;&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;Sınav ayarları&lt;/h3&gt;
+&lt;div class=&quot;grid&quot;&gt;&lt;div&gt;&lt;label&gt;Sınav adı (arşivde görünür)&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;name&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Okul adı&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;school&quot; placeholder=&quot;… Ortaokulu&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Sınav başlığı&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;title&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Ders&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;course&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Sınıf&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;cls&quot; placeholder=&quot;7/A&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input type=&quot;text&quot; data-k=&quot;date&quot; placeholder=&quot;…/…/2026&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;label&gt;Açık uçlu satır sayısı&lt;/label&gt;&lt;input type=&quot;number&quot; data-k=&quot;lines&quot; min=&quot;1&quot; max=&quot;12&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;pts&quot; id=&quot;pts&quot;&gt;&lt;/div&gt;
+&lt;div style=&quot;display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:12px&quot;&gt;&lt;div class=&quot;seg&quot; id=&quot;seg&quot;&gt;&lt;/div&gt;&lt;button id=&quot;shuf&quot;&gt;🔀 Yeniden karıştır&lt;/button&gt;&lt;label&gt;&lt;input type=&quot;checkbox&quot; data-k=&quot;key&quot; checked&gt; Cevap anahtarı ekle&lt;/label&gt;&lt;span class=&quot;tot&quot; id=&quot;tot&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;card&quot;&gt;&lt;h3&gt;Önizleme&lt;/h3&gt;&lt;div class=&quot;pbar&quot; id=&quot;pbar&quot;&gt;&lt;/div&gt;&lt;div id=&quot;prev&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;/div&gt;
+&lt;div class=&quot;ov&quot; id=&quot;archCard&quot; hidden&gt;&lt;div class=&quot;box&quot;&gt;&lt;h3&gt;📂 Arşiv dosyaları &lt;span class=&quot;mut&quot; id=&quot;acnt&quot;&gt;&lt;/span&gt;&lt;/h3&gt;&lt;div id=&quot;arch&quot;&gt;&lt;/div&gt;&lt;div class=&quot;row&quot;&gt;&lt;button id=&quot;acl&quot;&gt;Kapat&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;ov&quot; id=&quot;dlg&quot; hidden&gt;&lt;div class=&quot;box&quot;&gt;&lt;h3&gt;💾 Arşive kaydet&lt;/h3&gt;&lt;label style=&quot;font-size:13px;color:var(--mut)&quot;&gt;Sınav adı&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;dn&quot; placeholder=&quot;Örn. 7/A 1. Dönem 1. Yazılı&quot;&gt;&lt;p class=&quot;mut&quot; id=&quot;dh&quot; style=&quot;min-height:20px;font-size:13px;margin:8px 0&quot;&gt;&lt;/p&gt;&lt;div class=&quot;row&quot;&gt;&lt;button id=&quot;dcn&quot;&gt;İptal&lt;/button&gt;&lt;button id=&quot;dok&quot; style=&quot;background:var(--acc);color:#fff&quot;&gt;Kaydet&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div id=&quot;hold&quot;&gt;&lt;/div&gt;&lt;div id=&quot;toast&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+const RAW=&quot;**1. DÖNEM 1. YAZILI SINAVI**\n\n**Din Kültürü ve Ahlak Bilgisi**\n\n| **Adı Soyadı:** |  | **Sınıfı:** |  |\n| --- | --- | --- | --- |\n| **Numarası:** |  | **Puanı:** |  |\n\nAçıklama: Soruları dikkatlice okuyunuz. Çoktan seçmeli sorularda doğru seçeneği işaretleyiniz; diğer bölümlerde istenenleri belirtilen yerlere yazınız.\n\n**I. BOŞLUK DOLDURMA SORULARI**\n\n*Aşağıdaki cümlelerde boş bırakılan yerleri uygun kavramlarla tamamlayınız.*\n\nKavram Bankası: Fetretülvahiy | Safa Tepesi | Hz. Ebu Bekir | El-Emin | Alak\n\n**1. **Cebrail (as) aracılığıyla 610 yılı Ramazan ayında Hira Mağarası&#x27;nda indirilen ilk vahiy, ........................ suresinin ilk 5 ayetidir.\n\n**2. **İlk vahiyden sonra Müddessir suresi inene kadar vahyin bir süre kesintiye uğradığı döneme ........................ denir.\n\n**3. **Hz. Muhammed&#x27;in (sav) ailesi dışında İslam&#x27;ı kabul eden ilk yetişkin erkek ve samimi dostu ........................&#x27;dır.\n\n**4. **Peygamber Efendimiz, tüm Mekkelileri kapsayan açık davet sürecini başlatmak için kalabalığı ........................&#x27;ne çağırmıştır.\n\n**5. **Mekkelilerin Hz. Muhammed&#x27;e (sav) dürüstlüğü ve hiç yalan söylememesi sebebiyle verdikleri unvan ........................&#x27;dir.\n\nKelime Havuzu: Mescid-i Haram | Mescid-i Aksa | Hüzün Yılı | Amenerrasulü | Beytülmakdis\n\n**6. **İsra yolculuğunun Mekke&#x27;deki başlangıç noktası ................................................&#x27;dır.\n\n**7. **Hz. Hatice ve Ebu Talib&#x27;in vefat ettiği sıkıntılı döneme ................................................ denir.\n\n**8. **Kudüs&#x27;te bulunan ve İsra olayının ulaştığı mübarek mekan ................................................&#x27;dır.\n\n**9. **Hadis metninde Mescid-i Aksa için kullanılan diğer isim ................................................&#x27;tir.\n\n**10. **Miraç&#x27;ta hediye edilen Bakara suresinin son iki ayeti ................................................ olarak bilinir.\n\nKavram Kutusu: Zeyd bin Harise | 620 | Besmele | Hz. Yunus | Zeytin (Bir kavram dışarıda kalacaktır.)\n\n**11. **Hz. Muhammed (s.a.v.) Taif yolculuğunu .............................. yılında gerçekleştirmiştir.\n\n**12. **Taif yolculuğunda Peygamberimizin yanında ona yoldaşlık eden sahabe ..............................&#x27;dir.\n\n**13. **Peygamberimiz üzümü yemeden önce .............................. çekmiş ve bu söz Addas&#x27;ın dikkatini çekmiştir.\n\n**14. **Peygamberimiz Addas&#x27;ın memleketini öğrenince O&#x27;nun kardeşimiz olan .............................. Peygamberin memleketi olduğunu belirtmiştir.\n\n**15. **Taiflilerin saldırısından kaçan Hz. Peygamber ve yoldaşı Utbe ve Şeybe&#x27;ye ait bir .............................. bahçesine sığınmışlardır.\n\n**II. DOĞRU – YANLIŞ SORULARI**\n\n*İfadelerin başına doğru ise (D), yanlış ise (Y) yazınız.*\n\n**1. **(   ) (   ) Hz. Muhammed (sav), peygamberlik öncesinde Mekke toplumunda yaygın olan haksızlık ve kötülüklerden uzaklaşmak amacıyla Hira Mağarası&#x27;na giderek tefekkür etmiştir.\n\n**2. **(   ) (   ) Hz. Muhammed&#x27;e (sav) inen ilk vahiy Müddessir suresinin ilk beş ayetidir.\n\n**3. **(   ) (   ) İslam’a davetin ilk 3 yılı boyunca tebliğ faaliyetleri müşriklerin baskılarından korunmak ve Müslümanların zarar görmesini engellemek amacıyla gizli yürütülmüştür.\n\n**4. **(   ) (   ) Mekkeli müşriklerin Müslümanlara uyguladığı toplumsal ve ekonomik boykot toplam 5 yıl sürmüştür.\n\n**5. **(   ) (   ) Hz. Hatice ve Ebu Talib&#x27;in vefat ettiği peygamberliğin 10. yılı İslam tarihinde \&quot;Hüzün Yılı\&quot; olarak adlandırılmıştır.\n\n**6. **(   ) (   ) İsra kelimesi sözlükte &#x27;göğe yükselme&#x27; anlamına gelir.\n\n**7. **(   ) (   ) Mekkeli Müslümanlar olayı duyunca Hz. Peygamber&#x27;i tasdik etmişlerdir.\n\n**8. **(   ) (   ) Miraç gecesinde hediye edilen ibadetlerden biri beş vakit namazdır.\n\n**9. **(   ) (   ) Mekkeli müşriklerin tamamı mucizeyi hemen kabul etmiştir.\n\n**10. **(   ) (   ) İsra olayının Mescid-i Aksa&#x27;da son bulması önceki peygamberlerle ortak bağı gösterir.\n\n**11. **(   ) Hz. Muhammed (s.a.v.) Taif&#x27;te 10 gün kalmış ve şehrin önde gelenlerine İslam&#x27;ı anlatmıştır.\n\n**12. **(   ) Taif&#x27;te Peygamberimize üzüm ikram eden Addas, Asur Devleti&#x27;nin başkenti olan Ninova kökenlidir.\n\n**13. **(   ) Peygamberimiz Taif&#x27;ten ayrılırken kendisine yapılan kötülüklere karşılık olarak Taiflilere beddua etmiştir.\n\n**14. **(   ) Taif yolculuğu, Mekke&#x27;de koruyucu amcası Ebu Talib&#x27;in vefat etmesinden sonra gerçekleşmiştir.\n\n**15. **(   ) Addas&#x27;ın Peygamberimizle konuştuğu ve Müslüman olduğu üzüm bağına daha sonra Mescid-i Addas yapılmıştır.\n\n**III. ÇOKTAN SEÇMELİ SORULAR**\n\n*Her soru için doğru seçeneği işaretleyiniz.*\n\n**1. **Hz. Muhammed&#x27;e (sav) inen ilk vahiyden bir süre sonra indirilen Müddessir suresinin ilk ayetlerinde Allah (cc) şöyle buyurmuştur: \&quot;Ey örtüsüne bürünen! Kalk ve uyar! Sadece Rabbinin büyüklüğünü dile getir. Elbiseni tertemiz tut. Her türlü pislikten uzak dur.\&quot;\nBu ayetlerin indirilmesiyle Hz. Muhammed (sav) için hangi görev resmen başlamıştır?\n\nA) Medine&#x27;ye hicret etme kararı       \t\tB) İnsanları uyararak İslam&#x27;a davet ve tebliğ görevi\nC) Kabe&#x27;yi yeniden inşa etme faaliyeti       \tD) Müşriklere karşı savaş ilan edilmesi\n\n**2. **Aşağıdaki sahabi isimlerinden hangisi İslam&#x27;a ilk iman eden sahabi grubu arasında yer almaz?\n\nA) Hz. Hatice (ra)       \t\t\tB) Zeyd bin Harise (ra)\nC) Hz. Ömer (ra)      \t\t\t D) Hz. Ali (ra)\n\n**3. **Mekkeli müşrikler, Müslümanların sayısının artması üzerine 616 yılında ağır bir boykot kararı almışlardır. Aşağıdakilerden hangisi 3 yıl süren boykot döneminde Müslümanlara uygulanan yasaklardan biri değildir?\n\nA) Müslümanlarla ticaret yapmak\nB) Müslümanlarla konuşmak ve kız alıp vermek\nC) Müslümanların Mekke çevresindeki panayırlara gitmesini zorunlu kılmak\nD) Müslümanlara hiçbir şekilde yardım etmek\n\n**4. **Hz. Muhammed (sav) İslam dinini Mekke dışındaki insanlara da anlatmayı hedeflemiştir. Peygamber Efendimiz bu amacını gerçekleştirmek için Mekke çevresinde nasıl bir yöntem izlemiştir?\n\nA) Panayırlara gelen tüccarlarla görüşerek İslam&#x27;ı anlatmıştır.       B) Sadece kendi akrabalarını yemeğe davet etmiştir.\nC) Bizans ve İran krallarına elçiler göndermiştir.       D) Mekke dışındaki şehirlerde kütüphaneler kurmuştur.\n\n**5. **Müşriklerin baskı ve tehditleri karşısında Hz. Muhammed (sav) amcası Ebu Talib&#x27;e şu tarihi cevabı vermiştir: \&quot;Ey Amca! Allah&#x27;a yemin ederim ki, Güneş&#x27;i sağ elime, Ay&#x27;ı da sol elime koysalar bile Allah İslam&#x27;ı galip kılıncaya veya ben bu yolda helak oluncaya kadar görevimi bırakmam.\&quot;\nPeygamber Efendimizin bu sözü onun hangi ahlaki yönünü en açık şekilde ortaya koymaktadır?\n\nA) Davasındaki kararlılığını ve azmini       B) Ticari hayatındaki tecrübesini\nC) Zenginlik ve makam arzusunu       D) Mekke kabilelerine liderlik etme isteğini\n\n**6. **Kur&#x27;an-ı Kerim&#x27;deki İsra suresinin 1. ayetinde gece yürüyüşünün hangi iki kutsal mekan arasında gerçekleştiği bildirilmiştir?\n\nA) Mescid-i Nebevi – Mescid-i Aksa   \t\tB) Mescid-i Haram – Mescid-i Aksa\nC) Kabe – Mescid-i Quba   \t\t\t\tD) Mescid-i Aksa – Mescid-i Haram\n\n**7. **Miraç gecesinde Peygamber Efendimize verilen üç büyük hediye arasında aşağıdakilerden hangisi yer almaz?\n\nA) Beş vakit namaz\nB) Bakara suresinin son iki ayeti (Amenerrasulü)\nC) Şirk koşmayanların günahlarının bağışlanacağı müjdesi\nD) Ramazan orucunun farz kılınması\n\n**8. **İsra ve Miraç mucizeleri hangi mübarek ay ve gecede gerçekleşmiştir?\n\nA) Ramazan ayının 15. gecesi   \t\t\tB) Recep ayının 27. gecesi\nC) Şaban ayının 15. gecesi  \t\t\t\t D) Muharrem ayının 10. gecesi\n\n**9. **Müslümanlar İsra ve Miraç mucizelerinin gerçekleştiği mübarek geceyi hangi kandil olarak idrak ederler?\n\nA) Mevlid Kandili   \t\tB) Regaip Kandili   \tC) Miraç Kandili   \tD) Berat Kandili\n\n**10. **Hz. Peygamber (s.a.v.), Mescid-i Aksa ile ilgili sorulara nasıl cevap verdiğini belirtmiştir?\n\nA) Soruları cevaplamaktan kaçınmıştır.\nB) Cenab-ı Hak Beytülmakdis ile arasındaki mesafeyi kaldırmış, oraya bakarak cevap vermiştir.\nC) Mekkeli tüccarlardan harita istemiştir.\nD) Cevapları yazılı olarak iletmiştir.\n\n**11. **Mekkeli Müslümanlar İsra ve Miraç olayını haber alınca nasıl bir tutum sergilemişlerdir?\n\nA) Peygamber Efendimiz&#x27;i tasdik etmişlerdir.   \tB) Olayı inkar etmişlerdir.\nC) Sadece soru sormakla yetinmişlerdir.   \t\tD) Mekke&#x27;yi terk etmişlerdir.\n\n**12. **Hz. Muhammed&#x27;in (s.a.v.) 620 yılında Taif&#x27;e gitmesinin temel sebebi aşağıdakilerden hangisidir?\n\nA) Ticaret yapmak ve mal satın almak\nB) Ebu Talib&#x27;in vasiyetini yerine getirmek\nC) İslam&#x27;ı Mekke dışında anlatmak ve yeni bir yurt/destek aramak\nD) Ninova şehrine seyahat etmek\n\n**13. **Taif yolculuğunda Hz. Muhammed&#x27;e (s.a.v.) eşlik eden ve atılan taşlara karşı kendini siper ederek yaralanan sahabe kimdir?\n\nA) Hz. Ebu Bekir (r.a.)\tB) Zeyd bin Harise (r.a.)\t\tC) Hz. Ali (r.a.)\t\tD) Hz. Ömer (r.a.)\n\n**14. **Peygamberimizin sığındığı bağda kendisine ikram edilen üzümü yerken Besmele çekmesi üzerine etkilenerek Müslüman olan Hristiyan köle kimdir?\n\nA) Addas\t\t\tB) Utbe\t\t\t\tC) Şeybe\t\tD) Nesai\n\n**15. **Taif&#x27;ten ayrılırken meleklerin iki dağı Taiflilerin üzerine yıkma teklifine karşılık Hz. Peygamber&#x27;in beddua etmeyip dua etmesi, O&#x27;nun hangi ahlaki yönünü en belirgin şekilde gösterir?\n\nA) Cesaretini ve gücünü\t\t\t\t\tB) Adaletli tutumunu\nC) Yüksek merhametini ve affediciliğini\t\t\tD) Cömertliğini ve yardımseverliğini\n\n**IV. KLASİK / AÇIK UÇLU SORULAR**\n\n*Soruları açıklayıcı ve anlaşılır cümlelerle cevaplayınız.*\n\n**1. **Soru: İslam&#x27;a davetin ilk 3 yılı boyunca tebliğin gizli yürütülmesinin temel sebeplerini açıklayınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**2. **Soru: Ebû Mûsâ el-Eş&#x27;arî&#x27;nin naklettiği hadis-i şerifte Peygamberimizin buyurduğu \&quot;Müjdeleyin, nefret ettirmeyin, kolaylaştırın, zorlaştırmayın!\&quot; ilkesi tebliğ ve insan ilişkilerinde nasıl bir tutum benimsenmesi gerektiğini gösterir? Açıklayınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**3. **İsra ve Miraç kavramlarının sözlük anlamlarını ve terim anlamlarını yazınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**4. **İsra ve Miraç mucizesi, Hz. Peygamber’in (s.a.v.) eşi Hz. Hatice ile amcası Ebu Talib’i kaybettiği Hüzün Yılı’ndan ve Taif’te gördüğü eziyetlerden sonra gerçekleşmiştir. Bu durumun Peygamberimiz ve Müslümanlar açısından manevi önemini açıklayınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**5. **İsra yolculuğunun Mescid-i Haram’dan başlayıp Kudüs’teki Mescid-i Aksa’da noktalanmasının ilahi mesajlar ve önceki peygamberler açısından anlamını yazınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**6. **Mekkeli müşrikler İsra ve Miraç olayını haber alınca inkar etmiş ve Hz. Peygamber’e Mescid-i Aksa hakkında sorular sormuşlardır. Yüce Allah bu esnada Peygamberimize nasıl yardım etmiştir? Açıklayınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**7. **(Senaryo): 7. sınıf öğrencisi Ahmet, okulda düzenlediği sosyal sorumluluk projesi sırasında bazı arkadaşlarının kendisiyle alay etmesine ve engellemeye çalışmasına rağmen onlara öfkelenmemiş; aksine sabır göstererek projesine kararlılıkla devam etmiştir. Ahmet kendisine haksızlık yapan arkadaşları için kötülük dilememiş, onların da zamanla doğru davranışı anlayacaklarını umut etmiştir.\n\nSoru: Ahmet&#x27;in bu tutumu ile Hz. Muhammed&#x27;in (s.a.v.) Taif yolculuğu sırasında kendisine taş atan ve şehirden kovan Taiflilere karşı meleklerin &#x27;dağları üzerlerine yıkma&#x27; teklifine verdiği cevap arasındaki benzerliği açıklayınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n**8. **(Senaryo): Hz. Muhammed (s.a.v.), Mekkeli müşriklerin artan baskıları ve amcası Ebu Talib&#x27;in vefatının ardından İslam&#x27;ı anlatmak ve kendisine destek bulmak amacıyla 620 yılında Zeyd bin Harise (r.a.) ile Taif&#x27;e gitmiştir. Ancak Taifliler 10 gün süren daveti reddederek Peygamberimizi taşlatarak şehirden çıkarmışlardır.\n\nSoru: Tüm bu olumsuzluklara rağmen Peygamberimizin Utbe ve Şeybe&#x27;nin bağında sığınırken gösterdiği sabır, tevekkül ve Addas ile olan nezaketli iletişimi göz önüne alındığında, bir Müslümanın zorluklar karşısındaki duruşu nasıl olmalıdır? Gerekçelendirerek yazınız.\n\n........................................................................................................................................\n\n........................................................................................................................................\n\n1. Dönem 1. Yazılı Sınavı  •  Sayfa&quot;;
+const ANS={&quot;bos&quot;: {&quot;1&quot;: &quot;Alak&quot;, &quot;2&quot;: &quot;Fetretülvahiy&quot;, &quot;3&quot;: &quot;Hz. Ebu Bekir&quot;, &quot;4&quot;: &quot;Safa Tepesi&quot;, &quot;5&quot;: &quot;El-Emin&quot;, &quot;6&quot;: &quot;Mescid-i Haram&quot;, &quot;7&quot;: &quot;Hüzün Yılı&quot;, &quot;8&quot;: &quot;Mescid-i Aksa&quot;, &quot;9&quot;: &quot;Beytülmakdis&quot;, &quot;10&quot;: &quot;Amenerrasulü&quot;, &quot;11&quot;: &quot;620&quot;, &quot;12&quot;: &quot;Zeyd bin Harise&quot;, &quot;13&quot;: &quot;Besmele&quot;, &quot;14&quot;: &quot;Hz. Yunus&quot;, &quot;15&quot;: &quot;Üzüm&quot;}, &quot;dy&quot;: {&quot;1&quot;: &quot;D&quot;, &quot;2&quot;: &quot;Y&quot;, &quot;3&quot;: &quot;D&quot;, &quot;4&quot;: &quot;Y&quot;, &quot;5&quot;: &quot;D&quot;, &quot;6&quot;: &quot;Y&quot;, &quot;7&quot;: &quot;D&quot;, &quot;8&quot;: &quot;D&quot;, &quot;9&quot;: &quot;Y&quot;, &quot;10&quot;: &quot;D&quot;, &quot;11&quot;: &quot;D&quot;, &quot;12&quot;: &quot;D&quot;, &quot;13&quot;: &quot;Y&quot;, &quot;14&quot;: &quot;D&quot;, &quot;15&quot;: &quot;D&quot;}, &quot;cs&quot;: {&quot;1&quot;: &quot;B&quot;, &quot;2&quot;: &quot;C&quot;, &quot;3&quot;: &quot;C&quot;, &quot;4&quot;: &quot;A&quot;, &quot;5&quot;: &quot;A&quot;, &quot;6&quot;: &quot;B&quot;, &quot;7&quot;: &quot;D&quot;, &quot;8&quot;: &quot;B&quot;, &quot;9&quot;: &quot;C&quot;, &quot;10&quot;: &quot;B&quot;, &quot;11&quot;: &quot;A&quot;, &quot;12&quot;: &quot;C&quot;, &quot;13&quot;: &quot;B&quot;, &quot;14&quot;: &quot;A&quot;, &quot;15&quot;: &quot;C&quot;}};
+//P-START
+const LET=&#x27;ABCD&#x27;,ORDER=[&#x27;bos&#x27;,&#x27;dy&#x27;,&#x27;cs&#x27;,&#x27;acik&#x27;],RN=[&#x27;I&#x27;,&#x27;II&#x27;,&#x27;III&#x27;,&#x27;IV&#x27;];
+const SEC={bos:{t:&#x27;BOŞLUK DOLDURMA&#x27;,s:&#x27;Boşluk&#x27;,d:&#x27;Aşağıdaki cümlelerde boş bırakılan yerleri uygun kavramlarla tamamlayınız.&#x27;},dy:{t:&#x27;DOĞRU – YANLIŞ&#x27;,s:&#x27;D / Y&#x27;,d:&#x27;İfadelerin başına doğru ise (D), yanlış ise (Y) yazınız.&#x27;},cs:{t:&#x27;ÇOKTAN SEÇMELİ&#x27;,s:&#x27;Test&#x27;,d:&#x27;Her soru için doğru seçeneği işaretleyiniz.&#x27;},acik:{t:&#x27;KLASİK / AÇIK UÇLU&#x27;,s:&#x27;Açık uçlu&#x27;,d:&#x27;Soruları açıklayıcı ve anlaşılır cümlelerle cevaplayınız.&#x27;}};
+const SECRE=[[/BOŞLUK/i,&#x27;bos&#x27;],[/DOĞRU/i,&#x27;dy&#x27;],[/ÇOKTAN/i,&#x27;cs&#x27;],[/KLAS[İI]K|AÇIK/i,&#x27;acik&#x27;]];
+function parse(raw){const out=[];let sec=null,cur=null;
+ const fin=()=&gt;{if(!cur)return;if(cur.type===&#x27;cs&#x27;)cur.opts=cur.opt.trim().split(/\s+(?=[A-D]\)\s)/).map(s=&gt;s.replace(/^[A-D]\)\s*/,&#x27;&#x27;).trim());
+  cur.text=cur.text.replace(/^(\(\s*\)\s*)+/,&#x27;&#x27;).replace(/^Soru:\s*/,&#x27;&#x27;).replace(/\.{4,}/g,&#x27;______&#x27;).trim();cur.id=cur.type+cur.num;out.push(cur);cur=null};
+ for(const l of raw.replace(/\r/g,&#x27;&#x27;).split(&#x27;\n&#x27;)){const t=l.replace(/\*+/g,&#x27;&#x27;).replace(/[\t\u00a0 ]+/g,&#x27; &#x27;).trim();if(!t)continue;
+  if(/Yazılı Sınavı\s*•/.test(t))continue;
+  if(/^(I|II|III|IV)\.\s/.test(t)){const m=SECRE.find(r=&gt;r[0].test(t));if(m){fin();sec=m[1];continue}}
+  if(!sec||/^(Kavram Bankası|Kelime Havuzu|Kavram Kutusu)/i.test(t)||/^\.{8,}$/.test(t)||t[0]===&#x27;|&#x27;)continue;
+  const m=t.match(/^(\d+)\.\s+(.*)$/);
+  if(m){fin();cur={type:sec,num:+m[1],text:m[2],opt:&#x27;&#x27;};continue}
+  if(!cur)continue;
+  if(sec===&#x27;cs&#x27;&amp;&amp;(cur.opt||/^A\)/.test(t)))cur.opt+=&#x27; &#x27;+t;else cur.text+=&#x27;\n&#x27;+t}
+ fin();return out}
+function applyAns(L){L.forEach(q=&gt;{const a=(ANS[q.type]||{})[q.num];if(a==null)return;q.ans=q.type===&#x27;cs&#x27;?LET.indexOf(a):a})}
+//P-END
+const $=s=&gt;document.querySelector(s);
+const esc=s=&gt;String(s==null?&#x27;&#x27;:s).replace(/[&amp;&lt;&gt;&quot;]/g,c=&gt;({&#x27;&amp;&#x27;:&#x27;&amp;amp;&#x27;,&#x27;&lt;&#x27;:&#x27;&amp;lt;&#x27;,&#x27;&gt;&#x27;:&#x27;&amp;gt;&#x27;,&#x27;&quot;&#x27;:&#x27;&amp;quot;&#x27;}[c]));
+let Q=[],sel=new Set(),groupSelections=[new Set(),new Set(),new Set()],activeGroup=0,tab=&#x27;bos&#x27;,find=&#x27;&#x27;,gv=0,fname=&#x27;1_Donem_1_Yazili_Kategorilere_Ayrilmis.docx&#x27;;
+const S={name:&#x27;Yeni Sınav&#x27;,school:&#x27;&#x27;,title:&#x27;1. DÖNEM 1. YAZILI SINAVI&#x27;,course:&#x27;Din Kültürü ve Ahlak Bilgisi&#x27;,cls:&#x27;&#x27;,date:&#x27;&#x27;,n:3,seed:1,lines:3,key:true,pts:{bos:2,dy:2,cs:3,acik:6}};
+function rng(a){return()=&gt;{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a&gt;&gt;&gt;15,1|a);t=t+Math.imul(t^t&gt;&gt;&gt;7,61|t)^t;return((t^t&gt;&gt;&gt;14)&gt;&gt;&gt;0)/4294967296}}
+function shuf(a,r){a=[...a];for(let i=a.length-1;i&gt;0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function syncGroup(){groupSelections[activeGroup]=new Set(sel)}
+function setGroup(g){syncGroup();activeGroup=Math.max(0,Math.min(S.n-1,g));sel=new Set(groupSelections[activeGroup]);pool();prev()}
+function build(g){const r=rng(S.seed*7+g*101+13),secs=[],chosen=groupSelections[g]||new Set();
+ ORDER.forEach(ty=&gt;{let qs=Q.filter(q=&gt;q.type===ty&amp;&amp;chosen.has(q.id));if(!qs.length)return;if(g&gt;0)qs=shuf(qs,r);
+  qs=qs.map(q=&gt;{if(q.type!==&#x27;cs&#x27;)return{...q};let ix=q.opts.map((_,i)=&gt;i);if(g&gt;0)ix=shuf(ix,r);return{...q,opts:ix.map(i=&gt;q.opts[i]),ai:q.ans==null?-1:ix.indexOf(q.ans)}});
+  secs.push({ty,qs})});return secs}
+const ansOf=q=&gt;q.type===&#x27;cs&#x27;?(q.ai&gt;=0?LET[q.ai]:&#x27;?&#x27;):q.type===&#x27;acik&#x27;?&#x27;—&#x27;:(q.ans||&#x27;?&#x27;);
+const tot=(g=activeGroup)=&gt;ORDER.reduce((s,ty)=&gt;s+Q.filter(q=&gt;q.type===ty&amp;&amp;(groupSelections[g]||new Set()).has(q.id)).length*S.pts[ty],0);
+function qbody(q,W){let t=esc(q.text).replace(/\n/g,&#x27;&lt;br&gt;&#x27;).replace(/_{6}/g,W?&#x27;________________&#x27;:&#x27;&lt;span class=&quot;bl&quot;&gt;&lt;/span&gt;&#x27;);
+ if(q.type===&#x27;dy&#x27;)t=&#x27;(&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;) &#x27;+t;
+ if(q.type===&#x27;cs&#x27;){const o=q.opts,lg=o.some(x=&gt;x.length&gt;38);let r=&#x27;&#x27;;for(let i=0;i&lt;o.length;i+=lg?1:2)r+=&#x27;&lt;tr&gt;&#x27;+[i,i+1].filter(k=&gt;k&lt;o.length&amp;&amp;(!lg||k===i)).map(k=&gt;`&lt;td&gt;&lt;b&gt;${LET[k]})&lt;/b&gt; ${esc(o[k])}&lt;/td&gt;`).join(&#x27;&#x27;)+&#x27;&lt;/tr&gt;&#x27;;t+=`&lt;table class=&quot;op&quot;&gt;${r}&lt;/table&gt;`}
+ if(q.type===&#x27;acik&#x27;)t+=Array(S.lines).fill(&#x27;&lt;div class=&quot;ln&quot;&gt;&amp;nbsp;&lt;/div&gt;&#x27;).join(&#x27;&#x27;);return t}
+function paper(g,W){const secs=build(g),L=&#x27;ABC&#x27;[g];
+ let h=`&lt;div class=&quot;pg&quot;&gt;&lt;table class=&quot;ph&quot;&gt;&lt;tr&gt;&lt;td style=&quot;width:60px&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;div class=&quot;sc&quot;&gt;${esc(S.school)}&lt;/div&gt;&lt;h2&gt;${esc(S.title)}&lt;/h2&gt;&lt;div class=&quot;ds&quot;&gt;${esc([S.course,S.cls,S.date].filter(Boolean).join(&#x27; · &#x27;))}&lt;/div&gt;&lt;/td&gt;&lt;td style=&quot;width:60px&quot;&gt;${S.n&gt;1?`&lt;div class=&quot;grp&quot;&gt;${L}&lt;/div&gt;`:&#x27;&#x27;}&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+ &lt;table class=&quot;st&quot;&gt;&lt;tr&gt;&lt;td&gt;Adı Soyadı:&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;Sınıfı:&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Numarası:&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;Puanı:&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;`;
+ secs.forEach(({ty,qs},si)=&gt;{h+=`&lt;div class=&quot;sh&quot;&gt;&lt;b&gt;${RN[si]}. ${SEC[ty].t} SORULARI&lt;/b&gt; &lt;i&gt;(${qs.length} × ${S.pts[ty]} = ${qs.length*S.pts[ty]} puan)&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;in&quot;&gt;${SEC[ty].d}&lt;/div&gt;`;
+  if(ty===&#x27;bos&#x27;){const b=qs.map(q=&gt;q.ans).filter(Boolean);if(b.length)h+=`&lt;div class=&quot;bank&quot;&gt;${shuf(b,rng(S.seed+g)).map(esc).join(&#x27; &amp;nbsp;|&amp;nbsp; &#x27;)}&lt;/div&gt;`}
+  qs.forEach((q,i)=&gt;{h+=`&lt;div class=&quot;q&quot;&gt;&lt;b&gt;${i+1}.&lt;/b&gt; ${qbody(q,W)}&lt;/div&gt;`})});
+ return h+`&lt;div class=&quot;ft&quot;&gt;Başarılar dilerim.${S.n&gt;1?&#x27; · Grup &#x27;+L:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`}
+function keyHTML(g=activeGroup){let h=&#x27;&lt;div class=&quot;pg&quot;&gt;&lt;h2 style=&quot;text-align:center&quot;&gt;CEVAP ANAHTARI · GRUP &#x27;+(&#x27;ABC&#x27;[g])+&#x27;&lt;/h2&gt;&#x27;;
+ build(g).forEach(({ty,qs},si)=&gt;{h+=`&lt;div class=&quot;kr&quot;&gt;&lt;b&gt;${RN[si]}. ${SEC[ty].t}:&lt;/b&gt; `+qs.map((q,i)=&gt;`&lt;span class=&quot;ck&quot;&gt;${i+1}-${esc(ansOf(q))}&lt;/span&gt;`).join(&#x27; &#x27;)+&#x27;&lt;/div&gt;&#x27;});return h+&#x27;&lt;/div&gt;&#x27;}
+const allHTML=W=&gt;paper(activeGroup,W)+(S.key?keyHTML(activeGroup):&#x27;&#x27;);
+function toast(m){const t=$(&#x27;#toast&#x27;);t.textContent=m;t.classList.add(&#x27;s&#x27;);setTimeout(()=&gt;t.classList.remove(&#x27;s&#x27;),2400)}
+function renderTabs(){$(&#x27;#groupPick&#x27;).innerHTML=Array.from({length:S.n},(_,g)=&gt;`&lt;button data-pick=&quot;${g}&quot; class=&quot;${activeGroup===g?&#x27;a&#x27;:&#x27;&#x27;}&quot;&gt;Grup ${&#x27;ABC&#x27;[g]} &lt;em&gt;${groupSelections[g].size} soru&lt;/em&gt;&lt;/button&gt;`).join(&#x27;&#x27;);
+ $(&#x27;#tabs&#x27;).innerHTML=ORDER.map(ty=&gt;{const L=Q.filter(q=&gt;q.type===ty);return `&lt;button data-t=&quot;${ty}&quot; class=&quot;${tab===ty?&#x27;a&#x27;:&#x27;&#x27;}&quot;&gt;${SEC[ty].s}&lt;em&gt;${L.filter(q=&gt;sel.has(q.id)).length}/${L.length}&lt;/em&gt;&lt;/button&gt;`}).join(&#x27;&#x27;);
+ $(&#x27;#cnt&#x27;).textContent=`· Grup ${&#x27;ABC&#x27;[activeGroup]}: ${sel.size} seçili`;$(&#x27;#tot&#x27;).textContent=`Toplam: ${tot()} puan`;
+ $(&#x27;#meta&#x27;).textContent=`${S.name} · ${Q.length} soru · ${fname}`;save()}
+function pool(){const L=Q.filter(q=&gt;q.type===tab&amp;&amp;(!find||(q.text+&#x27; &#x27;+(q.opts||[]).join(&#x27; &#x27;)).toLowerCase().includes(find)));
+ $(&#x27;#list&#x27;).innerHTML=L.map(q=&gt;`&lt;label class=&quot;qi ${sel.has(q.id)?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-id=&quot;${q.id}&quot;&gt;&lt;input type=&quot;checkbox&quot; ${sel.has(q.id)?&#x27;checked&#x27;:&#x27;&#x27;}&gt;&lt;span class=&quot;nb&quot;&gt;${q.num}&lt;/span&gt;&lt;div&gt;&lt;div class=&quot;qt&quot;&gt;${esc(q.text).replace(/_{6}/g,&#x27;……&#x27;).replace(/\n/g,&#x27; &#x27;)}&lt;/div&gt;${q.type===&#x27;cs&#x27;?`&lt;div class=&quot;qo&quot;&gt;${q.opts.map((o,i)=&gt;`&lt;span class=&quot;${i===q.ans?&#x27;ok&#x27;:&#x27;&#x27;}&quot;&gt;${LET[i]}) ${esc(o)}&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`:q.ans!=null?`&lt;div class=&quot;qa&quot;&gt;Cevap: ${esc(q.ans)}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/label&gt;`).join(&#x27;&#x27;)||&#x27;&lt;p class=&quot;mut&quot;&gt;Soru bulunamadı.&lt;/p&gt;&#x27;;renderTabs()}
+function prev(){if(gv!==&#x27;k&#x27;&amp;&amp;gv&gt;=S.n)gv=0;
+ $(&#x27;#pbar&#x27;).innerHTML=Array.from({length:S.n},(_,g)=&gt;`&lt;button class=&quot;pt ${gv===g?&#x27;a&#x27;:&#x27;&#x27;}&quot; data-g=&quot;${g}&quot;&gt;Grup ${&#x27;ABC&#x27;[g]}&lt;/button&gt;`).join(&#x27;&#x27;)+`&lt;button class=&quot;pt ${gv===&#x27;k&#x27;?&#x27;a&#x27;:&#x27;&#x27;}&quot; data-g=&quot;k&quot;&gt;🔑 Cevap anahtarı&lt;/button&gt;`;
+ $(&#x27;#prev&#x27;).innerHTML=sel.size?`&lt;div class=&quot;paper&quot;&gt;${gv===&#x27;k&#x27;?keyHTML():paper(gv)}&lt;/div&gt;`:&#x27;&lt;div class=&quot;empty&quot;&gt;Soldaki havuzdan soru işaretleyin; sınav kağıdı burada oluşacak.&lt;/div&gt;&#x27;;
+ $(&#x27;#seg&#x27;).innerHTML=[1,2,3].map(n=&gt;`&lt;button data-n=&quot;${n}&quot; class=&quot;${S.n===n?&#x27;a&#x27;:&#x27;&#x27;}&quot;&gt;${[&#x27;Tek grup&#x27;,&#x27;A – B&#x27;,&#x27;A – B – C&#x27;][n-1]}&lt;/button&gt;`).join(&#x27;&#x27;);renderTabs()}
+function upd(){renderTabs();prev()}
+function need(){syncGroup();if(!groupSelections[activeGroup].size){toast(&#x27;Önce Grup &#x27;+(&#x27;ABC&#x27;[activeGroup])+&#x27; için en az bir soru işaretleyin&#x27;);return false}return true}
+function dl(blob,name){const a=document.createElement(&#x27;a&#x27;);a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=&gt;URL.revokeObjectURL(a.href),4000)}
+async function pdf(){if(!need())return;toast(&#x27;PDF hazırlanıyor…&#x27;);const h=$(&#x27;#hold&#x27;);h.innerHTML=`&lt;div class=&quot;paper&quot; style=&quot;box-shadow:none&quot;&gt;${allHTML(false)}&lt;/div&gt;`;
+ try{await html2pdf().set({margin:[8,0,8,0],filename:&#x27;sinav_kagidi.pdf&#x27;,image:{type:&#x27;jpeg&#x27;,quality:.96},html2canvas:{scale:2,useCORS:true},jsPDF:{unit:&#x27;mm&#x27;,format:&#x27;a4&#x27;},pagebreak:{mode:[&#x27;css&#x27;,&#x27;legacy&#x27;],avoid:[&#x27;.q&#x27;,&#x27;.sh&#x27;,&#x27;tr&#x27;]}}).from(h.firstChild).save();toast(&#x27;PDF indirildi&#x27;)}catch(e){toast(&#x27;PDF oluşturulamadı&#x27;)}h.innerHTML=&#x27;&#x27;}
+function word(){if(!need())return;const css=&#x27;body{font-family:&quot;Times New Roman&quot;;font-size:12pt}table{border-collapse:collapse}.ph{width:100%;border-bottom:2px solid #000}.sc{text-align:center;font-weight:bold}h2{text-align:center;font-size:16pt;margin:2pt}.ds{text-align:center}.grp{border:3px solid #000;text-align:center;font-size:26pt;font-weight:bold;width:50pt}.st{width:100%}.st td{border:1px solid #000;padding:5pt;width:25%}.sh{background:#e6e6e6;border-left:5pt solid #000;padding:3pt;margin-top:10pt}.in{font-style:italic;font-size:10pt}.bank{border:1px dashed #444;text-align:center;font-weight:bold;padding:4pt}.q{margin:5pt 0}.op{width:100%}.ln{border-bottom:1px dotted #444;height:18pt}.ft{text-align:right;font-style:italic}.ck{border:1px solid #555;padding:0 4pt}.pg{page-break-after:always}&#x27;;
+ const html=`&lt;html xmlns:o=&quot;urn:schemas-microsoft-com:office:office&quot; xmlns:w=&quot;urn:schemas-microsoft-com:office:word&quot; xmlns=&quot;http://www.w3.org/TR/REC-html40&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;Sınav&lt;/title&gt;&lt;style&gt;${css}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;${allHTML(true)}&lt;/body&gt;&lt;/html&gt;`;
+ dl(new Blob([&#x27;\ufeff&#x27;,html],{type:&#x27;application/msword&#x27;}),&#x27;sinav_kagidi.doc&#x27;);toast(&#x27;Word dosyası indirildi&#x27;)}
+function xls(){if(!need())return;const wb=XLSX.utils.book_new(),cl=t=&gt;String(t).replace(/_{6}/g,&#x27;……&#x27;).replace(/\n/g,&#x27; &#x27;);
+ const add=(rows,name,w)=&gt;{const ws=XLSX.utils.aoa_to_sheet(rows);ws[&#x27;!cols&#x27;]=w.map(x=&gt;({wch:x}));XLSX.utils.book_append_sheet(wb,ws,name)};
+ const sm=[[&#x27;Sınav&#x27;,S.title],[&#x27;Okul&#x27;,S.school],[&#x27;Ders&#x27;,S.course],[&#x27;Sınıf&#x27;,S.cls],[&#x27;Tarih&#x27;,S.date],[&#x27;Çıktı grubu&#x27;,&#x27;Grup &#x27;+(&#x27;ABC&#x27;[activeGroup])],[&#x27;Toplam soru&#x27;,groupSelections[activeGroup].size],[],[&#x27;Bölüm&#x27;,&#x27;Soru sayısı&#x27;,&#x27;Soru başı puan&#x27;,&#x27;Toplam puan&#x27;]];
+ ORDER.forEach(ty=&gt;{const c=Q.filter(q=&gt;q.type===ty&amp;&amp;groupSelections[activeGroup].has(q.id)).length;if(c)sm.push([SEC[ty].t,c,S.pts[ty],c*S.pts[ty]])});sm.push([&#x27;TOPLAM&#x27;,&#x27;&#x27;,&#x27;&#x27;,tot(activeGroup)]);add(sm,&#x27;Özet&#x27;,[24,40,16,14]);
+ const kr=[[&#x27;Bölüm&#x27;,&#x27;No&#x27;,&#x27;Cevap&#x27;]];
+  {const g=activeGroup,rows=[[&#x27;Bölüm&#x27;,&#x27;No&#x27;,&#x27;Soru&#x27;,&#x27;Seçenekler&#x27;,&#x27;Doğru cevap&#x27;,&#x27;Puan&#x27;]];build(g).forEach(({ty,qs})=&gt;qs.forEach((q,i)=&gt;{rows.push([SEC[ty].t,i+1,cl(q.text),q.opts?q.opts.map((o,k)=&gt;LET[k]+&#x27;) &#x27;+o).join(&#x27;  &#x27;):&#x27;&#x27;,ansOf(q),S.pts[ty]]);kr.push([SEC[ty].t,i+1,ansOf(q)])}));add(rows,&#x27;Grup &#x27;+&#x27;ABC&#x27;[g],[18,6,80,70,16,8])}
+  add(kr,&#x27;Cevap Anahtarı&#x27;,[24,6,22]);
+ add([[&#x27;Tür&#x27;,&#x27;No&#x27;,&#x27;Soru&#x27;,&#x27;Seçenekler&#x27;,&#x27;Cevap&#x27;,&#x27;Seçili&#x27;],...Q.filter(q=&gt;groupSelections[activeGroup].has(q.id)).map(q=&gt;[SEC[q.type].t,q.num,cl(q.text),q.opts?q.opts.map((o,k)=&gt;LET[k]+&#x27;) &#x27;+o).join(&#x27;  &#x27;):&#x27;&#x27;,q.ans==null?&#x27;&#x27;:q.type===&#x27;cs&#x27;?LET[q.ans]:q.ans,&#x27;Evet&#x27;])],&#x27;Soru Havuzu&#x27;,[18,6,80,70,16,8]);
+ XLSX.writeFile(wb,&#x27;sinav_raporu.xlsx&#x27;);toast(&#x27;Excel raporu indirildi&#x27;)}
+function load(raw,name){const L=parse(raw);if(!L.length){toast(&#x27;Dosyada soru bulunamadı&#x27;);return}if(L.length===53)applyAns(L);newExam(L,name);toast(&#x27;Yeni belge yüklendi, yeni sınav başlatıldı&#x27;)}
+$(&#x27;#up&#x27;).onchange=async e=&gt;{const f=e.target.files[0];if(!f)return;try{const r=await mammoth.extractRawText({arrayBuffer:await f.arrayBuffer()});load(r.value,f.name)}catch(x){toast(&#x27;Dosya okunamadı&#x27;)}e.target.value=&#x27;&#x27;};
+$(&#x27;#groupPick&#x27;).onclick=e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(b&amp;&amp;b.dataset.pick!=null)setGroup(+b.dataset.pick)};
+$(&#x27;#saveNext&#x27;).onclick=()=&gt;{syncGroup();if(activeGroup&lt;S.n-1){const old=activeGroup;setGroup(activeGroup+1);toast(&#x27;Grup &#x27;+(&#x27;ABC&#x27;[old])+&#x27; kaydedildi. Şimdi Grup &#x27;+(&#x27;ABC&#x27;[activeGroup])+&#x27; için seçim yapabilirsiniz.&#x27;)}else{pool();prev();toast(&#x27;Grup &#x27;+(&#x27;ABC&#x27;[activeGroup])+&#x27; kaydedildi. Ayrı çıktı alabilirsiniz.&#x27;)}};
+$(&#x27;#tabs&#x27;).onclick=e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(b){tab=b.dataset.t;pool()}};
+$(&#x27;#list&#x27;).onchange=e=&gt;{const l=e.target.closest(&#x27;.qi&#x27;),id=l.dataset.id;e.target.checked?sel.add(id):sel.delete(id);l.classList.toggle(&#x27;on&#x27;,e.target.checked);syncGroup();upd()};
+$(&#x27;#all&#x27;).onclick=()=&gt;{Q.filter(q=&gt;q.type===tab).forEach(q=&gt;sel.add(q.id));syncGroup();pool();prev()};
+$(&#x27;#none&#x27;).onclick=()=&gt;{Q.filter(q=&gt;q.type===tab).forEach(q=&gt;sel.delete(q.id));syncGroup();pool();prev()};
+$(&#x27;#rb&#x27;).onclick=()=&gt;{const L=Q.filter(q=&gt;q.type===tab);L.forEach(q=&gt;sel.delete(q.id));shuf(L,Math.random).slice(0,Math.max(1,+$(&#x27;#rn&#x27;).value||1)).forEach(q=&gt;sel.add(q.id));syncGroup();pool();prev()};
+$(&#x27;#q&#x27;).oninput=e=&gt;{find=e.target.value.toLowerCase();pool()};
+$(&#x27;#pbar&#x27;).onclick=e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(b){gv=b.dataset.g===&#x27;k&#x27;?&#x27;k&#x27;:+b.dataset.g;prev()}};
+$(&#x27;#seg&#x27;).onclick=e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(b){S.n=+b.dataset.n;if(activeGroup&gt;=S.n)activeGroup=S.n-1;sel=new Set(groupSelections[activeGroup]);prev();pool()}};
+$(&#x27;#shuf&#x27;).onclick=()=&gt;{S.seed++;prev();toast(&#x27;Gruplar yeniden karıştırıldı&#x27;)};
+document.addEventListener(&#x27;input&#x27;,e=&gt;{const t=e.target,k=t.dataset.k,p=t.dataset.p;if(p){S.pts[p]=Math.max(0,+t.value||0);upd()}else if(k){S[k]=t.type===&#x27;checkbox&#x27;?t.checked:t.type===&#x27;number&#x27;?Math.max(1,+t.value||1):t.value;prev()}});
+$(&#x27;#pts&#x27;).innerHTML=ORDER.map(ty=&gt;`&lt;div&gt;&lt;label style=&quot;font-size:12px;color:var(--mut)&quot;&gt;${SEC[ty].s} · soru başı puan&lt;/label&gt;&lt;input type=&quot;number&quot; data-p=&quot;${ty}&quot; min=&quot;0&quot; value=&quot;${S.pts[ty]}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+document.querySelectorAll(&#x27;[data-k]&#x27;).forEach(i=&gt;{if(i.type===&#x27;text&#x27;||i.type===&#x27;number&#x27;)i.value=S[i.dataset.k]});
+$(&#x27;#bPdf&#x27;).onclick=pdf;$(&#x27;#bDoc&#x27;).onclick=word;$(&#x27;#bXls&#x27;).onclick=xls;
+
+const KEY=&#x27;sinavArsiv_v1&#x27;,uid=()=&gt;Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let curId=uid(),curCreated=Date.now(),warned=false;
+function arch(){try{return JSON.parse(localStorage.getItem(KEY)||&#x27;[]&#x27;)}catch(e){return[]}}
+function putArch(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){toast(&#x27;Tarayıcı arşive kaydetmeye izin vermiyor&#x27;);return false}}
+function snap(){return{id:curId,created:curCreated,updated:Date.now(),fname,Q,S:{...S,pts:{...S.pts}},gs:groupSelections.map(s=&gt;[...s]),ag:activeGroup}}
+const canon=x=&gt;JSON.stringify(x,(k,v)=&gt;v&amp;&amp;typeof v===&#x27;object&#x27;&amp;&amp;!Array.isArray(v)?Object.keys(v).sort().reduce((o,n)=&gt;(o[n]=v[n],o),{}):v);
+function isDirty(){syncGroup();const a=arch().find(e=&gt;e.id===curId);if(!a)return groupSelections.some(s=&gt;s.size);const r=snap();r.updated=a.updated;return canon(r)!==canon(a)}
+function save(){$(&#x27;#meta&#x27;).textContent+=isDirty()?&#x27; · ● arşivlenmedi&#x27;:&#x27; · ✓ arşivde&#x27;}
+function hint(){const n=$(&#x27;#dn&#x27;).value.trim(),a=arch();$(&#x27;#dh&#x27;).textContent=a.some(e=&gt;e.S.name===n)?&#x27;Bu adla kayıtlı bir sınav var; kaydederseniz güncellenir.&#x27;:a.some(e=&gt;e.id===curId)?&#x27;Yeni bir ad girdiğiniz için ayrı bir arşiv kaydı oluşturulacak.&#x27;:&#x27;&#x27;}
+function archiveNow(){syncGroup();if(!groupSelections.some(s=&gt;s.size)){toast(&#x27;Önce en az bir soru işaretleyin&#x27;);return}$(&#x27;#dn&#x27;).value=S.name;hint();$(&#x27;#dlg&#x27;).hidden=false;setTimeout(()=&gt;{$(&#x27;#dn&#x27;).focus();$(&#x27;#dn&#x27;).select()},50)}
+function doArchive(){const n=$(&#x27;#dn&#x27;).value.trim();if(!n){toast(&#x27;Lütfen bir ad yazın&#x27;);return}const a=arch();const i=a.findIndex(e=&gt;e.S.name===n);
+ if(i&gt;=0){curId=a[i].id;curCreated=a[i].created}else if(a.some(e=&gt;e.id===curId)){curId=uid();curCreated=Date.now()}
+ S.name=n;const r=snap();if(i&gt;=0)a[i]=r;else a.unshift(r);if(putArch(a)){$(&#x27;#dlg&#x27;).hidden=true;fill();renderArch();renderTabs();toast(&#x27;Arşivlendi: &#x27;+n)}}
+function fill(){document.querySelectorAll(&#x27;[data-k]&#x27;).forEach(i=&gt;{if(i.type===&#x27;checkbox&#x27;)i.checked=!!S[i.dataset.k];else i.value=S[i.dataset.k]==null?&#x27;&#x27;:S[i.dataset.k]});document.querySelectorAll(&#x27;[data-p]&#x27;).forEach(i=&gt;i.value=S.pts[i.dataset.p])}
+function newExam(L,name){Q=L;fname=name;curId=uid();curCreated=Date.now();S.name=&#x27;Yeni Sınav &#x27;+(arch().length+1);S.seed=1;groupSelections=[new Set(),new Set(),new Set()];activeGroup=0;sel=new Set();gv=0;tab=L.some(q=&gt;q.type===&#x27;bos&#x27;)?&#x27;bos&#x27;:L[0].type;fill();pool();prev();renderArch()}
+function openExam(id){const r=arch().find(e=&gt;e.id===id);if(!r)return;Q=r.Q;fname=r.fname;curId=r.id;curCreated=r.created;Object.assign(S,r.S,{pts:{...S.pts,...r.S.pts}});groupSelections=[0,1,2].map(i=&gt;new Set((r.gs||[])[i]||[]));activeGroup=Math.min(r.ag||0,S.n-1);sel=new Set(groupSelections[activeGroup]);gv=0;tab=Q.some(q=&gt;q.type===&#x27;bos&#x27;)?&#x27;bos&#x27;:Q[0].type;fill();pool();prev();renderArch();$(&#x27;#archCard&#x27;).hidden=true;window.scrollTo({top:0,behavior:&#x27;smooth&#x27;});toast(&#x27;Açıldı: &#x27;+S.name)}
+function delExam(id){putArch(arch().filter(e=&gt;e.id!==id));renderArch();toast(&#x27;Arşivden silindi&#x27;)}
+function renderArch(){const a=arch().sort((x,y)=&gt;y.updated-x.updated);$(&#x27;#acnt&#x27;).textContent=`· ${a.length} sınav`;
+ $(&#x27;#arch&#x27;).innerHTML=a.map(e=&gt;{const c=(e.gs||[]).map((g,i)=&gt;g.length?&#x27;ABC&#x27;[i]+&#x27;:&#x27;+g.length:&#x27;&#x27;).filter(Boolean).join(&#x27; &#x27;);return `&lt;div class=&quot;ai&quot;&gt;&lt;button class=&quot;nm ${e.id===curId?&#x27;on&#x27;:&#x27;&#x27;}&quot; data-o=&quot;${e.id}&quot;&gt;&lt;b&gt;${esc(e.S.name)}&lt;/b&gt;&lt;small&gt;${esc(e.fname)} · ${c||&#x27;boş&#x27;} · ${new Date(e.updated).toLocaleString(&#x27;tr-TR&#x27;,{dateStyle:&#x27;short&#x27;,timeStyle:&#x27;short&#x27;})}&lt;/small&gt;&lt;/button&gt;&lt;button data-x=&quot;${e.id}&quot; title=&quot;Sil&quot;&gt;✕&lt;/button&gt;&lt;/div&gt;`}).join(&#x27;&#x27;)||&#x27;&lt;p class=&quot;mut&quot; style=&quot;margin:0;font-size:13px&quot;&gt;Arşivde sınav yok. Soruları işaretleyip Arşivle düğmesine basın.&lt;/p&gt;&#x27;}
+$(&#x27;#arch&#x27;).onclick=e=&gt;{const b=e.target.closest(&#x27;button&#x27;);if(!b)return;if(b.dataset.o)openExam(b.dataset.o);else if(b.dataset.x){if(b.dataset.arm)delExam(b.dataset.x);else{b.dataset.arm=&#x27;1&#x27;;b.textContent=&#x27;Emin misin?&#x27;;setTimeout(()=&gt;{b.dataset.arm=&#x27;&#x27;;b.textContent=&#x27;✕&#x27;},3000)}}};
+$(&#x27;#bNew&#x27;).onclick=()=&gt;{newExam(Q,fname);toast(&#x27;Yeni sınav oluşturuldu&#x27;)};$(&#x27;#bSave&#x27;).onclick=archiveNow;
+$(&#x27;#bArc&#x27;).onclick=()=&gt;{renderArch();$(&#x27;#archCard&#x27;).hidden=false};
+$(&#x27;#acl&#x27;).onclick=()=&gt;{$(&#x27;#archCard&#x27;).hidden=true};$(&#x27;#dcn&#x27;).onclick=()=&gt;{$(&#x27;#dlg&#x27;).hidden=true};$(&#x27;#dok&#x27;).onclick=doArchive;
+$(&#x27;#dn&#x27;).oninput=hint;$(&#x27;#dn&#x27;).onkeydown=e=&gt;{if(e.key===&#x27;Enter&#x27;)doArchive();if(e.key===&#x27;Escape&#x27;)$(&#x27;#dlg&#x27;).hidden=true};
+[&#x27;#archCard&#x27;,&#x27;#dlg&#x27;].forEach(s=&gt;{$(s).onclick=e=&gt;{if(e.target===$(s))$(s).hidden=true}});
+fill();
+Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+"></iframe>
+</div>
+
 <!-- ================= ALT SABİT MENÜ ================= -->
 <div class="bottombar" id="bottomBar">
   <div class="header-inner">
@@ -3944,10 +4350,11 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
       <button type="button" id="navHome" class="active" onClick="gosterSayfa('home')" title="Ana Sayfa" aria-label="Ana Sayfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></button>
       <button type="button" id="navNobetci" onClick="gosterSayfa('nobetci')" title="Nöbetçi Öğretmen" aria-label="Nöbetçi Öğretmen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7.5" r="3.5"/><path d="M3 21c0-3.9 3.1-7 7-7 1.2 0 2.3.3 3.3.8"/><path d="M17.5 12.5l4 1.5v3.2c0 2.4-1.7 4.3-4 4.8-2.3-.5-4-2.4-4-4.8V14z"/><path d="M15.8 17.3l1.2 1.2 2.3-2.5"/></svg></button>
       <button type="button" id="navRehber" onClick="gosterSayfa('rehber')" title="Rehber" aria-label="Rehber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
-      <button type="button" onClick="yedekAl()" title="Yedekle" aria-label="Yedekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></button>
-      <button type="button" onClick="document.getElementById('yedekDosyaSec').click()" title="Güncelle" aria-label="Güncelle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 5h16"/></svg></button>
+      <button type="button" id="navEbys" onClick="gosterSayfa('ebys')" title="EBYS" aria-label="EBYS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 13h8"/><path d="M8 16h5"/></svg></button>
+      <button type="button" id="navSinav" onClick="gosterSayfa('sinav')" title="Sınav Hazırlama" aria-label="Sınav Hazırlama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13l2 2 4-4"/><path d="M9 18h6"/></svg></button>
       <input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
-      <button type="button" id="btnGithubGuncelle" onClick="githubGuncelle()" title="GitHub'dan Güncelle" aria-label="GitHub'dan Güncelle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/><path d="M12 8v5"/><path d="M9.5 10.5L12 8l2.5 2.5"/></svg></button>
+      <button type="button" id="btnYedekYukle" onClick="document.getElementById('yedekDosyaSec').click()" title="Yedek Yükle" aria-label="Yedek Yükle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 5h16"/></svg></button>
+      <button type="button" onClick="yedekAl()" title="Yedekle" aria-label="Yedekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></button>
     </nav>
   </div>
 </div>
@@ -18672,9 +19079,9 @@ function pdfSatirlar(items){
 <script>
 /* ================= ALT MENÜ / SAYFA GEÇİŞİ ================= */
 function gosterSayfa(v){
-  document.body.classList.remove('view-rehber','view-nobetci');
+  document.body.classList.remove('view-rehber','view-nobetci','view-ebys','view-sinav');
   if(v !== 'home') document.body.classList.add('view-' + v);
-  ['rehber','nobetci'].forEach(function(n){
+  ['rehber','nobetci','ebys','sinav'].forEach(function(n){
     var p = document.getElementById(n + 'Page');
     var on = (n === v);
     p.classList.toggle('active', on);
@@ -18688,6 +19095,8 @@ function gosterSayfa(v){
   document.getElementById('navHome').classList.toggle('active', v === 'home');
   document.getElementById('navRehber').classList.toggle('active', v === 'rehber');
   document.getElementById('navNobetci').classList.toggle('active', v === 'nobetci');
+  document.getElementById('navEbys').classList.toggle('active', v === 'ebys');
+  document.getElementById('navSinav').classList.toggle('active', v === 'sinav');
   window.scrollTo(0, 0);
   barOlcuGuncelle();
   if(v === 'home') menuSigdirPlanla();
