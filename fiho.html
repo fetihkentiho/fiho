@@ -656,6 +656,8 @@
   body.view-nobetci main, body.view-nobetci footer,
   body.view-ebys main, body.view-ebys footer,
   body.view-sinav main, body.view-sinav footer{display:none !important;}
+  body.view-ebys header, body.view-ebys .bottombar{display:none !important;}
+  body.view-ebys #ebysPage{top:0;bottom:0;z-index:100;}
 
   /* ---------- Buton yazıları: en fazla 2 satır, JS ile dinamik boyut ---------- */
   .menu-box{min-width:0;}
@@ -896,9 +898,11 @@
       <button type="button" class="menu-box" onClick="openSpModal()"><span>Sınıf Ders Programı</span></button>
       <button type="button" class="menu-box" onClick="sddAc()"><span>Sınıf Ders Dağılım Çizelgeleri</span></button>
       <button type="button" class="menu-box" onClick="openYkModal()"><span>Yoklama Fişi</span></button>
+      <button type="button" class="menu-box" onClick="osAc()"><span>Okul Servis Listesi</span></button>
       <button type="button" class="menu-box" onClick="openServisModal()"><span>Servis Listesi</span></button>
       <button type="button" class="menu-box" onClick="openSdModal()"><span>Servis Denetim Formu</span></button>
       <button type="button" class="menu-box" onClick="imzaAc()"><span>İmza Sirküsü</span></button>
+      <button type="button" class="menu-box" onClick="tbAc()"><span>Tebliğ Tebellüğ</span></button>
       <button type="button" class="menu-box" onClick="oegAc()"><span>Özel Eğitim Gereksinimli Öğrenci Listesi</span></button>
       <button type="button" class="menu-box" onClick="openTtModal()"><span>Takdir Teşekkür Listesi</span></button>
     </div>
@@ -1756,6 +1760,16 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     #arsiv-table .note-cell, #vukuat-arsiv-table .note-cell { max-width: none; }
     #archive-modal .arsiv-scroll, #vukuat-archive-modal .arsiv-scroll { max-height: 60vh; overflow-y: auto; margin-bottom: 10px; }
 
+    /* HAFTALIK PROGRAM PENCERESİ */
+    #hafta-modal .modal-content { max-width: 900px; width: 96%; }
+    #hafta-modal .hafta-scroll { max-height: 70vh; overflow: auto; margin-bottom: 10px; }
+    #hafta-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    #hafta-table th, #hafta-table td { border: 1px solid #9aa7b5; padding: 6px 4px; text-align: center; font-size: 0.85rem; vertical-align: middle; word-break: break-word; }
+    #hafta-table th { background: var(--primary-navy); color: #fff; font-weight: 800; }
+    #hafta-table td.gun { width: 12%; font-weight: 800; background: #eef2f7; text-align: left; padding-left: 8px; }
+    #hafta-table tr.bugun td { background: #fff4c2; }
+    #hafta-table tr.bugun td.gun { background: #ffe58a; }
+
     /* MODAL STİLLERİ */
     .modal-overlay {
       display: none;
@@ -2237,7 +2251,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
         &lt;tbody&gt;
           &lt;tr&gt;
             &lt;td&gt;
-              &lt;select id=&quot;ogretmen-select&quot; class=&quot;cell-select teacher-name-cell&quot; onchange=&quot;loadOgretmenProgram(this.value)&quot;&gt;
+              &lt;select id=&quot;ogretmen-select&quot; class=&quot;cell-select teacher-name-cell&quot; onchange=&quot;loadOgretmenProgram(this.value); openHaftaProgram(&#x27;ogretmen&#x27;, this.value)&quot;&gt;
                 &lt;option value=&quot;&quot;&gt;Öğretmen Seçiniz...&lt;/option&gt;
               &lt;/select&gt;
             &lt;/td&gt;
@@ -2289,7 +2303,7 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
         &lt;tbody&gt;
           &lt;tr&gt;
             &lt;td&gt;
-              &lt;select id=&quot;sinif-select&quot; class=&quot;cell-select sinif-select-large&quot; onchange=&quot;loadSinifProgram(this.value)&quot;&gt;
+              &lt;select id=&quot;sinif-select&quot; class=&quot;cell-select sinif-select-large&quot; onchange=&quot;loadSinifProgram(this.value); openHaftaProgram(&#x27;sinif&#x27;, this.value)&quot;&gt;
                 &lt;option value=&quot;&quot;&gt;Sınıf Seçiniz...&lt;/option&gt;
               &lt;/select&gt;
             &lt;/td&gt;
@@ -2379,6 +2393,17 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
 &lt;/div&gt;
 
 &lt;!-- ARŞİVLENEN NOTLAR LİSTESİ (ARŞİV butonuyla açılır) --&gt;
+&lt;!-- HAFTALIK DERS PROGRAMI (öğretmen / sınıf seçilince açılır) --&gt;
+&lt;div class=&quot;modal-overlay&quot; id=&quot;hafta-modal&quot; onclick=&quot;if(event.target===this) closeHaftaModal()&quot;&gt;
+  &lt;div class=&quot;modal-content&quot;&gt;
+    &lt;h3 id=&quot;hafta-baslik&quot;&gt;Haftalık Ders Programı&lt;/h3&gt;
+    &lt;div class=&quot;hafta-scroll&quot;&gt;&lt;table id=&quot;hafta-table&quot;&gt;&lt;/table&gt;&lt;/div&gt;
+    &lt;div class=&quot;modal-buttons&quot;&gt;
+      &lt;button class=&quot;btn btn-primary&quot; onclick=&quot;closeHaftaModal()&quot; style=&quot;background:#6b7280;&quot;&gt;Kapat&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
 &lt;div class=&quot;modal-overlay&quot; id=&quot;archive-modal&quot;&gt;
   &lt;div class=&quot;modal-content&quot;&gt;
     &lt;h3&gt;Arşivlenen Notlar&lt;/h3&gt;
@@ -3593,6 +3618,38 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
     }
   }
 
+  /* HAFTALIK PROGRAM: öğretmen veya sınıf seçilince Pazartesi-Cuma tüm dersler tablo olarak açılır */
+  const HAFTA_GUNLER = [&#x27;Pazartesi&#x27;, &#x27;Salı&#x27;, &#x27;Çarşamba&#x27;, &#x27;Perşembe&#x27;, &#x27;Cuma&#x27;];
+  function openHaftaProgram(tip, secim) {
+    if (!secim) return;
+    let baslik, hafta;
+    if (tip === &#x27;ogretmen&#x27;) {
+      const t = findTeacher(secim);
+      if (!t) return;
+      baslik = &#x27;ÖĞRETMEN DERS PROGRAMI — &#x27; + t;
+      hafta = excelData.ogretmenler[t];
+    } else {
+      if (!excelData.siniflar[secim]) return;
+      baslik = &#x27;SINIF DERS PROGRAMI — &#x27; + secim;
+      hafta = excelData.siniflar[secim];
+    }
+    const bugun = dayIdx();
+    let h = &#x27;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;GÜN&lt;/th&gt;&#x27;;
+    for (let i = 1; i &lt;= 8; i++) h += &#x27;&lt;th&gt;&#x27; + i + &#x27;. DERS&lt;/th&gt;&#x27;;
+    h += &#x27;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&#x27;;
+    HAFTA_GUNLER.forEach((g, di) =&gt; {
+      const lessons = (hafta &amp;&amp; hafta[di]) || [];
+      h += &#x27;&lt;tr&#x27; + (di === bugun ? &#x27; class=&quot;bugun&quot;&#x27; : &#x27;&#x27;) + &#x27;&gt;&lt;td class=&quot;gun&quot;&gt;&#x27; + g + &#x27;&lt;/td&gt;&#x27;;
+      for (let i = 0; i &lt; 8; i++) h += &#x27;&lt;td&gt;&#x27; + fullHTML(lessons[i] || &#x27;&#x27;) + &#x27;&lt;/td&gt;&#x27;;
+      h += &#x27;&lt;/tr&gt;&#x27;;
+    });
+    h += &#x27;&lt;/tbody&gt;&#x27;;
+    $(&#x27;hafta-baslik&#x27;).innerText = baslik;
+    $(&#x27;hafta-table&#x27;).innerHTML = h;
+    $(&#x27;hafta-modal&#x27;).style.display = &#x27;flex&#x27;;
+  }
+  function closeHaftaModal() { $(&#x27;hafta-modal&#x27;).style.display = &#x27;none&#x27;; }
+
   function loadSinifProgram(sinif) {
     const lessons = excelData.siniflar[sinif] ? excelData.siniflar[sinif][dayIdx()] : [];
     for (let i = 1; i &lt;= 8; i++) {
@@ -3944,100 +4001,131 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
   <iframe title="EBYS" data-srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;tr&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;
 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
-&lt;title&gt;EBYS – Elektronik Belge Yönetim Sistemi&lt;/title&gt;
+&lt;title&gt;EBYS&lt;/title&gt;
 &lt;style&gt;
-:root{--bg:#e9edf2;--pn:#fff;--tx:#1d2733;--mu:#5d6b7a;--bd:#c3ccd6;--hd:#12395f;--ac:#1f5f9e;--sel:#cfe2f6;--hv:#edf4fb;--bar:#dde4ec;--rh:40px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme=&quot;light&quot;]){--bg:#161b22;--pn:#1f2630;--tx:#e3e9f0;--mu:#93a1b1;--bd:#3a4655;--hd:#0c2a47;--ac:#5aa3e6;--sel:#27425f;--hv:#26303c;--bar:#2a3441;color-scheme:dark}}
-:root[data-theme=&quot;dark&quot;]{--bg:#161b22;--pn:#1f2630;--tx:#e3e9f0;--mu:#93a1b1;--bd:#3a4655;--hd:#0c2a47;--ac:#5aa3e6;--sel:#27425f;--hv:#26303c;--bar:#2a3441;color-scheme:dark}
+:root{--bl:#1f6fb2;--bd:#a9c4dc;--lt:#e6f0f9;--row:#d8e9f8;--sel:#9cc7ee;--tx:#14263a;--mu:#52667a;--dk:#1b4b78;color-scheme:light}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--tx);font:13px/1.35 &quot;Segoe UI&quot;,Tahoma,Arial,sans-serif}
+body{background:#eaf1f8;color:var(--tx);font:12px/1.35 Tahoma,&quot;Segoe UI&quot;,Arial,sans-serif}
 #app{display:flex;flex-direction:column;height:100%}
-header{background:var(--hd);color:#fff;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px}
-header b{letter-spacing:.5px;font-size:16px}
-main{flex:1;display:flex;min-height:0}
-#left{width:25%;min-width:250px;background:var(--pn);border-right:1px solid var(--bd);overflow-y:auto}
-#right{width:75%;display:flex;flex-direction:column;min-width:0}
-.srch{padding:6px;background:var(--bar);border-bottom:1px solid var(--bd);display:grid;gap:4px}
-.srch div{display:flex;gap:4px}
-input,textarea{font:inherit;color:var(--tx);background:var(--pn);border:1px solid var(--bd);border-radius:3px;padding:3px 6px;min-width:0}
-.srch input{flex:1}
-button{font:inherit;color:var(--tx);background:linear-gradient(var(--pn),var(--bar));border:1px solid var(--bd);border-radius:3px;padding:3px 10px;cursor:pointer}
-button:hover{border-color:var(--ac);color:var(--ac)}
-.srch button{width:74px;font-size:12px;padding:2px 4px}
-.lh{background:var(--hd);color:#fff;padding:3px 8px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
-.lh small{font-weight:400;opacity:.8}
-.lh button{padding:1px 10px;font-size:12px}
-.lb{height:calc(var(--rh)*5);overflow-y:auto;border-bottom:1px solid var(--bd)}
-.it{height:var(--rh);padding:3px 8px;border-bottom:1px solid var(--bd);cursor:pointer;overflow:hidden}
-.it:hover{background:var(--hv)}
-.it.on{background:var(--sel);border-left:4px solid var(--ac)}
-.it .n{display:flex;justify-content:space-between;color:var(--ac);font-weight:600;font-size:12px}
-.it .k{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
-.it i{font-style:normal;color:var(--mu)}
-#tb{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:6px 10px;background:var(--bar);border-bottom:1px solid var(--bd)}
-#tb button{padding:3px 12px;font-size:12px}
-#tur{margin-left:auto;font-weight:600;color:var(--ac)}
-#del.arm{background:#b3261e;color:#fff;border-color:#b3261e}
-#doc{flex:1;display:flex;flex-direction:column;min-height:0;padding:8px 12px;overflow:hidden}
-.g{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:6px 8px;align-items:center;margin-bottom:6px}
-.g label{color:var(--mu);text-align:right}
-.ekr{margin-bottom:4px}
-textarea{flex:1;min-height:120px;resize:none;width:100%}
-.ek{display:inline-flex;gap:6px;align-items:center;margin:0 6px 4px 0;padding:2px 10px;border:1px solid var(--bd);border-radius:14px;background:var(--pn);cursor:pointer;font-size:12px}
-.ek:hover,.ek.on{border-color:var(--ac);background:var(--sel)}
-.pv{flex:1;min-height:200px;display:flex;flex-direction:column;border:1px solid var(--bd);background:var(--pn)}
-.pv .ph{display:flex;justify-content:space-between;padding:4px 8px;background:var(--bar)}
-.pv iframe{flex:1;width:100%;border:0;background:#fff}
-.pv .cd{padding:20px;text-align:center}
-.pv a{color:var(--ac)}
+.top{display:flex;align-items:center;gap:6px;padding:3px 6px;background:linear-gradient(#f1f7fc,#c9dcee);border-bottom:1px solid var(--bd)}
+.hm{display:grid;place-items:center;width:36px;height:28px;color:#fff;border:1px solid #14578f;border-radius:3px;background:linear-gradient(#4a9ad8,#1c68a8);cursor:pointer}
+.hm svg{width:18px;height:18px}
+#st{margin-left:auto;color:var(--dk);font-weight:600}
+main{flex:1;display:flex;min-height:0;gap:6px;padding:4px}
+#left{width:25%;min-width:270px;display:flex;flex-direction:column;min-height:0;background:#fff;border:1px solid var(--bd)}
+#right{flex:1;min-width:0;display:flex;flex-direction:column;border:1px solid var(--bd);background:#fff}
+svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+input,textarea{font:inherit;color:var(--tx);border:1px solid var(--bd);border-radius:2px;padding:3px 5px;min-width:0;background:#fff}
+button{font:inherit;cursor:pointer}
+details.fl{margin:4px;border:1px solid var(--bd);background:linear-gradient(#fff,#e9f1f9)}
+summary{padding:3px 8px;font-weight:700;color:var(--dk);cursor:pointer}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:0 6px 6px}
+.f{display:flex}.f input{flex:1}
+.f button{width:26px;border:1px solid var(--bd);border-left:0;background:linear-gradient(#fff,#d6e5f4);color:var(--dk);padding:0}
+.sec{display:flex;flex-direction:column;min-height:0}
+.sec.open{flex:1}
+.sh{width:100%;text-align:left;padding:5px 8px;border:0;border-top:1px solid #14578f;background:linear-gradient(#4a9ad8,#1c68a8);color:#fff;font-size:13px;font-weight:700}
+.sh small{font-weight:400;opacity:.85}
+.sh:before{content:&quot;▸ &quot;}.sec.open .sh:before{content:&quot;▾ &quot;}
+.sb{display:none;flex:1;flex-direction:column;min-height:0}
+.sec.open .sb{display:flex}
+.stb{display:flex;align-items:center;gap:5px;padding:3px 6px;background:var(--lt);border-bottom:1px solid var(--bd)}
+.sm{display:flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid var(--bd);border-radius:3px;background:linear-gradient(#fff,#d6e5f4);color:var(--dk);font-weight:600}
+.sp{flex:1}.mu{color:var(--mu)}
+.ti{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:5px;color:#fff;font-weight:700;font-size:11px;border:0}
+.stb .ti{width:30px;height:24px;font-size:10px}
+.ti svg{width:16px;height:16px}
+.c1{background:#2f86c6}.c2{background:#2e9d5b}.c3{background:#d9453d}.pdf{background:#d9453d}.doc{background:#2b6cb6}.xls{background:#1f8a4c}
+.lb{flex:1;overflow-y:auto}
+.gh{position:sticky;top:0;padding:1px 6px;font-size:11px;font-weight:700;color:var(--dk);background:linear-gradient(#f4f8fc,#d3e2f0);border-bottom:1px solid var(--bd)}
+.it{display:flex;gap:6px;padding:3px 6px;border-bottom:1px solid #fff;background:var(--row);cursor:pointer}
+.it:hover{background:#c5dff5}
+.it.on{background:var(--sel);box-shadow:inset 4px 0 0 var(--bl)}
+.ic{width:22px;text-align:center;flex:none}
+.ic svg{width:18px;height:18px;fill:#f3b61f;stroke:#b98300}
+.bg{display:block;margin:1px auto 0;width:16px;line-height:1.2;border:1px solid var(--bd);background:#fff;font-size:9px;border-radius:2px}
+.tx{flex:1;min-width:0;font-size:10px;line-height:1.25;color:var(--mu)}
+.r1{display:flex;justify-content:space-between;gap:6px;color:var(--tx);font-size:11px}
+.r1 span{white-space:nowrap;font-weight:700}
 .empty{color:var(--mu);padding:14px;text-align:center}
-@media (max-width:700px){main{flex-direction:column}#left,#right{width:100%;min-width:0}#left{height:55%}#doc{overflow:auto}.g{grid-template-columns:auto 1fr}}
+.rh{padding:3px 8px;font-weight:700;color:var(--dk);background:#f0f6fc;border-bottom:1px solid var(--bd)}
+.hd{display:flex;align-items:center;gap:10px;padding:3px 8px;background:linear-gradient(#fff,#e9f1f9);border-bottom:1px solid var(--bd)}
+.tb{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:1px;flex:none}
+.tn{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:52px;padding:2px 4px;border:1px solid transparent;border-radius:3px;background:none;color:var(--dk);font-size:11px}
+.tn:hover{border-color:var(--bd);background:var(--lt)}
+.tn.arm{background:#d9453d;color:#fff}
+#doc{flex:1;display:flex;flex-direction:column;min-height:0;padding:6px 10px}
+.g{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:3px 8px;align-items:center;flex:1;min-width:0}
+.g input{padding:2px 5px}
+.g label{color:var(--mu);text-align:right;font-weight:700}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--bd)}
+.tab{padding:5px 14px;border:1px solid var(--bd);border-bottom:0;border-radius:3px 3px 0 0;background:linear-gradient(#fff,#e1ecf7);color:var(--dk);cursor:pointer}
+.tab.on{background:#fff;font-weight:700;position:relative;top:1px}
+.tc{flex:1;min-height:0;display:flex;flex-direction:column;overflow:auto;border:1px solid var(--bd);border-top:0}
+textarea{flex:1;min-height:120px;resize:none;border:0}
+.er{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--bd);cursor:pointer}
+.er:hover{background:var(--lt)}
+.pv{flex:1;display:flex;flex-direction:column;min-height:240px}
+.ph{display:flex;justify-content:space-between;align-items:center;padding:3px 8px;background:var(--lt)}
+.ph a{color:var(--bl)}
+.ph button{padding:1px 8px}
+.pv iframe{flex:1;width:100%;border:0;background:#fff}
+.cd{padding:20px;text-align:center}
+#pr{display:none}
+@media print{#app{display:none}#pr{display:block}#pr table{border-collapse:collapse;width:100%}#pr td,#pr th{border:1px solid #444;padding:4px;text-align:left}}
+@media (max-width:700px){main{flex-direction:column;overflow:auto}#left{width:100%;min-width:0;height:60%;flex:none}.g{grid-template-columns:auto 1fr}.hd{flex-wrap:wrap}}
 &lt;/style&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;&lt;div id=&quot;app&quot;&gt;
-&lt;header&gt;&lt;b&gt;EBYS&lt;/b&gt;&lt;span&gt;Elektronik Belge Yönetim Sistemi&lt;/span&gt;&lt;span id=&quot;st&quot;&gt;&lt;/span&gt;&lt;/header&gt;
+&lt;div class=&quot;top&quot;&gt;&lt;button class=&quot;hm&quot; id=&quot;home&quot; title=&quot;Ana Sayfa&quot; aria-label=&quot;Ana Sayfa&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M3 11l9-8 9 8&quot;/&gt;&lt;path d=&quot;M5 10v10h5v-6h4v6h5V10&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span id=&quot;st&quot;&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;main&gt;
 &lt;aside id=&quot;left&quot;&gt;
- &lt;div class=&quot;srch&quot;&gt;
-  &lt;div&gt;&lt;input id=&quot;s0&quot; placeholder=&quot;Konu&quot;&gt;&lt;button data-s=&quot;0&quot;&gt;Konu ara&lt;/button&gt;&lt;/div&gt;
-  &lt;div&gt;&lt;input id=&quot;s1&quot; placeholder=&quot;Açıklama&quot;&gt;&lt;button data-s=&quot;1&quot;&gt;Açıklama&lt;/button&gt;&lt;/div&gt;
-  &lt;div&gt;&lt;input id=&quot;s2&quot; placeholder=&quot;Tarih (gg.aa.yyyy)&quot;&gt;&lt;button data-s=&quot;2&quot;&gt;Tarih ara&lt;/button&gt;&lt;/div&gt;
-  &lt;div&gt;&lt;input id=&quot;s3&quot; placeholder=&quot;Sayı&quot;&gt;&lt;button data-s=&quot;3&quot;&gt;Sayı ara&lt;/button&gt;&lt;/div&gt;
- &lt;/div&gt;
- &lt;div class=&quot;lh&quot;&gt;&lt;span&gt;Gelen Yazılar &lt;small id=&quot;c_gelen&quot;&gt;&lt;/small&gt;&lt;/span&gt;&lt;button data-up=&quot;gelen&quot;&gt;Yükle&lt;/button&gt;&lt;/div&gt;
- &lt;div class=&quot;lb&quot; id=&quot;l_gelen&quot;&gt;&lt;/div&gt;
- &lt;div class=&quot;lh&quot;&gt;&lt;span&gt;Giden Yazılar &lt;small id=&quot;c_giden&quot;&gt;&lt;/small&gt;&lt;/span&gt;&lt;button data-up=&quot;giden&quot;&gt;Yükle&lt;/button&gt;&lt;/div&gt;
- &lt;div class=&quot;lb&quot; id=&quot;l_giden&quot;&gt;&lt;/div&gt;
+ &lt;details class=&quot;fl&quot; open&gt;&lt;summary&gt;Filtreler&lt;/summary&gt;&lt;div class=&quot;fg&quot;&gt;
+  &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s0&quot; placeholder=&quot;Konu&quot;&gt;&lt;button title=&quot;Konu ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s1&quot; placeholder=&quot;Açıklama&quot;&gt;&lt;button title=&quot;Açıklama ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s2&quot; placeholder=&quot;Tarih gg.aa.yyyy&quot;&gt;&lt;button title=&quot;Tarih ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
+  &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s3&quot; placeholder=&quot;Sayı&quot;&gt;&lt;button title=&quot;Sayı ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
+ &lt;/div&gt;&lt;/details&gt;
+ &lt;div class=&quot;sec open&quot; id=&quot;sec_gelen&quot;&gt;&lt;button class=&quot;sh&quot; data-sec=&quot;gelen&quot;&gt;Gelen Evraklar &lt;small id=&quot;c_gelen&quot;&gt;&lt;/small&gt;&lt;/button&gt;&lt;div class=&quot;sb&quot;&gt;&lt;div class=&quot;stb&quot; id=&quot;stb_gelen&quot;&gt;&lt;/div&gt;&lt;div class=&quot;lb&quot; id=&quot;l_gelen&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+ &lt;div class=&quot;sec&quot; id=&quot;sec_giden&quot;&gt;&lt;button class=&quot;sh&quot; data-sec=&quot;giden&quot;&gt;Giden Evraklar &lt;small id=&quot;c_giden&quot;&gt;&lt;/small&gt;&lt;/button&gt;&lt;div class=&quot;sb&quot;&gt;&lt;div class=&quot;stb&quot; id=&quot;stb_giden&quot;&gt;&lt;/div&gt;&lt;div class=&quot;lb&quot; id=&quot;l_giden&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;/aside&gt;
 &lt;section id=&quot;right&quot;&gt;
- &lt;div id=&quot;tb&quot;&gt;
-  &lt;button id=&quot;bPdf&quot;&gt;PDF&lt;/button&gt;&lt;button id=&quot;bDoc&quot;&gt;Word&lt;/button&gt;&lt;button id=&quot;bXls&quot;&gt;Excel&lt;/button&gt;
-  &lt;button id=&quot;bNew&quot;&gt;Yeni&lt;/button&gt;&lt;button id=&quot;bSave&quot;&gt;Kaydet&lt;/button&gt;&lt;button id=&quot;del&quot;&gt;Sil&lt;/button&gt;
-  &lt;span id=&quot;tur&quot;&gt;&lt;/span&gt;
- &lt;/div&gt;
+ &lt;div class=&quot;hd&quot;&gt;&lt;div class=&quot;g&quot; id=&quot;flds&quot;&gt;&lt;/div&gt;&lt;div class=&quot;tb&quot;&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bNew&quot;&gt;&lt;span class=&quot;ti c1&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 5v14M5 12h14&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Yeni&lt;/button&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bSave&quot;&gt;&lt;span class=&quot;ti c2&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M5 3h11l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Kaydet&lt;/button&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bDel&quot;&gt;&lt;span class=&quot;ti c3&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;Sil&lt;/button&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bPdf&quot;&gt;&lt;span class=&quot;ti pdf&quot;&gt;PDF&lt;/span&gt;PDF Ekle&lt;/button&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bDoc&quot;&gt;&lt;span class=&quot;ti doc&quot;&gt;DOC&lt;/span&gt;Word Ekle&lt;/button&gt;
+  &lt;button class=&quot;tn&quot; id=&quot;bXls&quot;&gt;&lt;span class=&quot;ti xls&quot;&gt;XLS&lt;/span&gt;Excel Ekle&lt;/button&gt;
+ &lt;/div&gt;&lt;/div&gt;
  &lt;div id=&quot;doc&quot;&gt;&lt;/div&gt;
 &lt;/section&gt;
 &lt;/main&gt;&lt;/div&gt;
+&lt;div id=&quot;pr&quot;&gt;&lt;/div&gt;
 &lt;input type=&quot;file&quot; id=&quot;fUp&quot; accept=&quot;.pdf&quot; hidden&gt;
 &lt;input type=&quot;file&quot; id=&quot;fPdf&quot; accept=&quot;.pdf&quot; hidden&gt;
 &lt;input type=&quot;file&quot; id=&quot;fDoc&quot; accept=&quot;.doc,.docx&quot; hidden&gt;
 &lt;input type=&quot;file&quot; id=&quot;fXls&quot; accept=&quot;.xls,.xlsx&quot; hidden&gt;
 &lt;script&gt;
 var $=function(i){return document.getElementById(i)};
-var docs=[],cur=null,prev=-1,delArm=false,urls={},upTur=&quot;gelen&quot;;
+var docs=[],cur=null,prev=-1,tab=&quot;on&quot;,sec=&quot;gelen&quot;,delArm=false,urls={},upTur=&quot;gelen&quot;;
+var FOLD=&#x27;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z&quot;/&gt;&lt;/svg&gt;&#x27;;
+var UP=&#x27;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 16V5M7 10l5-5 5 5M5 20h14&quot;/&gt;&lt;/svg&gt;&#x27;;
 try{pdfjsLib.GlobalWorkerOptions.workerSrc=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js&quot;}catch(e){}
 var seed=[
-{id:1,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1041&quot;,tarih:&quot;2026-11-02&quot;,konu:&quot;Veli toplantısı hakkında&quot;,aciklama:&quot;Okul müdürlüğünden gelen duyuru&quot;,icerik:&quot;Kasım ayı veli toplantısı 14 Kasım Cumartesi günü yapılacaktır.&quot;,ekler:[]},
-{id:2,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1042&quot;,tarih:&quot;2026-11-04&quot;,konu:&quot;Ders programı değişikliği&quot;,aciklama:&quot;İlçe MEM yazısı&quot;,icerik:&quot;Haftalık ders programında yapılan değişiklik bildirilmiştir.&quot;,ekler:[]},
-{id:3,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1043&quot;,tarih:&quot;2026-11-06&quot;,konu:&quot;Sınav takvimi&quot;,aciklama:&quot;Zümre başkanlığı&quot;,icerik:&quot;Birinci dönem ortak sınav tarihleri belirlenmiştir.&quot;,ekler:[]},
-{id:4,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1044&quot;,tarih:&quot;2026-11-09&quot;,konu:&quot;Kütüphane etkinliği&quot;,aciklama:&quot;Kitap okuma haftası&quot;,icerik:&quot;Kitap okuma haftası etkinlikleri için görevlendirme yapılmıştır.&quot;,ekler:[]},
-{id:5,tur:&quot;giden&quot;,sayi:&quot;G-2026/501&quot;,tarih:&quot;2026-11-03&quot;,konu:&quot;Servis araçları denetimi&quot;,aciklama:&quot;İlçe MEM’e cevap&quot;,icerik:&quot;Servis araçlarının denetimi tamamlanmıştır.&quot;,ekler:[]},
-{id:6,tur:&quot;giden&quot;,sayi:&quot;G-2026/502&quot;,tarih:&quot;2026-11-07&quot;,konu:&quot;Öğrenci nakil bildirimi&quot;,aciklama:&quot;Müdürlüğe bildirim&quot;,icerik:&quot;Nakil işlemleri hakkında bilgi verilmiştir.&quot;,ekler:[]}];
+{id:1,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1041&quot;,tarih:&quot;2026-11-02&quot;,konu:&quot;Veli toplantısı hakkında&quot;,aciklama:&quot;Okul müdürlüğü duyurusu&quot;,icerik:&quot;Kasım ayı veli toplantısı 14 Kasım Cumartesi günü yapılacaktır.&quot;,ekler:[]},
+{id:2,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1042&quot;,tarih:&quot;2026-11-04&quot;,konu:&quot;Ders programı değişikliği&quot;,aciklama:&quot;İlçe MEM yazısı&quot;,icerik:&quot;Haftalık ders programında değişiklik yapılmıştır.&quot;,ekler:[]},
+{id:3,tur:&quot;gelen&quot;,sayi:&quot;E-2026/1043&quot;,tarih:&quot;2026-10-28&quot;,konu:&quot;Sınav takvimi&quot;,aciklama:&quot;Zümre başkanlığı&quot;,icerik:&quot;Birinci dönem ortak sınav tarihleri belirlenmiştir.&quot;,ekler:[]},
+{id:4,tur:&quot;giden&quot;,sayi:&quot;G-2026/501&quot;,tarih:&quot;2026-11-03&quot;,konu:&quot;Servis araçları denetimi&quot;,aciklama:&quot;İlçe MEM’e cevap&quot;,icerik:&quot;Servis araçlarının denetimi tamamlanmıştır.&quot;,ekler:[]},
+{id:5,tur:&quot;giden&quot;,sayi:&quot;G-2026/502&quot;,tarih:&quot;2026-11-07&quot;,konu:&quot;Öğrenci nakil bildirimi&quot;,aciklama:&quot;Müdürlüğe bildirim&quot;,icerik:&quot;Nakil işlemleri hakkında bilgi verilmiştir.&quot;,ekler:[]}];
 function esc(s){return String(s==null?&quot;&quot;:s).replace(/[&amp;&lt;&gt;&quot;]/g,function(c){return{&quot;&amp;&quot;:&quot;&amp;amp;&quot;,&quot;&lt;&quot;:&quot;&amp;lt;&quot;,&quot;&gt;&quot;:&quot;&amp;gt;&quot;,&#x27;&quot;&#x27;:&quot;&amp;quot;&quot;}[c]})}
 function fd(d){var p=(d||&quot;&quot;).split(&quot;-&quot;);return p.length==3?p[2]+&quot;.&quot;+p[1]+&quot;.&quot;+p[0]:&quot;&quot;}
 function say(m){$(&quot;st&quot;).textContent=m;setTimeout(function(){$(&quot;st&quot;).textContent=&quot;&quot;},5000)}
+function today(){var d=new Date();return d.getFullYear()+&quot;-&quot;+(&quot;0&quot;+(d.getMonth()+1)).slice(-2)+&quot;-&quot;+(&quot;0&quot;+d.getDate()).slice(-2)}
+function mon(ds){var d=new Date(ds+&quot;T00:00:00&quot;);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getTime()}
+function grp(ds){if(!ds)return&quot;Tarihsiz&quot;;var n=Math.round((mon(today())-mon(ds))/6048e5);return n&lt;0?&quot;İleri Tarihli&quot;:n==0?&quot;Bu Hafta&quot;:n==1?&quot;Geçen Hafta&quot;:&quot;Daha Eski&quot;}
 function load(){try{var r=localStorage.getItem(&quot;ebys&quot;);docs=r?JSON.parse(r):seed.slice()}catch(e){docs=seed.slice()}if(!docs.length)docs=seed.slice();docs.forEach(function(d){if(!d.tur)d.tur=&quot;gelen&quot;})}
 function persist(){try{localStorage.setItem(&quot;ebys&quot;,JSON.stringify(docs));return true}catch(e){say(&quot;Depolama dolu: değişiklikler bu oturumda kalır&quot;);return false}}
 function sorted(){return docs.slice().sort(function(a,b){return a.tarih&lt;b.tarih?1:a.tarih&gt;b.tarih?-1:b.id-a.id})}
@@ -4047,9 +4135,11 @@ function filt(t){
   return d.tur==t&amp;&amp;(!q[0]||d.konu.toLowerCase().indexOf(q[0])&gt;-1)&amp;&amp;(!q[1]||d.aciklama.toLowerCase().indexOf(q[1])&gt;-1)&amp;&amp;
   (!q[2]||fd(d.tarih).indexOf(q[2])&gt;-1||d.tarih.indexOf(q[2])&gt;-1)&amp;&amp;(!q[3]||d.sayi.toLowerCase().indexOf(q[3])&gt;-1)})}
 function box(t){
- var l=filt(t);
- $(&quot;l_&quot;+t).innerHTML=l.length?l.map(function(d){
-  return &#x27;&lt;div class=&quot;it&#x27;+(cur&amp;&amp;cur.id==d.id?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-id=&quot;&#x27;+d.id+&#x27;&quot;&gt;&lt;div class=&quot;n&quot;&gt;&lt;span&gt;&#x27;+esc(d.sayi)+&#x27;&lt;/span&gt;&lt;span&gt;&#x27;+fd(d.tarih)+(d.ekler.length?&quot; · &quot;+d.ekler.length+&quot; ek&quot;:&quot;&quot;)+&#x27;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;k&quot;&gt;&lt;b&gt;&#x27;+esc(d.konu)+&#x27;&lt;/b&gt; &lt;i&gt;&#x27;+esc(d.aciklama)+&#x27;&lt;/i&gt;&lt;/div&gt;&lt;/div&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;div class=&quot;empty&quot;&gt;Kayıt yok&lt;/div&gt;&#x27;;
+ var l=filt(t),h=&quot;&quot;,g=&quot;&quot;;
+ l.forEach(function(d){
+  var k=grp(d.tarih);if(k!=g){g=k;h+=&#x27;&lt;div class=&quot;gh&quot;&gt;&#x27;+k+&#x27;&lt;/div&gt;&#x27;}
+  h+=&#x27;&lt;div class=&quot;it&#x27;+(cur&amp;&amp;cur.id==d.id?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-id=&quot;&#x27;+d.id+&#x27;&quot;&gt;&lt;div class=&quot;ic&quot;&gt;&#x27;+FOLD+(d.ekler.length?&#x27;&lt;span class=&quot;bg&quot;&gt;&#x27;+d.ekler.length+&#x27;&lt;/span&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;/div&gt;&lt;div class=&quot;tx&quot;&gt;&lt;div class=&quot;r1&quot;&gt;&lt;b&gt;Konu: &#x27;+esc(d.konu)+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+fd(d.tarih)+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;+(d.aciklama?&#x27;&lt;div&gt;Açıklama: &#x27;+esc(d.aciklama)+&#x27;&lt;/div&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;div&gt;Sayı: &#x27;+esc(d.sayi)+&#x27;&lt;/div&gt;&lt;div&gt;Evrak Tarihi: &#x27;+fd(d.tarih)+&#x27;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#x27;});
+ $(&quot;l_&quot;+t).innerHTML=h||&#x27;&lt;div class=&quot;empty&quot;&gt;Kayıt yok&lt;/div&gt;&#x27;;
  $(&quot;c_&quot;+t).textContent=&quot;(&quot;+l.length+&quot;)&quot;}
 function drawList(){box(&quot;gelen&quot;);box(&quot;giden&quot;)}
 function grab(){
@@ -4061,28 +4151,33 @@ function blobUrl(e){
  var b=atob(e.url.split(&quot;,&quot;)[1]),u=new Uint8Array(b.length);
  for(var i=0;i&lt;b.length;i++)u[i]=b.charCodeAt(i);
  return urls[k]=URL.createObjectURL(new Blob([u],{type:e.tip==&quot;pdf&quot;?&quot;application/pdf&quot;:&quot;application/octet-stream&quot;}))}
+function tile(t){return &#x27;&lt;span class=&quot;ti &#x27;+({pdf:&quot;pdf&quot;,word:&quot;doc&quot;,excel:&quot;xls&quot;}[t])+&#x27;&quot;&gt;&#x27;+({pdf:&quot;PDF&quot;,word:&quot;DOC&quot;,excel:&quot;XLS&quot;}[t])+&#x27;&lt;/span&gt;&#x27;}
 function drawDoc(){
- $(&quot;tur&quot;).textContent=cur?(cur.tur==&quot;gelen&quot;?&quot;Gelen Yazı&quot;:&quot;Giden Yazı&quot;):&quot;&quot;;
- if(!cur){$(&quot;doc&quot;).innerHTML=&#x27;&lt;div class=&quot;empty&quot;&gt;Belge seçilmedi&lt;/div&gt;&#x27;;return}
- var h=&#x27;&lt;div class=&quot;g&quot;&gt;&lt;label&gt;Sayı&lt;/label&gt;&lt;input id=&quot;fs&quot; value=&quot;&#x27;+esc(cur.sayi)+&#x27;&quot;&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input id=&quot;ft&quot; type=&quot;date&quot; value=&quot;&#x27;+esc(cur.tarih)+&#x27;&quot;&gt;&#x27;+
- &#x27;&lt;label&gt;Konu&lt;/label&gt;&lt;input id=&quot;fk&quot; value=&quot;&#x27;+esc(cur.konu)+&#x27;&quot;&gt;&lt;label&gt;Açıklama&lt;/label&gt;&lt;input id=&quot;fa&quot; value=&quot;&#x27;+esc(cur.aciklama)+&#x27;&quot;&gt;&lt;/div&gt;&#x27;+
- &#x27;&lt;div class=&quot;ekr&quot;&gt;&lt;b&gt;Ekler:&lt;/b&gt; &#x27;+(cur.ekler.length?cur.ekler.map(function(e,i){
-  return &#x27;&lt;span class=&quot;ek&#x27;+(i==prev?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-e=&quot;&#x27;+i+&#x27;&quot;&gt;&#x27;+({pdf:&quot;PDF&quot;,word:&quot;Word&quot;,excel:&quot;Excel&quot;}[e.tip])+&#x27; · &#x27;+esc(e.ad)+&#x27;&lt;/span&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;span style=&quot;color:var(--mu)&quot;&gt;yok&lt;/span&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;;
- if(prev&gt;-1&amp;&amp;cur.ekler[prev]){
+ var d=$(&quot;doc&quot;);
+ if(!cur){$(&quot;flds&quot;).innerHTML=&quot;&quot;;d.innerHTML=&#x27;&lt;div class=&quot;empty&quot;&gt;Evrak seçilmedi&lt;/div&gt;&#x27;;return}
+ $(&quot;flds&quot;).innerHTML=&#x27;&lt;label&gt;Sayı&lt;/label&gt;&lt;input id=&quot;fs&quot; value=&quot;&#x27;+esc(cur.sayi)+&#x27;&quot;&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input id=&quot;ft&quot; type=&quot;date&quot; value=&quot;&#x27;+esc(cur.tarih)+&#x27;&quot;&gt;&#x27;+
+ &#x27;&lt;label&gt;Konu&lt;/label&gt;&lt;input id=&quot;fk&quot; value=&quot;&#x27;+esc(cur.konu)+&#x27;&quot;&gt;&lt;label&gt;Açıklama&lt;/label&gt;&lt;input id=&quot;fa&quot; value=&quot;&#x27;+esc(cur.aciklama)+&#x27;&quot;&gt;&#x27;;
+ var h=&#x27;&lt;div class=&quot;tabs&quot;&gt;&lt;span class=&quot;tab&#x27;+(tab==&quot;on&quot;?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-tab=&quot;on&quot;&gt;Evrak Önizleme&lt;/span&gt;&lt;span class=&quot;tab&#x27;+(tab==&quot;ek&quot;?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-tab=&quot;ek&quot;&gt;Evrak Ekleri (&#x27;+cur.ekler.length+&#x27;)&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;tc&quot;&gt;&#x27;;
+ if(tab==&quot;ek&quot;)h+=cur.ekler.length?cur.ekler.map(function(e,i){return &#x27;&lt;div class=&quot;er&quot; data-e=&quot;&#x27;+i+&#x27;&quot;&gt;&#x27;+tile(e.tip)+&#x27;&lt;span&gt;&#x27;+esc(e.ad)+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;div class=&quot;empty&quot;&gt;Ek yok&lt;/div&gt;&#x27;;
+ else if(prev&gt;-1&amp;&amp;cur.ekler[prev]){
   var e=cur.ekler[prev],u=blobUrl(e);
   h+=&#x27;&lt;div class=&quot;pv&quot;&gt;&lt;div class=&quot;ph&quot;&gt;&lt;b&gt;&#x27;+esc(e.ad)+&#x27;&lt;/b&gt;&lt;span&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Yeni sekmede aç / indir&lt;/a&gt; &lt;button data-x=&quot;1&quot;&gt;Kapat&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;&#x27;+
   (e.tip==&quot;pdf&quot;?&#x27;&lt;iframe src=&quot;&#x27;+u+&#x27;&quot; title=&quot;PDF&quot;&gt;&lt;/iframe&gt;&#x27;:&#x27;&lt;div class=&quot;cd&quot;&gt;&#x27;+esc(e.ad)+&#x27; tarayıcıda önizlenemez.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Dosyayı aç / indir&lt;/a&gt;&lt;/div&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;}
- else h+=&#x27;&lt;textarea id=&quot;fi&quot; placeholder=&quot;Yazı içeriği&quot;&gt;&#x27;+esc(cur.icerik)+&#x27;&lt;/textarea&gt;&#x27;;
- $(&quot;doc&quot;).innerHTML=h}
+ else h+=&#x27;&lt;textarea id=&quot;fi&quot; placeholder=&quot;Evrak içeriği&quot;&gt;&#x27;+esc(cur.icerik)+&#x27;&lt;/textarea&gt;&#x27;;
+ d.innerHTML=h+&#x27;&lt;/div&gt;&#x27;}
 function show(id){
  grab();
  cur=docs.filter(function(d){return d.id==id})[0]||null;
- prev=cur?cur.ekler.findIndex(function(e){return e.ana}):-1;
- delArm=false;$(&quot;del&quot;).classList.remove(&quot;arm&quot;);$(&quot;del&quot;).textContent=&quot;Sil&quot;;
+ prev=cur?cur.ekler.findIndex(function(e){return e.ana}):-1;tab=&quot;on&quot;;
+ delArm=false;$(&quot;bDel&quot;).classList.remove(&quot;arm&quot;);$(&quot;bDel&quot;).lastChild.textContent=&quot;Sil&quot;;
  drawList();drawDoc()}
+function setSec(t){
+ grab();sec=t;
+ [&quot;gelen&quot;,&quot;giden&quot;].forEach(function(x){$(&quot;sec_&quot;+x).classList.toggle(&quot;open&quot;,x==t)});
+ var d=cur&amp;&amp;cur.tur==t?cur:sorted().filter(function(x){return x.tur==t})[0];
+ show(d?d.id:null)}
 function rd(f){return new Promise(function(ok,no){var r=new FileReader();r.onload=function(){ok(r.result)};r.onerror=no;r.readAsDataURL(f)})}
 function nid(){return docs.reduce(function(m,d){return Math.max(m,d.id)},0)+1}
-function today(){return new Date().toISOString().slice(0,10)}
 function newNo(t,n){return t==&quot;gelen&quot;?&quot;E-2026/&quot;+(1040+n):&quot;G-2026/&quot;+(500+n)}
 function parsePdf(u){
  return new Promise(function(ok){
@@ -4092,49 +4187,70 @@ function parsePdf(u){
    pdfjsLib.getDocument({data:a}).promise.then(function(p){return p.getPage(1)}).then(function(pg){return pg.getTextContent()}).then(function(tc){
     var rows={},out={};
     tc.items.forEach(function(it){var y=Math.round(it.transform[5]/4);(rows[y]=rows[y]||[]).push(it)});
-    Object.keys(rows).forEach(function(y){
-     var ln=rows[y].sort(function(p,q){return p.transform[4]-q.transform[4]}).map(function(it){return it.str}).join(&quot; &quot;).replace(/\s+/g,&quot; &quot;),m;
-     if(!out.sayi&amp;&amp;(m=ln.match(/Sayı\s*:\s*(\S+)/))){out.sayi=m[1];var d=ln.match(/(\d{2})\.(\d{2})\.(\d{4})/);if(d)out.tarih=d[3]+&quot;-&quot;+d[2]+&quot;-&quot;+d[1]}
+    var L=Object.keys(rows).map(Number).sort(function(p,q){return q-p}).map(function(y){return rows[y].sort(function(p,q){return p.transform[4]-q.transform[4]}).map(function(it){return it.str}).join(&quot; &quot;).replace(/\s+/g,&quot; &quot;)}),from=0;
+    L.forEach(function(ln,i){var m;
+     if(!out.sayi&amp;&amp;(m=ln.match(/Sayı\s*:\s*(\S+)/))){out.sayi=m[1];from=i}
      if(!out.konu&amp;&amp;(m=ln.match(/Konu\s*:\s*(.+)/)))out.konu=m[1].replace(/(\s[-\d]+)+\s*$/,&quot;&quot;).trim()});
+    for(var i=from;i&lt;L.length&amp;&amp;!out.tarih;i++){var d=L[i].match(/(\d{2})\.(\d{2})\.(\d{4})/);if(d)out.tarih=d[3]+&quot;-&quot;+d[2]+&quot;-&quot;+d[1]}
     clearTimeout(to);ok(out)}).catch(function(){clearTimeout(to);ok({})})
   }catch(e){clearTimeout(to);ok({})}})}
-document.querySelectorAll(&quot;[data-up]&quot;).forEach(function(b){b.onclick=function(){upTur=b.dataset.up;$(&quot;fUp&quot;).click()}});
+function title(){return(sec==&quot;gelen&quot;?&quot;Gelen&quot;:&quot;Giden&quot;)+&quot; Evraklar&quot;}
+function tbl(){return &#x27;&lt;table border=&quot;1&quot; cellspacing=&quot;0&quot; cellpadding=&quot;4&quot;&gt;&lt;tr&gt;&lt;th&gt;Sayı&lt;/th&gt;&lt;th&gt;Tarih&lt;/th&gt;&lt;th&gt;Konu&lt;/th&gt;&lt;th&gt;Açıklama&lt;/th&gt;&lt;th&gt;Ek&lt;/th&gt;&lt;/tr&gt;&#x27;+filt(sec).map(function(d){return &#x27;&lt;tr&gt;&lt;td&gt;&#x27;+esc(d.sayi)+&#x27;&lt;/td&gt;&lt;td&gt;&#x27;+fd(d.tarih)+&#x27;&lt;/td&gt;&lt;td&gt;&#x27;+esc(d.konu)+&#x27;&lt;/td&gt;&lt;td&gt;&#x27;+esc(d.aciklama)+&#x27;&lt;/td&gt;&lt;td&gt;&#x27;+d.ekler.length+&#x27;&lt;/td&gt;&lt;/tr&gt;&#x27;}).join(&quot;&quot;)+&#x27;&lt;/table&gt;&#x27;}
+function saveAs(k){
+ if(!filt(sec).length)return say(&quot;Kaydedilecek evrak yok&quot;);
+ if(k==&quot;pdf&quot;){$(&quot;pr&quot;).innerHTML=&quot;&lt;h2&gt;&quot;+title()+&quot;&lt;/h2&gt;&quot;+tbl();window.print();return}
+ var h=&#x27;&lt;html xmlns:o=&quot;urn:schemas-microsoft-com:office:office&quot; xmlns:x=&quot;urn:schemas-microsoft-com:office:excel&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;/head&gt;&lt;body&gt;&lt;h3&gt;&#x27;+title()+&#x27;&lt;/h3&gt;&#x27;+tbl()+&#x27;&lt;/body&gt;&lt;/html&gt;&#x27;;
+ var a=document.createElement(&quot;a&quot;);a.href=URL.createObjectURL(new Blob([&quot;\ufeff&quot;+h],{type:(k==&quot;doc&quot;?&quot;application/msword&quot;:&quot;application/vnd.ms-excel&quot;)+&quot;;charset=utf-8&quot;}));
+ a.download=title().replace(&quot; &quot;,&quot;-&quot;)+(k==&quot;doc&quot;?&quot;.doc&quot;:&quot;.xls&quot;);document.body.appendChild(a);a.click();a.remove();say(&quot;Kaydedildi: &quot;+a.download)}
+[&quot;gelen&quot;,&quot;giden&quot;].forEach(function(t){
+ $(&quot;stb_&quot;+t).innerHTML=&#x27;&lt;button class=&quot;sm&quot; data-up=&quot;&#x27;+t+&#x27;&quot;&gt;&#x27;+UP+&#x27;Yükle&lt;/button&gt;&lt;span class=&quot;sp&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mu&quot;&gt;Kaydet:&lt;/span&gt;&lt;button class=&quot;ti doc&quot; data-sv=&quot;doc&quot; title=&quot;Listeyi Word olarak kaydet&quot;&gt;W&lt;/button&gt;&lt;button class=&quot;ti xls&quot; data-sv=&quot;xls&quot; title=&quot;Listeyi Excel olarak kaydet&quot;&gt;X&lt;/button&gt;&lt;button class=&quot;ti pdf&quot; data-sv=&quot;pdf&quot; title=&quot;Listeyi PDF olarak kaydet&quot;&gt;PDF&lt;/button&gt;&#x27;});
+$(&quot;left&quot;).onclick=function(ev){
+ var t=ev.target.closest(&quot;[data-sec],[data-up],[data-sv],.it,.f button&quot;);if(!t)return;
+ if(t.dataset.sec){if(t.dataset.sec!=sec)setSec(t.dataset.sec)}
+ else if(t.dataset.up){upTur=t.dataset.up;$(&quot;fUp&quot;).click()}
+ else if(t.dataset.sv)saveAs(t.dataset.sv);
+ else if(t.dataset.id)show(+t.dataset.id);
+ else drawList()};
 $(&quot;fUp&quot;).onchange=function(ev){
  var f=ev.target.files[0],t=upTur;ev.target.value=&quot;&quot;;if(!f)return;
  say(&quot;PDF okunuyor…&quot;);
  rd(f).then(function(u){return parsePdf(u).then(function(m){return[u,m]})}).then(function(r){
   grab();var u=r[0],m=r[1],n=nid();
   var d={id:n,tur:t,sayi:m.sayi||newNo(t,n),tarih:m.tarih||today(),konu:m.konu||f.name.replace(/\.pdf$/i,&quot;&quot;),aciklama:&quot;&quot;,icerik:&quot;&quot;,ekler:[{ad:f.name,tip:&quot;pdf&quot;,url:u,ana:true}]};
-  docs.push(d);persist();show(d.id);
-  var a=$(&quot;fa&quot;);if(a)a.focus();
+  docs.push(d);persist();
+  if(t!=sec){sec=t;[&quot;gelen&quot;,&quot;giden&quot;].forEach(function(x){$(&quot;sec_&quot;+x).classList.toggle(&quot;open&quot;,x==t)})}
+  show(d.id);var a=$(&quot;fa&quot;);if(a)a.focus();
   say(m.sayi?&quot;Sayı, tarih ve konu PDF’den alındı. Açıklamayı yazıp Kaydet’e basın&quot;:&quot;PDF’den bilgi okunamadı; alanları elle doldurun&quot;)})};
-$(&quot;bPdf&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fPdf&quot;).click()};
-$(&quot;bDoc&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fDoc&quot;).click()};
-$(&quot;bXls&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir belge seçin&quot;);$(&quot;fXls&quot;).click()};
+$(&quot;bPdf&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir evrak seçin&quot;);$(&quot;fPdf&quot;).click()};
+$(&quot;bDoc&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir evrak seçin&quot;);$(&quot;fDoc&quot;).click()};
+$(&quot;bXls&quot;).onclick=function(){if(!cur)return say(&quot;Önce bir evrak seçin&quot;);$(&quot;fXls&quot;).click()};
 function attach(tip){return function(ev){
  var f=ev.target.files[0];ev.target.value=&quot;&quot;;if(!f||!cur)return;
  rd(f).then(function(u){
-  grab();cur.ekler.push({ad:f.name,tip:tip,url:u});prev=cur.ekler.length-1;
+  grab();cur.ekler.push({ad:f.name,tip:tip,url:u});prev=cur.ekler.length-1;tab=&quot;on&quot;;
   persist();drawList();drawDoc();say(&quot;Ek eklendi&quot;)})}}
 $(&quot;fPdf&quot;).onchange=attach(&quot;pdf&quot;);$(&quot;fDoc&quot;).onchange=attach(&quot;word&quot;);$(&quot;fXls&quot;).onchange=attach(&quot;excel&quot;);
 $(&quot;bNew&quot;).onclick=function(){
- grab();var n=nid(),t=cur?cur.tur:&quot;gelen&quot;;
- var d={id:n,tur:t,sayi:newNo(t,n),tarih:today(),konu:&quot;Yeni yazı&quot;,aciklama:&quot;&quot;,icerik:&quot;&quot;,ekler:[]};
+ grab();var n=nid();
+ var d={id:n,tur:sec,sayi:newNo(sec,n),tarih:today(),konu:&quot;Yeni evrak&quot;,aciklama:&quot;&quot;,icerik:&quot;&quot;,ekler:[]};
  docs.push(d);persist();show(d.id)};
-$(&quot;bSave&quot;).onclick=function(){if(!cur)return;grab();if(persist())say(&quot;Kaydedildi: &quot;+(cur.tur==&quot;gelen&quot;?&quot;Gelen&quot;:&quot;Giden&quot;)+&quot; yazılar&quot;);drawList()};
-$(&quot;del&quot;).onclick=function(){
+$(&quot;bSave&quot;).onclick=function(){if(!cur)return;grab();if(persist())say(&quot;Kaydedildi: &quot;+title());drawList()};
+$(&quot;bDel&quot;).onclick=function(){
  if(!cur)return;
- if(!delArm){delArm=true;this.classList.add(&quot;arm&quot;);this.textContent=&quot;Emin misiniz?&quot;;var b=this;setTimeout(function(){delArm=false;b.classList.remove(&quot;arm&quot;);b.textContent=&quot;Sil&quot;},3000);return}
+ var b=this;
+ if(!delArm){delArm=true;b.classList.add(&quot;arm&quot;);b.lastChild.textContent=&quot;Emin misiniz?&quot;;setTimeout(function(){delArm=false;b.classList.remove(&quot;arm&quot;);b.lastChild.textContent=&quot;Sil&quot;},3000);return}
  docs=docs.filter(function(d){return d.id!=cur.id});persist();
- var s=sorted();cur=null;show(s.length?s[0].id:null);say(&quot;Silindi&quot;)};
-$(&quot;left&quot;).onclick=function(ev){var t=ev.target.closest(&quot;.it&quot;);if(t)show(+t.dataset.id)};
+ var s=sorted().filter(function(d){return d.tur==sec});cur=null;show(s.length?s[0].id:null);say(&quot;Silindi&quot;)};
 $(&quot;doc&quot;).onclick=function(ev){
- var e=ev.target.closest(&quot;.ek&quot;);
- if(e){grab();prev=+e.dataset.e;drawDoc();return}
- if(ev.target.dataset.x){grab();prev=-1;drawDoc()}};
-document.querySelectorAll(&quot;.srch button&quot;).forEach(function(b){b.onclick=drawList});
-document.querySelectorAll(&quot;.srch input&quot;).forEach(function(i){i.oninput=drawList;i.onkeydown=function(e){if(e.key==&quot;Enter&quot;)drawList()}});
-load();show(sorted()[0].id);
+ var t=ev.target.closest(&quot;.tab,.er,[data-x]&quot;);if(!t)return;
+ grab();
+ if(t.dataset.tab)tab=t.dataset.tab;
+ else if(t.dataset.e){prev=+t.dataset.e;tab=&quot;on&quot;}
+ else prev=-1;
+ drawDoc()};
+document.querySelectorAll(&quot;.fg input&quot;).forEach(function(i){i.oninput=drawList;i.onkeydown=function(e){if(e.key==&quot;Enter&quot;)drawList()}});
+$(&quot;home&quot;).onclick=function(){try{parent.postMessage({ebys:&quot;home&quot;},&quot;*&quot;)}catch(x){}};
+load();var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];show(f0?f0.id:null);
 &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
 "></iframe>
 </div>
@@ -6344,10 +6460,13 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     <h2 class="modal-title">Servis Listesi</h2>
 
     <div class="modal-field"><label for="svKayit">Kayıtlı Servisler</label><select id="svKayit" onChange="svKayitSec()"><option value="">(Yeni servis)</option></select></div>
+    <div class="modal-field"><label for="svOkulServis">Servis (Okul Servis Listesi'nden)</label><select id="svOkulServis" onChange="svOkulSec()"><option value="">Servis seçiniz...</option></select></div>
+    <div id="svOkulUyari" class="sv-ozet" style="display:none;"></div>
     <div class="modal-row">
-      <div class="modal-field"><label for="svSofor">Şoför Adı Soyadı</label><input type="text" id="svSofor"></div>
-      <div class="modal-field"><label for="svPlaka">Araç Plakası</label><input type="text" id="svPlaka" style="text-transform:uppercase" placeholder="42 ABC 123"></div>
+      <div class="modal-field"><label for="svSofor">Şoför Adı Soyadı</label><input type="text" id="svSofor" readonly title="Okul Servis Listesi'nden gelir"></div>
+      <div class="modal-field"><label for="svPlaka">Araç Plakası</label><input type="text" id="svPlaka" readonly style="text-transform:uppercase" title="Okul Servis Listesi'nden gelir"></div>
     </div>
+    <div class="modal-field"><label for="svSoforTel">Şoför Cep Telefonu</label><input type="text" id="svSoforTel" readonly title="Okul Servis Listesi'nden gelir"></div>
     <div class="modal-field"><label for="svSayi">Öğrenci Sayısı</label><input type="text" id="svSayi" readonly value="0"></div>
 
     <div class="modal-field"><label for="svSinifSec">Sınıf (Öğrenci Bilgileri'nden)</label><select id="svSinifSec" onChange="svListeCiz()"><option value="TUMU">Tüm Sınıflar</option></select></div>
@@ -7345,9 +7464,11 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
 
     <div class="sd-grup">
       <h3>Genel bilgiler</h3>
+      <div class="modal-field"><label for="sdOkulServis">Servis (Okul Servis Listesi'nden)</label><select id="sdOkulServis" onChange="sdOkulSec()"><option value="">Servis seçiniz...</option></select></div>
+      <div id="sdOkulUyari" class="sv-ozet" style="display:none;"></div>
       <div class="modal-row">
         <div class="modal-field"><label for="sdBirim">Formu Düzenleyen Birim</label><input type="text" id="sdBirim"></div>
-        <div class="modal-field"><label for="sdPlaka">Aracın Plakası</label><input type="text" id="sdPlaka" list="sdPlakaListe" autocomplete="off" style="text-transform:uppercase" placeholder="42 ABC 123" onChange="sdPlakaSecildi()"><datalist id="sdPlakaListe"></datalist></div>
+        <div class="modal-field"><label for="sdPlaka">Aracın Plakası</label><input type="text" id="sdPlaka" readonly style="text-transform:uppercase" title="Okul Servis Listesi'nden gelir"></div>
       </div>
       <div class="modal-row">
         <div class="modal-field"><label for="sdYer">Kontrolün Yapıldığı Yer</label><input type="text" id="sdYer"></div>
@@ -7358,13 +7479,15 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
         <div class="modal-field"><label for="sdSaat">Kontrol Saati</label><input type="time" id="sdSaat"></div>
       </div>
       <div class="modal-row">
-        <div class="modal-field"><label for="sdSofor">Şoförün Adı Soyadı</label><input type="text" id="sdSofor"></div>
-        <div class="modal-field"><label for="sdSoforTc">Şoförün TC Kimlik No</label><input type="text" id="sdSoforTc" maxlength="11" inputmode="numeric"></div>
+        <div class="modal-field"><label for="sdSofor">Şoförün Adı Soyadı</label><input type="text" id="sdSofor" readonly title="Okul Servis Listesi'nden gelir"></div>
+        <div class="modal-field"><label for="sdSoforTc">Şoförün TC Kimlik No</label><input type="text" id="sdSoforTc" readonly title="Okul Servis Listesi'nden gelir"></div>
       </div>
+      <div class="modal-field"><label for="sdSoforTel">Şoförün Cep Telefonu</label><input type="text" id="sdSoforTel" readonly title="Okul Servis Listesi'nden gelir"></div>
       <div class="modal-row">
-        <div class="modal-field"><label for="sdRehber">Rehber Personelin Adı Soyadı</label><input type="text" id="sdRehber"></div>
-        <div class="modal-field"><label for="sdRehberTc">Rehber Personelin TC Kimlik No</label><input type="text" id="sdRehberTc" maxlength="11" inputmode="numeric"></div>
+        <div class="modal-field"><label for="sdRehber">Rehber Personelin Adı Soyadı</label><input type="text" id="sdRehber" readonly title="Okul Servis Listesi'nden gelir"></div>
+        <div class="modal-field"><label for="sdRehberTc">Rehber Personelin TC Kimlik No</label><input type="text" id="sdRehberTc" readonly title="Okul Servis Listesi'nden gelir"></div>
       </div>
+      <div class="modal-field"><label for="sdRehberTel">Rehber Personelin Cep Telefonu</label><input type="text" id="sdRehberTel" readonly title="Okul Servis Listesi'nden gelir"></div>
     </div>
 
     <div class="sd-grup">
@@ -10561,6 +10684,7 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     deneme:      {ad: 'Deneme Sınavları',               keys: ['denemeSinavlari'],                                   ac: function(){ openDenemeModal(); },              durum: 'dsDurum'},
     veli:        {ad: 'ÖDDK Veli Tutanağı',              keys: ['veliTutanaklari'],                                   ac: function(){ openVeliModal(); },                durum: 'vtDurum'},
     ogrTut:      {ad: 'ÖDDK Öğrenci Tutanağı',      keys: ['ogrenciTutanaklari'],                                 ac: function(){ openOtModal(); },                durum: 'otDurum'},
+    okulServis:  {ad: 'Okul Servis Listesi', keys: ['okulServisListesi'], ac: function(){ osAc(); }, durum: 'osDurum'},
     servis:      {ad: 'Servis Listesi',                  keys: ['servisKayitlari'],                                   ac: function(){ openServisModal(); },               durum: 'svDurum'},
     sevk:        {ad: 'ÖDDK\'ya Sevk',  keys: ['oddkSevkler'], ac: function(){ openSevModal(); }, durum: 'sevDurum'},
     takdir:      {ad: 'Takdir Teşekkür Listesi', keys: ['takdirTesekkurListesi'], ac: function(){ openTtModal(); }, durum: 'ttDurum'},
@@ -13482,7 +13606,7 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -15493,6 +15617,7 @@ function pdfSatirlar(items){
   }
   function openServisModal(){
     svSinifDoldur();
+    svOkulDoldur();
     svKayitDoldur(null);
     svFormTemizle();
     document.getElementById('svDurum').textContent = '';
@@ -15543,11 +15668,6 @@ function pdfSatirlar(items){
     var o = ogbOgrenciler().filter(function(x){ return x.no === cb.value; })[0];
     if(!o) return;
     if(cb.checked){
-      if(!SV_SEC[o.no] && Object.keys(SV_SEC).length >= SV_SATIR_MAX){
-        cb.checked = false;
-        document.getElementById('svDurum').textContent = 'Bir servise en fazla ' + SV_SATIR_MAX + ' öğrenci eklenebilir.';
-        return;
-      }
       if(!SV_SEC[o.no]) SV_SEC[o.no] = svOgrKaydi(o);
     } else delete SV_SEC[o.no];
     document.getElementById('svDurum').textContent = '';
@@ -15559,13 +15679,12 @@ function pdfSatirlar(items){
       if(baska[o.no]) return;
       if(sec){
         if(!SV_SEC[o.no]){
-          if(Object.keys(SV_SEC).length >= SV_SATIR_MAX){ doldu = true; return; }
           SV_SEC[o.no] = svOgrKaydi(o);
         }
       } else delete SV_SEC[o.no];
     });
     svListeCiz();
-    document.getElementById('svDurum').textContent = doldu ? ('Bir servise en fazla ' + SV_SATIR_MAX + ' öğrenci eklenebilir; ilk ' + SV_SATIR_MAX + ' öğrenci seçildi.') : '';
+    document.getElementById('svDurum').textContent = '';
   }
   /* Telefon / adres kutusu değişince kayda yazılır (tabloyu yeniden çizmeden, imleç kaybolmasın diye) */
   function svIletisimYaz(el, alan){
@@ -15588,9 +15707,50 @@ function pdfSatirlar(items){
           '<td><textarea rows="2" data-no="' + no + '" onInput="svIletisimYaz(this,\'adres\')">' + escapeHtml(o.adres || '') + '</textarea></td></tr>';
       }).join('') + '</tbody></table></div>';
   }
+  /* ---- Servis bilgileri (şoför, telefon, plaka) Okul Servis Listesi'nden gelir ---- */
+  function svOkulListe(){ return rapLoad('okulServisListesi', []).filter(function(k){ return k && (k.osPlaka || k.osSofor); }); }
+  function svPlakaNorm(x){ return String(x || '').toLocaleUpperCase('tr').replace(/\s+/g, ''); }
+  function svOkulBul(plaka){
+    var p = svPlakaNorm(plaka);
+    if(!p) return -1;
+    var l = svOkulListe();
+    for(var i = 0; i < l.length; i++) if(svPlakaNorm(l[i].osPlaka) === p) return i;
+    return -1;
+  }
+  /* Kayıtlı servisteki şoför/telefon bilgisini Okul Servis Listesi'ndeki güncel bilgiyle değiştirir */
+  function svOkulUygula(k){
+    var i = svOkulBul(k && k.plaka);
+    if(i < 0) return k;
+    var o = svOkulListe()[i], c = {};
+    for(var a in k) c[a] = k[a];
+    c.sofor = o.osSofor || k.sofor || '';
+    c.soforTel = o.osTel || '';
+    c.plaka = o.osPlaka || k.plaka;
+    return c;
+  }
+  function svOkulDoldur(){
+    var sel = document.getElementById('svOkulServis'), l = svOkulListe();
+    sel.innerHTML = '<option value="">Servis seçiniz...</option>' + l.map(function(k, i){
+      return '<option value="' + i + '">' + escapeHtml((k.osPlaka || '(plakasız)') + ' - ' + (k.osSofor || '(şoförsüz)') + (k.osSirket ? ' (' + k.osSirket + ')' : '')) + '</option>';
+    }).join('');
+    var u = document.getElementById('svOkulUyari');
+    u.style.display = l.length ? 'none' : '';
+    u.textContent = l.length ? '' : 'Okul Servis Listesi boş. Önce anasayfadaki "Okul Servis Listesi" butonundan servis (şoför, plaka vb.) ekleyiniz.';
+  }
+  function svOkulFormaYaz(i){
+    var o = (i === '' || i == null) ? null : svOkulListe()[Number(i)];
+    document.getElementById('svSofor').value = o ? (o.osSofor || '') : '';
+    document.getElementById('svSoforTel').value = o ? (o.osTel || '') : '';
+    document.getElementById('svPlaka').value = o ? (o.osPlaka || '') : '';
+    document.getElementById('svOkulServis').value = o ? String(i) : '';
+  }
+  function svOkulSec(){ svOkulFormaYaz(document.getElementById('svOkulServis').value); }
+
   function svFormTemizle(){
     SV_SECILI = null; SV_SEC = {};
+    document.getElementById('svOkulServis').value = '';
     document.getElementById('svSofor').value = '';
+    document.getElementById('svSoforTel').value = '';
     document.getElementById('svPlaka').value = '';
     svListeCiz();
   }
@@ -15614,15 +15774,18 @@ function pdfSatirlar(items){
       SV_SEC[o.no] = {no: o.no, ad: o.ad, sinif: o.sinif || '', tel: o.tel || v.tel, adres: o.adres || v.adres};
     });
     document.getElementById('svSofor').value = k.sofor || '';
+    document.getElementById('svSoforTel').value = k.soforTel || '';
     document.getElementById('svPlaka').value = k.plaka || '';
+    var oi = svOkulBul(k.plaka);
+    if(oi >= 0) svOkulFormaYaz(oi); else document.getElementById('svOkulServis').value = '';
     svListeCiz();
   }
   function svKaydet(){
     var durum = document.getElementById('svDurum');
     var sofor = document.getElementById('svSofor').value.trim();
     var plaka = document.getElementById('svPlaka').value.trim().toLocaleUpperCase('tr');
-    if(!sofor && !plaka){ durum.textContent = 'Şoför adı soyadı veya araç plakası giriniz.'; return; }
-    var k = {sofor: sofor, plaka: plaka, ogrenciler: svSeciliListe().map(function(o){ return {no: o.no, ad: o.ad, sinif: o.sinif || '', tel: String(o.tel || '').trim(), adres: String(o.adres || '').trim()}; })};
+    if(!sofor && !plaka){ durum.textContent = 'Önce yukarıdan Okul Servis Listesi\'ndeki servisi seçiniz.'; return; }
+    var k = {sofor: sofor, soforTel: document.getElementById('svSoforTel').value.trim(), plaka: plaka, ogrenciler: svSeciliListe().map(function(o){ return {no: o.no, ad: o.ad, sinif: o.sinif || '', tel: String(o.tel || '').trim(), adres: String(o.adres || '').trim()}; })};
     var l = svKayitlar();
     if(SV_SECILI !== null && l[SV_SECILI]) l[SV_SECILI] = k; else { l.push(k); SV_SECILI = l.length - 1; }
     svYaz(l);
@@ -15645,7 +15808,7 @@ function pdfSatirlar(items){
   function svYeni(){
     svKayitDoldur(null);
     svFormTemizle();
-    document.getElementById('svDurum').textContent = 'Yeni servis kaydı için şoför, plaka ve öğrencileri giriniz.';
+    document.getElementById('svDurum').textContent = 'Yeni servis kaydı için servisi (Okul Servis Listesi\'nden) ve öğrencileri seçiniz.';
   }
   function svEOkul(){
     svSinifDoldur();
@@ -15661,22 +15824,23 @@ function pdfSatirlar(items){
     var sofor = document.getElementById('svSofor').value.trim();
     var plaka = document.getElementById('svPlaka').value.trim().toLocaleUpperCase('tr');
     var og = svSeciliListe();
-    if(sofor || plaka || og.length) return [{sofor: sofor, plaka: plaka, ogrenciler: og}];
-    return svKayitlar();
+    if(sofor || plaka || og.length) return [svOkulUygula({sofor: sofor, soforTel: document.getElementById('svSoforTel').value.trim(), plaka: plaka, ogrenciler: og})];
+    return svKayitlar().map(svOkulUygula);
   }
   /* Rapor şablonu (PDF ve Excel aynı): T.C. / KONYA VALİLİĞİ / okul / SERVİS LİSTESİ, Şoför - Plaka - Öğrenci Sayısı kutuları,
      Sıra | Sınıf | No | Adı Soyadı | Telefon | Adres tablosu; en az 25 numaralı satır */
-  var SV_SATIR_MAX = 25;   // bir serviste en fazla 25 öğrenci; liste tek sayfaya sığar
+  var SV_SATIR_MIN = 25;   // rapor en az 25 satır; öğrenci sayısı sınırsız, fazlası ek sayfaya geçer
   var SV_SATIR_YUKSEKLIK = 20.5;
   function svPdfDok(servisler){
     var icerik = [], GRI = '#d9d9d9';
     servisler.forEach(function(sv, i){
-      var og = (sv.ogrenciler || []).slice().sort(svSinifSirala).slice(0, SV_SATIR_MAX);
-      var n = SV_SATIR_MAX;
+      var og = (sv.ogrenciler || []).slice().sort(svSinifSirala);
+      var n = Math.max(SV_SATIR_MIN, og.length);
       function etiket(t){ return [{text: t, bold: true, alignment: 'right', fontSize: 10, fillColor: GRI, colSpan: 3}, {}, {}]; }
       function deger(t){ return [{text: String(t), alignment: 'left', fontSize: 10, colSpan: 3}, {}, {}]; }
       var govde = [
         etiket('Şoför Adı Soyadı:').concat(deger(sv.sofor || '')),
+        etiket('Şoför Cep Telefonu:').concat(deger(sv.soforTel || '')),
         etiket('Araç Plakası:').concat(deger(sv.plaka || '')),
         etiket('Öğrenci Sayısı:').concat(deger(og.length)),
         ['Sıra', 'Sınıf', 'No', 'Adı Soyadı', 'Telefon', 'Adres'].map(function(t){ return {text: t, bold: true, alignment: 'center', fontSize: 9, fillColor: GRI}; })
@@ -15697,7 +15861,7 @@ function pdfSatirlar(items){
         {text: 'KONYA VALİLİĞİ', bold: true, alignment: 'center', fontSize: 11},
         {text: 'Karatay / Fetihkent İmam Hatip Ortaokulu Müdürlüğü', bold: true, alignment: 'center', fontSize: 11},
         {text: 'SERVİS LİSTESİ', bold: true, alignment: 'center', fontSize: 14, margin: [0, 2, 0, 6]},
-        {table: {headerRows: 4, widths: [28.5, 28.5, 28.5, 80, 62, '*'], heights: function(r){ return r >= 4 ? SV_SATIR_YUKSEKLIK : undefined; }, body: govde},
+        {table: {headerRows: 5, widths: [28.5, 28.5, 28.5, 80, 62, '*'], heights: function(r){ return r >= 5 ? SV_SATIR_YUKSEKLIK : undefined; }, body: govde},
          layout: {hLineWidth: function(){ return .5; }, vLineWidth: function(){ return .5; }, hLineColor: function(){ return '#000'; }, vLineColor: function(){ return '#000'; },
                   paddingLeft: function(){ return 2; }, paddingRight: function(){ return 2; }, paddingTop: function(){ return 1; }, paddingBottom: function(){ return 1; }}}
       ];
@@ -15715,11 +15879,11 @@ function pdfSatirlar(items){
       var ad = String(sv.plaka || sv.sofor || ('Servis ' + (i + 1))).replace(/[\\\/\?\*\[\]:]/g, '').substring(0, 28) || ('Servis ' + (i + 1));
       if(kullanilan[ad]) ad = ad.substring(0, 25) + ' ' + (i + 1);
       kullanilan[ad] = true;
-      var ws = wb.addWorksheet(ad, {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 1,
+      var ws = wb.addWorksheet(ad, {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: (sv.ogrenciler || []).length > SV_SATIR_MIN ? 0 : 1,
         margins: {left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3}}});
       ws.columns = [{width: 0.5547}, {width: 4.7773}, {width: 4.7773}, {width: 4.7773}, {width: 15.2188}, {width: 10.5547}, {width: 54.1094}, {width: 0.6641}];
-      var og = (sv.ogrenciler || []).slice().sort(svSinifSirala).slice(0, SV_SATIR_MAX);
-      var n = SV_SATIR_MAX;
+      var og = (sv.ogrenciler || []).slice().sort(svSinifSirala);
+      var n = Math.max(SV_SATIR_MIN, og.length);
       function baslik(r, text, size){
         ws.mergeCells(r, 2, r, 7);
         var h = ws.getCell(r, 2); h.value = text; h.font = f(size, true); h.alignment = {horizontal: 'center'};
@@ -15733,13 +15897,14 @@ function pdfSatirlar(items){
         var d = ws.getCell(r, 5); d.value = deger; d.font = f(11, false); d.alignment = {horizontal: 'left'};
       }
       bilgi(5, 'Şoför Adı Soyadı:', sv.sofor || '');
-      bilgi(6, 'Araç Plakası:', sv.plaka || '');
-      bilgi(7, 'Öğrenci Sayısı:', og.length);
+      bilgi(6, 'Şoför Cep Telefonu:', sv.soforTel || '');
+      bilgi(7, 'Araç Plakası:', sv.plaka || '');
+      bilgi(8, 'Öğrenci Sayısı:', og.length);
       ['Sıra', 'Sınıf', 'No', 'Adı Soyadı', 'Telefon', 'Adres'].forEach(function(t, c){
-        var h = ws.getCell(8, c + 2); h.value = t; h.font = f(9, true); h.fill = gri; h.border = kenar; h.alignment = {horizontal: 'center'};
+        var h = ws.getCell(9, c + 2); h.value = t; h.font = f(9, true); h.fill = gri; h.border = kenar; h.alignment = {horizontal: 'center'};
       });
       for(var j = 0; j < n; j++){
-        var o = og[j] || {}, r = 9 + j;
+        var o = og[j] || {}, r = 10 + j;
         var degerler = [j + 1, o.sinif || '', /^\d+$/.test(o.no || '') ? Number(o.no) : (o.no || ''), o.ad || '', o.tel || '', o.adres || ''];
         degerler.forEach(function(v, c){
           var h = ws.getCell(r, c + 2);
@@ -18822,12 +18987,12 @@ function pdfSatirlar(items){
     {baslik: 'ARAÇ', yb: 343.4, top: 352.2, y: [358.2, 373.0, 387.8, 402.6, 417.4, 432.2, 447.0, 461.8, 476.6], madde: ['Özel izin belgesi var mı?', 'Bakım ve onarım takip formu düzenlenmiş mi?', 'Zorunlu mali sorumluluk sigortası var mı?', 'Rehber personel bulunuyor mu?', 'Emniyet kemeri kullanılıyor mu?', 'Fazla öğrenci alınmış mı?', 'Öğrenci biniş-inişlerinde "DUR" lambası kullanılıyor mu?', 'İndirme-bindirme kurallarına uyuluyor mu?', '"OKUL TAŞITI" ibaresi yazılı mı?']},
     {baslik: 'DİĞER HUSUSLAR', yb: 492.1, top: 500.8, y: [506.8, 521.4], madde: ['AİTM Yönetmeliğinde belirtilen şartlar mevcut mu?', 'Okul Servis Araçları Yönetmeliğindeki teknik yeterlilikler mevcut mu?']}
   ];
-  var SD_BILGI = ['FORMU DÜZENLEYEN BİRİM', 'ARACIN PLAKASI', 'KONTROLÜN YAPILDIĞI YER', 'KONTROL TARİHİ VE SAATİ', 'OKULUN ADI', 'ŞOFÖRÜN ADI SOYADI TC KİMLİK NO', 'REH. PER. ADI SOYADI TC KİMLİK NO'];
+  var SD_BILGI = ['FORMU DÜZENLEYEN BİRİM', 'ARACIN PLAKASI', 'KONTROLÜN YAPILDIĞI YER', 'KONTROL TARİHİ VE SAATİ', 'OKULUN ADI', 'ŞOFÖRÜN ADI SOYADI TC KİMLİK NO CEP TEL', 'REH. PER. ADI SOYADI TC KİMLİK NO CEP TEL'];
   var SD_NOT = ['NOT: Form denetlenen her okul servis aracı için düzenlenecektir. Ayrıca, cezai müeyyide uygulanması veya ilgili',
                 'Yönetmeliğe göre olumsuzluk tespit edilmesi halinde formun bir sureti okul müdürlüklerine gönderilmek üzere okulun',
                 'bağlı olduğu il-ilçe milli eğitim müdürlüğüne, bir sureti de servis aracının bağlı olduğu odaya en geç yedi (7) iş günü',
                 'içerisinde gönderilecektir.'];
-  var SD_ALANLAR = ['sdBirim', 'sdPlaka', 'sdYer', 'sdTarih', 'sdSaat', 'sdOkul', 'sdSofor', 'sdSoforTc', 'sdRehber', 'sdRehberTc', 'sdCeza1', 'sdCeza2', 'sdCeza3', 'sdAciklama', 'sdG1Ad', 'sdG1Unvan', 'sdG1Sicil', 'sdG2Ad', 'sdG2Unvan', 'sdG2Sicil'];
+  var SD_ALANLAR = ['sdBirim', 'sdPlaka', 'sdYer', 'sdTarih', 'sdSaat', 'sdOkul', 'sdSofor', 'sdSoforTc', 'sdSoforTel', 'sdRehber', 'sdRehberTc', 'sdRehberTel', 'sdCeza1', 'sdCeza2', 'sdCeza3', 'sdAciklama', 'sdG1Ad', 'sdG1Unvan', 'sdG1Sicil', 'sdG2Ad', 'sdG2Unvan', 'sdG2Sicil'];
   var SD_SECILI = null;
   function sdKayitlar(){ return rapLoad('servisDenetimleri', []); }
   function sdYaz(l){ localStorage.setItem('servisDenetimleri', JSON.stringify(l)); }
@@ -18858,17 +19023,39 @@ function pdfSatirlar(items){
     d = d || {};
     SD_ALANLAR.forEach(function(id){ document.getElementById(id).value = d[id] || ''; });
     for(var i = 0; i < sdMaddeSayisi(); i++) document.getElementById('sdM' + i).value = (d.m && d.m[i]) || '';
+    sdOkulEsitle();
   }
+  /* Servis bilgileri (plaka, şoför, rehber) Okul Servis Listesi'nden getirilir */
+  function sdOkulListe(){ return rapLoad('okulServisListesi', []).filter(function(k){ return k && (k.osPlaka || k.osSofor); }); }
+  function sdPlakaNorm(x){ return String(x || '').replace(/\s+/g, '').toLocaleUpperCase('tr'); }
   function sdPlakaDoldur(){
-    document.getElementById('sdPlakaListe').innerHTML = rapLoad('servisKayitlari', []).filter(function(k){ return k && k.plaka; }).map(function(k){
-      return '<option value="' + dpEsc(k.plaka) + '"></option>';
+    var l = sdOkulListe(), sel = document.getElementById('sdOkulServis');
+    sel.innerHTML = '<option value="">Servis seçiniz...</option>' + l.map(function(k, i){
+      return '<option value="' + i + '">' + dpEsc((k.osPlaka || '(plakasız)') + ' - ' + (k.osSofor || '(şoförsüz)') + (k.osSirket ? ' (' + k.osSirket + ')' : '')) + '</option>';
     }).join('');
+    var u = document.getElementById('sdOkulUyari');
+    u.style.display = l.length ? 'none' : '';
+    u.textContent = l.length ? '' : 'Okul Servis Listesi boş. Önce anasayfadaki "Okul Servis Listesi" butonundan servis ekleyiniz.';
   }
-  function sdPlakaSecildi(){
-    var pl = dpAdNorm(document.getElementById('sdPlaka').value);
-    if(!pl) return;
-    var k = rapLoad('servisKayitlari', []).filter(function(x){ return x && dpAdNorm(x.plaka) === pl; })[0];
-    if(k && k.sofor && !document.getElementById('sdSofor').value.trim()) document.getElementById('sdSofor').value = k.sofor;
+  function sdOkulFormaYaz(i){
+    var o = (i === '' || i == null) ? null : sdOkulListe()[Number(i)];
+    var v = function(x){ return o ? (x || '') : ''; };
+    document.getElementById('sdPlaka').value = v(o && o.osPlaka);
+    document.getElementById('sdSofor').value = v(o && o.osSofor);
+    document.getElementById('sdSoforTc').value = v(o && o.osTc);
+    document.getElementById('sdSoforTel').value = v(o && o.osTel);
+    document.getElementById('sdRehber').value = v(o && o.osRehber);
+    document.getElementById('sdRehberTc').value = v(o && o.osRehberTc);
+    document.getElementById('sdRehberTel').value = v(o && o.osRehberTel);
+    document.getElementById('sdOkulServis').value = o ? String(i) : '';
+  }
+  function sdOkulSec(){ sdOkulFormaYaz(document.getElementById('sdOkulServis').value); }
+  /* Kayıtlı bir denetim açıldığında seçimi plakaya göre eşleştirir */
+  function sdOkulEsitle(){
+    var p = sdPlakaNorm(document.getElementById('sdPlaka').value), l = sdOkulListe(), sel = document.getElementById('sdOkulServis');
+    sel.value = '';
+    if(!p) return;
+    for(var i = 0; i < l.length; i++) if(sdPlakaNorm(l[i].osPlaka) === p){ sel.value = String(i); return; }
   }
   function sdKayitDoldur(sec){
     var l = sdKayitlar(), sel = document.getElementById('sdKayit');
@@ -18904,7 +19091,7 @@ function pdfSatirlar(items){
   }
   function sdKaydet(){
     var durum = document.getElementById('sdDurum'), d = sdForm();
-    if(!d.sdPlaka){ durum.textContent = 'Aracın plakasını giriniz.'; return; }
+    if(!d.sdPlaka){ durum.textContent = 'Önce yukarıdan Okul Servis Listesi\'ndeki servisi seçiniz.'; return; }
     var l = sdKayitlar();
     if(SD_SECILI !== null && l[SD_SECILI]) l[SD_SECILI] = d; else { l.push(d); SD_SECILI = l.length - 1; }
     sdYaz(l);
@@ -18943,11 +19130,11 @@ function pdfSatirlar(items){
     for(var i = 0; i <= 7; i++) L(51.5, by + i * bp, 573.3, by + i * bp);
     L(51.5, by, 51.5, by + 7 * bp); L(333, by, 333, by + 7 * bp); L(573.3, by, 573.3, by + 7 * bp);
     var deger = [d.sdBirim, up(d.sdPlaka), d.sdYer, (d.sdTarih ? dpTarihBicim(d.sdTarih) : '') + (d.sdSaat ? '   ' + d.sdSaat : ''), d.sdOkul,
-                 [up(d.sdSofor), d.sdSoforTc].filter(Boolean).join('   -   '), [up(d.sdRehber), d.sdRehberTc].filter(Boolean).join('   -   ')];
+                 [up(d.sdSofor), d.sdSoforTc, d.sdSoforTel].filter(Boolean).join('   -   '), [up(d.sdRehber), d.sdRehberTc, d.sdRehberTel].filter(Boolean).join('   -   ')];
     SD_BILGI.forEach(function(b, i){
       var yc = by + (i + 0.5) * bp;
-      T(61.2, yc, 268, b, 10.5);
-      if(deger[i]) T(337, yc, 232, deger[i], 9.5);
+      T(61.2, yc, 268, b, b.length > 34 ? 9 : 10.5);
+      if(deger[i]) T(337, yc, 232, deger[i], deger[i].length > 52 ? 7 : (deger[i].length > 40 ? 8 : 9.5));
     });
     T(51.5, 185, 523, 'OKUL SERVİS ARAÇLARINDA DENETLENECEK HUSUSLAR', 11, {bold: 1, align: 'center'});
     /* hususlar ve EVET / HAYIR kutuları */
@@ -19024,8 +19211,8 @@ function pdfSatirlar(items){
     }
     hucre(r, 1, 5, 'OKUL SERVİS ARACI DENETİM FORMU', {kalin: 1, boyut: 12, hiza: 'center'}); hucre(r, 6, 6, 'EK-1', {kalin: 1, boyut: 12, hiza: 'right'}); ws.getRow(r).height = 24; r++;
     var deger = [d.sdBirim, ykUp(d.sdPlaka || ''), d.sdYer, (d.sdTarih ? dpTarihBicim(d.sdTarih) : '') + (d.sdSaat ? '   ' + d.sdSaat : ''), d.sdOkul,
-                 [ykUp(d.sdSofor || ''), d.sdSoforTc].filter(Boolean).join('  -  '), [ykUp(d.sdRehber || ''), d.sdRehberTc].filter(Boolean).join('  -  ')];
-    SD_BILGI.forEach(function(b, i){ hucre(r, 1, 2, b, {kenar: 1}); hucre(r, 3, 6, deger[i] || '', {kenar: 1}); ws.getRow(r).height = 18; r++; });
+                 [ykUp(d.sdSofor || ''), d.sdSoforTc, d.sdSoforTel].filter(Boolean).join('  -  '), [ykUp(d.sdRehber || ''), d.sdRehberTc, d.sdRehberTel].filter(Boolean).join('  -  ')];
+    SD_BILGI.forEach(function(b, i){ hucre(r, 1, 2, b, {kenar: 1}); hucre(r, 3, 6, deger[i] || '', {kenar: 1}); ws.getRow(r).height = (i === 5 || String(deger[i] || '').length > 45) ? 30 : 18; r++; });
     hucre(r, 1, 6, 'OKUL SERVİS ARAÇLARINDA DENETLENECEK HUSUSLAR', {kalin: 1, boyut: 11, hiza: 'center'}); ws.getRow(r).height = 24; r++;
     var n = 0;
     SD_GRUPLAR.forEach(function(g, gi){
@@ -19111,6 +19298,7 @@ function barOlcuGuncelle(){
   if(typeof menuSigdirPlanla === 'function') menuSigdirPlanla();
 }
 window.addEventListener('resize', barOlcuGuncelle);
+window.addEventListener('message', function(e){ if(e.data && e.data.ebys === 'home') gosterSayfa('home'); });
 window.addEventListener('load', barOlcuGuncelle);
 document.addEventListener('DOMContentLoaded', barOlcuGuncelle);
 if(window.ResizeObserver){
@@ -19172,5 +19360,497 @@ document.addEventListener('DOMContentLoaded', menuSigdirPlanla);
 if(document.fonts && document.fonts.ready){ document.fonts.ready.then(menuSigdirPlanla); }
 menuSigdirPlanla();
 </script>
+
+<!-- ================= TEBLİĞ TEBELLÜĞ MODAL ================= -->
+<style>
+  .tb-doc{font-family:'Times New Roman',Times,serif;font-size:11pt;color:#000;background:#fff;line-height:1.3;}
+  .tb-doc .hd{text-align:center;font-weight:bold;line-height:1.45;margin-bottom:14px;}
+  .tb-doc table{width:100%;border-collapse:collapse;}
+  .tb-doc td,.tb-doc th{font-family:inherit;font-size:inherit;color:#000;}
+  .tb-doc .inf td{padding:3px 6px;}
+  .tb-doc .inf .box{border:1px solid #000;text-align:center;font-weight:bold;padding:4px;}
+  .tb-doc .inf .alt{border-top:1px solid #000;border-bottom:1px solid #000;font-weight:bold;}
+  .tb-doc .inf .l{width:20%;font-weight:bold;border-bottom:1px solid #000;}
+  .tb-doc .inf .v{border-bottom:1px solid #000;}
+  .tb-doc .lst{margin-top:20px;}
+  .tb-doc .lst th,.tb-doc .lst td{border:1px solid #000;padding:7px 8px;text-align:left;}
+  .tb-doc .lst th{font-weight:bold;}
+  .tb-doc .lst td{height:26px;}
+  .tb-onizleme{overflow-x:auto;border:1px solid #9bbfc3;border-radius:10px;padding:14px;background:#fff;}
+  .tb-onizleme .tb-doc{min-width:480px;font-size:.85rem;}
+</style>
+<div id="tbOverlay" class="modal-overlay" onClick="if(event.target===this) tbKapat()">
+  <div class="modal-box">
+    <button type="button" class="modal-close" onClick="tbKapat()">×</button>
+    <h2 class="modal-title">Tebliğ Tebellüğ</h2>
+
+    <div class="modal-field"><label for="tbTarih">Tebliğ Edilen Yazının Tarihi</label><input type="date" id="tbTarih"></div>
+    <div class="modal-field"><label for="tbSayi">Tebliğ Edilen Yazının Sayısı</label><input type="text" id="tbSayi" placeholder="Örn: E-12345678-100-1234567"></div>
+    <div class="modal-field"><label for="tbKonu">Tebliğ Edilen Yazının Konusu</label><input type="text" id="tbKonu" placeholder="Örn: 2026-2027 Eğitim Öğretim Yılı Çalışma Takvimi"></div>
+
+    <div class="modal-field">
+      <label>Öğretmen / Personel (tik atılanlar rapora eklenir) <span id="tbSayac" class="imza-sayi"></span></label>
+      <div id="tbListe" class="imza-chk-list"></div>
+      <div class="imza-mini">
+        <button type="button" class="modal-btn" onClick="tbTopluSec(true)">Tümünü Seç</button>
+        <button type="button" class="modal-btn danger" onClick="tbTopluSec(false)">Tümünü Kaldır</button>
+      </div>
+    </div>
+
+    <div class="modal-actions-single-row" style="grid-template-columns:repeat(4,1fr);">
+      <button type="button" class="modal-btn primary" onClick="tbOnizle()">Önizle</button>
+      <button type="button" class="modal-btn" onClick="tbCikti('yazdir')">Yazdır</button>
+      <button type="button" class="modal-btn pdf" onClick="tbCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn excel" onClick="tbCikti('excel')">Excel</button>
+    </div>
+    <div id="tbDurum" class="modal-status"></div>
+
+    <div class="data-list-container" id="tbOnizlemeKap" style="display:none;">
+      <div class="data-list-title">Görev Tebliğ İmza Sirküsü</div>
+      <div id="tbOnizleme" class="tb-onizleme"></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var PERSONEL = [];   /* {ad, unvan, brans, _id} — Öğretmen Bilgi Girişi'nden */
+  var SECILI = {};     /* _id -> true */
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function tr(s){ return String(s || '').toLocaleLowerCase('tr').trim(); }
+  function buyuk(s){ return String(s || '').toLocaleUpperCase('tr').trim(); }
+  function okulBilgi(){ try{ return JSON.parse(localStorage.getItem('okulBilgiGirisi') || '{}') || {}; }catch(e){ return {}; } }
+
+  function gorevSirasi(u){
+    var t = tr(u);
+    if(t.indexOf('müdür yardımcısı') > -1 || t.indexOf('müdür yrd') > -1) return 1;
+    if(t.indexOf('müdür') > -1) return 0;
+    return 2;
+  }
+  function sirala(a, b){
+    var ga = gorevSirasi(a.unvan), gb = gorevSirasi(b.unvan);
+    if(ga !== gb) return ga - gb;                    /* önce müdür, sonra müdür yardımcıları, sonra öğretmenler */
+    if(ga < 2) return a._id - b._id;                 /* aynı görevdekiler: Öğretmen Bilgi Girişi'ndeki sırada */
+    return String(a.ad || '').localeCompare(String(b.ad || ''), 'tr');   /* öğretmenler: alfabetik */
+  }
+  /* GÖREVİ sütunu: yöneticiler için unvan, öğretmenler için branş */
+  function gorevi(o){ return gorevSirasi(o.unvan) < 2 ? (o.unvan || '') : (o.brans || o.unvan || ''); }
+
+  function yukle(){
+    var ham = [];
+    try{ ham = JSON.parse(localStorage.getItem('ogretmenListesi') || '[]'); }catch(e){}
+    PERSONEL = ham.filter(function(o){ return o && String(o.ad || '').trim(); })
+                  .map(function(o, i){ return {ad: String(o.ad).trim(), unvan: o.unvan || '', brans: o.brans || '', _id: i}; })
+                  .sort(sirala);
+  }
+  function secilenler(){ return PERSONEL.filter(function(o){ return SECILI[o._id]; }); }
+
+  function baslik(){
+    var ob = okulBilgi();
+    var ilce = String(ob.okulIlce || '').trim().replace(/\s*(ilçesi|kaymakamlığı)\s*$/i, '') || 'Karatay';
+    var okul = String(ob.okulAdi || '').trim() || 'Fetihkent İmam Hatip Ortaokulu Müdürlüğü';
+    if(!/m[üu]d[üu]rl[üu][ğg][üu]\s*$/i.test(okul)) okul += ' Müdürlüğü';
+    return {kaymakamlik: buyuk(ilce) + ' KAYMAKAMLIĞI', okul: okul};
+  }
+  function tarihYaz(v){
+    if(!v) return '';
+    var p = v.split('-'); return p.length === 3 ? (p[2] + '.' + p[1] + '.' + p[0]) : v;
+  }
+  function bilgiler(){
+    return {tarih: tarihYaz($('tbTarih').value), sayi: $('tbSayi').value.trim(), konu: $('tbKonu').value.trim()};
+  }
+
+  function listeCiz(){
+    var kutu = $('tbListe');
+    if(!PERSONEL.length){
+      kutu.innerHTML = '<div class="imza-chk"><span class="s">Kayıtlı personel yok. Önce Öğretmen Bilgi Girişi\'nden personel ekleyiniz.</span></div>';
+    } else {
+      kutu.innerHTML = PERSONEL.map(function(o){
+        return '<label class="imza-chk"><input type="checkbox" data-id="' + o._id + '"' + (SECILI[o._id] ? ' checked' : '') + '>' +
+               '<span class="t"><span>' + esc(o.ad) + '</span><span class="s">' + esc(gorevi(o) || '—') + '</span></span></label>';
+      }).join('');
+      Array.prototype.forEach.call(kutu.querySelectorAll('input[type=checkbox]'), function(c){
+        c.addEventListener('change', function(){
+          var id = c.getAttribute('data-id');
+          if(c.checked) SECILI[id] = true; else delete SECILI[id];
+          sayac();
+        });
+      });
+    }
+    sayac();
+  }
+  function sayac(){ $('tbSayac').textContent = '(Seçili: ' + Object.keys(SECILI).length + ' / ' + PERSONEL.length + ')'; }
+
+  window.tbAc = function(){
+    yukle(); SECILI = {};
+    PERSONEL.forEach(function(o){ SECILI[o._id] = true; });
+    listeCiz();
+    $('tbDurum').textContent = '';
+    $('tbOnizlemeKap').style.display = 'none';
+    $('tbOverlay').classList.add('active');
+  };
+  window.tbKapat = function(){ $('tbOverlay').classList.remove('active'); };
+  window.tbTopluSec = function(sec){
+    SECILI = {};
+    if(sec) PERSONEL.forEach(function(o){ SECILI[o._id] = true; });
+    listeCiz();
+  };
+
+  /* ---- Belge (önizleme / yazdırma) ---- */
+  function belgeHtml(l, b){
+    var bk = baslik();
+    var satir = function(e, d){ return '<tr><td class="l">' + e + '</td><td class="v" colspan="2">: ' + esc(d) + '</td></tr>'; };
+    return '<div class="tb-doc">' +
+      '<div class="hd">T.C.<br>' + esc(bk.kaymakamlik) + '<br>' + esc(bk.okul) + '</div>' +
+      '<table class="inf">' +
+        '<tr><td class="box" colspan="3">GÖREV TEBLİĞ İMZA SİRKÜSÜ</td></tr>' +
+        '<tr><td class="alt" colspan="3">Tebliğ Edilen Yazının</td></tr>' +
+        satir('Tarih', b.tarih) + satir('Sayısı', b.sayi) + satir('Konusu', b.konu) +
+      '</table>' +
+      '<table class="lst"><thead><tr><th style="width:42%">ADI SOYADI</th><th style="width:38%">GÖREVİ</th><th style="width:20%">İMZASI</th></tr></thead><tbody>' +
+      l.map(function(o){ return '<tr><td>' + esc(o.ad) + '</td><td>' + esc(gorevi(o)) + '</td><td></td></tr>'; }).join('') +
+      '</tbody></table></div>';
+  }
+  function secimKontrol(){
+    var l = secilenler();
+    if(!l.length){ alert('Lütfen en az bir öğretmen / personel seçiniz (tik atınız).'); return null; }
+    return l;
+  }
+  window.tbOnizle = function(){
+    var l = secimKontrol(); if(!l) return;
+    $('tbOnizleme').innerHTML = belgeHtml(l, bilgiler());
+    $('tbOnizlemeKap').style.display = '';
+    $('tbDurum').textContent = l.length + ' kişi listelendi.';
+  };
+
+  function indir(blob, ad){
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = ad;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+
+  window.tbCikti = function(tur){
+    var l = secimKontrol(); if(!l) return;
+    var b = bilgiler(), bk = baslik();
+
+    if(tur === 'yazdir'){
+      var css = Array.prototype.map.call(document.querySelectorAll('style'), function(s){ return s.textContent; }).join('\n');
+      var w = window.open('', '_blank');
+      if(!w){ alert('Yazdırma penceresi açılamadı. Lütfen açılır pencerelere izin veriniz.'); return; }
+      var tbCss = css.slice(css.indexOf('.tb-doc{'), css.indexOf('.tb-onizleme{'));
+      w.document.write('<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Görev Tebliğ İmza Sirküsü</title><style>@page{size:A4;margin:18mm 18mm}body{margin:0;}' +
+        tbCss + '.tb-doc{font-size:12pt;}</style></head><body>' + belgeHtml(l, b) + '</body></html>');
+      w.document.close();
+      setTimeout(function(){ w.focus(); w.print(); }, 400);
+      $('tbDurum').textContent = 'Yazdırma penceresi açıldı.';
+      return;
+    }
+
+    if(tur === 'pdf'){
+      try{
+        var H = function(t){ return {text: t, bold: true, margin: [0, 4, 0, 4]}; };
+        var govde = [[H('ADI SOYADI'), H('GÖREVİ'), H('İMZASI')]];
+        l.forEach(function(o){
+          govde.push([{text: o.ad, margin: [0, 6, 0, 6]}, {text: gorevi(o), margin: [0, 6, 0, 6]}, '']);
+        });
+        var bilgi = function(e, d){
+          return {table: {widths: [95, '*'], body: [[{text: e, bold: true, border: [false, false, false, true], margin: [0, 2, 0, 2]},
+                                                     {text: ': ' + d, border: [false, false, false, true], margin: [0, 2, 0, 2]}]]}, layout: {hLineWidth: function(){ return 0.7; }}};
+        };
+        pdfMake.createPdf({
+          pageSize: 'A4', pageOrientation: 'portrait', pageMargins: [50, 40, 50, 40],
+          defaultStyle: {fontSize: 11},
+          content: [
+            {text: ['T.C.\n', bk.kaymakamlik + '\n', bk.okul], alignment: 'center', bold: true, lineHeight: 1.3, margin: [0, 0, 0, 14]},
+            {table: {widths: ['*'], body: [[{text: 'GÖREV TEBLİĞ İMZA SİRKÜSÜ', bold: true, alignment: 'center', margin: [0, 3, 0, 3]}]]}, layout: {hLineWidth: function(){ return 0.7; }, vLineWidth: function(){ return 0.7; }}},
+            {table: {widths: ['*'], body: [[{text: 'Tebliğ Edilen Yazının', bold: true, margin: [0, 3, 0, 3]}]]}, layout: {hLineWidth: function(){ return 0.7; }, vLineWidth: function(){ return 0; }}},
+            bilgi('Tarih', b.tarih), bilgi('Sayısı', b.sayi), bilgi('Konusu', b.konu),
+            {text: '', margin: [0, 0, 0, 14]},
+            {table: {headerRows: 1, dontBreakRows: true, widths: [190, 210, '*'], body: govde},
+             layout: {hLineWidth: function(){ return 0.7; }, vLineWidth: function(){ return 0.7; }}}
+          ]
+        }).download('Gorev_Teblig_Imza_Sirkusu.pdf');
+        $('tbDurum').textContent = 'PDF hazırlandı.';
+      }catch(err){ $('tbDurum').textContent = 'PDF oluşturulamadı.'; }
+      return;
+    }
+
+    /* ---- Excel: Kitap1.xlsx belge düzeni ---- */
+    try{
+      var wb = new ExcelJS.Workbook();
+      var ws = wb.addWorksheet('Sayfa1', {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 0,
+                                margins: {left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3}}});
+      ws.columns = [{width: 2.9}, {width: 16.7}, {width: 11.2}, {width: 31.8}, {width: 18.3}];
+      var FONT = {name: 'Times New Roman', size: 11};
+      var ince = {style: 'thin', color: {argb: 'FF000000'}};
+      var kenar = function(r, c1, c2, sides){
+        for(var c = c1; c <= c2; c++){
+          var br = {};
+          if(sides.t) br.top = ince;
+          if(sides.b) br.bottom = ince;
+          if(sides.l && c === c1) br.left = ince;
+          if(sides.r && c === c2) br.right = ince;
+          ws.getCell(r, c).border = br;
+        }
+      };
+      var yaz = function(r, c1, c2, metin, o){
+        o = o || {};
+        if(c2 > c1) ws.mergeCells(r, c1, r, c2);
+        var cell = ws.getCell(r, c1);
+        cell.value = metin === '' ? null : metin;
+        cell.font = {name: FONT.name, size: FONT.size, bold: !!o.bold};
+        cell.alignment = {horizontal: o.h || 'left', vertical: 'middle', wrapText: !!o.wrap};
+        if(o.sides) kenar(r, c1, c2, o.sides);
+      };
+
+      yaz(1, 2, 5, 'T.C.', {bold: true, h: 'center'});
+      yaz(2, 2, 5, bk.kaymakamlik, {bold: true, h: 'center'});
+      yaz(3, 2, 5, bk.okul, {bold: true, h: 'center'});
+      yaz(5, 2, 5, 'GÖREV TEBLİĞ İMZA SİRKÜSÜ', {bold: true, h: 'center', sides: {l: 1, r: 1, t: 1, b: 1}});
+      ws.getRow(5).height = 18;
+      yaz(6, 2, 5, 'Tebliğ Edilen Yazının', {bold: true, sides: {t: 1, b: 1}});
+      ws.getRow(6).height = 16.8;
+      [['Tarih', b.tarih], ['Sayısı', b.sayi], ['Konusu', b.konu]].forEach(function(p, i){
+        var r = 7 + i;
+        yaz(r, 2, 2, p[0], {bold: true, sides: {b: 1}});
+        yaz(r, 3, 5, ': ' + p[1], {wrap: true, sides: {b: 1}});
+        ws.getRow(r).height = 17;
+      });
+      if(b.konu) ws.getRow(9).height = Math.max(17, Math.ceil((b.konu.length + 2) / 55) * 16);
+
+      var r0 = 11;
+      yaz(r0, 2, 3, 'ADI SOYADI', {bold: true, sides: {l: 1, r: 1, t: 1, b: 1}});
+      yaz(r0, 4, 4, 'GÖREVİ', {bold: true, sides: {l: 1, r: 1, t: 1, b: 1}});
+      yaz(r0, 5, 5, 'İMZASI', {bold: true, sides: {l: 1, r: 1, t: 1, b: 1}});
+      ws.getRow(r0).height = 25.05;
+      l.forEach(function(o, i){
+        var r = r0 + 1 + i;
+        yaz(r, 2, 3, o.ad, {sides: {l: 1, r: 1, t: 1, b: 1}});
+        yaz(r, 4, 4, gorevi(o), {sides: {l: 1, r: 1, t: 1, b: 1}});
+        yaz(r, 5, 5, '', {sides: {l: 1, r: 1, t: 1, b: 1}});
+        ws.getRow(r).height = 25.05;
+      });
+
+      wb.xlsx.writeBuffer().then(function(buf){
+        indir(new Blob([buf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'Gorev_Teblig_Imza_Sirkusu.xlsx');
+        $('tbDurum').textContent = 'Excel hazırlandı.';
+      }).catch(function(){ $('tbDurum').textContent = 'Excel oluşturulamadı.'; });
+    }catch(err){ $('tbDurum').textContent = 'Excel oluşturulamadı.'; }
+  };
+})();
+</script>
+
+
+<!-- ================= OKUL SERVİS LİSTESİ MODAL ================= -->
+<style>
+  .os-tablo{overflow-x:auto;margin-top:10px;}
+  .os-tablo table{width:100%;border-collapse:collapse;font-size:.76rem;background:#fff;}
+  .os-tablo th,.os-tablo td{border:1px solid #9bbfc3;padding:4px 6px;text-align:left;white-space:nowrap;}
+  .os-tablo th{background:#e3f0f1;}
+  .os-tablo tbody tr{cursor:pointer;}
+  .os-tablo tbody tr:hover{background:#f1f8f8;}
+  .os-tablo tbody tr.sec{background:#dff0e4;}
+</style>
+<div id="osOverlay" class="modal-overlay" onClick="if(event.target===this) osKapat()">
+  <div class="modal-box wide-modal">
+    <button type="button" class="modal-close" onClick="osKapat()">×</button>
+    <h2 class="modal-title">Okul Servis Listesi</h2>
+
+    <div class="modal-field"><label for="osKayit">Kayıtlı Servisler</label><select id="osKayit" onChange="osKayitSec()"><option value="">(Yeni servis)</option></select></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="osSofor">Şoför Adı Soyadı</label><input type="text" id="osSofor"></div>
+      <div class="modal-field"><label for="osTc">Şoför T.C. Kimlik No</label><input type="text" id="osTc" maxlength="11" inputmode="numeric"></div>
+    </div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="osTel">Şoför Cep Telefonu</label><input type="text" id="osTel" inputmode="tel" maxlength="16" placeholder="05xx xxx xx xx"></div>
+      <div class="modal-field"><label for="osPlaka">Araç Plakası</label><input type="text" id="osPlaka" style="text-transform:uppercase" placeholder="42 ABC 123"></div>
+    </div>
+    <div class="modal-field"><label for="osSirket">Şirket Adı</label><input type="text" id="osSirket"></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="osRehber">Rehber Personel Adı Soyadı (varsa)</label><input type="text" id="osRehber"></div>
+      <div class="modal-field"><label for="osRehberTc">Rehber Personel T.C. Kimlik No</label><input type="text" id="osRehberTc" maxlength="11" inputmode="numeric"></div>
+    </div>
+    <div class="modal-field"><label for="osRehberTel">Rehber Personel Telefonu</label><input type="text" id="osRehberTel" inputmode="tel" maxlength="16" placeholder="05xx xxx xx xx"></div>
+
+    <div class="modal-actions-single-row" style="grid-template-columns:repeat(5,1fr);">
+      <button type="button" class="modal-btn primary" onClick="osKaydet()">Kaydet</button>
+      <button type="button" class="modal-btn danger" onClick="osSil()">Sil</button>
+      <button type="button" class="modal-btn" onClick="osYeni()">Yeni</button>
+      <button type="button" class="modal-btn pdf" onClick="osCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn excel" onClick="osCikti('excel')">Excel</button>
+    </div>
+    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('okulServis')">Tümünü Sil</button></div>
+    <div id="osDurum" class="modal-status"></div>
+
+    <div class="os-tablo" id="osTablo"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'okulServisListesi';
+  var ALAN = ['osSofor', 'osTc', 'osTel', 'osPlaka', 'osSirket', 'osRehber', 'osRehberTc', 'osRehberTel'];
+  var SECILI = null;   /* seçili kaydın sırası */
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function yukle(){ try{ var l = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(l) ? l : []; }catch(e){ return []; } }
+  function yaz(l){ localStorage.setItem(KEY, JSON.stringify(l)); }
+  function okulBilgi(){ try{ return JSON.parse(localStorage.getItem('okulBilgiGirisi') || '{}') || {}; }catch(e){ return {}; } }
+  function durum(m){ $('osDurum').textContent = m || ''; }
+
+  function formOku(){
+    var d = {};
+    ALAN.forEach(function(id){ d[id] = $(id).value.trim(); });
+    d.osPlaka = d.osPlaka.toLocaleUpperCase('tr');
+    return d;
+  }
+  function formYaz(d){
+    d = d || {};
+    ALAN.forEach(function(id){ $(id).value = d[id] || ''; });
+  }
+  function ozet(k){ return (k.osPlaka || '(plakasız)') + ' - ' + (k.osSofor || '(şoförsüz)') + (k.osSirket ? ' (' + k.osSirket + ')' : ''); }
+
+  function listeCiz(){
+    var l = yukle(), sel = $('osKayit');
+    sel.innerHTML = '<option value="">(Yeni servis)</option>' + l.map(function(k, i){
+      return '<option value="' + i + '">' + esc(ozet(k)) + '</option>';
+    }).join('');
+    sel.value = SECILI === null ? '' : String(SECILI);
+    if(!l.length){ $('osTablo').innerHTML = ''; return; }
+    $('osTablo').innerHTML = '<table><thead><tr><th>Sıra</th><th>Şoför Adı Soyadı</th><th>T.C. Kimlik No</th><th>Telefon</th><th>Plaka</th><th>Şirket Adı</th><th>Rehber Personel</th><th>Rehber T.C.</th><th>Rehber Tel.</th></tr></thead><tbody>' +
+      l.map(function(k, i){
+        return '<tr class="' + (i === SECILI ? 'sec' : '') + '" onClick="osSec(' + i + ')"><td>' + (i + 1) + '</td><td>' + esc(k.osSofor) + '</td><td>' + esc(k.osTc) + '</td><td>' + esc(k.osTel) + '</td><td>' + esc(k.osPlaka) + '</td><td>' + esc(k.osSirket) + '</td><td>' + esc(k.osRehber) + '</td><td>' + esc(k.osRehberTc) + '</td><td>' + esc(k.osRehberTel) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  window.osAc = function(){
+    SECILI = null; formYaz(null); durum('');
+    listeCiz();
+    $('osOverlay').classList.add('active');
+  };
+  window.osKapat = function(){ $('osOverlay').classList.remove('active'); };
+  window.osSec = function(i){
+    var k = yukle()[i]; if(!k) return;
+    SECILI = i; formYaz(k); durum(''); listeCiz();
+  };
+  window.osKayitSec = function(){
+    var v = $('osKayit').value;
+    if(v === ''){ osYeni(); return; }
+    osSec(Number(v));
+  };
+  window.osYeni = function(){
+    SECILI = null; formYaz(null); listeCiz();
+    durum('Yeni servis için bilgileri giriniz.');
+  };
+  window.osKaydet = function(){
+    var d = formOku();
+    if(!d.osSofor && !d.osPlaka){ durum('Şoför adı soyadı veya araç plakası giriniz.'); return; }
+    if(d.osTc && !/^\d{11}$/.test(d.osTc)){ durum('Şoför T.C. Kimlik No 11 haneli olmalıdır.'); return; }
+    if(d.osRehberTc && !/^\d{11}$/.test(d.osRehberTc)){ durum('Rehber personel T.C. Kimlik No 11 haneli olmalıdır.'); return; }
+    var l = yukle();
+    if(SECILI !== null && l[SECILI]) l[SECILI] = d; else { l.push(d); SECILI = l.length - 1; }
+    yaz(l); listeCiz();
+    durum('Servis kaydedildi (' + l.length + ' servis).');
+  };
+  window.osSil = function(){
+    if(SECILI === null){ durum('Silmek için kayıtlı servisi seçiniz.'); return; }
+    if(!confirm('Seçili servis kaydı silinsin mi?')) return;
+    var l = yukle(); l.splice(SECILI, 1); yaz(l);
+    SECILI = null; formYaz(null); listeCiz();
+    durum('Servis kaydı silindi.');
+  };
+
+  /* ---- Rapor ---- */
+  var KOLONLAR = ['Sıra', 'Şoför Adı Soyadı', 'T.C. Kimlik No', 'Telefon', 'Plaka', 'Şirket Adı', 'Rehber Personel Adı Soyadı', 'Rehber Telefon'];
+  function baslikBilgi(){
+    var ob = okulBilgi();
+    var il = String(ob.okulIl || '').trim().replace(/\s*valili[ğg]i\s*$/i, '') || 'Konya';
+    var ilce = String(ob.okulIlce || '').trim() || 'Karatay';
+    var okul = String(ob.okulAdi || '').trim() || 'Fetihkent İmam Hatip Ortaokulu Müdürlüğü';
+    if(!/m[üu]d[üu]rl[üu][ğg][üu]\s*$/i.test(okul)) okul += ' Müdürlüğü';
+    return {valilik: il.toLocaleUpperCase('tr') + ' VALİLİĞİ', kurum: ilce + ' / ' + okul};
+  }
+  function satirlar(l){
+    return l.map(function(k, i){ return [i + 1, k.osSofor || '', k.osTc || '', k.osTel || '', k.osPlaka || '', k.osSirket || '', k.osRehber || '', k.osRehberTel || '']; });
+  }
+  function indir(blob, ad){
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = ad;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+
+  window.osCikti = function(tur){
+    var l = yukle();
+    if(!l.length){ durum('Rapor için önce en az bir servis kaydı oluşturunuz.'); return; }
+    var bk = baslikBilgi(), sat = satirlar(l);
+
+    if(tur === 'pdf'){
+      try{
+        var gri = '#d9d9d9';
+        var govde = [KOLONLAR.map(function(t){ return {text: t, bold: true, alignment: 'center', fontSize: 9, fillColor: gri, margin: [0, 3, 0, 3]}; })];
+        sat.forEach(function(r){
+          govde.push(r.map(function(v, c){ return {text: String(v), fontSize: 9, alignment: c === 0 ? 'center' : 'left', margin: [0, 4, 0, 4]}; }));
+        });
+        pdfMake.createPdf({
+          pageSize: 'A4', pageOrientation: 'landscape', pageMargins: [30, 28, 30, 28],
+          defaultStyle: {fontSize: 10},
+          content: [
+            {text: 'T.C.', bold: true, alignment: 'center', fontSize: 11},
+            {text: bk.valilik, bold: true, alignment: 'center', fontSize: 11},
+            {text: bk.kurum, bold: true, alignment: 'center', fontSize: 11},
+            {text: 'OKUL SERVİS LİSTESİ', bold: true, alignment: 'center', fontSize: 14, margin: [0, 4, 0, 8]},
+            {table: {headerRows: 1, dontBreakRows: true, widths: [26, 118, 70, 74, 62, 120, 120, '*'], body: govde},
+             layout: {hLineWidth: function(){ return .5; }, vLineWidth: function(){ return .5; }, hLineColor: function(){ return '#000'; }, vLineColor: function(){ return '#000'; }}}
+          ]
+        }).download('Okul_Servis_Listesi.pdf');
+        durum('PDF olarak indirildi (' + l.length + ' servis).');
+      }catch(e){ durum('PDF oluşturulamadı.'); }
+      return;
+    }
+
+    try{
+      var wb = new ExcelJS.Workbook();
+      var ws = wb.addWorksheet('Okul Servis Listesi', {pageSetup: {paperSize: 9, orientation: 'landscape', fitToPage: true, fitToWidth: 1, fitToHeight: 0,
+                                margins: {left: 0.5, right: 0.5, top: 0.6, bottom: 0.6, header: 0.3, footer: 0.3}}});
+      ws.columns = [{width: 6}, {width: 26}, {width: 15}, {width: 16}, {width: 13}, {width: 28}, {width: 28}, {width: 16}];
+      var kenar = {top: {style: 'thin'}, bottom: {style: 'thin'}, left: {style: 'thin'}, right: {style: 'thin'}};
+      var gri = {type: 'pattern', pattern: 'solid', fgColor: {argb: 'FFD9D9D9'}};
+      var f = function(size, bold){ return {name: 'Calibri', size: size, bold: !!bold}; };
+      [['T.C.', 11], [bk.valilik, 11], [bk.kurum, 11], ['OKUL SERVİS LİSTESİ', 14]].forEach(function(p, i){
+        ws.mergeCells(i + 1, 1, i + 1, 8);
+        var h = ws.getCell(i + 1, 1); h.value = p[0]; h.font = f(p[1], true); h.alignment = {horizontal: 'center'};
+      });
+      ws.getRow(4).height = 20;
+      KOLONLAR.forEach(function(t, c){
+        var h = ws.getCell(6, c + 1); h.value = t; h.font = f(10, true); h.fill = gri; h.border = kenar;
+        h.alignment = {horizontal: 'center', vertical: 'middle', wrapText: true};
+      });
+      ws.getRow(6).height = 30;
+      sat.forEach(function(r, j){
+        r.forEach(function(v, c){
+          var h = ws.getCell(7 + j, c + 1);
+          if(v !== '') h.value = (c === 0) ? Number(v) : String(v);
+          h.font = f(10, false); h.border = kenar;
+          h.alignment = {horizontal: c === 0 ? 'center' : 'left', vertical: 'middle', wrapText: true};
+        });
+        ws.getRow(7 + j).height = 22;
+      });
+      wb.xlsx.writeBuffer().then(function(buf){
+        indir(new Blob([buf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'Okul_Servis_Listesi.xlsx');
+        durum('Excel olarak indirildi (' + l.length + ' servis).');
+      }).catch(function(){ durum('Excel oluşturulamadı.'); });
+    }catch(e){ durum('Excel oluşturulamadı.'); }
+  };
+
+  /* T.C. kimlik / telefon alanlarında yalnızca rakam (telefonda boşluk ve nokta serbest) */
+  document.addEventListener('input', function(e){
+    if(e.target && (e.target.id === 'osTc' || e.target.id === 'osRehberTc')) e.target.value = e.target.value.replace(/\D/g, '');
+  });
+})();
+</script>
+
 </body>
 </html>
