@@ -13606,7 +13606,7 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'anasayfaButonSirasi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -19849,6 +19849,140 @@ menuSigdirPlanla();
   document.addEventListener('input', function(e){
     if(e.target && (e.target.id === 'osTc' || e.target.id === 'osRehberTc')) e.target.value = e.target.value.replace(/\D/g, '');
   });
+})();
+</script>
+
+
+<!-- ================= ANASAYFA BUTONLARINI SÜRÜKLEYEREK SIRALAMA ================= -->
+<style>
+  #home .menu-grid .menu-box{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;}
+  #home .menu-grid .menu-box.surukle-kaynak{opacity:.3;outline:2px dashed #5b8f94;outline-offset:-2px;}
+  .menu-box.surukle-hayalet{position:fixed;z-index:99999;margin:0;pointer-events:none;opacity:.95;transform:scale(1.06);box-shadow:0 10px 26px rgba(0,0,0,.28);transition:none;}
+  body.suruklemede{-webkit-user-select:none;user-select:none;cursor:grabbing;}
+  .sira-sifirla{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink);opacity:.55;font-size:.78rem;text-decoration:underline;cursor:pointer;font-family:inherit;}
+</style>
+<script>
+(function(){
+  var KEY = 'anasayfaButonSirasi';
+  var grid = document.querySelector('#home .menu-grid');
+  if(!grid) return;
+
+  function anahtar(el){
+    var t = (el.querySelector('span') ? el.querySelector('span').textContent : el.textContent).replace(/\s+/g, ' ').trim();
+    return (el.getAttribute('onclick') || el.getAttribute('href') || '') + '|' + t;
+  }
+  function butonlar(){ return Array.prototype.slice.call(grid.querySelectorAll(':scope > .menu-box')); }
+
+  /* Varsayılan (HTML'deki) sıra: sıfırlama için saklanır */
+  var VARSAYILAN = butonlar();
+
+  function sirayiUygula(){
+    var kayit; try{ kayit = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ kayit = null; }
+    if(!Array.isArray(kayit) || !kayit.length) return;
+    var harita = {};
+    butonlar().forEach(function(b){ harita[anahtar(b)] = b; });
+    kayit.forEach(function(k){
+      if(harita[k]){ grid.appendChild(harita[k]); delete harita[k]; }
+    });
+    /* kayıtta olmayan (sonradan eklenen) butonlar sona eklenir */
+    butonlar().forEach(function(b){ if(harita[anahtar(b)] === b) grid.appendChild(b); });
+  }
+  function sirayiKaydet(){
+    try{ localStorage.setItem(KEY, JSON.stringify(butonlar().map(anahtar))); }catch(e){}
+  }
+  window.anasayfaSirayiSifirla = function(){
+    VARSAYILAN.forEach(function(b){ grid.appendChild(b); });
+    try{ localStorage.removeItem(KEY); }catch(e){}
+  };
+  sirayiUygula();
+
+  /* ---- Basılı tutup sürükleme ---- */
+  var BEKLEME = 450, HAREKET_ESIK = 10;
+  var durum = null;   /* {el, id, x0, y0, zamanlayici, aktif, hayalet, dx, dy, x, y, kaydirma} */
+  var tikEngelle = 0;
+
+  function temizle(){
+    if(!durum) return;
+    clearTimeout(durum.zamanlayici);
+    clearInterval(durum.kaydirma);
+    if(durum.hayalet) durum.hayalet.remove();
+    if(durum.aktif){
+      durum.el.classList.remove('surukle-kaynak');
+      document.body.classList.remove('suruklemede');
+      tikEngelle = Date.now() + 500;
+      sirayiKaydet();
+    }
+    durum = null;
+  }
+  function baslat(){
+    if(!durum) return;
+    var el = durum.el, r = el.getBoundingClientRect();
+    durum.aktif = true;
+    var g = el.cloneNode(true);
+    g.classList.add('surukle-hayalet');
+    g.style.width = r.width + 'px'; g.style.height = r.height + 'px';
+    g.style.left = r.left + 'px'; g.style.top = r.top + 'px';
+    document.body.appendChild(g);
+    durum.hayalet = g;
+    durum.dx = durum.x - r.left; durum.dy = durum.y - r.top;
+    el.classList.add('surukle-kaynak');
+    document.body.classList.add('suruklemede');
+    if(navigator.vibrate) try{ navigator.vibrate(25); }catch(e){}
+    durum.kaydirma = setInterval(function(){
+      if(!durum || !durum.aktif) return;
+      var h = window.innerHeight;
+      if(durum.y < 70) window.scrollBy(0, -14);
+      else if(durum.y > h - 70) window.scrollBy(0, 14);
+      yerlestir();
+    }, 30);
+  }
+  function yerlestir(){
+    if(!durum || !durum.aktif) return;
+    durum.hayalet.style.left = (durum.x - durum.dx) + 'px';
+    durum.hayalet.style.top = (durum.y - durum.dy) + 'px';
+    var alt = document.elementFromPoint(durum.x, durum.y);
+    var hedef = alt && alt.closest ? alt.closest('.menu-box') : null;
+    if(!hedef || hedef === durum.el || hedef.parentNode !== grid) return;
+    var liste = butonlar();
+    if(liste.indexOf(durum.el) < liste.indexOf(hedef)) grid.insertBefore(durum.el, hedef.nextSibling);
+    else grid.insertBefore(durum.el, hedef);
+  }
+
+  grid.addEventListener('pointerdown', function(e){
+    if(durum) temizle();
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    var el = e.target.closest ? e.target.closest('.menu-box') : null;
+    if(!el || el.parentNode !== grid) return;
+    durum = {el: el, id: e.pointerId, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, aktif: false};
+    durum.zamanlayici = setTimeout(baslat, BEKLEME);
+  });
+  document.addEventListener('pointermove', function(e){
+    if(!durum || e.pointerId !== durum.id) return;
+    durum.x = e.clientX; durum.y = e.clientY;
+    if(!durum.aktif){
+      if(Math.abs(e.clientX - durum.x0) > HAREKET_ESIK || Math.abs(e.clientY - durum.y0) > HAREKET_ESIK) temizle();   /* kaydırma niyeti */
+      return;
+    }
+    yerlestir();
+  });
+  document.addEventListener('pointerup', function(e){ if(durum && e.pointerId === durum.id) temizle(); });
+  document.addEventListener('pointercancel', function(e){ if(durum && e.pointerId === durum.id) temizle(); });
+
+  /* Sürükleme başladıktan sonra sayfanın kaymasını engelle (dokunmatik) */
+  document.addEventListener('touchmove', function(e){ if(durum && durum.aktif) e.preventDefault(); }, {passive: false});
+  /* Uzun basışta çıkan menüyü ve bağlantı sürüklemesini engelle */
+  grid.addEventListener('contextmenu', function(e){ if(durum || Date.now() < tikEngelle) e.preventDefault(); });
+  grid.addEventListener('dragstart', function(e){ e.preventDefault(); });
+  /* Sürüklemeyi bırakınca butonun kendi tıklaması çalışmasın */
+  grid.addEventListener('click', function(e){
+    if((durum && durum.aktif) || Date.now() < tikEngelle){ e.preventDefault(); e.stopImmediatePropagation(); }
+  }, true);
+
+  /* Küçük sıfırlama bağlantısı */
+  var b = document.createElement('button');
+  b.type = 'button'; b.className = 'sira-sifirla'; b.textContent = 'Buton sırasını varsayılana döndür';
+  b.onclick = function(){ if(confirm('Anasayfadaki buton sırası varsayılana döndürülsün mü?')) window.anasayfaSirayiSifirla(); };
+  grid.parentNode.appendChild(b);
 })();
 </script>
 
