@@ -620,7 +620,7 @@
   }
 
   /* ---------- Alt sabit menü (üst menü şablonuyla aynı) ---------- */
-  :root{--hdr-h:64px;--bar-h:61px;}
+  :root{--hdr-h:64px;--bar-h:0px;}
   body{padding-bottom:var(--bar-h) !important;}
   .bottombar{
     background:var(--accent-dark);
@@ -655,7 +655,8 @@
   body.view-rehber main, body.view-rehber footer,
   body.view-nobetci main, body.view-nobetci footer,
   body.view-ebys main, body.view-ebys footer,
-  body.view-sinav main, body.view-sinav footer{display:none !important;}
+  body.view-sinav main, body.view-sinav footer,
+  body.view-zil main, body.view-zil footer{display:none !important;}
   body.view-ebys header, body.view-ebys .bottombar{display:none !important;}
   body.view-ebys #ebysPage{top:0;bottom:0;z-index:100;}
 
@@ -764,6 +765,9 @@
 <header>
   <div class="header-inner">
     <div class="brand-group">
+      <button type="button" id="hdrMenuBtn" class="hdr-menu-btn" aria-label="Menü" aria-expanded="false" title="Menü"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
+      <div class="hdr-menu-panel" id="hdrMenuPanel" hidden></div>
       <div class="brand">
         <span class="name">Muammer Bozer</span>
         <span class="role">Müdür Yardımcısı</span>
@@ -911,7 +915,6 @@
 
 </main>
 
-<footer>© 2026 Muammer Bozer · Müdür Yardımcısı</footer>
 
 <!-- ================= GÖMÜLÜ SAYFALAR ================= -->
 <div id="rehberPage" class="embed-page">
@@ -4460,22 +4463,263 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
 "></iframe>
 </div>
 
-<!-- ================= ALT SABİT MENÜ ================= -->
-<div class="bottombar" id="bottomBar">
-  <div class="header-inner">
-    <nav>
-      <button type="button" id="navHome" class="active" onClick="gosterSayfa('home')" title="Ana Sayfa" aria-label="Ana Sayfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></button>
-      <button type="button" id="navNobetci" onClick="gosterSayfa('nobetci')" title="Nöbetçi Öğretmen" aria-label="Nöbetçi Öğretmen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7.5" r="3.5"/><path d="M3 21c0-3.9 3.1-7 7-7 1.2 0 2.3.3 3.3.8"/><path d="M17.5 12.5l4 1.5v3.2c0 2.4-1.7 4.3-4 4.8-2.3-.5-4-2.4-4-4.8V14z"/><path d="M15.8 17.3l1.2 1.2 2.3-2.5"/></svg></button>
-      <button type="button" id="navRehber" onClick="gosterSayfa('rehber')" title="Rehber" aria-label="Rehber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
-      <button type="button" id="navEbys" onClick="gosterSayfa('ebys')" title="EBYS" aria-label="EBYS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 13h8"/><path d="M8 16h5"/></svg></button>
-      <button type="button" id="navSinav" onClick="gosterSayfa('sinav')" title="Sınav Hazırlama" aria-label="Sınav Hazırlama"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13l2 2 4-4"/><path d="M9 18h6"/></svg></button>
-      <input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
-      <button type="button" id="btnYedekYukle" onClick="document.getElementById('yedekDosyaSec').click()" title="Yedek Yükle" aria-label="Yedek Yükle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 14l5-5 5 5"/><path d="M4 5h16"/></svg></button>
-      <button type="button" onClick="yedekAl()" title="Yedekle" aria-label="Yedekle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg></button>
-    </nav>
-  </div>
+<div id="zilPage" class="embed-page">
+  <iframe title="Zil Programı" allow="screen-wake-lock; autoplay" data-srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;tr&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Fetihkent İmam Hatip Ortaokulu – Zil Programı&lt;/title&gt;
+&lt;style&gt;
+:root{--navy:#12305e;--navy2:#0b1f40;--gold:#b98a2e;--gold2:#e2c275;--ivory:#faf6ec;--sky:#dbeefb;--sky2:#eef7fd;--ink:#14213d;--ok:#1f8a5b;}
+*{box-sizing:border-box;margin:0}
+body{font-family:Cambria,Georgia,&quot;Times New Roman&quot;,serif;background:var(--ivory);color:var(--ink);min-height:100vh;
+background-image:radial-gradient(circle at 0 0,rgba(18,48,94,.14),transparent 320px),radial-gradient(circle at 100% 0,rgba(185,138,46,.18),transparent 300px);}
+header{text-align:center;padding:28px 16px 8px}
+.emblem{width:96px;height:96px;margin:0 auto 8px;display:block}
+.town{color:var(--gold);letter-spacing:.3em;font-size:.85rem}
+h1{color:var(--navy);font-size:clamp(1.8rem,5vw,3rem);line-height:1.1;margin-top:4px}
+h1 span{display:block;font-size:.62em;font-weight:600}
+.motto{font-style:italic;color:var(--gold);margin-top:6px;font-size:1.05rem}
+.rule{height:3px;max-width:520px;margin:14px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(160deg,var(--navy),var(--navy2));color:#fff;border-radius:22px;padding:24px;border:3px solid var(--gold);
+box-shadow:0 0 0 5px var(--ivory),0 0 0 7px var(--gold2);display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:center;margin:14px 6px 22px}
+.clock{font-size:clamp(3rem,10vw,5.6rem);font-variant-numeric:tabular-nums;letter-spacing:.02em;line-height:1}
+.date{color:var(--gold2);margin-top:6px;font-size:1.1rem}
+.now{background:rgba(255,255,255,.08);border-radius:14px;padding:14px 16px}
+.now small{color:var(--gold2);display:block;font-size:.95rem}
+.now b{font-size:1.6rem;display:block;margin:2px 0 8px}
+.count{font-size:1.15rem;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:8px;background:rgba(255,255,255,.18);margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width 1s linear}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:0 6px 22px}
+button,select{font:inherit;border-radius:12px;padding:11px 18px;border:2px solid var(--navy);cursor:pointer}
+button{background:var(--navy);color:#fff;font-weight:700}
+button.on{background:var(--ok);border-color:var(--ok)}
+button.alt{background:#fff;color:var(--navy)}
+select{background:#fff;color:var(--navy)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.vol{display:flex;align-items:center;gap:8px;color:var(--navy);font-weight:700}
+.status{width:100%;text-align:center;font-weight:700;color:var(--navy)}
+.status.warn{color:#a23b1c}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{background:#fff;border:2px solid var(--gold);border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(18,48,94,.12)}
+.card.today{box-shadow:0 0 0 4px var(--gold2),0 8px 22px rgba(18,48,94,.22)}
+.card h2{background:var(--navy);color:#fff;font-size:1.15rem;padding:13px 16px;text-align:center;border-bottom:3px solid var(--gold)}
+.card h2 em{color:var(--gold2);font-style:normal;font-size:.85rem;display:block}
+table{width:100%;border-collapse:collapse;text-align:center}
+th{background:var(--sky2);color:var(--navy);padding:8px;font-size:.95rem}
+td{padding:6px 8px;font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy)}
+tbody tr:nth-child(odd){background:var(--sky2)}
+tbody tr:nth-child(even){background:var(--sky)}
+tr.break td:first-child{font-weight:400;font-style:italic}
+tr.active{background:var(--gold2)!important;outline:2px solid var(--navy);outline-offset:-2px}
+tr.active td{color:var(--navy2)}
+.note{text-align:center;margin:22px auto 8px;max-width:520px;border:2px solid var(--gold);border-radius:14px;padding:12px;background:#fff;color:var(--navy);font-weight:700}
+footer{text-align:center;background:var(--navy);color:var(--gold2);padding:16px;margin-top:26px;letter-spacing:.25em;font-size:.85rem;border-top:4px solid var(--gold)}
+.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%,30%{box-shadow:0 0 0 0 rgba(226,194,117,.9),0 0 60px 10px rgba(226,194,117,.8)}100%{box-shadow:0 0 0 5px var(--ivory),0 0 0 7px var(--gold2)}}
+@media(max-width:820px){.hero,.grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.flash{animation:none}.bar i{transition:none}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+&lt;svg class=&quot;emblem&quot; viewBox=&quot;0 0 100 100&quot; role=&quot;img&quot; aria-label=&quot;Fetihkent İmam Hatip Ortaokulu amblemi&quot;&gt;
+&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;47&quot; fill=&quot;#12305e&quot; stroke=&quot;#b98a2e&quot; stroke-width=&quot;3&quot;/&gt;
+&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;37&quot; fill=&quot;#faf6ec&quot;/&gt;
+&lt;path d=&quot;M30 62V44c0-12 9-20 20-26 11 6 20 14 20 26v18z&quot; fill=&quot;#12305e&quot;/&gt;
+&lt;circle cx=&quot;50&quot; cy=&quot;38&quot; r=&quot;5&quot; fill=&quot;#e2a33a&quot;/&gt;
+&lt;path d=&quot;M50 62 30 56v-6l20 6 20-6v6z&quot; fill=&quot;#1f9d8f&quot;/&gt;
+&lt;path d=&quot;M24 66c9-4 18-4 26 2 8-6 17-6 26-2v6c-9-4-18-4-26 2-8-6-17-6-26-2z&quot; fill=&quot;#b98a2e&quot;/&gt;
+&lt;text x=&quot;50&quot; y=&quot;88&quot; text-anchor=&quot;middle&quot; font-size=&quot;9&quot; fill=&quot;#e2c275&quot; font-family=&quot;Georgia,serif&quot;&gt;2013&lt;/text&gt;
+&lt;/svg&gt;
+&lt;div class=&quot;town&quot;&gt;KONYA – KARATAY&lt;/div&gt;
+&lt;h1&gt;FETİHKENT&lt;span&gt;İMAM HATİP ORTAOKULU&lt;/span&gt;&lt;/h1&gt;
+&lt;p class=&quot;motto&quot;&gt;İyi İnsan, Güçlü Toplum&lt;/p&gt;
+&lt;div class=&quot;rule&quot;&gt;&lt;/div&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+&lt;section class=&quot;hero&quot; id=&quot;hero&quot; aria-live=&quot;off&quot;&gt;
+&lt;div&gt;
+&lt;div class=&quot;clock&quot; id=&quot;clock&quot;&gt;--:--:--&lt;/div&gt;
+&lt;div class=&quot;date&quot; id=&quot;date&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;now&quot;&gt;
+&lt;small id=&quot;nowLabel&quot;&gt;Şu an&lt;/small&gt;
+&lt;b id=&quot;nowName&quot;&gt;—&lt;/b&gt;
+&lt;div class=&quot;count&quot; id=&quot;count&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;bar&quot;&gt;&lt;i id=&quot;bar&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;controls&quot;&gt;
+&lt;button id=&quot;arm&quot; type=&quot;button&quot;&gt;🔔 Zili Başlat&lt;/button&gt;
+&lt;button id=&quot;test&quot; class=&quot;alt&quot; type=&quot;button&quot;&gt;Zili Dene (ding-dong)&lt;/button&gt;
+&lt;button id=&quot;testWarn&quot; class=&quot;alt&quot; type=&quot;button&quot;&gt;Uyarı Zilini Dene (bip bip)&lt;/button&gt;
+&lt;label class=&quot;vol&quot;&gt;Ses &lt;input id=&quot;vol&quot; type=&quot;range&quot; min=&quot;0.1&quot; max=&quot;1&quot; step=&quot;0.05&quot; value=&quot;0.8&quot;&gt;&lt;/label&gt;
+&lt;label class=&quot;vol&quot;&gt;Program
+&lt;select id=&quot;mode&quot;&gt;
+&lt;option value=&quot;auto&quot;&gt;Otomatik (bugüne göre)&lt;/option&gt;
+&lt;option value=&quot;week&quot;&gt;Pazartesi – Perşembe&lt;/option&gt;
+&lt;option value=&quot;fri&quot;&gt;Cuma&lt;/option&gt;
+&lt;/select&gt;&lt;/label&gt;
+&lt;div class=&quot;status warn&quot; id=&quot;status&quot; role=&quot;status&quot;&gt;Zilin çalması için “Zili Başlat” düğmesine bir kez basın ve bu sayfayı açık tutun.&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;grid&quot;&gt;
+&lt;section class=&quot;card&quot; id=&quot;cardWeek&quot;&gt;
+&lt;h2&gt;Pazartesi – Salı – Çarşamba – Perşembe&lt;em&gt;Ders Saatleri&lt;/em&gt;&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Ders&lt;/th&gt;&lt;th&gt;Başlangıç&lt;/th&gt;&lt;th&gt;Bitiş&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;tWeek&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;/section&gt;
+&lt;section class=&quot;card&quot; id=&quot;cardFri&quot;&gt;
+&lt;h2&gt;Cuma Günü&lt;em&gt;Ders Saatleri&lt;/em&gt;&lt;/h2&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Ders&lt;/th&gt;&lt;th&gt;Başlangıç&lt;/th&gt;&lt;th&gt;Bitiş&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id=&quot;tFri&quot;&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;/section&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;note&quot;&gt;Cuma günü 8 ders saati uygulanacaktır.&lt;/p&gt;
+&lt;/main&gt;
+&lt;footer&gt;DAİMA DAHA İYİSİ İÇİN&lt;/footer&gt;
+
+&lt;script&gt;
+// Zaman çizelgesi: [ad, başlangıç, bitiş]
+const S={
+week:[[&quot;Toplanma&quot;,&quot;12:45&quot;,&quot;&quot;],[&quot;1. Ders&quot;,&quot;13:00&quot;,&quot;13:40&quot;],[&quot;Tenefüs&quot;,&quot;13:40&quot;,&quot;13:50&quot;],[&quot;2. Ders&quot;,&quot;13:50&quot;,&quot;14:30&quot;],[&quot;Tenefüs&quot;,&quot;14:30&quot;,&quot;14:40&quot;],[&quot;3. Ders&quot;,&quot;14:40&quot;,&quot;15:20&quot;],[&quot;Tenefüs&quot;,&quot;15:20&quot;,&quot;15:30&quot;],[&quot;4. Ders&quot;,&quot;15:30&quot;,&quot;16:10&quot;],[&quot;Tenefüs&quot;,&quot;16:10&quot;,&quot;16:20&quot;],[&quot;5. Ders&quot;,&quot;16:20&quot;,&quot;17:00&quot;],[&quot;Tenefüs&quot;,&quot;17:00&quot;,&quot;17:10&quot;],[&quot;6. Ders&quot;,&quot;17:10&quot;,&quot;17:50&quot;],[&quot;Tenefüs&quot;,&quot;17:50&quot;,&quot;18:00&quot;],[&quot;7. Ders&quot;,&quot;18:00&quot;,&quot;18:40&quot;]],
+fri:[[&quot;Toplanma&quot;,&quot;13:20&quot;,&quot;&quot;],[&quot;1. Ders&quot;,&quot;13:30&quot;,&quot;14:00&quot;],[&quot;Tenefüs&quot;,&quot;14:00&quot;,&quot;14:10&quot;],[&quot;2. Ders&quot;,&quot;14:10&quot;,&quot;14:40&quot;],[&quot;Tenefüs&quot;,&quot;14:40&quot;,&quot;14:50&quot;],[&quot;3. Ders&quot;,&quot;14:50&quot;,&quot;15:20&quot;],[&quot;Tenefüs&quot;,&quot;15:20&quot;,&quot;15:30&quot;],[&quot;4. Ders&quot;,&quot;15:30&quot;,&quot;16:00&quot;],[&quot;Tenefüs&quot;,&quot;16:00&quot;,&quot;16:10&quot;],[&quot;5. Ders&quot;,&quot;16:10&quot;,&quot;16:40&quot;],[&quot;Tenefüs&quot;,&quot;16:40&quot;,&quot;16:50&quot;],[&quot;6. Ders&quot;,&quot;16:50&quot;,&quot;17:20&quot;],[&quot;Tenefüs&quot;,&quot;17:20&quot;,&quot;17:30&quot;],[&quot;7. Ders&quot;,&quot;17:30&quot;,&quot;18:00&quot;],[&quot;Tenefüs&quot;,&quot;18:00&quot;,&quot;18:10&quot;],[&quot;8. Ders&quot;,&quot;18:10&quot;,&quot;18:40&quot;]]
+};
+const $=id=&gt;document.getElementById(id);
+const toMin=t=&gt;{const[a,b]=t.split(&quot;:&quot;).map(Number);return a*60+b};
+// bitişi boş olan (Toplanma) satırın bitişi = sonraki satırın başlangıcı
+for(const k in S){S[k].forEach((r,i,a)=&gt;{r.s=toMin(r[1]);r.e=r[2]?toMin(r[2]):toMin(a[i+1][1])})}
+const bellTimes={},warnTimes={};
+for(const k in S){bellTimes[k]=new Set();warnTimes[k]=new Set();S[k].forEach(r=&gt;{bellTimes[k].add(r.s);bellTimes[k].add(r.e);if(r[0].includes(&quot;Ders&quot;))warnTimes[k].add(r.e-2)})} // ders bitimine 2 dk kala uyarı
+
+function build(id,key){
+  $(id).innerHTML=S[key].map((r,i)=&gt;`&lt;tr data-i=&quot;${i}&quot; class=&quot;${r[0]===&quot;Tenefüs&quot;?&quot;break&quot;:&quot;&quot;}&quot;&gt;&lt;td&gt;${r[0]}&lt;/td&gt;&lt;td&gt;${r[1].replace(&quot;:&quot;,&quot;.&quot;)}&lt;/td&gt;&lt;td&gt;${r[2]?r[2].replace(&quot;:&quot;,&quot;.&quot;):&quot;-&quot;}&lt;/td&gt;&lt;/tr&gt;`).join(&quot;&quot;);
+}
+build(&quot;tWeek&quot;,&quot;week&quot;);build(&quot;tFri&quot;,&quot;fri&quot;);
+
+const gunler=[&quot;Pazar&quot;,&quot;Pazartesi&quot;,&quot;Salı&quot;,&quot;Çarşamba&quot;,&quot;Perşembe&quot;,&quot;Cuma&quot;,&quot;Cumartesi&quot;];
+const aylar=[&quot;Ocak&quot;,&quot;Şubat&quot;,&quot;Mart&quot;,&quot;Nisan&quot;,&quot;Mayıs&quot;,&quot;Haziran&quot;,&quot;Temmuz&quot;,&quot;Ağustos&quot;,&quot;Eylül&quot;,&quot;Ekim&quot;,&quot;Kasım&quot;,&quot;Aralık&quot;];
+const p2=n=&gt;String(n).padStart(2,&quot;0&quot;);
+
+// ---- Ses ----
+let ctx=null,armed=false;
+function beep(t0,dur){
+  const o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=&quot;square&quot;;o.frequency.value=1000;
+  const v=parseFloat($(&quot;vol&quot;).value)*0.5;
+  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+0.01);
+  g.gain.setValueAtTime(v,t0+dur-0.02);g.gain.linearRampToValueAtTime(0,t0+dur);
+  o.connect(g).connect(ctx.destination);o.start(t0);o.stop(t0+dur);
+}
+function ring(){
+  if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+  if(ctx.state===&quot;suspended&quot;)ctx.resume();
+  const t=ctx.currentTime+0.05;
+  chime(t,660,0.5);chime(t+0.5,880,0.5);chime(t+1.0,660,0.5);chime(t+1.5,880,0.5); // ders giriş/çıkış zili: 2 sn ding-dong
+  const h=$(&quot;hero&quot;);h.classList.remove(&quot;flash&quot;);void h.offsetWidth;h.classList.add(&quot;flash&quot;);
+}
+// Uyarı zili: 2 saniyelik, yumuşak iki tonlu &quot;ding-dong&quot; (normal zilden farklı)
+function chime(t0,freq,dur){
+  const o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=&quot;sine&quot;;o.frequency.value=freq;
+  const v=parseFloat($(&quot;vol&quot;).value)*0.6;
+  g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(v,t0+0.02);
+  g.gain.exponentialRampToValueAtTime(0.001,t0+dur);
+  o.connect(g).connect(ctx.destination);o.start(t0);o.stop(t0+dur+0.02);
+}
+function ringWarn(){
+  if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+  if(ctx.state===&quot;suspended&quot;)ctx.resume();
+  const t=ctx.currentTime+0.05;
+  beep(t,0.22);beep(t+0.42,0.22); // uyarı zili: bip … bip
+  const h=$(&quot;hero&quot;);h.classList.remove(&quot;flash&quot;);void h.offsetWidth;h.classList.add(&quot;flash&quot;);
+}
+$(&quot;testWarn&quot;).onclick=ringWarn;
+$(&quot;arm&quot;).onclick=async()=&gt;{
+  if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)();
+  await ctx.resume();armed=!armed;
+  $(&quot;arm&quot;).textContent=armed?&quot;🔔 Zil Açık&quot;:&quot;🔕 Zil Kapalı&quot;;
+  $(&quot;arm&quot;).classList.toggle(&quot;on&quot;,armed);
+  if(armed&amp;&amp;&quot;wakeLock&quot;in navigator){navigator.wakeLock.request(&quot;screen&quot;).catch(()=&gt;{})}
+  paintStatus();
+};
+$(&quot;test&quot;).onclick=ring;
+document.addEventListener(&quot;visibilitychange&quot;,()=&gt;{if(armed&amp;&amp;!document.hidden&amp;&amp;&quot;wakeLock&quot;in navigator)navigator.wakeLock.request(&quot;screen&quot;).catch(()=&gt;{})});
+function paintStatus(){
+  const s=$(&quot;status&quot;);
+  s.className=&quot;status&quot;+(armed?&quot;&quot;:&quot; warn&quot;);
+  s.textContent=armed?&quot;Zil aktif: ders giriş ve çıkış saatlerinde 2 saniyelik ding-dong çalacak; ders bitimine 2 dakika kala iki kez bip bip uyarısı çalacak. Sayfayı kapatmayın.&quot;:&quot;Zilin çalması için “Zili Başlat” düğmesine bir kez basın ve bu sayfayı açık tutun.&quot;;
+}
+
+// ---- Ana döngü ----
+let lastRing=&quot;&quot;;
+function activeKey(d){
+  const m=$(&quot;mode&quot;).value;
+  if(m!==&quot;auto&quot;)return m;
+  const g=d.getDay();
+  if(g===5)return&quot;fri&quot;;
+  if(g&gt;=1&amp;&amp;g&lt;=4)return&quot;week&quot;;
+  return null; // hafta sonu
+}
+const fmt=sec=&gt;{const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return(h?h+&quot; sa &quot;:&quot;&quot;)+p2(m)+&quot; dk &quot;+p2(s)+&quot; sn&quot;};
+
+function tick(){
+  const d=new Date();
+  const hh=p2(d.getHours()),mm=p2(d.getMinutes()),ss=p2(d.getSeconds());
+  $(&quot;clock&quot;).textContent=`${hh}:${mm}:${ss}`;
+  $(&quot;date&quot;).textContent=`${d.getDate()} ${aylar[d.getMonth()]} ${d.getFullYear()} ${gunler[d.getDay()]}`;
+  const key=activeKey(d);
+  $(&quot;cardWeek&quot;).classList.toggle(&quot;today&quot;,key===&quot;week&quot;);
+  $(&quot;cardFri&quot;).classList.toggle(&quot;today&quot;,key===&quot;fri&quot;);
+  document.querySelectorAll(&quot;tr.active&quot;).forEach(r=&gt;r.classList.remove(&quot;active&quot;));
+
+  const nowSec=d.getHours()*3600+d.getMinutes()*60+d.getSeconds();
+  const nowMin=Math.floor(nowSec/60);
+
+  // Zil kontrolü (yalnızca gerçek ders günlerinde ya da elle seçilen programda)
+  if(armed&amp;&amp;key&amp;&amp;d.getSeconds()&lt;3&amp;&amp;bellTimes[key].has(nowMin)){
+    const id=d.toDateString()+hh+mm;
+    if(id!==lastRing){lastRing=id;ring();}
+  }
+  if(armed&amp;&amp;key&amp;&amp;d.getSeconds()&lt;3&amp;&amp;warnTimes[key].has(nowMin)){
+    const id=&quot;w&quot;+d.toDateString()+hh+mm;
+    if(id!==lastRing){lastRing=id;ringWarn();}
+  }
+
+  if(!key){
+    $(&quot;nowLabel&quot;).textContent=&quot;Bugün&quot;;$(&quot;nowName&quot;).textContent=&quot;Ders yok (hafta sonu)&quot;;
+    $(&quot;count&quot;).textContent=&quot;Zil, ders günlerinde çalar.&quot;;$(&quot;bar&quot;).style.width=&quot;0&quot;;return;
+  }
+  const rows=S[key],tbody=$(key===&quot;fri&quot;?&quot;tFri&quot;:&quot;tWeek&quot;);
+  const idx=rows.findIndex(r=&gt;nowSec&gt;=r.s*60&amp;&amp;nowSec&lt;r.e*60);
+  if(idx&gt;=0){
+    const r=rows[idx];
+    tbody.children[idx].classList.add(&quot;active&quot;);
+    $(&quot;nowLabel&quot;).textContent=&quot;Şu an&quot;;$(&quot;nowName&quot;).textContent=r[0];
+    $(&quot;count&quot;).textContent=&quot;Bitmesine: &quot;+fmt(r.e*60-nowSec);
+    $(&quot;bar&quot;).style.width=Math.min(100,(nowSec-r.s*60)/((r.e-r.s)*60)*100)+&quot;%&quot;;
+  }else if(nowSec&lt;rows[0].s*60){
+    $(&quot;nowLabel&quot;).textContent=&quot;Sıradaki&quot;;$(&quot;nowName&quot;).textContent=rows[0][0]+&quot; – &quot;+rows[0][1].replace(&quot;:&quot;,&quot;.&quot;);
+    $(&quot;count&quot;).textContent=&quot;Kalan süre: &quot;+fmt(rows[0].s*60-nowSec);$(&quot;bar&quot;).style.width=&quot;0&quot;;
+  }else{
+    $(&quot;nowLabel&quot;).textContent=&quot;Bugün&quot;;$(&quot;nowName&quot;).textContent=&quot;Dersler tamamlandı&quot;;
+    $(&quot;count&quot;).textContent=&quot;Yarın görüşmek üzere.&quot;;$(&quot;bar&quot;).style.width=&quot;100%&quot;;
+  }
+}
+$(&quot;mode&quot;).onchange=tick;
+tick();setInterval(tick,1000);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
 </div>
 
+<!-- ================= ALT SABİT MENÜ ================= -->
 <!-- ================= NAKİL BAŞVURU DİLEKÇESİ MODAL ================= -->
 <div id="nakilDilekcesiOverlay" class="modal-overlay" onClick="if(event.target===this) closeNakilDilekcesiModal()">
   <div class="modal-box wide-modal">
@@ -7638,6 +7882,25 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
         currentStatus = schedule[i].name;
         currentTime = hhmm(schedule[i].start) + ' - ' + hhmm(schedule[i].end);
         break;
+      }
+    }
+    /* Ders saati dışında "Ders Dışı Saat" yerine bir sonraki derse kalan süre gösterilir (Pzt-Per ilk ders 13:00, Cuma 13:30) */
+    if(currentStatus === 'Ders Dışı Saat'){
+      var hedef = null;
+      for(var g = 0; g <= 7 && !hedef; g++){
+        var t = new Date(now.getFullYear(), now.getMonth(), now.getDate() + g, 0, 0, 0, 0);
+        var wg = t.getDay();
+        if(wg >= 1 && wg <= 5){
+          t.setHours(13, wg === 5 ? 30 : 0, 0, 0);
+          if(t.getTime() > now.getTime()) hedef = t;
+        }
+      }
+      if(hedef){
+        var kalanSn = Math.ceil((hedef.getTime() - now.getTime()) / 1000);
+        var gn = Math.floor(kalanSn / 86400), sa = Math.floor((kalanSn % 86400) / 3600), dkk = Math.floor((kalanSn % 3600) / 60), sn = kalanSn % 60;
+        function iki(n){ return String(n).padStart(2, '0'); }
+        currentStatus = 'Derse ' + (gn > 0 ? gn + 'g ' + sa + 'sa' : (sa > 0 ? sa + 'sa ' + dkk + 'dk' : dkk + 'dk ' + iki(sn) + 'sn'));
+        currentTime = 'Ders başlangıcı ' + iki(hedef.getHours()) + ':' + iki(hedef.getMinutes());
       }
     }
 
@@ -19607,9 +19870,9 @@ function pdfSatirlar(items){
 <script>
 /* ================= ALT MENÜ / SAYFA GEÇİŞİ ================= */
 function gosterSayfa(v){
-  document.body.classList.remove('view-rehber','view-nobetci','view-ebys','view-sinav');
+  document.body.classList.remove('view-rehber','view-nobetci','view-ebys','view-sinav','view-zil');
   if(v !== 'home') document.body.classList.add('view-' + v);
-  ['rehber','nobetci','ebys','sinav'].forEach(function(n){
+  ['rehber','nobetci','ebys','sinav','zil'].forEach(function(n){
     var p = document.getElementById(n + 'Page');
     var on = (n === v);
     p.classList.toggle('active', on);
@@ -19620,22 +19883,17 @@ function gosterSayfa(v){
       }
     }
   });
-  document.getElementById('navHome').classList.toggle('active', v === 'home');
-  document.getElementById('navRehber').classList.toggle('active', v === 'rehber');
-  document.getElementById('navNobetci').classList.toggle('active', v === 'nobetci');
-  document.getElementById('navEbys').classList.toggle('active', v === 'ebys');
-  document.getElementById('navSinav').classList.toggle('active', v === 'sinav');
+  window.__aktifSayfa = v;
   window.scrollTo(0, 0);
   barOlcuGuncelle();
   if(v === 'home') menuSigdirPlanla();
 }
 function barOlcuGuncelle(){
   var h = document.querySelector('header');
-  var b = document.getElementById('bottomBar');
-  if(!h || !b) return;
+  if(!h) return;
   var r = document.documentElement.style;
   r.setProperty('--hdr-h', h.offsetHeight + 'px');
-  r.setProperty('--bar-h', b.offsetHeight + 'px');
+  r.setProperty('--bar-h', '0px');
   if(typeof menuSigdirPlanla === 'function') menuSigdirPlanla();
 }
 window.addEventListener('resize', barOlcuGuncelle);
@@ -19645,7 +19903,6 @@ document.addEventListener('DOMContentLoaded', barOlcuGuncelle);
 if(window.ResizeObserver){
   var _ro = new ResizeObserver(barOlcuGuncelle);
   _ro.observe(document.querySelector('header'));
-  _ro.observe(document.getElementById('bottomBar'));
 }
 barOlcuGuncelle();
 
@@ -20379,22 +20636,73 @@ menuSigdirPlanla();
   header .brand .role{font-size:.784rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   header nav{flex:0 0 auto;}
   header .header-clock-box{padding:2px 8px;border-radius:7px;line-height:1.1;}
-  header .header-clock-box .digital-clock{font-size:1.2rem;letter-spacing:.3px;white-space:nowrap;}
+  header .header-clock-box .digital-clock{font-size:1.44rem;letter-spacing:.3px;white-space:nowrap;}
   header .header-clock-box .lesson-status{font-size:.84rem;}
   header .header-clock-box .lesson-time{font-size:.6rem;}
   @media (max-width:600px){
     header .header-inner{padding:7px 12px;}
     header .brand .name{font-size:1.056rem;}
     header .brand .role{font-size:.704rem;}
-    header .header-clock-box .digital-clock{font-size:1.02rem;}
+    header .header-clock-box .digital-clock{font-size:1.224rem;}
     header .header-clock-box .lesson-status{font-size:.74rem;}
     header .header-clock-box .lesson-time{font-size:.54rem;}
   }
   @media (max-width:360px){
     header .brand .name{font-size:.96rem;}
-    header .header-clock-box .digital-clock{font-size:.94rem;}
+    header .header-clock-box .digital-clock{font-size:1.128rem;}
     header .header-clock-box .lesson-status{font-size:.68rem;}
   }
 </style>
+<!-- ================= ÜST BÖLÜM: YEŞİL ALAN EK %20 KÜÇÜK (YAZILAR AYNI) + AÇILIR MENÜ ================= -->
+<style>
+  header .header-inner{padding:2px 16px;min-height:51px;}
+  @media (min-width:900px){ header .header-inner{min-height:57px;} }
+  @media (max-width:600px){ header .header-inner{padding:2px 12px;} }
+  header .header-clock-box{padding:0 8px;line-height:1;}
+  header .header-clock-box .digital-clock,
+  header .header-clock-box .lesson-status,
+  header .header-clock-box .lesson-time{line-height:1.05;}
+  header .brand{line-height:1.05;}
+  .hdr-menu-btn{flex:0 0 auto;background:transparent;border:none;color:#fff;width:38px;height:38px;border-radius:8px;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .hdr-menu-btn svg{width:26px;height:26px;}
+  .hdr-menu-btn:active,.hdr-menu-btn[aria-expanded="true"]{background:rgba(255,255,255,.18);}
+  .hdr-menu-panel{position:absolute;top:100%;left:8px;width:min(330px,92vw);max-height:72vh;overflow-y:auto;background:#fff;color:var(--ink);border-radius:0 0 12px 12px;box-shadow:0 10px 26px rgba(0,0,0,.28);z-index:60;padding:6px;}
+  .hdr-menu-panel[hidden]{display:none;}
+  .hdr-menu-panel button{width:100%;text-align:left;background:transparent;border:none;border-bottom:1px solid #e1eef0;padding:11px 12px;font:inherit;font-size:.95rem;font-weight:600;color:var(--ink);cursor:pointer;border-radius:6px;}
+  .hdr-menu-panel button:last-child{border-bottom:none;}
+  .hdr-menu-panel button{display:flex;align-items:center;gap:12px;}
+  .hdr-menu-panel button svg{width:22px;height:22px;flex:0 0 auto;color:var(--accent-dark);}
+  .hdr-menu-panel button.aktif{background:#bfe0e3;}
+  .hdr-menu-panel .ayrac{height:1px;background:#b7d8db;margin:4px 6px;}
+  .hdr-menu-panel button:active,.hdr-menu-panel button:hover{background:#dff3f4;}
+</style>
+<script>
+(function(){
+  var btn = document.getElementById('hdrMenuBtn'), panel = document.getElementById('hdrMenuPanel');
+  if(!btn || !panel) return;
+  var OGELER = [{"k": "home", "t": "Ana Sayfa", "f": "gosterSayfa('home')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 11l9-8 9 8\"/><path d=\"M5 10v10h14V10\"/><path d=\"M10 20v-6h4v6\"/></svg>"}, {"k": "nobetci", "t": "Nöbetçi Öğretmen", "f": "gosterSayfa('nobetci')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"10\" cy=\"7.5\" r=\"3.5\"/><path d=\"M3 21c0-3.9 3.1-7 7-7 1.2 0 2.3.3 3.3.8\"/><path d=\"M17.5 12.5l4 1.5v3.2c0 2.4-1.7 4.3-4 4.8-2.3-.5-4-2.4-4-4.8V14z\"/><path d=\"M15.8 17.3l1.2 1.2 2.3-2.5\"/></svg>"}, {"k": "rehber", "t": "Rehber", "f": "gosterSayfa('rehber')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>"}, {"k": "ebys", "t": "EBYS", "f": "gosterSayfa('ebys')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><path d=\"M8 13h8\"/><path d=\"M8 16h5\"/></svg>"}, {"k": "sinav", "t": "Sınav Yapma Programı", "f": "gosterSayfa('sinav')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z\"/><path d=\"M14 3v5h5\"/><path d=\"M9 13l2 2 4-4\"/><path d=\"M9 18h6\"/></svg>"}, {"k": "zil", "t": "Zil Programı", "f": "gosterSayfa('zil')", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\"/><path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\"/></svg>"}, {"k": "yedek", "t": "Yedek Al", "f": "yedekAl()", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 3v12\"/><path d=\"M7 10l5 5 5-5\"/><path d=\"M4 19h16\"/></svg>"}, {"k": "yukle", "t": "Yedek Yükle", "f": "document.getElementById('yedekDosyaSec').click()", "i": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 21V9\"/><path d=\"M7 14l5-5 5 5\"/><path d=\"M4 5h16\"/></svg>"}];
+  function kapat(){ panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+  function doldur(){
+    var aktif = window.__aktifSayfa || 'home';
+    panel.innerHTML = '';
+    OGELER.forEach(function(o){
+      var b = document.createElement('button');
+      b.type = 'button';
+      if(o.k === aktif) b.className = 'aktif';
+      b.innerHTML = o.i + '<span></span>';
+      b.lastChild.textContent = o.t;
+      b.addEventListener('click', function(){ kapat(); (new Function(o.f))(); });
+      panel.appendChild(b);
+      if(o.k === 'zil'){ var h = document.createElement('div'); h.className = 'ayrac'; panel.appendChild(h); }
+    });
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(panel.hidden){ doldur(); panel.hidden = false; btn.setAttribute('aria-expanded', 'true'); } else kapat();
+  });
+  document.addEventListener('click', function(e){ if(!panel.hidden && !panel.contains(e.target)) kapat(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') kapat(); });
+})();
+</script>
 </body>
 </html>
