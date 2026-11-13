@@ -905,6 +905,7 @@
       <button type="button" class="menu-box" onClick="tbAc()"><span>Tebliğ Tebellüğ</span></button>
       <button type="button" class="menu-box" onClick="oegAc()"><span>Özel Eğitim Gereksinimli Öğrenci Listesi</span></button>
       <button type="button" class="menu-box" onClick="openTtModal()"><span>Takdir Teşekkür Listesi</span></button>
+      <button type="button" class="menu-box" onClick="yuAc()"><span>Yabancı Uyruklu Öğrenci Listesi</span></button>
     </div>
   </section>
 
@@ -6526,6 +6527,41 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
   </div>
 </div>
 
+<!-- ================= YABANCI UYRUKLU ÖĞRENCİ LİSTESİ MODAL ================= -->
+<div id="yu_overlay" class="modal-overlay" onClick="if(event.target===this) yuKapat()">
+  <div class="modal-box wide-modal">
+    <button type="button" class="modal-close" onClick="yuKapat()">×</button>
+    <h2 class="modal-title">Yabancı Uyruklu Öğrenci Listesi</h2>
+
+    <div class="modal-row">
+      <div class="modal-field"><label for="yu_no">Öğrenci No</label><input type="text" id="yu_no" list="yu_noL" inputmode="numeric" onChange="yuNoSecildi()"><datalist id="yu_noL"></datalist></div>
+      <div class="modal-field"><label for="yu_sinif">Sınıfı/Şubesi</label><input type="text" id="yu_sinif" list="yu_sinifL" placeholder="Örn: 5/C"><datalist id="yu_sinifL"></datalist></div>
+    </div>
+    <div class="modal-field"><label for="yu_ad">Adı Soyadı</label><input type="text" id="yu_ad"></div>
+    <div class="modal-row">
+      <div class="modal-field"><label for="yu_uyruk">Uyruk</label><input type="text" id="yu_uyruk" list="yu_uyrukL" placeholder="Örn: SURİYE"><datalist id="yu_uyrukL"></datalist></div>
+      <div class="modal-field"><label for="yu_cinsiyet">Cinsiyeti</label><select id="yu_cinsiyet"><option value="">Seçiniz...</option><option value="Kız">Kız</option><option value="Erkek">Erkek</option></select></div>
+    </div>
+
+    <div class="modal-actions-single-row modal-actions-six">
+      <button type="button" class="modal-btn primary" onClick="yuKaydet()">Kaydet</button>
+      <button type="button" class="modal-btn danger" onClick="yuSil()">Sil</button>
+      <button type="button" class="modal-btn secondary" onClick="document.getElementById('yu_dosya').click()">e-Okul</button>
+      <button type="button" class="modal-btn" onClick="yuYeni()">Yeni</button>
+      <button type="button" class="modal-btn pdf" onClick="yuCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn excel" onClick="yuCikti('excel')">Excel</button>
+      <input type="file" id="yu_dosya" accept=".xls,.xlsx,.pdf" style="display:none" onChange="yuEOkulYukle(event)">
+    </div>
+    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('yabanciUyruklu')">Tümünü Sil</button></div>
+    <div id="yu_durum" class="modal-status"></div>
+
+    <div class="data-list-container">
+      <div class="data-list-title">Kayıtlı Liste (Sınıfa Göre Sıralı)</div>
+      <div id="yu_kutu"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= ZÜMRE TUTANAK LISTESI MODAL ================= -->
 <div id="lst_zumre_overlay" class="modal-overlay" onClick="if(event.target===this) lstKapat('zumre')">
   <div class="modal-box wide-modal">
@@ -10678,6 +10714,7 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     nufus:       {ad: 'Öğrenci Nüfus Bilgileri',           keys: ['nufusBilgileri'],                                    ac: function(){ openNufusModal(); },                durum: 'nfDurum'},
     ogrenciBilgileri: {ad: 'Öğrenci Bilgileri',               keys: ['ogrenciBilgileri'],                                  ac: function(){ openOgrenciBilgileriModal(); },    durum: 'ogbDurum'},
     ozelEgitim: {ad: 'Özel Eğitim Gereksinimli Öğrenci Listesi', keys: ['ozelEgitimListesi'], ac: function(){ oegAc(); }, durum: 'oeg_durum'},
+    yabanciUyruklu: {ad: 'Yabancı Uyruklu Öğrenci Listesi', keys: ['yabanciUyrukluListesi'], ac: function(){ yuAc(); }, durum: 'yu_durum'},
     zumre:      {ad: 'Zümre Tutanak Listesi', keys: ['zumreListesi'], ac: function(){ lstAc('zumre'); }, durum: 'lst_zumre_durum'},
     shok:       {ad: 'Ş.Ö.K.K. Tutanak Listesi', keys: ['shokListesi'], ac: function(){ lstAc('shok'); }, durum: 'lst_shok_durum'},
     yplan:      {ad: 'Yıllık Plan Listesi', keys: ['yillikPlanListesi'], ac: function(){ lstAc('yplan'); }, durum: 'lst_yplan_durum'},
@@ -13606,7 +13643,7 @@ Q=parse(RAW);applyAns(Q);pool();prev();renderArch();
     document.getElementById('cinsiyetErkek').classList.toggle('active', v === 'E');
   }
 
-  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'anasayfaButonSirasi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
+  var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'anasayfaButonSirasi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'yabanciUyrukluListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
   function yedekAl(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
@@ -16339,6 +16376,293 @@ function pdfSatirlar(items){
     if(typeof pdfMake === 'undefined'){ durum.textContent = 'PDF oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
     try{
       pdfMake.createPdf(oegPdfDok(l)).download(dosya + '.pdf');
+      durum.textContent = 'Liste PDF olarak indirildi.';
+    }catch(err){ durum.textContent = 'PDF oluşturulamadı.'; }
+  }
+
+  /* ================= YABANCI UYRUKLU ÖĞRENCİ LİSTESİ ================= */
+  /* Şablon: e-Okul "Yabancı Uyruklu Öğrenci Listesi" (S.No, Öğrenci No, Sınıfı/Şubesi, Adı Soyadı, Uyruk, Cinsiyeti).
+     Rapor tek liste halindedir (uyruğa göre gruplanmaz), sınıf sırasına göre dizilir. Kayıt: {no, sinif, ad, uyruk, cinsiyet}. */
+  var YU_KEY = 'yabanciUyrukluListesi';
+  var YU_SECILI = null;
+  var YU_BASLIK = 'YABANCI UYRUKLU ÖĞRENCİ LİSTESİ';
+  var YU_KOLONLAR = ['S.No', 'Öğrenci No', 'Sınıfı/Şubesi', 'Adı Soyadı', 'Uyruk', 'Cinsiyeti'];
+  var YU_TOHUM = ["1028|6/B|ABDULCEBBAR EL HAC SÜLEYMAN|SURİYE|Erkek", "219|5/D|ABDULKADİR TABBAŞ|SURİYE|Erkek", "2007|6/D|ABDULSELAM EL MUHAMMED|SURİYE|Erkek", "1037|6/D|ABDURRAHMAN ALAHMAD|SURİYE|Erkek", "141|5/D|ABDURRAHMAN KADDUR|SURİYE|Erkek", "660|8/B|ADNAN EL CASİM|SURİYE|Erkek", "568|5/F|AHMED ABDULKADİR|SURİYE|Erkek", "1042|7/D|AHMED HAŞMAN|SURİYE|Erkek", "194|7/C|ALE TABBAŞ|SURİYE|Kız", "259|5/E|AYE EL MANSUR|SURİYE|Kız", "235|5/C|AYŞE EL HALLAK|SURİYE|Kız", "1031|5/E|BAYAN MAHMUT|SURİYE|Kız", "200|8/B|CEMİL TEDİLİ|SURİYE|Erkek", "1008|7/A|FATIMA EL HAC SÜLEYMAN|SURİYE|Kız", "203|8/C|FATIMA EL MAHMUD|SURİYE|Kız", "1038|7/C|FATIMA İSA|SURİYE|Kız", "232|5/C|FATIMA MUHAMMED|SURİYE|Kız", "535|6/E|FATMA DADO|SURİYE|Kız", "179|7/C|ĞUFRAN EL ALEYVİ|SURİYE|Kız", "212|7/B|HAMZA ALMAMOU|SURİYE|Erkek", "364|5/F|HAMZA EL ALEYVİ|SURİYE|Erkek", "382|6/E|HANA ELŞEMMO ELHASEN|SURİYE|Kız", "314|5/C|HİBE HAC AHMED|SURİYE|Kız", "481|6/C|HÜDA EL MAHMUD|SURİYE|Kız", "1071|7/D|HÜSAM EL HAMDAN|SURİYE|Erkek", "532|6/F|İBRAHİM İSA|SURİYE|Erkek", "1013|5/C|İSRA EL MAHMUD|SURİYE|Kız", "156|8/C|JANNA ALHAJ ISSA ALRAEE|SURİYE|Kız", "547|6/A|JUDY DAY|SURİYE|Kız", "163|7/C|LAMA ELHAŞHAŞ|SURİYE|Kız", "1027|6/C|LEYLA HANİFİ ELABDULLAH|SURİYE|Kız", "2501|7/C|LEYLA SABAHİ|SURİYE|Kız", "2003|6/D|MAHMUD EL HELLAVİ|SURİYE|Erkek", "311|6/D|MAHMUD HALLAK|SURİYE|Erkek", "553|6/F|MAHMUD HAŞİM İSA|SURİYE|Erkek", "190|6/C|MEYSA HANİFİ ELABDULLAH|SURİYE|Kız", "453|6/D|MİRAC EL MÜŞRİF|SURİYE|Erkek", "508|5/F|MUHAMMED ABDULKADİR|SURİYE|Erkek", "1034|5/F|MUHAMMED EL ALEYVİ|SURİYE|Erkek", "461|8/B|MUHAMMED EL BİNŞİ|SURİYE|Erkek", "1078|7/D|MUHAMMED EL HAC KELBUN|SURİYE|Erkek", "186|7/D|MUHAMMED EL MUHAMMED|SURİYE|Erkek", "2502|7/D|MUHAMMED EL SABAHİ|SURİYE|Erkek", "271|7/D|MUHAMMED ELALI|SURİYE|Erkek", "18|8/B|MUHAMMED ELHAŞAŞ|SURİYE|Erkek", "313|5/D|MUHAMMED HAC AHMED|SURİYE|Erkek", "491|6/C|MÜNE ELHULEYF ELHAMMUD|SURİYE|Kız", "241|5/B|NADİR KEMAM BABELLI|SURİYE|Erkek", "217|7/D|NUREDDİN DADO|SURİYE|Erkek", "397|8/B|OMAR EL KENCO|SURİYE|Erkek", "1076|7/D|ÖMER ELİSA|SURİYE|Erkek", "384|5/E|RİM MANAFİHİ|SURİYE|Kız", "303|5/C|RİNET EL MULEYF EL HAMMUD|SURİYE|Kız", "305|5/E|RİTAL EL HAJ İSA ER RAİ|SURİYE|Kız", "113|7/B|SALAH DHAY|SURİYE|Erkek", "427|5/C|SECE EL BİNŞİ|SURİYE|Kız", "299|7/C|SEMMAH ELHAJ İSA|SURİYE|Kız", "389|5/C|ŞAM EL HALEF|SURİYE|Kız", "2005|6/C|ŞEMSE EL HELLAVİ|SURİYE|Kız", "2006|6/D|ŞİHEB EL SALİH|SURİYE|Erkek", "322|5/C|UMEYYE ALHAJ ISSA ALRAEE|SURİYE|Kız", "1015|5/D|YAKUB EL MUHAMMED EL BEREKET|SURİYE|Erkek", "237|7/B|YAMEN KEMAM BABLLI|SURİYE|Erkek", "273|8/B|YOUSEF KEMAM BABLLI|SURİYE|Erkek", "1045|7/D|YUSUF ELMUSA|SURİYE|Erkek", "1025|6/D|YUSUF HANİFİ ELABDULLAH|SURİYE|Erkek", "1050|5/F|ZIED ALKHIER SAID|SURİYE|Erkek", "589|6/F|ABDULLOKH ABDIRASHITOV|KIRGIZİSTAN|Erkek", "2001|6/D|AEIN ASKARI|İRAN|Erkek", "290|7/C|FATİN FEHMİ İSMAİL CEBBEŞ|IRAK|Kız", "352|5/C|AZIRA LADI|ENDONEZYA|Kız", "1023|5/E|MARYAM ASHURI|AFGANİSTAN|Kız", "577|6/E|PERİBA ÖZBEK|AFGANİSTAN|Kız", "244|8/B|YASIN RAHIMI|AFGANİSTAN|Erkek", "700|6/D|YUNUS EMRE AIDIN|AFGANİSTAN|Erkek", "357|6/D|ABDULSALAM A K ALMUQAYYID ABDULSALAM A K ALMUQAYYID|FİLİSTİN|Erkek", "377|5/E|RAGHAD A K ALMUQAYAD RAGHAD A K ALMUQAYAD|FİLİSTİN|Kız"];
+
+  function yuEl(a){ return document.getElementById('yu_' + a); }
+  /* Sınıfa (5/A ... 8/F) göre; sonra öğrenci no ve ad */
+  function yuSirala(a, b){
+    var sa = oegSinifNorm(a.sinif), sb = oegSinifNorm(b.sinif);
+    if(sa && !sb) return -1;
+    if(!sa && sb) return 1;
+    return sa.localeCompare(sb, 'tr', {numeric: true}) || (oegNoSayi(a) - oegNoSayi(b)) ||
+      oegTemiz(a.ad).localeCompare(oegTemiz(b.ad), 'tr');
+  }
+  function yuYukle(){ return rapLoad(YU_KEY, []).slice().sort(yuSirala); }
+  function yuYaz(l){ localStorage.setItem(YU_KEY, JSON.stringify(l.slice().sort(yuSirala))); }
+  /* İlk açılışta, yüklenen e-Okul PDF'indeki 77 öğrenci listeye konur (bir kez; sonra Tümünü Sil ile boşaltılabilir) */
+  function yuTohumla(){
+    try{
+      if(localStorage.getItem('yabanciUyrukluTohum') || localStorage.getItem(YU_KEY) !== null) return;
+      yuYaz(YU_TOHUM.map(function(r){ var p = r.split('|'); return {no: p[0], sinif: p[1], ad: p[2], uyruk: p[3], cinsiyet: p[4]}; }));
+      localStorage.setItem('yabanciUyrukluTohum', '1');
+    }catch(e){}
+  }
+
+  function yuAc(){
+    yuTohumla();
+    yuOneriDoldur();
+    yuYeni();
+    yuEl('durum').textContent = '';
+    yuEl('overlay').classList.add('active');
+  }
+  function yuKapat(){ yuEl('overlay').classList.remove('active'); }
+
+  function yuOneriDoldur(){
+    var kayit = rapLoad(YU_KEY, []);
+    var ogr = ogbOgrenciler();
+    yuEl('noL').innerHTML = ogr.map(function(o){ return oegSecenek(o.no, oegTemiz((o.adi || '') + ' ' + (o.soyadi || '')) + (o.sinif ? ' (' + o.sinif + ')' : '')); }).join('');
+    var sn = {};
+    rapLoad('sinifListesi', []).forEach(function(x){ if(x.ad) sn[x.ad] = true; });
+    ogbSiniflar(ogr).forEach(function(x){ if(x.ad) sn[x.ad] = true; });
+    kayit.forEach(function(x){ if(x.sinif) sn[oegSinifNorm(x.sinif)] = true; });
+    yuEl('sinifL').innerHTML = Object.keys(sn).sort(function(a, b){ return a.localeCompare(b, 'tr', {numeric: true}); }).map(function(x){ return oegSecenek(x); }).join('');
+    var m = {}, uy = [];
+    ['SURİYE', 'AFGANİSTAN', 'IRAK', 'İRAN', 'FİLİSTİN'].concat(kayit.map(function(x){ return x.uyruk; })).forEach(function(v){ v = oegTemiz(v); if(v && !m[v]){ m[v] = true; uy.push(v); } });
+    yuEl('uyrukL').innerHTML = uy.map(function(x){ return oegSecenek(x); }).join('');
+  }
+  /* Öğrenci no yazılınca sınıf, ad ve (varsa) cinsiyet otomatik gelir */
+  function yuNoSecildi(){
+    var no = yuEl('no').value.trim();
+    if(!no) return;
+    var o = ogbOgrenciler().filter(function(x){ return String(x.no) === no; })[0];
+    if(!o) return;
+    if(!yuEl('sinif').value.trim() && o.sinif) yuEl('sinif').value = oegSinifNorm(o.sinif);
+    if(!yuEl('ad').value.trim()) yuEl('ad').value = oegTemiz((o.adi || '') + ' ' + (o.soyadi || ''));
+    var ham = rapLoad('ogrenciListesi', []).filter(function(x){ return String(x.numara || '').trim() === no; })[0];
+    var c = ham && String(ham.cinsiyet || '').trim();
+    if(c && !yuEl('cinsiyet').value) yuEl('cinsiyet').value = /^k/i.test(c) ? 'Kız' : (/^e/i.test(c) ? 'Erkek' : '');
+  }
+
+  function yuRender(){
+    var l = yuYukle(), kutu = yuEl('kutu');
+    if(!l.length){ kutu.innerHTML = '<div class="list-item"><span class="sub-text">Kayıt bulunamadı.</span></div>'; return; }
+    kutu.innerHTML = l.map(function(o, i){
+      return '<div class="list-item" onclick="yuSec(' + i + ')"><div><div class="main-text">' + escapeHtml((o.sinif || '—') + ' · ' + (o.no ? o.no + ' · ' : '') + (o.ad || '')) + '</div>' +
+        '<div class="sub-text">' + escapeHtml((o.uyruk || '—') + ' | ' + (o.cinsiyet || '—')) + '</div></div></div>';
+    }).join('');
+  }
+  function yuSec(i){
+    var o = yuYukle()[i];
+    if(!o) return;
+    yuEl('no').value = o.no || '';
+    yuEl('sinif').value = o.sinif || '';
+    yuEl('ad').value = o.ad || '';
+    yuEl('uyruk').value = o.uyruk || '';
+    yuEl('cinsiyet').value = o.cinsiyet || '';
+    YU_SECILI = i;
+  }
+  function yuKaydet(){
+    var durum = yuEl('durum');
+    var ad = oegTemiz(yuEl('ad').value);
+    if(!ad){ durum.textContent = 'Lütfen öğrencinin adı soyadını giriniz.'; return; }
+    var kayit = {no: oegTemiz(yuEl('no').value), sinif: oegSinifNorm(yuEl('sinif').value), ad: ad, uyruk: oegTemiz(yuEl('uyruk').value).toLocaleUpperCase('tr'), cinsiyet: yuEl('cinsiyet').value};
+    var l = yuYukle();
+    if(YU_SECILI !== null && l[YU_SECILI]) l[YU_SECILI] = kayit; else l.push(kayit);
+    yuYaz(l);
+    yuOneriDoldur();
+    yuYeni();
+    durum.textContent = 'Kayıt eklendi (toplam ' + l.length + ' kayıt).';
+  }
+  function yuSil(){
+    var durum = yuEl('durum');
+    if(YU_SECILI === null){ durum.textContent = 'Silmek için listeden kayıt seçiniz.'; return; }
+    var l = yuYukle();
+    l.splice(YU_SECILI, 1);
+    yuYaz(l);
+    yuYeni();
+    durum.textContent = 'Kayıt silindi.';
+  }
+  function yuYeni(){
+    YU_SECILI = null;
+    ['no', 'sinif', 'ad', 'uyruk', 'cinsiyet'].forEach(function(a){ yuEl(a).value = ''; });
+    yuRender();
+  }
+
+  /* e-Okul: "Yabancı Uyruklu Öğrenci Listesi" dosyasını (Excel .xls/.xlsx veya PDF) okuyup listeyi yeniler */
+  function yuCins(t){ t = oegTemiz(t); return /^k/i.test(t) ? 'Kız' : (/^e/i.test(t) ? 'Erkek' : t); }
+  function yuExcelSatirlari(wb){
+    var sonuc = [];
+    wb.SheetNames.forEach(function(sn){
+      var rows = XLSX.utils.sheet_to_json(wb.Sheets[sn], {header: 1, raw: true, defval: ''});
+      var kol = null;
+      rows.forEach(function(r){
+        var kodlar = r.map(oegBaslikKodu);
+        var ia = kodlar.indexOf('ADISOYADI');
+        var ino = kodlar.indexOf('ÖĞRENCİNO'); if(ino < 0) ino = kodlar.indexOf('ÖĞRNO');
+        if(ia >= 0 && ino >= 0){
+          kol = {no: ino, sinif: kodlar.indexOf('SINIFIŞUBESİ'), ad: ia, uyruk: kodlar.indexOf('UYRUK'), cinsiyet: kodlar.indexOf('CİNSİYETİ')};
+          return;
+        }
+        if(!kol) return;
+        if(/SAYISI/.test(r.join(' ').toLocaleUpperCase('tr'))) return;
+        function v(a){ return kol[a] >= 0 ? r[kol[a]] : ''; }
+        var ad = oegTemiz(v('ad'));
+        if(!ad) return;
+        sonuc.push({no: oegTemiz(v('no')), sinif: oegSinifNorm(v('sinif')), ad: ad, uyruk: oegTemiz(v('uyruk')).toLocaleUpperCase('tr'), cinsiyet: yuCins(v('cinsiyet'))});
+      });
+    });
+    return sonuc;
+  }
+  /* PDF: sayfalar = [[{str, x, y}, ...], ...]. Sütunlar başlık satırındaki x konumlarından, satırlar S.No hücresine en yakın y'den eşlenir */
+  function yuPdfAyristir(sayfalar){
+    var sonuc = [];
+    sayfalar.forEach(function(items){
+      items = items.filter(function(it){ return String(it.str).trim() !== ''; });
+      var sno = items.filter(function(it){ return /^S\.\s*No/i.test(it.str.trim()); })[0];
+      if(!sno) return;
+      function basl(re){ return items.filter(function(it){ return Math.abs(it.y - sno.y) < 4 && re.test(it.str.trim()); })[0]; }
+      var hNo = basl(/^Öğr/i), hSinif = basl(/^Sınıfı/i), hAd = basl(/^Adı/i), hUyruk = basl(/^Uyruk/i), hCins = basl(/^Cinsiyeti/i);
+      if(!hNo || !hSinif || !hAd || !hUyruk || !hCins) return;
+      var sayiY = items.filter(function(it){ return /Sayısı/i.test(it.str); }).map(function(it){ return it.y; });
+      var veri = items.filter(function(it){
+        if(it.y > sno.y - 4) return false;
+        if(/^\d{2}\/\d{2}\/\d{4}$/.test(it.str.trim()) || /^\d{2}:\d{2}:\d{2}$/.test(it.str.trim())) return false;
+        return !sayiY.some(function(y){ return Math.abs(it.y - y) < 4; });
+      });
+      var ank = veri.filter(function(it){ return it.x < hNo.x - 3 && /^\d+$/.test(it.str.trim()); }).sort(function(a, b){ return b.y - a.y; });
+      var sat = ank.map(function(a){ return {y: a.y, sinif: [], ad: [], uyruk: [], cins: [], no: []}; });
+      veri.forEach(function(it){
+        if(it.x < hNo.x - 3) return;
+        /* hücreyi, kendisinin üstünde (en çok 4 birim yukarıda) bulunan en yakın S.No satırına bağla: iki satıra taşan adlar bir önceki öğrenciye kalır */
+        var en = -1;
+        ank.forEach(function(a, i){ if(a.y + 4 >= it.y && (en < 0 || a.y < ank[en].y)) en = i; });
+        if(en < 0 || ank[en].y - it.y > 22) return;   /* altbilgi (tarih, saat, sayfa no) satırlara karışmasın */
+        var s = sat[en], t = it.str.trim();
+        if(it.x >= hCins.x - 3) s.cins.push(it);
+        else if(it.x >= hUyruk.x - 3) s.uyruk.push(it);
+        else if(it.x >= hAd.x - 3) s.ad.push(it);
+        else if(/^\d+$/.test(t)) s.no.push(it);
+        else s.sinif.push(it);   /* uzun sınıf adları (Yabancı Dil Ağırlıklı) başlığın solundan başlayabilir */
+      });
+      function birles(a){ return oegTemiz(a.slice().sort(function(p, q){ return (q.y - p.y) > 2 || (q.y - p.y) < -2 ? q.y - p.y : p.x - q.x; }).map(function(it){ return it.str; }).join(' ')); }
+      sat.forEach(function(s){
+        var ad = birles(s.ad);
+        var c = birles(s.cins);
+        if(!ad || !/^(Erkek|Kız|Kiz)$/i.test(c)) return;
+        sonuc.push({no: birles(s.no), sinif: oegSinifNorm(birles(s.sinif)), ad: ad, uyruk: birles(s.uyruk).toLocaleUpperCase('tr'), cinsiyet: yuCins(c)});
+      });
+    });
+    return sonuc;
+  }
+  function yuEOkulYukle(event){
+    var girdi = event.target, dosya = girdi.files && girdi.files[0];
+    if(!dosya) return;
+    var durum = yuEl('durum');
+    function bitir(l){
+      if(!l.length){ durum.textContent = 'Dosyada kayıt bulunamadı. e-Okul "Yabancı Uyruklu Öğrenci Listesi" dosyasını (Excel veya PDF) seçin.'; return; }
+      yuYaz(l);
+      yuOneriDoldur();
+      yuYeni();
+      durum.textContent = 'e-Okul listesi yüklendi (' + l.length + ' kayıt).';
+    }
+    if(/\.pdf$/i.test(dosya.name)){
+      if(typeof pdfjsLib === 'undefined'){ durum.textContent = 'PDF okunamadı (internet bağlantısını kontrol edin).'; girdi.value = ''; return; }
+      durum.textContent = 'PDF okunuyor...';
+      dosya.arrayBuffer().then(function(buf){
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        return pdfjsLib.getDocument({data: new Uint8Array(buf)}).promise;
+      }).then(function(pdf){
+        var sayfalar = [], zincir = Promise.resolve();
+        for(var pn = 1; pn <= pdf.numPages; pn++){
+          (function(n){
+            zincir = zincir.then(function(){ return pdf.getPage(n); }).then(function(p){ return p.getTextContent(); }).then(function(tc){
+              sayfalar.push(tc.items.map(function(it){ return {str: it.str, x: it.transform[4], y: it.transform[5]}; }));
+            });
+          })(pn);
+        }
+        return zincir.then(function(){ return sayfalar; });
+      }).then(function(sayfalar){ bitir(yuPdfAyristir(sayfalar)); })
+        .catch(function(){ durum.textContent = 'PDF okunamadı.'; });
+      girdi.value = '';
+      return;
+    }
+    if(typeof XLSX === 'undefined'){ durum.textContent = 'Excel okunamadı (internet bağlantısını kontrol edin).'; girdi.value = ''; return; }
+    var okuyucu = new FileReader();
+    okuyucu.onload = function(e){
+      try{ bitir(yuExcelSatirlari(XLSX.read(new Uint8Array(e.target.result), {type: 'array'}))); }
+      catch(err){ durum.textContent = 'Excel okunamadı.'; }
+    };
+    okuyucu.onerror = function(){ durum.textContent = 'Dosya okunamadı.'; };
+    okuyucu.readAsArrayBuffer(dosya);
+    girdi.value = '';
+  }
+
+  function yuPdfDok(l){
+    var gri = '#e6e6e8';
+    function baslik(t){ return {text: t, bold: true, fillColor: gri, fontSize: 9}; }
+    var govde = [YU_KOLONLAR.map(baslik)];
+    l.forEach(function(o, i){ govde.push([String(i + 1), o.no || '', o.sinif || '', o.ad || '', o.uyruk || '', o.cinsiyet || '']); });
+    return {
+      pageSize: 'A4', pageMargins: [30, 32, 30, 32], defaultStyle: {fontSize: 9},
+      content: [
+        {text: 'T.C.', bold: true, alignment: 'center', fontSize: 10},
+        {text: 'KONYA VALİLİĞİ', bold: true, alignment: 'center', fontSize: 10},
+        {text: 'Karatay / Fetihkent İmam Hatip Ortaokulu Müdürlüğü', bold: true, alignment: 'center', fontSize: 11},
+        {text: YU_BASLIK, bold: true, alignment: 'center', fontSize: 13, margin: [0, 8, 0, 10]},
+        {table: {headerRows: 1, widths: [26, 46, 50, '*', 72, 44], body: govde},
+         layout: {hLineColor: function(){ return '#888'; }, vLineColor: function(){ return '#888'; }, paddingTop: function(){ return 3; }, paddingBottom: function(){ return 3; }}},
+        {text: 'Toplam: ' + l.length + ' öğrenci', bold: true, margin: [0, 8, 0, 0]}
+      ]
+    };
+  }
+  function yuExcelOlustur(l){
+    var wb = new ExcelJS.Workbook();
+    var ws = wb.addWorksheet('Yabancı Uyruklu Öğrenci Listesi', {pageSetup: {paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 0, margins: {left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2}}});
+    var gen = [1.2, 6, 11, 11, 40, 16, 11];
+    ws.columns = gen.map(function(w){ return {width: w}; });
+    var kenar = {top: {style: 'thin'}, bottom: {style: 'thin'}, left: {style: 'thin'}, right: {style: 'thin'}};
+    ws.mergeCells(1, 2, 1, 7);
+    var b = ws.getCell(1, 2);
+    b.value = 'T.C.\nKONYA VALİLİĞİ\nKaratay / Fetihkent İmam Hatip Ortaokulu Müdürlüğü\nYabancı Uyruklu Öğrenci Listesi';
+    b.font = {name: 'Calibri', size: 10, bold: true}; b.alignment = {horizontal: 'center', vertical: 'middle', wrapText: true}; b.border = kenar;
+    ws.getRow(1).height = 58;
+    YU_KOLONLAR.forEach(function(t, c){
+      var h = ws.getCell(2, c + 2); h.value = t; h.font = {name: 'Calibri', size: 9, bold: true}; h.border = kenar; h.alignment = {horizontal: 'left', vertical: 'middle', wrapText: true};
+    });
+    ws.getRow(2).height = 22;
+    l.forEach(function(o, j){
+      var degerler = [j + 1, /^\d+$/.test(o.no || '') ? Number(o.no) : (o.no || ''), o.sinif || '', o.ad || '', o.uyruk || '', o.cinsiyet || ''];
+      var satir = 1;
+      degerler.forEach(function(v, c){
+        var h = ws.getCell(3 + j, c + 2);
+        if(v !== '') h.value = v;
+        h.font = {name: 'Calibri', size: 9}; h.border = kenar; h.alignment = {horizontal: 'left', vertical: 'middle', wrapText: true};
+        satir = Math.max(satir, Math.ceil(String(v).length / (gen[c + 1] * 1.05)));
+      });
+      ws.getRow(3 + j).height = Math.max(16, satir * 12.5 + 3);
+    });
+    var t = ws.getCell(3 + l.length, 2);
+    t.value = 'Toplam: ' + l.length + ' öğrenci'; t.font = {name: 'Calibri', size: 9, bold: true};
+    ws.pageSetup.printTitlesRow = '2:2';
+    return wb.xlsx.writeBuffer();
+  }
+  function yuCikti(tur){
+    var durum = yuEl('durum');
+    var l = yuYukle();
+    if(!l.length){ durum.textContent = 'Rapor için önce en az bir kayıt ekleyiniz.'; return; }
+    var dosya = rapDosyaAdi('Yabanci_Uyruklu_Ogrenci_Listesi_');
+    if(tur === 'excel'){
+      if(typeof ExcelJS === 'undefined'){ durum.textContent = 'Excel oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
+      yuExcelOlustur(l).then(function(buf){
+        rapIndir(new Blob([buf], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), dosya + '.xlsx');
+        durum.textContent = 'Liste Excel olarak indirildi.';
+      }).catch(function(){ durum.textContent = 'Excel oluşturulamadı.'; });
+      return;
+    }
+    if(typeof pdfMake === 'undefined'){ durum.textContent = 'PDF oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
+    try{
+      pdfMake.createPdf(yuPdfDok(l)).download(dosya + '.pdf');
       durum.textContent = 'Liste PDF olarak indirildi.';
     }catch(err){ durum.textContent = 'PDF oluşturulamadı.'; }
   }
