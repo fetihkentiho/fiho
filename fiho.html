@@ -18871,8 +18871,8 @@ function pdfSatirlar(items){
     if(YK_RESIM[ad]) return YK_RESIM[ad];
     var S = 8, W = Math.round(YK_KW * S), H = Math.round(56 * S), cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
-    var cx = cv.getContext('2d'), maxLen = (56 - 4) * S, boy = 5.2 * S, satirlar = [], kelimeler = ad.split(/\s+/);
-    for(; boy >= 3.2 * S; boy -= 0.2 * S){
+    var cx = cv.getContext('2d'), maxLen = (56 - 4) * S, boy = 6.24 * S, satirlar = [], kelimeler = ad.split(/\s+/);
+    for(; boy >= 3.84 * S; boy -= 0.24 * S){
       cx.font = boy + 'px Tahoma, Verdana, Arial, sans-serif';
       satirlar = []; var cur = '', tasti = false;
       kelimeler.forEach(function(k){
@@ -18892,40 +18892,55 @@ function pdfSatirlar(items){
   function ykFisElemanlari(f){
     var e = [], L = function(x1, y1, x2, y2){ e.push({t: 'line', x1: x1, y1: y1, x2: x2, y2: y2}); };
     var okul = vtOkulAdi() + ' Müdürlüğü';
+    /* Düzen: sol boşluk 1,5 cm (sağ aynı), üst ve alt boşluk 1 cm, ders hücresi 3 satır yüksekliğinde */
+    var XS = 9.3, YD = 15.85, HK = 6;
+    var yAlt = 543.9, yOgr = yAlt - 56.6;
+    var yHucre = 85.6 + YD, yHucreAlt = 101.8 + YD + HK, yListe = 101.5 + YD + HK;
+    var xS = 33.2 + XS;
     /* başlık */
     [['T.C.', 14], ['KONYA VALİLİĞİ', 24], ['Karatay / ' + okul, 34], ['ÖĞRENCİ GÜNLÜK YOKLAMA FİŞİ', 44]].forEach(function(b){
-      e.push({t: 'text', x: 33, y: b[1] - 1.5, w: 357.5, text: b[0], size: 7.6, align: 'center'});
+      e.push({t: 'text', x: 33 + XS, y: b[1] - 1.5 + YD, w: 357.5 - XS, text: b[0], size: 7.6, align: 'center'});
     });
     /* çerçeve ve çizgiler */
-    L(33.2, 52.5, 390.7, 52.5); L(34.2, 68.2, 390.7, 68.2); L(34.2, 85.6, 390.7, 85.6);
-    L(135.4, 101.8, 390.7, 101.8); L(135.4, 504.3, 390.7, 504.3); L(33.2, 560.9, 390.7, 560.9);
-    L(33.7, 52, 33.7, 561.4); L(390.2, 52, 390.2, 561.4); L(198.7, 53, 198.7, 561.4); L(294.5, 53, 294.5, 561.4);
-    [134.9, 166.8, 230.6, 262.5, 326.4, 358.3].forEach(function(x){ L(x, 68.7, x, 561.4); });
+    L(xS, 52.5 + YD, 390.7, 52.5 + YD); L(34.2 + XS, 68.2 + YD, 390.7, 68.2 + YD); L(34.2 + XS, yHucre, 390.7, yHucre);
+    L(135.4, yHucreAlt, 390.7, yHucreAlt); L(135.4, yOgr, 390.7, yOgr); L(xS, yAlt, 390.7, yAlt);
+    L(33.7 + XS, 52 + YD, 33.7 + XS, yAlt + 0.5); L(390.2, 52 + YD, 390.2, yAlt + 0.5); L(198.7, 53 + YD, 198.7, yAlt + 0.5); L(294.5, 53 + YD, 294.5, yAlt + 0.5);
+    [134.9, 166.8, 230.6, 262.5, 326.4, 358.3].forEach(function(x){ L(x, 68.7 + YD, x, yAlt + 0.5); });
     /* üst satır */
-    e.push({t: 'text', x: 36, y: 55, w: 160, text: 'Sınıf: ' + f.sinif, size: 11, bold: true});
-    e.push({t: 'text', x: 200.6, y: 57, w: 92, text: 'Sınıf Mevcudu:  ' + f.mevcut, size: 9, bold: true});
-    e.push({t: 'text', x: 296, y: 56, w: 92.4, text: f.tarih, size: 10, bold: true, align: 'right'});
-    e.push({t: 'text', x: 36, y: 73.5, w: 96, text: 'Nöb. Öğrenci:', size: 9, bold: true});
+    e.push({t: 'text', x: 36 + XS, y: 55 + YD, w: 150, text: 'Sınıf: ' + f.sinif, size: 11, bold: true});
+    e.push({t: 'text', x: 200.6, y: 57 + YD, w: 92, text: 'Sınıf Mevcudu:  ' + f.mevcut, size: 9, bold: true});
+    e.push({t: 'text', x: 296, y: 56 + YD, w: 92.4, text: f.tarih, size: 10, bold: true, align: 'right'});
+    e.push({t: 'text', x: 36 + XS, y: 73.5 + YD, w: 87, text: 'Nöb. Öğrenci:', size: 9, bold: true});
     /* ders sütunları */
+    var satirSay = function(ad, b){   /* kelime sarmalı ile satır sayısı tahmini */
+      var cap = Math.max(1, Math.floor(30 / (b * 0.6))), n = 1, cur = 0;
+      ad.split(/\s+/).forEach(function(k){
+        if(k.length > cap){ n += Math.ceil(k.length / cap) - 1 + (cur ? 1 : 0); cur = k.length % cap; return; }
+        if(!cur) cur = k.length; else if(cur + 1 + k.length <= cap) cur += 1 + k.length; else { n++; cur = k.length; }
+      });
+      return n;
+    };
     for(var c = 0; c < 8; c++){
       var x0 = YK_X0 + YK_KW * c, h = f.gun[c];
-      e.push({t: 'text', x: x0, y: 68.8, w: YK_KW, text: YK_ROMEN[c] + '\nDers', size: 6.5, align: 'center', lh: 1.18});
+      e.push({t: 'text', x: x0, y: 68.8 + YD, w: YK_KW, text: YK_ROMEN[c] + '\nDers', size: 6.5, align: 'center', lh: 1.18});
       if(h){
         var ad = h.ders, enUzun = Math.max.apply(null, ad.split(/\s+/).map(function(k){ return k.length; })), boy = Math.max(3.2, Math.min(5, 29 / (0.62 * enUzun)));
-        while(boy > 3.2 && Math.ceil(ad.length / Math.max(1, Math.floor(30 / (boy * 0.6)))) * boy * 1.17 > 14) boy -= 0.2;
-        e.push({t: 'text', x: x0, y: 87.6, w: YK_KW, text: ad, size: boy, align: 'center', lh: 1.0});
+        while(boy > 3.2 && satirSay(ad, boy) * boy * 1.17 > 20.5) boy -= 0.2;
+        var yuk = satirSay(ad, boy) * boy * 1.172;
+        e.push({t: 'text', x: x0, y: yHucre + Math.max(1.2, (yHucreAlt - yHucre - yuk) / 2), w: YK_KW, text: ad, size: boy, align: 'center', lh: 1.0});
         var img = ykOgrResim(h.ogr);
-        if(img) e.push({t: 'img', x: x0 + 0.6, y: 505.2, w: YK_KW - 1.2, h: 55.2, src: img});
+        if(img) e.push({t: 'img', x: x0 + 0.6, y: yOgr + 0.9, w: YK_KW - 1.2, h: 55.2, src: img});
       }
     }
     /* öğrenci listesi (sığmayanlar ikinci satıra geçer) */
-    var fs = 6.5, satir = function(sz){ var n = 0, gen = 97, cw = sz * 0.66; f.ogrenciler.forEach(function(t){
-      var cur = '', k = 1; t.split(' ').forEach(function(w){ var d = cur ? cur + ' ' + w : w; if(d.length * cw <= gen) cur = d; else { k++; cur = w; } }); n += k; }); return n; };
-    var kapasite = function(sz){ return Math.floor(458 / (sz * 1.451)); };
+    var GEN = 88;
+    var fs = 6.5, satir = function(sz){ var n = 0, cw = sz * 0.66; f.ogrenciler.forEach(function(t){
+      var cur = '', k = 1; t.split(' ').forEach(function(w){ var d = cur ? cur + ' ' + w : w; if(d.length * cw <= GEN) cur = d; else { k++; cur = w; } }); n += k; }); return n; };
+    var kapasite = function(sz){ return Math.floor((yOgr - yListe - 1) / (sz * 1.451)); };
     while(fs > 4.5 && satir(fs) > kapasite(fs)) fs -= 0.25;
-    e.push({t: 'list', x: 35, y: 101.5, w: 97, items: f.ogrenciler, size: fs, pitch: fs * 1.451});
+    e.push({t: 'list', x: 35 + XS, y: yListe, w: GEN, items: f.ogrenciler, size: fs, pitch: fs * 1.451});
     /* alt not */
-    e.push({t: 'text', x: 33, y: 565.6, w: 357.5, text: 'Bu kağıdı son derse giren öğretmen idareye verecektir.', size: 8, align: 'center', underline: true});
+    e.push({t: 'text', x: 33 + XS, y: yAlt + 4.7, w: 357.5 - XS, text: '(Nöbetçi öğrencinin numarasını yukarıdaki yerine yazarak yoklama fişine yok yazınız. Öğrenci numaralarını yoklama fişine yazarken baş taraftaki listeden kontrol ederek yazınız.)', size: 7.4, align: 'center', underline: true, lh: 1.0});
     return e;
   }
   var YK_KUTU = {hLineWidth: function(){ return 0; }, vLineWidth: function(){ return 0; }, paddingLeft: function(){ return 0; }, paddingRight: function(){ return 0; }, paddingTop: function(){ return 0; }, paddingBottom: function(){ return 0; }};
@@ -18939,7 +18954,9 @@ function pdfSatirlar(items){
         if(x.t === 'text'){
           icerik.push({table: {widths: [x.w], body: [[{text: x.text, fontSize: x.size, bold: !!x.bold, alignment: x.align || 'left', lineHeight: x.lh || 1.2, decoration: x.underline ? 'underline' : undefined}]]}, layout: YK_KUTU, absolutePosition: {x: x.x, y: x.y}});
         } else if(x.t === 'list'){
-          icerik.push({table: {widths: [x.w], body: [[{stack: x.items.map(function(t){ return {text: t, fontSize: x.size, lineHeight: x.pitch / (x.size * 1.172)}; })}]]}, layout: YK_KUTU, absolutePosition: {x: x.x, y: x.y}});
+          icerik.push({table: {widths: [x.w], body: [[{stack: x.items.map(function(t){ var m = String(t).match(/^\s*(\S+)\s*-\s*(.+)$/);   /* "100 - AD SOYAD": numara kalın, isim altı çizili */
+          var parca = m ? [{text: m[1], bold: true}, {text: ' - '}, {text: m[2], decoration: 'underline'}] : t;
+          return {text: parca, fontSize: x.size, lineHeight: x.pitch / (x.size * 1.172)}; })}]]}, layout: YK_KUTU, absolutePosition: {x: x.x, y: x.y}});
         } else if(x.t === 'img'){
           icerik.push({image: x.src, width: x.w, height: x.h, absolutePosition: {x: x.x, y: x.y}});
         }
@@ -19315,6 +19332,8 @@ function menuSigdir(){
   var first = boxes[0];
   if(!first.clientWidth || !first.clientHeight) return; /* ana sayfa gizliyken ölçme */
   var desk = window.matchMedia('(min-width:900px)').matches;
+  /* Ölçüm sırasında sabit satır yüksekliğini kaldır: metin yüksekliği kutuya göre kırpılmasın */
+  if(first.parentNode) first.parentNode.style.gridAutoRows = '';
   var cs = getComputedStyle(first);
   var h = first.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
   var SATIR = 3, LH = 1.22;
@@ -19340,14 +19359,23 @@ function menuSigdir(){
     }
     if(f < ortak) ortak = f;
   });
+  /* Mobilde yazı %10 küçültülür; tüm butonlar 3 satırlık metnin sığdığı AYNI yüksekliğe sabitlenir */
+  var yaziPx = desk ? ortak : Math.round(ortak * 0.9 * 10) / 10;
   boxes.forEach(function(b){
     var sp = b.querySelector('span');
     if(!sp) return;
-    sp.style.fontSize = ortak + 'px';
+    sp.style.fontSize = yaziPx + 'px';
     sp.style.display = '';
     sp.style.webkitLineClamp = '';
     sp.style.lineClamp = '';
   });
+  var grid = first.parentNode;
+  if(!desk && grid){
+    var pv = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    grid.style.gridAutoRows = Math.ceil(SATIR * yaziPx * LH + pv + 2) + 'px';
+  } else if(grid){
+    grid.style.gridAutoRows = '';
+  }
 }
 var _msTimer = null;
 function menuSigdirPlanla(){
@@ -19859,7 +19887,6 @@ menuSigdirPlanla();
   #home .menu-grid .menu-box.surukle-kaynak{opacity:.3;outline:2px dashed #5b8f94;outline-offset:-2px;}
   .menu-box.surukle-hayalet{position:fixed;z-index:99999;margin:0;pointer-events:none;opacity:.95;transform:scale(1.06);box-shadow:0 10px 26px rgba(0,0,0,.28);transition:none;}
   body.suruklemede{-webkit-user-select:none;user-select:none;cursor:grabbing;}
-  .sira-sifirla{display:block;margin:14px auto 0;background:none;border:none;color:var(--ink);opacity:.55;font-size:.78rem;text-decoration:underline;cursor:pointer;font-family:inherit;}
 </style>
 <script>
 (function(){
@@ -19872,9 +19899,6 @@ menuSigdirPlanla();
     return (el.getAttribute('onclick') || el.getAttribute('href') || '') + '|' + t;
   }
   function butonlar(){ return Array.prototype.slice.call(grid.querySelectorAll(':scope > .menu-box')); }
-
-  /* Varsayılan (HTML'deki) sıra: sıfırlama için saklanır */
-  var VARSAYILAN = butonlar();
 
   function sirayiUygula(){
     var kayit; try{ kayit = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ kayit = null; }
@@ -19890,10 +19914,6 @@ menuSigdirPlanla();
   function sirayiKaydet(){
     try{ localStorage.setItem(KEY, JSON.stringify(butonlar().map(anahtar))); }catch(e){}
   }
-  window.anasayfaSirayiSifirla = function(){
-    VARSAYILAN.forEach(function(b){ grid.appendChild(b); });
-    try{ localStorage.removeItem(KEY); }catch(e){}
-  };
   sirayiUygula();
 
   /* ---- Basılı tutup sürükleme ---- */
@@ -19977,14 +19997,80 @@ menuSigdirPlanla();
   grid.addEventListener('click', function(e){
     if((durum && durum.aktif) || Date.now() < tikEngelle){ e.preventDefault(); e.stopImmediatePropagation(); }
   }, true);
-
-  /* Küçük sıfırlama bağlantısı */
-  var b = document.createElement('button');
-  b.type = 'button'; b.className = 'sira-sifirla'; b.textContent = 'Buton sırasını varsayılana döndür';
-  b.onclick = function(){ if(confirm('Anasayfadaki buton sırası varsayılana döndürülsün mü?')) window.anasayfaSirayiSifirla(); };
-  grid.parentNode.appendChild(b);
 })();
 </script>
 
+
+<!-- ================= ANASAYFA BUTONLARI: MOBİL BOYUT + GELİŞMİŞ GÖRÜNÜM ================= -->
+<style>
+  /* Mobil: tüm butonlar aynı boyut; dikey boşluklar %10 azaltıldı (yükseklik ve yazı boyutu menuSigdir() ile ayarlanır) */
+  @media (max-width:899px){
+    #home .menu-grid{grid-template-columns:repeat(3, minmax(0, 1fr));}
+    #home .menu-grid .menu-box{min-height:0;height:100%;padding-top:15px;padding-bottom:12px;}
+    #home .menu-grid .menu-box span{flex:0 0 auto;}
+  }
+  /* Görünüm: derinlik, ince iç çerçeve, köşe ışıması ve renkli üst şerit */
+  .menu-box{
+    background:
+      radial-gradient(120% 90% at 88% 118%, rgba(63,163,173,.30) 0%, rgba(63,163,173,0) 62%),
+      linear-gradient(160deg, #f6fcfd 0%, #dcf0f2 52%, #c2e1e5 100%);
+    border:1px solid rgba(18,112,122,.32);
+    box-shadow:0 1px 2px rgba(11,41,45,.10), 0 9px 18px -9px rgba(11,77,85,.50), inset 0 1px 0 rgba(255,255,255,.95), inset 0 -2px 0 rgba(18,112,122,.10);
+  }
+  .menu-box::before{
+    left:16%; right:16%; height:4px; opacity:.95;
+    background:linear-gradient(90deg, #0b4d55, #12707a 50%, #4fb3bd);
+  }
+  .menu-box::after{
+    content:"";position:absolute;inset:3px;border-radius:11px;
+    border:1px solid rgba(255,255,255,.6);pointer-events:none;
+  }
+  .menu-box span{
+    position:relative;z-index:1;
+    color:#0b4d55;font-weight:700;
+    text-shadow:0 1px 0 rgba(255,255,255,.75);
+  }
+  @media (hover:hover){
+    .menu-box:hover{
+      background:
+        radial-gradient(120% 90% at 88% 118%, rgba(63,163,173,.42) 0%, rgba(63,163,173,0) 62%),
+        linear-gradient(160deg, #ffffff 0%, #e4f4f6 52%, #cbe8ec 100%);
+      border-color:rgba(18,112,122,.55);
+    }
+  }
+  .menu-box:active{
+    background:
+      radial-gradient(120% 90% at 88% 118%, rgba(63,163,173,.30) 0%, rgba(63,163,173,0) 62%),
+      linear-gradient(160deg, #cfe8ec 0%, #b9dce1 100%);
+  }
+</style>
+
+<!-- ================= ÜST BÖLÜM: %20 KÜÇÜK, SAAT BÖLÜMÜ DAHA KÜÇÜK ================= -->
+<style>
+  header .header-inner{padding:8px 16px;gap:10px;min-height:64px;}   /* önceki yükseklik 80px → %20 küçük */
+  @media (min-width:900px){ header .header-inner{min-height:71px;} }   /* önceki 89px → %20 küçük */
+  header .brand-group{gap:8px;flex:1 1 auto;min-width:0;}
+  header .brand{min-width:0;}
+  header .brand .name{font-size:1.344rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  header .brand .role{font-size:.784rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  header nav{flex:0 0 auto;}
+  header .header-clock-box{padding:2px 8px;border-radius:7px;line-height:1.1;}
+  header .header-clock-box .digital-clock{font-size:1.2rem;letter-spacing:.3px;white-space:nowrap;}
+  header .header-clock-box .lesson-status{font-size:.84rem;}
+  header .header-clock-box .lesson-time{font-size:.6rem;}
+  @media (max-width:600px){
+    header .header-inner{padding:7px 12px;}
+    header .brand .name{font-size:1.056rem;}
+    header .brand .role{font-size:.704rem;}
+    header .header-clock-box .digital-clock{font-size:1.02rem;}
+    header .header-clock-box .lesson-status{font-size:.74rem;}
+    header .header-clock-box .lesson-time{font-size:.54rem;}
+  }
+  @media (max-width:360px){
+    header .brand .name{font-size:.96rem;}
+    header .header-clock-box .digital-clock{font-size:.94rem;}
+    header .header-clock-box .lesson-status{font-size:.68rem;}
+  }
+</style>
 </body>
 </html>
