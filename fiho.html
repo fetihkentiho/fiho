@@ -762,154 +762,106 @@
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="brand-group">
-      <button type="button" id="hdrMenuBtn" class="hdr-menu-btn" aria-label="Menü" aria-expanded="false" title="Menü"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-      <input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
-      <div class="hdr-menu-panel" id="hdrMenuPanel" hidden></div>
-      <div class="brand">
-        <span class="name">Muammer Bozer</span>
-        <span class="role">Müdür Yardımcısı</span>
-      </div>
+<header class="ust">
+  <div class="ust-in">
+    <button type="button" class="ust-home" onclick="gosterSayfa('home')" aria-label="Ana Sayfa" title="Ana Sayfa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></button>
+    <div class="ust-text">
+      <span class="ust-name">Muammer Bozer</span>
+      <span class="ust-role">Müdür Yardımcısı</span>
     </div>
-    <nav>
-
-      
-      <div class="header-clock-box">
-        <div class="digital-clock" id="liveClock">00:00:00</div>
-        <div class="lesson-status" id="lessonStatus">Hesaplanıyor...</div>
-        <div class="lesson-time" id="lessonTime"></div>
-      </div>
-    </nav>
+    <div class="ust-clock">
+      <div class="digital-clock" id="liveClock">00:00:00</div>
+      <div class="lesson-status" id="lessonStatus">Hesaplanıyor...</div>
+      <div class="lesson-time" id="lessonTime"></div>
+    </div>
   </div>
 </header>
+<input type="file" id="yedekDosyaSec" accept="application/json,.json" style="display:none" onChange="yedekGeriYukle(event)">
 
 <main>
 
   <!-- ================= ANASAYFA ================= -->
   <section id="home" class="page active">
-    <div class="menu-grid">
-      <button type="button" class="menu-box" onClick="openOkulBilgiModal()">
-        
-        <span>Okul Bilgi Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOgretmenBilgiModal()">
-        
-        <span>Öğretmen Bilgi Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openPersonelOzetModal()">
-        
-        <span>Personel Özet Bilgi Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openGorevYeriModal()">
-        
-        <span>Görev Yeri Belgesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOgrenciBilgileriModal()">
-        
-        <span>Öğrenci Bilgi Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOgrenciBilgiModal()">
-        
-        <span>Öğrenci Sınıf Listeleri Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openSinifBilgiModal()">
-        
-        <span>Sınıf / Şube Listesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openBosListeModal()">
-        
-        <span>Boş Sınıf Listeleri</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openGirisListeModal()">
-        
-        <span>Giriş Yapılabilir Sınıf Listeleri</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openDersBilgiModal()">
-        <span>Ders Bilgi Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openNotGirisiModal()">
-        
-        <span>Not Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openSinifRehberOgretmenModal()">
-        
-        <span>Sınıf Rehber Öğretmeni Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openSosyalKulupModal()">
-        
-        <span>Kulüp Rehber Öğretmen Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openKulupOgrenciModal()">
-        
-        <span>Kulüp Öğrenci Girişi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOgrenciBelgesiModal()">
-        
-        <span>Öğrenci Belgesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openMezuniyetModal()">
-        
-        <span>Mezuniyet / Diploma Belge Dilekçesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openDkModal()">
-        <span>Diploma Dökümü Belgesi</span>
-      </button>
-      <!-- TYMM Butonu Değiştirildi -->
-      <button type="button" class="menu-box" onClick="openNakilDilekcesiModal()">
-        
-        <span>Nakil Başvuru Dilekçesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openDevamsizlikModal()">
-        
-        <span>Öğrenci Devamsızlık Raporu</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openDevamsizlikListesiModal()">
-        
-        <span>Öğrenci Devamsızlık Listesi</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openKurulModal()">
-        
-        <span>Kurul / Komisyon / Ekip</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOtgModal()">
-        
-        <span>Öğretmen Görevleri</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openKsModal()">
-        
-        <span>Kurul Komisyon Ekip Sorumluluk</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openNufusModal()">
-        
-        <span>Öğrenci Nüfus Bilgileri</span>
-      </button>
-      <button type="button" class="menu-box" onClick="openOlayModal()"><span>Olay Tutanağı</span></button>
-      <button type="button" class="menu-box" onClick="lstAc('zumre')"><span>Zümre Tutanak Listesi</span></button>
-      <button type="button" class="menu-box" onClick="lstAc('shok')"><span>Ş.Ö.K.K. Tutanak Listesi</span></button>
-      <button type="button" class="menu-box" onClick="lstAc('yplan')"><span>Yıllık Plan Listesi</span></button>
-      <button type="button" class="menu-box" onClick="openDenemeModal()"><span>Deneme Sınavları</span></button>
-      <a class="menu-box" href="https://tegm.meb.gov.tr" target="_blank"><span>Temel Eğitim GM</span></a>
-      <button type="button" class="menu-box" onClick="openEbfModal()"><span>E-Okul Bilgi Formu</span></button>
-      <button type="button" class="menu-box" onClick="openOgretmenDersModal()"><span>Öğretmen Dersleri</span></button>
-      <button type="button" class="menu-box" onClick="openSinifDersModal()"><span>Sınıf Dersleri</span></button>
-      <button type="button" class="menu-box" onClick="openOtModal()"><span>ÖDDK Öğrenci Tutanağı</span></button>
-      <button type="button" class="menu-box" onClick="openOddkModal()"><span>ÖDDK Öğrenci Sözleşmesi</span></button>
-      <button type="button" class="menu-box" onClick="openVeliModal()"><span>ÖDDK Veli Tutanağı</span></button>
-      <button type="button" class="menu-box" onClick="openSevModal()"><span>ÖDDK'ya Sevk</span></button>
-      <button type="button" class="menu-box" onClick="openDpModal()"><span>Öğretmen Ders Programı</span></button>
-      <button type="button" class="menu-box" onClick="openSpModal()"><span>Sınıf Ders Programı</span></button>
-      <button type="button" class="menu-box" onClick="sddAc()"><span>Sınıf Ders Dağılım Çizelgeleri</span></button>
-      <button type="button" class="menu-box" onClick="openYkModal()"><span>Yoklama Fişi</span></button>
-      <button type="button" class="menu-box" onClick="osAc()"><span>Okul Servis Listesi</span></button>
-      <button type="button" class="menu-box" onClick="openServisModal()"><span>Servis Listesi</span></button>
-      <button type="button" class="menu-box" onClick="openSdModal()"><span>Servis Denetim Formu</span></button>
-      <button type="button" class="menu-box" onClick="imzaAc()"><span>İmza Sirküsü</span></button>
-      <button type="button" class="menu-box" onClick="tbAc()"><span>Tebliğ Tebellüğ</span></button>
-      <button type="button" class="menu-box" onClick="oegAc()"><span>Özel Eğitim Gereksinimli Öğrenci Listesi</span></button>
-      <button type="button" class="menu-box" onClick="openTtModal()"><span>Takdir Teşekkür Listesi</span></button>
-      <button type="button" class="menu-box" onClick="yuAc()"><span>Yabancı Uyruklu Öğrenci Listesi</span></button>
+    <div class="kart">
+      <div class="kat">
+        <div class="kat-bas"><h2>Okul ve Personel</h2><span class="kat-say">11</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-teal" onClick="openOkulBilgiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6M10 11h4"/></svg></i><span>Okul Bilgi Girişi</span></button>
+          <button type="button" class="pill c-green" onClick="openOgretmenBilgiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></i><span>Öğretmen Bilgi Girişi</span></button>
+          <button type="button" class="pill c-navy" onClick="openPersonelOzetModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.5-1.5 1.8-2 3-2s2.5.5 3 2M14 10h4M14 13.5h4"/></svg></i><span>Personel Özet Bilgi Girişi</span></button>
+          <button type="button" class="pill c-purple" onClick="openGorevYeriModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></i><span>Görev Yeri Belgesi</span></button>
+          <button type="button" class="pill c-gold" onClick="openSinifRehberOgretmenModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></i><span>Sınıf Rehber Öğretmeni Girişi</span></button>
+          <button type="button" class="pill c-coral" onClick="openSosyalKulupModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3.5-6 7-6s7 2 7 6M19 8v6M16 11h6"/></svg></i><span>Kulüp Rehber Öğretmen Girişi</span></button>
+          <button type="button" class="pill c-cyan" onClick="openKurulModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.5 1.5 4.5 4.5"/></svg></i><span>Kurul / Komisyon / Ekip</span></button>
+          <button type="button" class="pill c-blue" onClick="openOtgModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/></svg></i><span>Öğretmen Görevleri</span></button>
+          <button type="button" class="pill c-teal" onClick="openKsModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Kurul Komisyon Ekip Sorumluluk</span></button>
+          <button type="button" class="pill c-green" onClick="imzaAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><span>İmza Sirküsü</span></button>
+          <button type="button" class="pill c-navy" onClick="tbAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i><span>Tebliğ Tebellüğ</span></button>
+        </div>
+      </div>
+      <div class="kat">
+        <div class="kat-bas"><h2>Öğrenci İşlemleri</h2><span class="kat-say">11</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-purple" onClick="openOgrenciBilgileriModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg></i><span>Öğrenci Bilgi Girişi</span></button>
+          <button type="button" class="pill c-gold" onClick="openOgrenciBilgiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Öğrenci Sınıf Listeleri Girişi</span></button>
+          <button type="button" class="pill c-coral" onClick="openNufusModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.5-1.5 1.8-2 3-2s2.5.5 3 2M14 10h4M14 13.5h4"/></svg></i><span>Öğrenci Nüfus Bilgileri</span></button>
+          <button type="button" class="pill c-cyan" onClick="openKulupOgrenciModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3.5-6 7-6s7 2 7 6M19 8v6M16 11h6"/></svg></i><span>Kulüp Öğrenci Girişi</span></button>
+          <button type="button" class="pill c-blue" onClick="openOgrenciBelgesiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></i><span>Öğrenci Belgesi</span></button>
+          <button type="button" class="pill c-teal" onClick="openMezuniyetModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></svg></i><span>Mezuniyet / Diploma Belge Dilekçesi</span></button>
+          <button type="button" class="pill c-green" onClick="openDkModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 22l5-3 5 3-1.5-8"/></svg></i><span>Diploma Dökümü Belgesi</span></button>
+          <button type="button" class="pill c-navy" onClick="openNakilDilekcesiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></i><span>Nakil Başvuru Dilekçesi</span></button>
+          <button type="button" class="pill c-purple" onClick="openTtModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></i><span>Takdir Teşekkür Listesi</span></button>
+          <button type="button" class="pill c-gold" onClick="oegAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 10c0 6-8 11-8 11z"/></svg></i><span>Özel Eğitim Gereksinimli Öğrenci Listesi</span></button>
+          <button type="button" class="pill c-coral" onClick="yuAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></i><span>Yabancı Uyruklu Öğrenci Listesi</span></button>
+        </div>
+      </div>
+      <div class="kat">
+        <div class="kat-bas"><h2>Sınıf ve Ders</h2><span class="kat-say">9</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-cyan" onClick="openSinifBilgiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></i><span>Sınıf / Şube Listesi</span></button>
+          <button type="button" class="pill c-blue" onClick="openBosListeModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M3 21h18M14 12h.01"/></svg></i><span>Boş Sınıf Listeleri</span></button>
+          <button type="button" class="pill c-teal" onClick="openGirisListeModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Giriş Yapılabilir Sınıf Listeleri</span></button>
+          <button type="button" class="pill c-green" onClick="openDersBilgiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2z"/><path d="M4 19.5A2 2 0 0 0 6 21h14M9 7h6"/></svg></i><span>Ders Bilgi Girişi</span></button>
+          <button type="button" class="pill c-navy" onClick="openOgretmenDersModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2z"/><path d="M4 19.5A2 2 0 0 0 6 21h14M9 7h6"/></svg></i><span>Öğretmen Dersleri</span></button>
+          <button type="button" class="pill c-purple" onClick="openSinifDersModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2z"/><path d="M4 19.5A2 2 0 0 0 6 21h14M9 7h6"/></svg></i><span>Sınıf Dersleri</span></button>
+          <button type="button" class="pill c-gold" onClick="openDpModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></i><span>Öğretmen Ders Programı</span></button>
+          <button type="button" class="pill c-coral" onClick="openSpModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i><span>Sınıf Ders Programı</span></button>
+          <button type="button" class="pill c-cyan" onClick="sddAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg></i><span>Sınıf Ders Dağılım Çizelgeleri</span></button>
+        </div>
+      </div>
+      <div class="kat">
+        <div class="kat-bas"><h2>Not, Sınav ve Devamsızlık</h2><span class="kat-say">5</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-blue" onClick="openNotGirisiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><span>Not Girişi</span></button>
+          <button type="button" class="pill c-teal" onClick="openDenemeModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/></svg></i><span>Deneme Sınavları</span></button>
+          <button type="button" class="pill c-green" onClick="openDevamsizlikModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></i><span>Öğrenci Devamsızlık Raporu</span></button>
+          <button type="button" class="pill c-navy" onClick="openDevamsizlikListesiModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Öğrenci Devamsızlık Listesi</span></button>
+          <button type="button" class="pill c-purple" onClick="openYkModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></svg></i><span>Yoklama Fişi</span></button>
+        </div>
+      </div>
+      <div class="kat">
+        <div class="kat-bas"><h2>ÖDDK ve Tutanaklar</h2><span class="kat-say">8</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-gold" onClick="openOtModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></i><span>ÖDDK Öğrenci Tutanağı</span></button>
+          <button type="button" class="pill c-coral" onClick="openOddkModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><span>ÖDDK Öğrenci Sözleşmesi</span></button>
+          <button type="button" class="pill c-cyan" onClick="openVeliModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.5 0 4.5 1.5 4.5 4.5"/></svg></i><span>ÖDDK Veli Tutanağı</span></button>
+          <button type="button" class="pill c-blue" onClick="openSevModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></i><span>ÖDDK'ya Sevk</span></button>
+          <button type="button" class="pill c-teal" onClick="openOlayModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg></i><span>Olay Tutanağı</span></button>
+          <button type="button" class="pill c-green" onClick="lstAc('zumre')"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Zümre Tutanak Listesi</span></button>
+          <button type="button" class="pill c-navy" onClick="lstAc('shok')"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/></svg></i><span>Ş.Ö.K.K. Tutanak Listesi</span></button>
+          <button type="button" class="pill c-purple" onClick="lstAc('yplan')"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></i><span>Yıllık Plan Listesi</span></button>
+        </div>
+      </div>
+      <div class="kat">
+        <div class="kat-bas"><h2>Servis ve Bağlantılar</h2><span class="kat-say">5</span></div>
+        <div class="kat-grid">
+          <button type="button" class="pill c-gold" onClick="osAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21v-4M16 21v-4M8 14h.01M16 14h.01"/></svg></i><span>Okul Servis Listesi</span></button>
+          <button type="button" class="pill c-coral" onClick="openServisModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Servis Listesi</span></button>
+          <button type="button" class="pill c-cyan" onClick="openSdModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i><span>Servis Denetim Formu</span></button>
+          <button type="button" class="pill c-blue" onClick="openEbfModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></i><span>E-Okul Bilgi Formu</span></button>
+          <a class="pill c-teal" href="https://tegm.meb.gov.tr" target="_blank" rel="noopener"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></i><span>Temel Eğitim GM</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -19893,7 +19845,8 @@ function barOlcuGuncelle(){
   if(!h) return;
   var r = document.documentElement.style;
   r.setProperty('--hdr-h', h.offsetHeight + 'px');
-  r.setProperty('--bar-h', '0px');
+  var ab = document.getElementById('altMenu');
+  r.setProperty('--bar-h', (ab && ab.offsetHeight ? ab.offsetHeight : 0) + 'px');
   if(typeof menuSigdirPlanla === 'function') menuSigdirPlanla();
 }
 window.addEventListener('resize', barOlcuGuncelle);
@@ -20703,6 +20656,170 @@ menuSigdirPlanla();
   document.addEventListener('click', function(e){ if(!panel.hidden && !panel.contains(e.target)) kapat(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') kapat(); });
 })();
+</script>
+
+<!-- ================= YENİ GÖRÜNÜM (kategorili kart + alt menü) ================= -->
+<style>
+:root{--nv:#14233c;--nv2:#1e3a6e;--mut:#5b6577;--pill-bg:#f3f6fb;}
+html{background:#f3f6fa;}
+body{
+  background:
+    radial-gradient(70% 38% at 108% 6%, #dde5f1 0%, rgba(221,229,241,0) 70%),
+    radial-gradient(46% 26% at -12% 34%, #e4ebf5 0%, rgba(228,235,245,0) 72%),
+    #f3f6fa !important;
+  background-attachment:fixed;
+  color:var(--nv);
+}
+
+/* ---------- Üst bölüm: ana sayfa ikonu + metin + sağda dijital saat ---------- */
+header.ust{background:#fff;color:var(--nv);box-shadow:0 2px 14px rgba(25,45,85,.10);}
+.ust-in{max-width:1040px;margin:0 auto;display:flex;align-items:center;gap:10px;padding:6px 12px;}
+.ust-home{flex:0 0 auto;width:42px;height:42px;border:none;border-radius:13px;background:var(--nv2);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;-webkit-tap-highlight-color:transparent;}
+.ust-home svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.ust-home:active{transform:scale(.94);}
+.ust-text{display:flex;flex-direction:column;line-height:1.15;min-width:0;flex:1 1 auto;}
+.ust-name{font-size:1.06rem;font-weight:800;color:var(--nv);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ust-role{font-size:.74rem;font-weight:600;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ust-clock{flex:0 0 auto;margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;line-height:1.08;background:#eef1f6;border-radius:14px;padding:4px 10px;}
+.ust-clock .digital-clock{font-size:1.22rem;font-weight:800;color:var(--nv);letter-spacing:.3px;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ust-clock .lesson-status{font-size:.74rem;font-weight:700;color:#3b5f9e;white-space:nowrap;}
+.ust-clock .lesson-time{font-size:.58rem;font-weight:600;color:var(--mut);white-space:nowrap;}
+.ust-clock .lesson-time:empty{display:none;}
+@media (max-width:360px){
+  .ust-name{font-size:.96rem;}
+  .ust-clock .digital-clock{font-size:1.1rem;}
+  .ust-clock .lesson-status{font-size:.68rem;}
+}
+
+/* ---------- Beyaz kart, kategoriler, hap şeklinde butonlar ---------- */
+main{max-width:1040px;margin:0 auto;padding:14px 12px 18px;}
+.kart{background:#fff;border-radius:28px;padding:20px 14px 14px;box-shadow:0 12px 34px -10px rgba(30,50,90,.18),0 2px 6px rgba(30,50,90,.06);}
+.kat + .kat{margin-top:16px;padding-top:16px;border-top:3px solid #eaeef3;}
+.kat-bas{display:flex;align-items:center;justify-content:space-between;margin:0 2px 14px;}
+.kat-bas h2{margin:0;font-size:1.28rem;font-weight:800;color:var(--nv);letter-spacing:.2px;}
+.kat-say{min-width:34px;height:30px;padding:0 10px;border-radius:999px;background:#eef1f6;color:var(--mut);font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
+.kat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+
+.pill{--c:#17808a;display:flex;align-items:center;gap:8px;min-width:0;min-height:58px;padding:7px 12px 7px 9px;
+  background:var(--pill-bg);border:2px solid var(--c);border-radius:36px;text-align:left;text-decoration:none;
+  color:var(--nv);font:inherit;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.18;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:transform .12s ease,background .15s ease,box-shadow .15s ease;}
+.pill:active{transform:scale(.97);background:#e7eef8;}
+.pill .ic{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;}
+.pill .ic svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.pill span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden;min-width:0;overflow-wrap:break-word;hyphens:none;}
+.c-teal{--c:#17808a;} .c-green{--c:#1d8f6e;} .c-navy{--c:#1f3a6b;} .c-purple{--c:#7c4ddb;}
+.c-gold{--c:#c28a2b;} .c-coral{--c:#ee6b6e;} .c-cyan{--c:#12a3a6;} .c-blue{--c:#167a9c;}
+@media (hover:hover){ .pill:hover{background:#fff;box-shadow:0 6px 16px -8px rgba(20,40,80,.35);transform:translateY(-1px);} }
+
+@media (min-width:700px){
+  .kat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+  .pill{font-size:15px;min-height:64px;padding:8px 16px 8px 11px;}
+  .pill .ic{width:38px;height:38px;}
+  .pill .ic svg{width:21px;height:21px;}
+  .kart{padding:26px 24px 22px;border-radius:32px;}
+  .kat-bas h2{font-size:1.5rem;}
+}
+/* Masaüstünde sayfa kaydırılabilsin (eski sabit yükseklikli düzen kaldırıldı) */
+@media (min-width:900px){
+  html,body{height:auto !important;}
+  body{display:block !important;overflow:visible !important;}
+  main{display:block !important;width:auto !important;max-width:1040px !important;height:auto !important;overflow:visible !important;padding:20px 16px 24px !important;}
+  #home,#home.page.active{display:block !important;height:auto !important;}
+  .ust-in{padding:6px 16px;}
+}
+
+/* ---------- Alt menü ---------- */
+.altmenu{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;box-shadow:0 -4px 18px rgba(25,45,85,.10);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+.altmenu-in{max-width:760px;margin:0 auto;display:flex;}
+.alt-btn{flex:1 1 0;min-width:0;background:none;border:none;padding:2px 0;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:#5a6780;font:inherit;font-size:.7rem;font-weight:800;letter-spacing:.2px;-webkit-tap-highlight-color:transparent;}
+.alt-ic{width:42px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
+.alt-ic svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.alt-btn.aktif,.alt-btn[aria-expanded="true"]{color:var(--nv2);}
+.alt-btn.aktif .alt-ic{background:var(--nv2);color:#fff;}
+.alt-btn[aria-expanded="true"] .alt-ic{background:#e3eaf6;}
+.alt-sheet{position:fixed;right:10px;bottom:calc(var(--bar-h,64px) + 8px);z-index:26;background:#fff;border-radius:16px;box-shadow:0 12px 32px rgba(20,40,80,.25);padding:6px;min-width:190px;}
+.alt-sheet[hidden]{display:none;}
+.alt-sheet button{display:flex;align-items:center;gap:12px;width:100%;background:none;border:none;padding:12px;border-radius:10px;font:inherit;font-size:.95rem;font-weight:700;color:var(--nv);cursor:pointer;text-align:left;}
+.alt-sheet button svg{width:22px;height:22px;color:var(--nv2);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.alt-sheet button:active{background:#eef1f6;}
+body.view-ebys .altmenu,body.view-ebys .alt-sheet{display:none !important;}
+
+/* ---------- Açılır kutucuklar (modal): ana sayfa görünümüyle aynı ---------- */
+.modal-overlay{background:rgba(20,35,60,.48);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);}
+.modal-box{background:#fff;border-radius:28px;padding:22px 18px 18px;max-width:520px;box-shadow:0 18px 50px -12px rgba(20,35,60,.45);color:var(--nv);}
+.modal-box.wide-modal{max-width:700px;}
+.modal-title{font-size:1.28rem;font-weight:800;color:var(--nv);text-align:left;margin:0 0 16px;padding:0 44px 14px 2px;border-bottom:3px solid #eaeef3;letter-spacing:.2px;}
+.modal-close{top:14px;right:14px;width:34px;height:34px;border-radius:50%;background:#eef1f6;color:var(--mut);font-size:1.25rem;display:flex;align-items:center;justify-content:center;padding:0;}
+.modal-close:active{background:#e0e6f0;}
+.modal-field label{color:var(--mut);font-weight:700;font-size:.8rem;}
+.modal-field input,.modal-field select,.modal-field textarea{background:var(--pill-bg);border:2px solid #dde5f0;border-radius:16px;padding:10px 12px;color:var(--nv);}
+.modal-field input:focus,.modal-field select:focus,.modal-field textarea:focus{outline:none;border-color:var(--nv2);background:#fff;}
+.modal-field input[readonly]{background:#e7eef8;font-weight:700;}
+.modal-field .eb-kutu{border:2px solid #dde5f0;border-radius:16px;background:var(--pill-bg);}
+.modal-field .eb-kutu:has(input:checked){border-color:#17808a;background:#e6f3f4;}
+.modal-btn{border-radius:999px;padding:11px 4px;min-height:42px;font-weight:700;background:#eef1f6;color:var(--nv);-webkit-tap-highlight-color:transparent;transition:transform .12s ease,filter .15s ease;}
+.modal-btn:active{transform:scale(.97);filter:brightness(.95);}
+.modal-btn.primary{background:var(--nv2);color:#fff;}
+.modal-btn.secondary{background:#17808a;color:#fff;}
+.modal-btn.danger{background:#ee6b6e;color:#fff;}
+.modal-btn.pdf{background:#c28a2b;color:#fff;}
+.modal-btn.excel{background:#1d8f6e;color:#fff;}
+.cinsiyet-btn{border-radius:999px;border:2px solid #dde5f0;background:var(--pill-bg);color:var(--nv);font-weight:700;}
+.cinsiyet-btn.active{background:var(--nv2);border-color:var(--nv2);color:#fff;}
+.modal-status{color:var(--mut);font-weight:600;}
+.data-list-container{border-top:3px solid #eaeef3;}
+.data-list-title{color:var(--nv);font-size:.95rem;font-weight:800;}
+.list-item{background:var(--pill-bg);border:2px solid #dde5f0;border-radius:16px;padding:10px 14px;}
+.list-item:hover{background:#e9f0f9;}
+.list-item .main-text{color:var(--nv);font-weight:700;}
+.list-item .sub-text{color:var(--mut);}
+
+</style>
+
+<!-- ================= ALT MENÜ ================= -->
+<div class="altmenu" id="altMenu" role="navigation" aria-label="Alt menü"><div class="altmenu-in">
+  <button type="button" class="alt-btn" data-k="nobetci" title="Nöbetçi Öğretmen"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span>Nöbetçi</span></button>
+  <button type="button" class="alt-btn" data-k="rehber" title="Rehber"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span>Rehber</span></button>
+  <button type="button" class="alt-btn" data-k="ebys" title="EBYS"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l2-8h12l2 8v6H4z"/><path d="M4 13h5l1 3h4l1-3h5"/></svg></span><span>EBYS</span></button>
+  <button type="button" class="alt-btn" data-k="sinav" title="Sınav Yapma Programı"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 14l2 2 4-4"/></svg></span><span>Sınav</span></button>
+  <button type="button" class="alt-btn" data-k="zil" title="Zil Programı"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17v-6a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21h4"/></svg></span><span>Zil</span></button>
+  <button type="button" class="alt-btn" id="altYedek" title="Yedek Al / Yedek Yükle" aria-expanded="false"><span class="alt-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7c0-2 3.5-3 8-3s8 1 8 3-3.5 3-8 3-8-1-8-3z"/><path d="M4 7v10c0 2 3.5 3 8 3s8-1 8-3V7M4 12c0 2 3.5 3 8 3s8-1 8-3"/></svg></span><span>Yedek</span></button>
+</div></div>
+<div class="alt-sheet" id="altSheet" hidden>
+  <button type="button" id="altYedekAl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg><span>Yedek Al</span></button>
+  <button type="button" id="altYedekYukle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span>Yedek Yükle</span></button>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById('altMenu'), sheet = document.getElementById('altSheet');
+  var yedek = document.getElementById('altYedek');
+  if(!bar || !sheet) return;
+  var tuslar = bar.querySelectorAll('.alt-btn[data-k]');
+  function sheetKapat(){ sheet.hidden = true; yedek.setAttribute('aria-expanded', 'false'); }
+  function aktifGuncelle(v){
+    for(var i = 0; i < tuslar.length; i++) tuslar[i].classList.toggle('aktif', tuslar[i].getAttribute('data-k') === v);
+  }
+  var _gs = window.gosterSayfa;
+  window.gosterSayfa = function(v){ sheetKapat(); _gs(v); aktifGuncelle(v); };
+  for(var i = 0; i < tuslar.length; i++){
+    tuslar[i].addEventListener('click', function(){ window.gosterSayfa(this.getAttribute('data-k')); });
+  }
+  yedek.addEventListener('click', function(e){
+    e.stopPropagation();
+    var ac = sheet.hidden;
+    sheet.hidden = !ac;
+    yedek.setAttribute('aria-expanded', ac ? 'true' : 'false');
+  });
+  document.getElementById('altYedekAl').addEventListener('click', function(){ sheetKapat(); yedekAl(); });
+  document.getElementById('altYedekYukle').addEventListener('click', function(){ sheetKapat(); document.getElementById('yedekDosyaSec').click(); });
+  document.addEventListener('click', function(e){ if(!sheet.hidden && !sheet.contains(e.target)) sheetKapat(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') sheetKapat(); });
+  if(window.ResizeObserver) new ResizeObserver(function(){ barOlcuGuncelle(); }).observe(bar);
+  aktifGuncelle(window.__aktifSayfa || 'home');
+  barOlcuGuncelle();
+})();
+
 </script>
 </body>
 </html>
