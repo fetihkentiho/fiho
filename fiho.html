@@ -767,7 +767,7 @@
     <button type="button" class="ust-home" onclick="gosterSayfa('home')" aria-label="Ana Sayfa" title="Ana Sayfa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></button>
     <div class="ust-text">
       <span class="ust-name">Muammer Bozer</span>
-      <span class="ust-role">Müdür Yardımcısı</span>
+      <span class="ust-role">Eğitim Yöneticisi</span>
     </div>
     <div class="ust-clock">
       <div class="digital-clock" id="liveClock">00:00:00</div>
@@ -853,13 +853,12 @@
         </div>
       </div>
       <div class="kat">
-        <div class="kat-bas"><h2>Servis ve Bağlantılar</h2><span class="kat-say">5</span></div>
+        <div class="kat-bas"><h2>Servis ve Bağlantılar</h2><span class="kat-say">4</span></div>
         <div class="kat-grid">
           <button type="button" class="pill c-gold" onClick="osAc()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21v-4M16 21v-4M8 14h.01M16 14h.01"/></svg></i><span>Okul Servis Listesi</span></button>
           <button type="button" class="pill c-coral" onClick="openServisModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></i><span>Servis Listesi</span></button>
           <button type="button" class="pill c-cyan" onClick="openSdModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i><span>Servis Denetim Formu</span></button>
           <button type="button" class="pill c-blue" onClick="openEbfModal()"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></i><span>E-Okul Bilgi Formu</span></button>
-          <a class="pill c-teal" href="https://tegm.meb.gov.tr" target="_blank" rel="noopener"><i class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg></i><span>Temel Eğitim GM</span></a>
         </div>
       </div>
     </div>
@@ -20720,15 +20719,15 @@ header.ust{background:#fff;color:var(--nv);box-shadow:0 2px 14px rgba(25,45,85,.
 .ust-home svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .ust-home:active{transform:scale(.94);}
 .ust-text{display:flex;flex-direction:column;line-height:1.15;min-width:0;flex:1 1 auto;}
-.ust-name{font-size:1.06rem;font-weight:800;color:var(--nv);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ust-role{font-size:.74rem;font-weight:600;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ust-clock{flex:0 0 auto;margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;line-height:1.08;background:#eef1f6;border-radius:14px;padding:4px 10px;}
+.ust-name{font-size:1.272rem;font-weight:800;color:var(--nv);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ust-role{font-size:.888rem;font-weight:600;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ust-clock{flex:0 0 auto;margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;line-height:1.08;background:#eef1f6;border-radius:14px;padding:4px 16px;}
 .ust-clock .digital-clock{font-size:1.22rem;font-weight:800;color:var(--nv);letter-spacing:.3px;font-variant-numeric:tabular-nums;white-space:nowrap;}
 .ust-clock .lesson-status{font-size:.74rem;font-weight:700;color:#3b5f9e;white-space:nowrap;}
 .ust-clock .lesson-time{font-size:.58rem;font-weight:600;color:var(--mut);white-space:nowrap;}
 .ust-clock .lesson-time:empty{display:none;}
 @media (max-width:360px){
-  .ust-name{font-size:.96rem;}
+  .ust-name{font-size:1.152rem;}
   .ust-clock .digital-clock{font-size:1.1rem;}
   .ust-clock .lesson-status{font-size:.68rem;}
 }
@@ -20773,11 +20772,11 @@ main{max-width:1040px;margin:0 auto;padding:14px 12px 18px;}
 }
 
 /* ---------- Alt menü ---------- */
-.altmenu{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;box-shadow:0 -4px 18px rgba(25,45,85,.10);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));}
+.altmenu{position:fixed;left:0;right:0;bottom:0;z-index:25;background:#fff;box-shadow:0 -4px 18px rgba(25,45,85,.10);padding:4.6px 4px calc(4.6px + env(safe-area-inset-bottom,0px));}
 .altmenu-in{max-width:760px;margin:0 auto;display:flex;}
-.alt-btn{flex:1 1 0;min-width:0;background:none;border:none;padding:2px 0;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:#5a6780;font:inherit;font-size:.7rem;font-weight:800;letter-spacing:.2px;-webkit-tap-highlight-color:transparent;}
-.alt-ic{width:42px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
-.alt-ic svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.alt-btn{flex:1 1 0;min-width:0;background:none;border:none;padding:1px 0;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.1;cursor:pointer;color:#5a6780;font:inherit;font-size:.7rem;font-weight:800;letter-spacing:.2px;-webkit-tap-highlight-color:transparent;}
+.alt-ic{width:50px;height:32px;border-radius:12px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;}
+.alt-ic svg{width:27.6px;height:27.6px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .alt-btn.aktif,.alt-btn[aria-expanded="true"]{color:var(--nv2);}
 .alt-btn.aktif .alt-ic{background:var(--nv2);color:#fff;}
 .alt-btn[aria-expanded="true"] .alt-ic{background:#e3eaf6;}
@@ -20825,6 +20824,13 @@ body.view-ebys .altmenu,body.view-ebys .alt-sheet{display:none !important;}
 .modal-actions-rapor-row .btn-50,.modal-actions-rapor-row .select-50{flex:1 1 0;min-width:0;}
 .modal-actions-rapor-row .btn-25{flex:0 0 calc(23% - 4px);}
 .modal-actions-rapor-row .modal-btn{white-space:normal;line-height:1.1;padding-left:2px;padding-right:2px;}
+
+/* ---------- Sürükleyerek yer değiştirme ---------- */
+.pill{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+.kat-grid{min-height:46px;}
+.pill.suruk-yer{opacity:.35;border-style:dashed;}
+.suruk-hayalet{position:fixed;z-index:300;margin:0;pointer-events:none;transition:none !important;transform:scale(1.05);background:#fff;opacity:.97;box-shadow:0 14px 30px -8px rgba(20,40,80,.5);}
+body.suruk-aktif{-webkit-user-select:none;user-select:none;cursor:grabbing;}
 
 </style>
 
@@ -21228,6 +21234,124 @@ body.view-ebys .altmenu,body.view-ebys .alt-sheet{display:none !important;}
     }
   }
   sigdir();
+})();
+
+</script>
+<script>
+/* ================= ANA SAYFA BUTONLARINI SÜRÜKLEYEREK YER DEĞİŞTİRME ================= */
+(function(){
+  'use strict';
+  var KEY = 'anasayfaButonSirasi';
+  var home = document.getElementById('home');
+  if(!home) return;
+  var grids = [].slice.call(home.querySelectorAll('.kat-grid'));
+  if(!grids.length) return;
+  function etiket(p){ var s = p.querySelector('span'); return (s || p).textContent.trim(); }
+  function tumu(){ return [].slice.call(home.querySelectorAll('.pill')); }
+  function liste(g){ return [].slice.call(g.children).filter(function(x){ return x.classList.contains('pill'); }); }
+
+  function say(){
+    grids.forEach(function(g){ var b = g.parentNode.querySelector('.kat-say'); if(b) b.textContent = liste(g).length; });
+  }
+  function kaydet(){
+    try{ localStorage.setItem(KEY, JSON.stringify({v:2, g:grids.map(function(g){ return liste(g).map(etiket); })})); }catch(e){}
+  }
+  function haritaOlustur(){ var m = {}; tumu().forEach(function(p){ m[etiket(p)] = p; }); return m; }
+  function uygula(){
+    var k; try{ k = JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ k = null; }
+    if(!k || k.v !== 2 || !Array.isArray(k.g) || k.g.length !== grids.length) return;
+    var m = haritaOlustur();
+    k.g.forEach(function(l, i){ (l || []).forEach(function(ad){ if(m[ad]){ grids[i].appendChild(m[ad]); delete m[ad]; } }); });
+    say();
+  }
+  uygula();
+
+  var d = null, engel = false, hayalet = null, dongu = null;
+  var BEKLEME = 380;
+
+  function basla(){
+    if(!d || d.aktif) return;
+    d.aktif = true;
+    var p = d.p, r = p.getBoundingClientRect();
+    d.dx = d.x0 - r.left; d.dy = d.y0 - r.top;
+    hayalet = p.cloneNode(true);
+    hayalet.className = p.className + ' suruk-hayalet';
+    hayalet.removeAttribute('onclick'); hayalet.removeAttribute('href');
+    hayalet.style.width = r.width + 'px'; hayalet.style.height = r.height + 'px';
+    hayalet.style.left = (d.x - d.dx) + 'px'; hayalet.style.top = (d.y - d.dy) + 'px';
+    document.body.appendChild(hayalet);
+    p.classList.add('suruk-yer');
+    document.body.classList.add('suruk-aktif');
+    if(navigator.vibrate){ try{ navigator.vibrate(18); }catch(e){} }
+    dongu = requestAnimationFrame(kaydir);
+  }
+  function bitir(){
+    if(d){
+      clearTimeout(d.t);
+      if(d.aktif){
+        d.p.classList.remove('suruk-yer');
+        if(hayalet){ hayalet.remove(); hayalet = null; }
+        document.body.classList.remove('suruk-aktif');
+        cancelAnimationFrame(dongu);
+        say(); kaydet();
+        engel = true; setTimeout(function(){ engel = false; }, 350);
+      }
+    }
+    d = null;
+  }
+  function tasi(x, y){
+    var el = document.elementFromPoint(x, y); if(!el || !d) return;
+    var p = d.p, hp = el.closest ? el.closest('.pill') : null;
+    if(hp && hp !== p && home.contains(hp)){
+      var r = hp.getBoundingClientRect(), once = x < r.left + r.width / 2, g = hp.parentNode;
+      if(once){ if(hp.previousElementSibling !== p) g.insertBefore(p, hp); }
+      else{ if(hp.nextElementSibling !== p) g.insertBefore(p, hp.nextElementSibling); }
+      say(); return;
+    }
+    if(el.classList && el.classList.contains('kat-grid')) return;
+    var kat = el.closest ? el.closest('.kat') : null;
+    if(kat && home.contains(kat)){
+      var grid = kat.querySelector('.kat-grid'), gr = grid.getBoundingClientRect(), l = liste(grid);
+      if(y < gr.top){ if(l[0] !== p) grid.insertBefore(p, grid.firstElementChild); }
+      else if(y > gr.bottom || !l.length || (l.length === 1 && l[0] === p)){ if(grid.lastElementChild !== p) grid.appendChild(p); }
+      say();
+    }
+  }
+  function kaydir(){
+    if(!d || !d.aktif) return;
+    var h = document.querySelector('header.ust'), top = (h ? h.offsetHeight : 0) + 50;
+    var ab = document.getElementById('altMenu'), alt = window.innerHeight - (ab ? ab.offsetHeight : 0) - 50, v = 0;
+    if(d.y < top) v = -Math.min(18, (top - d.y) / 3 + 3);
+    else if(d.y > alt) v = Math.min(18, (d.y - alt) / 3 + 3);
+    if(v){ window.scrollBy(0, v); tasi(d.x, d.y); }
+    dongu = requestAnimationFrame(kaydir);
+  }
+
+  home.addEventListener('pointerdown', function(e){
+    var p = e.target.closest ? e.target.closest('.pill') : null;
+    if(!p || d || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    d = {p:p, x0:e.clientX, y0:e.clientY, x:e.clientX, y:e.clientY, aktif:false, tip:e.pointerType};
+    d.t = setTimeout(basla, e.pointerType === 'mouse' ? 250 : BEKLEME);
+  });
+  document.addEventListener('pointermove', function(e){
+    if(!d) return;
+    d.x = e.clientX; d.y = e.clientY;
+    if(!d.aktif){
+      if(Math.hypot(d.x - d.x0, d.y - d.y0) > (d.tip === 'mouse' ? 6 : 9)){
+        if(d.tip === 'mouse') basla(); else { clearTimeout(d.t); d = null; }
+      }
+      return;
+    }
+    hayalet.style.left = (d.x - d.dx) + 'px'; hayalet.style.top = (d.y - d.dy) + 'px';
+    tasi(d.x, d.y);
+  });
+  document.addEventListener('pointerup', bitir);
+  document.addEventListener('pointercancel', bitir);
+  document.addEventListener('touchmove', function(e){ if(d && d.aktif) e.preventDefault(); }, {passive:false});
+  home.addEventListener('click', function(e){ if(engel){ e.preventDefault(); e.stopPropagation(); } }, true);
+  home.addEventListener('dragstart', function(e){ e.preventDefault(); });
+  home.addEventListener('contextmenu', function(e){ if(e.target.closest && e.target.closest('.pill')) e.preventDefault(); });
+
 })();
 
 </script>
