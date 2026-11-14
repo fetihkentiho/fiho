@@ -4030,6 +4030,21 @@ textarea{flex:1;min-height:120px;resize:none;border:0}
 #pr{display:none}
 @media print{#app{display:none}#pr{display:block}#pr table{border-collapse:collapse;width:100%}#pr td,#pr th{border:1px solid #444;padding:4px;text-align:left}}
 @media (max-width:700px){main{flex-direction:column;overflow:auto}#left{width:100%;min-width:0;height:60%;flex:none}.g{grid-template-columns:auto 1fr}.hd{flex-wrap:wrap}}
+
+/* ---- Evrak alanları: sayfanın yarısına kadar, buton 3x2 ---- */
+.hd{align-items:flex-start;gap:8px;flex-wrap:nowrap}
+.g{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 6px;align-items:start;flex:0 0 calc(50% - 4px);width:calc(50% - 4px);min-width:0}
+.g label{text-align:right;padding-top:4px;font-size:11px;line-height:1.2}
+.g input,.g textarea{width:100%;min-width:0;display:block}
+.g textarea{flex:none;min-height:0;height:24px;resize:none;overflow:hidden;border:1px solid var(--bd);border-radius:2px;padding:3px 5px;line-height:1.3;overflow-wrap:anywhere}
+#ft{font-size:11.5px;padding:3px}
+.tb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px 2px;flex:1 1 0;min-width:0;align-content:start}
+.tn{min-width:0;padding:2px 1px;font-size:10.5px;text-align:center}
+@media (min-width:701px){.tb{flex:0 0 auto;grid-template-columns:repeat(3,78px)}.g label{font-size:12px}}
+
+/* ---- Gelen / Giden: tıkla aç, tıkla kapat; ikisi de kapalıyken yazı bölümü büyür ---- */
+@media (max-width:700px){#left{height:auto;max-height:60%}#left:has(.sec.open){height:60%}}
+@media (min-width:701px){#left:not(:has(.sec.open)){align-self:flex-start;height:auto}}
 &lt;/style&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
@@ -4043,7 +4058,7 @@ textarea{flex:1;min-height:120px;resize:none;border:0}
   &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s2&quot; placeholder=&quot;Tarih gg.aa.yyyy&quot;&gt;&lt;button title=&quot;Tarih ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
   &lt;div class=&quot;f&quot;&gt;&lt;input id=&quot;s3&quot; placeholder=&quot;Sayı&quot;&gt;&lt;button title=&quot;Sayı ara&quot;&gt;⌕&lt;/button&gt;&lt;/div&gt;
  &lt;/div&gt;&lt;/details&gt;
- &lt;div class=&quot;sec open&quot; id=&quot;sec_gelen&quot;&gt;&lt;button class=&quot;sh&quot; data-sec=&quot;gelen&quot;&gt;Gelen Evraklar &lt;small id=&quot;c_gelen&quot;&gt;&lt;/small&gt;&lt;/button&gt;&lt;div class=&quot;sb&quot;&gt;&lt;div class=&quot;stb&quot; id=&quot;stb_gelen&quot;&gt;&lt;/div&gt;&lt;div class=&quot;lb&quot; id=&quot;l_gelen&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+ &lt;div class=&quot;sec&quot; id=&quot;sec_gelen&quot;&gt;&lt;button class=&quot;sh&quot; data-sec=&quot;gelen&quot;&gt;Gelen Evraklar &lt;small id=&quot;c_gelen&quot;&gt;&lt;/small&gt;&lt;/button&gt;&lt;div class=&quot;sb&quot;&gt;&lt;div class=&quot;stb&quot; id=&quot;stb_gelen&quot;&gt;&lt;/div&gt;&lt;div class=&quot;lb&quot; id=&quot;l_gelen&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
  &lt;div class=&quot;sec&quot; id=&quot;sec_giden&quot;&gt;&lt;button class=&quot;sh&quot; data-sec=&quot;giden&quot;&gt;Giden Evraklar &lt;small id=&quot;c_giden&quot;&gt;&lt;/small&gt;&lt;/button&gt;&lt;div class=&quot;sb&quot;&gt;&lt;div class=&quot;stb&quot; id=&quot;stb_giden&quot;&gt;&lt;/div&gt;&lt;div class=&quot;lb&quot; id=&quot;l_giden&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;/aside&gt;
 &lt;section id=&quot;right&quot;&gt;
@@ -4110,8 +4125,8 @@ function tile(t){return &#x27;&lt;span class=&quot;ti &#x27;+({pdf:&quot;pdf&quo
 function drawDoc(){
  var d=$(&quot;doc&quot;);
  if(!cur){$(&quot;flds&quot;).innerHTML=&quot;&quot;;d.innerHTML=&#x27;&lt;div class=&quot;empty&quot;&gt;Evrak seçilmedi&lt;/div&gt;&#x27;;return}
- $(&quot;flds&quot;).innerHTML=&#x27;&lt;label&gt;Sayı&lt;/label&gt;&lt;input id=&quot;fs&quot; value=&quot;&#x27;+esc(cur.sayi)+&#x27;&quot;&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input id=&quot;ft&quot; type=&quot;date&quot; value=&quot;&#x27;+esc(cur.tarih)+&#x27;&quot;&gt;&#x27;+
- &#x27;&lt;label&gt;Konu&lt;/label&gt;&lt;input id=&quot;fk&quot; value=&quot;&#x27;+esc(cur.konu)+&#x27;&quot;&gt;&lt;label&gt;Açıklama&lt;/label&gt;&lt;input id=&quot;fa&quot; value=&quot;&#x27;+esc(cur.aciklama)+&#x27;&quot;&gt;&#x27;;
+ $(&quot;flds&quot;).innerHTML=&#x27;&lt;label&gt;Sayı&lt;/label&gt;&lt;textarea id=&quot;fs&quot; rows=&quot;1&quot;&gt;&#x27;+esc(cur.sayi)+&#x27;&lt;/textarea&gt;&lt;label&gt;Tarih&lt;/label&gt;&lt;input id=&quot;ft&quot; type=&quot;date&quot; value=&quot;&#x27;+esc(cur.tarih)+&#x27;&quot;&gt;&#x27;+
+ &#x27;&lt;label&gt;Konu&lt;/label&gt;&lt;textarea id=&quot;fk&quot; rows=&quot;1&quot;&gt;&#x27;+esc(cur.konu)+&#x27;&lt;/textarea&gt;&lt;label&gt;Açıklama&lt;/label&gt;&lt;textarea id=&quot;fa&quot; rows=&quot;1&quot;&gt;&#x27;+esc(cur.aciklama)+&#x27;&lt;/textarea&gt;&#x27;;
  var h=&#x27;&lt;div class=&quot;tabs&quot;&gt;&lt;span class=&quot;tab&#x27;+(tab==&quot;on&quot;?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-tab=&quot;on&quot;&gt;Evrak Önizleme&lt;/span&gt;&lt;span class=&quot;tab&#x27;+(tab==&quot;ek&quot;?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-tab=&quot;ek&quot;&gt;Evrak Ekleri (&#x27;+cur.ekler.length+&#x27;)&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;tc&quot;&gt;&#x27;;
  if(tab==&quot;ek&quot;)h+=cur.ekler.length?cur.ekler.map(function(e,i){return &#x27;&lt;div class=&quot;er&quot; data-e=&quot;&#x27;+i+&#x27;&quot;&gt;&#x27;+tile(e.tip)+&#x27;&lt;span&gt;&#x27;+esc(e.ad)+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;}).join(&quot;&quot;):&#x27;&lt;div class=&quot;empty&quot;&gt;Ek yok&lt;/div&gt;&#x27;;
  else if(prev&gt;-1&amp;&amp;cur.ekler[prev]){
@@ -4206,7 +4221,37 @@ $(&quot;doc&quot;).onclick=function(ev){
 document.querySelectorAll(&quot;.fg input&quot;).forEach(function(i){i.oninput=drawList;i.onkeydown=function(e){if(e.key==&quot;Enter&quot;)drawList()}});
 $(&quot;home&quot;).onclick=function(){try{parent.postMessage({ebys:&quot;home&quot;},&quot;*&quot;)}catch(x){}};
 load();var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];show(f0?f0.id:null);
-&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;/script&gt;&lt;script&gt;
+(function(){
+  var f=document.getElementById(&#x27;flds&#x27;); if(!f) return;
+  function fit(t){ if(!t.offsetParent) return; t.style.height=&#x27;auto&#x27;; var h=t.scrollHeight; if(h&gt;4) t.style.height=(h+2)+&#x27;px&#x27;; }
+  function fitAll(){ var l=f.querySelectorAll(&#x27;textarea&#x27;); for(var i=0;i&lt;l.length;i++) fit(l[i]); }
+  new MutationObserver(fitAll).observe(f,{childList:true});
+  if(window.ResizeObserver) new ResizeObserver(fitAll).observe(f);
+  window.addEventListener(&#x27;resize&#x27;,fitAll);
+  f.addEventListener(&#x27;input&#x27;,function(e){ var t=e.target; if(t.tagName!==&#x27;TEXTAREA&#x27;) return; if(/[\r\n]/.test(t.value)) t.value=t.value.replace(/[\r\n]+/g,&#x27; &#x27;); fit(t); });
+  f.addEventListener(&#x27;keydown&#x27;,function(e){ if(e.target.tagName===&#x27;TEXTAREA&#x27; &amp;&amp; e.key===&#x27;Enter&#x27;) e.preventDefault(); });
+  fitAll();
+})();
+&lt;/script&gt;
+&lt;script&gt;
+(function(){
+  var L=document.getElementById(&#x27;left&#x27;); if(!L) return;
+  L.addEventListener(&#x27;click&#x27;,function(ev){
+    var b=ev.target.closest?ev.target.closest(&#x27;[data-sec]&#x27;):null; if(!b) return;
+    ev.stopPropagation(); ev.preventDefault();
+    var t=b.getAttribute(&#x27;data-sec&#x27;), el=document.getElementById(&#x27;sec_&#x27;+t);
+    if(el.classList.contains(&#x27;open&#x27;)){ el.classList.remove(&#x27;open&#x27;); return; }
+    el.classList.add(&#x27;open&#x27;);
+    if(t!==sec){
+      grab(); sec=t;
+      var d=(cur&amp;&amp;cur.tur===t)?cur:sorted().filter(function(x){return x.tur===t})[0];
+      show(d?d.id:null);
+    }
+  },true);
+})();
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;
 "></iframe>
 </div>
 <div id="sinavPage" class="embed-page">
