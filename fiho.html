@@ -4708,6 +4708,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="nakilCikti('yazdir')">Yazdır</button>
       <button type="button" class="modal-btn" onClick="nakilYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="nakilCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){nakilCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="nakilCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('nakil')">Tümünü Sil</button></div>
@@ -4743,6 +4744,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="mzCikti('yazdir')">Yazdır</button>
       <button type="button" class="modal-btn" onClick="mzYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="mzCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){mzCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="mzCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('mezuniyet')">Tümünü Sil</button></div>
@@ -4948,6 +4950,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('ogbPdfDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="ogbYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="ogbCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){ogbCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="ogbCikti('excel')">Excel</button>
       <input type="file" id="ogbPdfDosya" accept=".pdf,application/pdf" style="display:none" onChange="ogbPdfYukle(event)">
     </div>
@@ -5000,6 +5003,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('nfPdfDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="nfYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="nfCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){nfCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="nfCikti('excel')">Excel</button>
       <input type="file" id="nfPdfDosya" accept=".pdf,application/pdf" style="display:none" onChange="nfPdfYukle(event)">
     </div>
@@ -5059,6 +5063,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('ogretmenEOkulDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitOgretmen()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="personelRaporu('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){personelRaporu('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="personelRaporu('excel')">Excel</button>
       <input type="file" id="ogretmenEOkulDosya" accept=".pdf,.xlsx,.xls" style="display:none" onChange="eOkulPersonelDosyaYukle(event)">
     </div>
@@ -5128,6 +5133,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('poDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="poYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="poRapor('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){poRapor('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="poRapor('excel')">Excel</button>
       <input type="file" id="poDosya" accept=".pdf" style="display:none" onChange="poDosyaYukle(event)">
     </div>
@@ -5483,6 +5489,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="gyCikti('yazdir')">Yazdır</button>
       <button type="button" class="modal-btn" onClick="gyYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="gyCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){gyCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="gyCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('gorevYeri')">Tümünü Sil</button></div>
@@ -5872,6 +5879,7 @@ tick();setInterval(tick,1000);
     <div class="modal-actions-single-row" style="grid-template-columns:repeat(3,1fr);">
       <button type="button" class="modal-btn primary" onClick="imzaListele()">Listele</button>
       <button type="button" class="modal-btn pdf" onClick="imzaCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){imzaCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="imzaCikti('excel')">Excel</button>
     </div>
     <div id="imzaDurum" class="modal-status"></div>
@@ -6108,6 +6116,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="alert('e-Okul sınıf aktarımı.')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitSinif()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="sinifListeRaporu('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){sinifListeRaporu('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="sinifListeRaporu('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('sinif')">Tümünü Sil</button></div>
@@ -6162,6 +6171,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('belgeExcelDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="belgeYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="belgePdf()">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){belgePdf()}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="belgeExcel()">Excel</button>
       <input type="file" id="belgeExcelDosya" accept=".xlsx,.xls,.pdf,application/pdf" style="display:none" onChange="belgeEOkulYukle(event)">
     </div>
@@ -6225,6 +6235,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="dkEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="dkYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="dkCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){dkCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="dkCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('diplomakayit')">Tümünü Sil</button></div>
@@ -6257,6 +6268,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('eOkulOgrDosyaSec').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitOgrenci()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="ogrenciListeRaporu('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){ogrenciListeRaporu('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="ogrenciListeRaporu('excel')">Excel</button>
       <input type="file" id="eOkulOgrDosyaSec" accept=".pdf,application/pdf,.xlsx,.xls,.csv" style="display:none" onChange="eOkulYukle(event)">
     </div>
@@ -6283,6 +6295,7 @@ tick();setInterval(tick,1000);
 
     <div class="modal-actions-single-row" style="display:grid; grid-template-columns:repeat(2,1fr); gap:6px;">
       <button type="button" class="modal-btn pdf" onClick="bosListeCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){bosListeCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="bosListeCikti('excel')">Excel</button>
     </div>
     <div id="bosListeDurum" class="modal-status"></div>
@@ -6322,6 +6335,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn danger" onClick="girisSil()">Sil</button>
       <button type="button" class="modal-btn danger" onClick="girisTumunuSil()">Tümünü Sil</button>
       <button type="button" class="modal-btn pdf" onClick="girisCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){girisCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="girisCikti('excel')">Excel</button>
       <button type="button" class="modal-btn secondary" onClick="girisCikti('yazdir')">Yazdır</button>
     </div>
@@ -6421,6 +6435,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="alert('e-Okul Sınıf Rehber Öğretmen aktarımı.')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitSinifRehberOgretmen()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="rehberRaporu('sro','pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){rehberRaporu('sro','pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="rehberRaporu('sro','excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('sro')">Tümünü Sil</button></div>
@@ -6448,6 +6463,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="alert('e-Okul Sosyal Kulüp aktarımı.')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitSosyalKulup()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="rehberRaporu('sk','pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){rehberRaporu('sk','pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="rehberRaporu('sk','excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('sk')">Tümünü Sil</button></div>
@@ -6482,6 +6498,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="alert('e-Okul Kulüp Öğrenci aktarımı.')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yeniKayitKulupOgrenci()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="koRaporu('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){koRaporu('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="koRaporu('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('ko')">Tümünü Sil</button></div>
@@ -6518,6 +6535,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="ofEOkul('eb')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="ofYeni('eb')">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="ebPdf()">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){ebPdf()}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="ebExcel()">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('ebf')">Tümünü Sil</button></div>
@@ -6534,6 +6552,7 @@ tick();setInterval(tick,1000);
     <div class="modal-actions-rapor-row">
       <button type="button" class="modal-btn primary btn-50" onClick="okulRaporuOlustur('onizleme')">Okul Raporu</button>
       <button type="button" class="modal-btn danger btn-25" onClick="okulRaporuOlustur('pdf')">PDF Kaydet</button>
+      <button type="button" class="modal-btn word btn-25" onClick="wordCalistir(function(){okulRaporuOlustur('pdf')}, this)">Word Kaydet</button>
       <button type="button" class="modal-btn secondary btn-25" onClick="okulRaporuOlustur('excel')">Excel Kaydet</button>
     </div>
 
@@ -6542,6 +6561,7 @@ tick();setInterval(tick,1000);
         <option value="TUMU">Tüm Sınıflar</option>
       </select>
       <button type="button" class="modal-btn danger btn-25" onClick="sinifListesiRaporuOlustur('pdf')">PDF Kaydet</button>
+      <button type="button" class="modal-btn word btn-25" onClick="wordCalistir(function(){sinifListesiRaporuOlustur('pdf')}, this)">Word Kaydet</button>
       <button type="button" class="modal-btn secondary btn-25" onClick="sinifListesiRaporuOlustur('excel')">Excel Kaydet</button>
     </div>
 
@@ -6593,6 +6613,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="odEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="odYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="odCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){odCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="odCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('oddk')">Tümünü Sil</button></div>
@@ -6642,6 +6663,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="ttEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="ttYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="ttCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){ttCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="ttCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('takdir')">Tümünü Sil</button></div>
@@ -6680,6 +6702,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="svEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="svYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="svCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){svCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="svCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('servis')">Tümünü Sil</button></div>
@@ -6710,6 +6733,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('oeg_dosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="oegYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="oegCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){oegCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="oegCikti('excel')">Excel</button>
       <input type="file" id="oeg_dosya" accept=".xls,.xlsx" style="display:none" onChange="oegEOkulYukle(event)">
     </div>
@@ -6745,6 +6769,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('yu_dosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="yuYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="yuCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){yuCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="yuCikti('excel')">Excel</button>
       <input type="file" id="yu_dosya" accept=".xls,.xlsx,.pdf" style="display:none" onChange="yuEOkulYukle(event)">
     </div>
@@ -6776,6 +6801,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="lstEOkul('zumre')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="lstYeni('zumre')">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="lstCikti('zumre', 'pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){lstCikti('zumre', 'pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="lstCikti('zumre', 'excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('zumre')">Tümünü Sil</button></div>
@@ -6806,6 +6832,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="lstEOkul('shok')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="lstYeni('shok')">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="lstCikti('shok', 'pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){lstCikti('shok', 'pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="lstCikti('shok', 'excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('shok')">Tümünü Sil</button></div>
@@ -6836,6 +6863,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="lstEOkul('yplan')">e-Okul</button>
       <button type="button" class="modal-btn" onClick="lstYeni('yplan')">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="lstCikti('yplan', 'pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){lstCikti('yplan', 'pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="lstCikti('yplan', 'excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('yplan')">Tümünü Sil</button></div>
@@ -6867,6 +6895,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('odrsDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="odrsYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="odrsCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){odrsCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="odrsCikti('excel')">Excel</button>
       <input type="file" id="odrsDosya" accept=".xls,.xlsx" style="display:none;" onChange="drsExcelYukle(event, 'odrs')">
     </div>
@@ -6925,6 +6954,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('sddDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="sddYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="sddCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){sddCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="sddCikti('excel')">Excel</button>
       <input type="file" id="sddDosya" accept=".xls,.xlsx" style="display:none;" onChange="sddExcelYukle(event)">
     </div>
@@ -7329,6 +7359,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('sdrsDosya').click()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="sdrsYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="sdrsCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){sdrsCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="sdrsCikti('excel')">Excel</button>
       <input type="file" id="sdrsDosya" accept=".xls,.xlsx" style="display:none;" onChange="drsExcelYukle(event, 'sdrs')">
     </div>
@@ -7368,6 +7399,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="dsEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="dsYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="dsCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){dsCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="dsCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('deneme')">Tümünü Sil</button></div>
@@ -7414,6 +7446,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="vtEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="vtYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="vtCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){vtCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="vtCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('veli')">Tümünü Sil</button></div>
@@ -7466,6 +7499,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="sevEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="sevYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="sevCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){sevCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="sevCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('sevk')">Tümünü Sil</button></div>
@@ -7513,6 +7547,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="otEOkul()">e-Okul</button>
       <button type="button" class="modal-btn" onClick="otYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="otCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){otCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="otCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('ogrTut')">Tümünü Sil</button></div>
@@ -7553,6 +7588,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="olCikti('yazdir')">Yazdır</button>
       <button type="button" class="modal-btn" onClick="olYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="olCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){olCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="olCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('olay')">Tümünü Sil</button></div>
@@ -7603,6 +7639,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('dpDosya').click()">Yükle</button>
       <button type="button" class="modal-btn" onClick="dpYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="dpCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){dpCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="dpCikti('excel')">Excel</button>
       <input type="file" id="dpDosya" accept=".xls,.xlsx" style="display:none" onChange="dpExcelYukle(event)">
     </div>
@@ -7654,6 +7691,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn secondary" onClick="document.getElementById('spDosya').click()">Yükle</button>
       <button type="button" class="modal-btn" onClick="spYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="spCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){spCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="spCikti('excel')">Excel</button>
       <input type="file" id="spDosya" accept=".xls,.xlsx" style="display:none" onChange="spExcelYukle(event)">
     </div>
@@ -7680,6 +7718,7 @@ tick();setInterval(tick,1000);
 
     <div class="modal-actions-single-row">
       <button type="button" class="modal-btn pdf" onClick="ykCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){ykCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn secondary" onClick="ykCikti('yazdir')">Yazdır</button>
     </div>
     <div id="ykDurum" class="modal-status"></div>
@@ -7761,6 +7800,7 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn primary" onClick="sdKaydet()">Kaydet</button>
       <button type="button" class="modal-btn danger" onClick="sdSil()">Sil</button>
       <button type="button" class="modal-btn pdf" onClick="sdCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){sdCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="sdCikti('excel')">Excel</button>
     </div>
     <div id="sdDurum" class="modal-status"></div>
@@ -19963,6 +20003,7 @@ menuSigdirPlanla();
       <button type="button" class="modal-btn primary" onClick="tbOnizle()">Önizle</button>
       <button type="button" class="modal-btn" onClick="tbCikti('yazdir')">Yazdır</button>
       <button type="button" class="modal-btn pdf" onClick="tbCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){tbCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="tbCikti('excel')">Excel</button>
     </div>
     <div id="tbDurum" class="modal-status"></div>
@@ -20241,6 +20282,7 @@ menuSigdirPlanla();
       <button type="button" class="modal-btn danger" onClick="osSil()">Sil</button>
       <button type="button" class="modal-btn" onClick="osYeni()">Yeni</button>
       <button type="button" class="modal-btn pdf" onClick="osCikti('pdf')">PDF</button>
+      <button type="button" class="modal-btn word" onClick="wordCalistir(function(){osCikti('pdf')}, this)">Word</button>
       <button type="button" class="modal-btn excel" onClick="osCikti('excel')">Excel</button>
     </div>
     <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('okulServis')">Tümünü Sil</button></div>
@@ -20698,28 +20740,29 @@ main{max-width:1040px;margin:0 auto;padding:14px 12px 18px;}
 .kat-bas{display:flex;align-items:center;justify-content:space-between;margin:0 2px 14px;}
 .kat-bas h2{margin:0;font-size:1.28rem;font-weight:800;color:var(--nv);letter-spacing:.2px;}
 .kat-say{min-width:34px;height:30px;padding:0 10px;border-radius:999px;background:#eef1f6;color:var(--mut);font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;}
-.kat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.kat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
 
-.pill{--c:#17808a;display:flex;align-items:center;gap:8px;min-width:0;min-height:58px;padding:7px 12px 7px 9px;
-  background:var(--pill-bg);border:2px solid var(--c);border-radius:36px;text-align:left;text-decoration:none;
-  color:var(--nv);font:inherit;font-weight:700;font-size:clamp(12px,3.3vw,14px);line-height:1.18;cursor:pointer;
+.pill{--c:#17808a;display:flex;align-items:center;gap:6px;min-width:0;min-height:46px;padding:5px 10px 5px 7px;
+  background:var(--pill-bg);border:1.6px solid var(--c);border-radius:29px;text-align:left;text-decoration:none;
+  color:var(--nv);font:inherit;font-weight:700;font-size:clamp(9.6px,2.64vw,11.2px);line-height:1.18;cursor:pointer;
   -webkit-tap-highlight-color:transparent;transition:transform .12s ease,background .15s ease,box-shadow .15s ease;}
 .pill:active{transform:scale(.97);background:#e7eef8;}
-.pill .ic{flex:0 0 auto;width:32px;height:32px;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;}
-.pill .ic svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.pill .ic{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;}
+.pill .ic svg{width:14.5px;height:14.5px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .pill span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;line-clamp:4;overflow:hidden;min-width:0;overflow-wrap:break-word;hyphens:none;}
 .c-teal{--c:#17808a;} .c-green{--c:#1d8f6e;} .c-navy{--c:#1f3a6b;} .c-purple{--c:#7c4ddb;}
 .c-gold{--c:#c28a2b;} .c-coral{--c:#ee6b6e;} .c-cyan{--c:#12a3a6;} .c-blue{--c:#167a9c;}
 @media (hover:hover){ .pill:hover{background:#fff;box-shadow:0 6px 16px -8px rgba(20,40,80,.35);transform:translateY(-1px);} }
 
 @media (min-width:700px){
-  .kat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
-  .pill{font-size:15px;min-height:64px;padding:8px 16px 8px 11px;}
-  .pill .ic{width:38px;height:38px;}
-  .pill .ic svg{width:21px;height:21px;}
+  .kat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+  .pill{font-size:12px;min-height:51px;padding:6px 13px 6px 9px;}
+  .pill .ic{width:30px;height:30px;}
+  .pill .ic svg{width:17px;height:17px;}
   .kart{padding:26px 24px 22px;border-radius:32px;}
   .kat-bas h2{font-size:1.5rem;}
 }
+@media (min-width:900px){ .kat-grid{grid-template-columns:repeat(4,minmax(0,1fr));} }
 /* Masaüstünde sayfa kaydırılabilsin (eski sabit yükseklikli düzen kaldırıldı) */
 @media (min-width:900px){
   html,body{height:auto !important;}
@@ -20775,6 +20818,14 @@ body.view-ebys .altmenu,body.view-ebys .alt-sheet{display:none !important;}
 .list-item .main-text{color:var(--nv);font-weight:700;}
 .list-item .sub-text{color:var(--mut);}
 
+/* ---------- Word butonu ---------- */
+.modal-btn.word{background:#2b579a;color:#fff;}
+.modal-actions-fit{grid-template-columns:repeat(var(--wc),minmax(0,1fr)) !important;}
+@media (max-width:520px){ .modal-actions-fit{grid-template-columns:repeat(var(--wc2),minmax(0,1fr)) !important;} }
+.modal-actions-rapor-row .btn-50,.modal-actions-rapor-row .select-50{flex:1 1 0;min-width:0;}
+.modal-actions-rapor-row .btn-25{flex:0 0 calc(23% - 4px);}
+.modal-actions-rapor-row .modal-btn{white-space:normal;line-height:1.1;padding-left:2px;padding-right:2px;}
+
 </style>
 
 <!-- ================= ALT MENÜ ================= -->
@@ -20818,6 +20869,365 @@ body.view-ebys .altmenu,body.view-ebys .alt-sheet{display:none !important;}
   if(window.ResizeObserver) new ResizeObserver(function(){ barOlcuGuncelle(); }).observe(bar);
   aktifGuncelle(window.__aktifSayfa || 'home');
   barOlcuGuncelle();
+})();
+
+</script>
+<script>
+/* ================= WORD (.docx) ÇIKTISI: PDF belge tanımından otomatik dönüştürülür ================= */
+(function(){
+  'use strict';
+  var PAGES = {A3:[841.89,1190.55],A4:[595.28,841.89],A5:[419.53,595.28],A6:[297.64,419.53],B5:[498.9,708.66],LETTER:[612,792],LEGAL:[612,1008]};
+  var INH = ['font','fontSize','bold','italics','color','alignment','lineHeight','decoration','background'];
+  var NAMED = {black:'000000',white:'FFFFFF',gray:'808080',grey:'808080',red:'FF0000',blue:'0000FF',green:'008000',yellow:'FFFF00',orange:'FFA500',lightgray:'D3D3D3',lightgrey:'D3D3D3',darkgray:'A9A9A9'};
+  function esc(s){ return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function tw(pt){ return Math.round(pt * 20); }
+  function hex(c){
+    if(!c || typeof c !== 'string') return null; c = c.trim();
+    var m = /^#?([0-9a-f]{6})$/i.exec(c); if(m) return m[1].toUpperCase();
+    m = /^#?([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(c); if(m) return (m[1]+m[1]+m[2]+m[2]+m[3]+m[3]).toUpperCase();
+    return NAMED[c.toLowerCase()] || null;
+  }
+  function fontName(f){
+    f = String(f || '');
+    if(/tnr|times/i.test(f)) return 'Times New Roman';
+    if(/pal/i.test(f)) return 'Palatino Linotype';
+    if(/cal/i.test(f)) return 'Calibri';
+    return 'Arial';
+  }
+  function mg(m){
+    if(typeof m === 'number') return [m,m,m,m];
+    if(Array.isArray(m)){ if(m.length === 2) return [m[0],m[1],m[0],m[1]]; if(m.length === 4) return m; }
+    return [0,0,0,0];
+  }
+  function own(node, st){
+    var o = {}, s = node.style;
+    if(s){ (Array.isArray(s) ? s : [s]).forEach(function(n){ var d = st && st[n]; if(d) for(var k in d) o[k] = d[k]; }); }
+    INH.concat(['margin']).forEach(function(k){ if(node[k] !== undefined) o[k] = node[k]; });
+    return o;
+  }
+  function inh(ctx, o){ var n = {}; INH.forEach(function(k){ n[k] = (o[k] !== undefined) ? o[k] : ctx[k]; }); return n; }
+
+  /* ---------- çalıştırma (run) ---------- */
+  function run(text, c){
+    if(text === '') return '';
+    var r = '', f = fontName(c.font);
+    r += '<w:rFonts w:ascii="'+f+'" w:hAnsi="'+f+'" w:cs="'+f+'" w:eastAsia="'+f+'"/>';
+    if(c.bold) r += '<w:b/><w:bCs/>';
+    if(c.italics) r += '<w:i/><w:iCs/>';
+    var dec = c.decoration ? (Array.isArray(c.decoration) ? c.decoration : [c.decoration]) : [];
+    if(dec.indexOf('lineThrough') > -1) r += '<w:strike/>';
+    var col = hex(c.color); if(col) r += '<w:color w:val="'+col+'"/>';
+    var sz = Math.max(2, Math.round((c.fontSize || 12) * 2)); r += '<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>';
+    if(dec.indexOf('underline') > -1) r += '<w:u w:val="single"/>';
+    var bg = hex(c.background); if(bg) r += '<w:shd w:val="clear" w:color="auto" w:fill="'+bg+'"/>';
+    return '<w:r><w:rPr>'+r+'</w:rPr><w:t xml:space="preserve">'+esc(text)+'</w:t></w:r>';
+  }
+  function runsOf(t, ctx, st){
+    if(t == null) return '';
+    if(Array.isArray(t)) return t.map(function(x){ return runsOf(x, ctx, st); }).join('');
+    if(typeof t === 'object') return runsOf(t.text, inh(ctx, own(t, st)), st);
+    return String(t).split('\n').map(function(p, i){ return (i ? '<w:r><w:br/></w:r>' : '') + run(p, ctx); }).join('');
+  }
+  function plain(t){
+    if(t == null) return '';
+    if(Array.isArray(t)) return t.map(plain).join('');
+    if(typeof t === 'object') return plain(t.text !== undefined ? t.text : (t.stack || ''));
+    return String(t);
+  }
+
+  /* ---------- paragraf ---------- */
+  function spacer(pt){ return '<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="'+Math.max(20, tw(pt))+'" w:lineRule="exact"/></w:pPr></w:p>'; }
+  function para(runs, c, o, node, opt){
+    opt = opt || {};
+    var m = mg(o.margin), p = '';
+    if(node.pageBreak === 'before') p += '<w:pageBreakBefore/>';
+    if(node.absolutePosition && !opt.noFrame){
+      var ap = node.absolutePosition, W = node.width || Math.max(40, (opt.pageW || 595) - (ap.x || 0) - 20);
+      p += '<w:framePr w:w="'+tw(W)+'" w:hSpace="0" w:vSpace="0" w:wrap="around" w:vAnchor="page" w:hAnchor="page" w:x="'+tw(ap.x || 0)+'" w:y="'+tw(ap.y || 0)+'"/>';
+    }
+    p += '<w:spacing w:before="'+tw(m[1])+'" w:after="'+tw(m[3])+'" w:line="'+Math.round((c.lineHeight || 1) * 240)+'" w:lineRule="auto"/>';
+    var left = m[0] + (opt.indent || 0);
+    if(left || m[2]) p += '<w:ind w:left="'+tw(left)+'" w:right="'+tw(m[2])+'"'+(opt.hanging ? ' w:hanging="'+tw(opt.hanging)+'"' : '')+'/>';
+    var al = c.alignment; var jc = al === 'center' ? 'center' : al === 'right' ? 'right' : al === 'justify' ? 'both' : null;
+    if(jc) p += '<w:jc w:val="'+jc+'"/>';
+    var x = '<w:p><w:pPr>'+p+'</w:pPr>'+runs+'</w:p>';
+    if(node.pageBreak === 'after') x += '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
+    return x;
+  }
+
+  /* ---------- resim ---------- */
+  function b64bytes(b64){ var bin = atob(b64), n = bin.length, u = new Uint8Array(n); for(var i = 0; i < n; i++) u[i] = bin.charCodeAt(i); return u; }
+  function natural(u, type){
+    try{
+      if(type === 'png') return [(u[16]<<24|u[17]<<16|u[18]<<8|u[19])>>>0, (u[20]<<24|u[21]<<16|u[22]<<8|u[23])>>>0];
+      if(type === 'gif') return [u[6]|u[7]<<8, u[8]|u[9]<<8];
+      var i = 2;
+      while(i < u.length){
+        if(u[i] !== 0xFF){ i++; continue; }
+        var mk = u[i+1], len = u[i+2]<<8|u[i+3];
+        if(mk >= 0xC0 && mk <= 0xCF && mk !== 0xC4 && mk !== 0xC8 && mk !== 0xCC) return [u[i+7]<<8|u[i+8], u[i+5]<<8|u[i+6]];
+        i += 2 + len;
+      }
+    }catch(e){}
+    return [100,100];
+  }
+  function imagePara(node, c, o, S){
+    var src = node.image;
+    if(S.dd.images && S.dd.images[src]) src = S.dd.images[src];
+    var m = /^data:image\/(png|jpe?g|gif);base64,(.*)$/i.exec(String(src || ''));
+    if(!m) return '';
+    var type = m[1].toLowerCase().replace('jpg','jpeg'), bytes = b64bytes(m[2]), nat = natural(bytes, type);
+    var nw = nat[0] || 100, nh = nat[1] || 100, w = node.width, h = node.height;
+    if(node.fit){ var s = Math.min(node.fit[0] / nw, node.fit[1] / nh); w = nw * s; h = nh * s; }
+    else{ if(w && !h) h = w * nh / nw; else if(h && !w) w = h * nw / nh; else if(!w){ w = nw * .75; h = nh * .75; } if(node.scale){ w *= node.scale; h *= node.scale; } }
+    var id = S.media.length + 1;
+    S.media.push({name:'image'+id+'.'+(type === 'jpeg' ? 'jpg' : type), bytes:bytes});
+    var cx = Math.round(w * 12700), cy = Math.round(h * 12700);
+    var gr = '<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="'+id+'" name="Resim '+id+'"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="rIdImg'+id+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic>';
+    var dr;
+    if(node.absolutePosition){
+      var ap = node.absolutePosition;
+      dr = '<wp:anchor distT="0" distB="0" distL="0" distR="0" simplePos="0" relativeHeight="'+id+'" behindDoc="0" locked="0" layoutInCell="1" allowOverlap="1"><wp:simplePos x="0" y="0"/><wp:positionH relativeFrom="page"><wp:posOffset>'+Math.round((ap.x || 0) * 12700)+'</wp:posOffset></wp:positionH><wp:positionV relativeFrom="page"><wp:posOffset>'+Math.round((ap.y || 0) * 12700)+'</wp:posOffset></wp:positionV><wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:wrapNone/><wp:docPr id="'+id+'" name="Resim '+id+'"/><wp:cNvGraphicFramePr/>'+gr+'</wp:anchor>';
+    }else{
+      dr = '<wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="'+id+'" name="Resim '+id+'"/><wp:cNvGraphicFramePr/>'+gr+'</wp:inline>';
+    }
+    return para('<w:r><w:drawing>'+dr+'</w:drawing></w:r>', c, o, node, {noFrame:true});
+  }
+
+  /* ---------- genişlik dağılımı ---------- */
+  function distribute(specs, avail, est){
+    var w = [], fixed = 0, stars = 0;
+    specs.forEach(function(s, i){
+      if(typeof s === 'number'){ w[i] = s; fixed += s; }
+      else if(typeof s === 'string' && /%$/.test(s)){ w[i] = avail * parseFloat(s) / 100; fixed += w[i]; }
+      else if(s === 'auto'){ w[i] = Math.min(est(i), avail * .5); fixed += w[i]; }
+      else{ w[i] = null; stars++; }
+    });
+    if(stars){ var each = Math.max((avail - fixed) / stars, 20); specs.forEach(function(s, i){ if(w[i] === null) w[i] = each; }); }
+    var sum = w.reduce(function(a, b){ return a + b; }, 0);
+    if(sum > avail + .5){ var k = avail / sum; w = w.map(function(x){ return x * k; }); }
+    return w;
+  }
+
+  /* ---------- kenarlıklar ---------- */
+  function layoutFn(layout, node){
+    var rows = node.table.body.length, hr = node.table.headerRows || 0;
+    var L = {h:function(){ return 1; }, v:function(){ return 1; }, hc:function(){ return '000000'; }, vc:function(){ return '000000'; }};
+    function call(f, a, b){ try{ return typeof f === 'function' ? f(a, b) : f; }catch(e){ return undefined; } }
+    if(layout === 'noBorders'){ L.h = L.v = function(){ return 0; }; }
+    else if(layout === 'lightHorizontalLines'){ L.v = function(){ return 0; }; L.h = function(i){ return (i === 0 || i === rows) ? 0 : 1; }; L.hc = function(i){ return (i === 0 || i === rows) ? '000000' : 'AAAAAA'; }; }
+    else if(layout === 'headerLineOnly'){ L.v = function(){ return 0; }; L.h = function(i){ return (i === 0 || i === rows) ? 0 : (i === hr ? 2 : 0); }; }
+    else if(layout && typeof layout === 'object'){
+      if(layout.hLineWidth !== undefined) L.h = function(i){ var v = call(layout.hLineWidth, i, node); return v === undefined ? 1 : v; };
+      if(layout.vLineWidth !== undefined) L.v = function(i){ var v = call(layout.vLineWidth, i, node); return v === undefined ? 1 : v; };
+      if(layout.hLineColor !== undefined) L.hc = function(i){ return call(layout.hLineColor, i, node) || '000000'; };
+      if(layout.vLineColor !== undefined) L.vc = function(i){ return call(layout.vLineColor, i, node) || '000000'; };
+    }
+    return L;
+  }
+  function bd(tag, w, color, on){
+    if(on === false || !(w > 0)) return '<w:'+tag+' w:val="nil"/>';
+    return '<w:'+tag+' w:val="single" w:sz="'+Math.max(2, Math.min(96, Math.round(w * 8)))+'" w:space="0" w:color="'+(hex(color) || '000000')+'"/>';
+  }
+
+  /* ---------- tablo ---------- */
+  function tableXml(node, c, st, avail, o, S, forceNoBorder){
+    var t = node.table, body = t.body || [], ncols = 0;
+    body.forEach(function(r){ if(r.length > ncols) ncols = r.length; });
+    if(!ncols) return '';
+    var specs = t.widths;
+    if(!Array.isArray(specs)) specs = new Array(ncols).fill(specs == null ? '*' : specs);
+    specs = specs.slice(0, ncols); while(specs.length < ncols) specs.push('*');
+    var w = distribute(specs, avail, function(i){
+      var mx = 0, fs = c.fontSize || 12;
+      body.forEach(function(r){ var cell = r[i]; if(cell == null) return; var s = plain(cell); s.split('\n').forEach(function(ln){ if(ln.length > mx) mx = ln.length; }); if(cell && cell.fontSize) fs = cell.fontSize; });
+      return mx * fs * .52 + 10;
+    });
+    var L = layoutFn(forceNoBorder ? 'noBorders' : node.layout, node);
+    var grid = '<w:tblGrid>' + w.map(function(x){ return '<w:gridCol w:w="'+tw(x)+'"/>'; }).join('') + '</w:tblGrid>';
+    var total = w.reduce(function(a, b){ return a + b; }, 0);
+    var occ = new Array(ncols).fill(0), occSpan = new Array(ncols).fill(1), rowsXml = '';
+    var hdr = t.headerRows || 0;
+    body.forEach(function(row, r){
+      var tcs = '', col = 0;
+      while(col < ncols){
+        var cell = row[col];
+        if(occ[col] > 0){
+          var sp = occSpan[col], ww = 0; for(var q = 0; q < sp; q++){ ww += w[col + q] || 0; occ[col + q]--; }
+          tcs += '<w:tc><w:tcPr><w:tcW w:w="'+tw(ww)+'" w:type="dxa"/>'+(sp > 1 ? '<w:gridSpan w:val="'+sp+'"/>' : '')+'<w:vMerge/><w:tcBorders>'+bd('top', 0)+bd('left', L.v(col), L.vc(col))+bd('bottom', L.h(r + 1), L.hc(r + 1))+bd('right', L.v(col + sp), L.vc(col + sp))+'</w:tcBorders></w:tcPr><w:p/></w:tc>';
+          col += sp; continue;
+        }
+        var cn = (cell && typeof cell === 'object') ? cell : {text: cell == null ? '' : String(cell)};
+        var cs = Math.max(1, cn.colSpan || 1), rs = Math.max(1, cn.rowSpan || 1);
+        if(col + cs > ncols) cs = ncols - col;
+        var cw = 0; for(var z = 0; z < cs; z++) cw += w[col + z];
+        var co = own(cn, st), cc = inh(c, co);
+        var content = blocks(cn, c, st, Math.max(20, cw - 8), S);
+        if(!content) content = '<w:p/>';
+        var bT = L.h(r), bB = L.h(r + rs), bL = L.v(col), bR = L.v(col + cs);
+        var tcp = '<w:tcW w:w="'+tw(cw)+'" w:type="dxa"/>';
+        if(cs > 1) tcp += '<w:gridSpan w:val="'+cs+'"/>';
+        if(rs > 1) tcp += '<w:vMerge w:val="restart"/>';
+        var bo = Array.isArray(cn.border) ? cn.border : null;
+        tcp += '<w:tcBorders>'+bd('top', bT, L.hc(r), bo ? bo[1] : undefined)+bd('left', bL, L.vc(col), bo ? bo[0] : undefined)+bd('bottom', bB, L.hc(r + rs), bo ? bo[3] : undefined)+bd('right', bR, L.vc(col + cs), bo ? bo[2] : undefined)+'</w:tcBorders>';
+        var fill = hex(cn.fillColor); if(fill) tcp += '<w:shd w:val="clear" w:color="auto" w:fill="'+fill+'"/>';
+        tcs += '<w:tc><w:tcPr>'+tcp+'</w:tcPr>'+content+'</w:tc>';
+        if(rs > 1){ for(var y = 0; y < cs; y++){ occ[col + y] = rs - 1; occSpan[col + y] = cs; } }
+        col += cs;
+      }
+      var trp = '<w:cantSplit/>';
+      var hts = t.heights, hv = typeof hts === 'number' ? hts : (Array.isArray(hts) ? hts[r] : undefined);
+      if(typeof hv === 'number' && hv > 0) trp += '<w:trHeight w:val="'+tw(hv)+'" w:hRule="atLeast"/>';
+      if(r < hdr) trp += '<w:tblHeader/>';
+      rowsXml += '<w:tr><w:trPr>'+trp+'</w:trPr>'+tcs+'</w:tr>';
+    });
+    var m = mg(o.margin);
+    var tp = '<w:tblW w:w="'+tw(total)+'" w:type="dxa"/>' + (m[0] ? '<w:tblInd w:w="'+tw(m[0])+'" w:type="dxa"/>' : '') +
+      '<w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="20" w:type="dxa"/><w:left w:w="80" w:type="dxa"/><w:bottom w:w="20" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar>';
+    return (m[1] ? spacer(m[1]) : '') + '<w:tbl><w:tblPr>'+tp+'</w:tblPr>'+grid+rowsXml+'</w:tbl>' + spacer(Math.max(m[3], 1));
+  }
+
+  /* ---------- bloklar ---------- */
+  function blocks(node, ctx, st, avail, S){
+    if(node == null || node === '') return '';
+    if(Array.isArray(node)) return node.map(function(n){ return blocks(n, ctx, st, avail, S); }).join('');
+    if(typeof node === 'string' || typeof node === 'number') return para(run(String(node), ctx), ctx, {}, {}, {pageW:S.pageW});
+    if(typeof node !== 'object') return '';
+    var o = own(node, st), c = inh(ctx, o), out = '';
+    var isText = node.text !== undefined;
+    if(node.pageBreak === 'before' && !isText) out += '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
+    if(node.stack){ out += blocks(node.stack, c, st, avail, S); }
+    else if(node.columns){
+      var cols = node.columns, gap = node.columnGap != null ? node.columnGap : 0;
+      var specs = cols.map(function(x){ return (x && typeof x === 'object' && x.width != null) ? x.width : '*'; });
+      var w = distribute(specs, avail, function(i){ var s = plain(cols[i]); var mx = 0; s.split('\n').forEach(function(l){ if(l.length > mx) mx = l.length; }); return mx * (c.fontSize || 12) * .52 + 10; });
+      var tcs = cols.map(function(cn, i){
+        var inner = blocks(cn, c, st, Math.max(20, w[i] - 4), S) || '<w:p/>';
+        return '<w:tc><w:tcPr><w:tcW w:w="'+tw(w[i])+'" w:type="dxa"/></w:tcPr>'+inner+'</w:tc>';
+      }).join('');
+      var m = mg(o.margin);
+      out += (m[1] ? spacer(m[1]) : '') + '<w:tbl><w:tblPr><w:tblW w:w="'+tw(w.reduce(function(a, b){ return a + b; }, 0))+'" w:type="dxa"/><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="'+tw(gap / 2)+'" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="'+tw(gap / 2)+'" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+
+        w.map(function(x){ return '<w:gridCol w:w="'+tw(x)+'"/>'; }).join('')+'</w:tblGrid><w:tr><w:trPr><w:cantSplit/></w:trPr>'+tcs+'</w:tr></w:tbl>' + spacer(Math.max(m[3], 1));
+    }
+    else if(node.table){ out += tableXml(node, c, st, avail, o, S); }
+    else if(node.ul || node.ol){
+      var items = node.ul || node.ol, ord = !!node.ol;
+      items.forEach(function(it, i){
+        var mark = ord ? (i + 1) + '. ' : '• ';
+        if(typeof it === 'string' || typeof it === 'number') out += para(run(mark + it, c), c, {}, {}, {indent:18, hanging:12, pageW:S.pageW});
+        else if(it && it.text !== undefined){ var ic = inh(c, own(it, st)); out += para(run(mark, ic) + runsOf(it.text, ic, st), ic, own(it, st), {}, {indent:18, hanging:12, pageW:S.pageW}); }
+        else out += blocks(it, c, st, avail - 18, S);
+      });
+    }
+    else if(node.image){ out += imagePara(node, c, o, S); }
+    else if(isText){
+      var txt = runsOf(node.text, c, st);
+      out += para(txt, c, o, node, {pageW:S.pageW});
+    }
+    if(node.pageBreak === 'after' && !isText) out += '<w:p><w:r><w:br w:type="page"/></w:r></w:p>';
+    return out;
+  }
+
+  /* ---------- ZIP (sıkıştırmasız) ---------- */
+  var CRC = (function(){ var t = []; for(var n = 0; n < 256; n++){ var c = n; for(var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1); t[n] = c >>> 0; } return t; })();
+  function crc32(u){ var c = 0xFFFFFFFF; for(var i = 0; i < u.length; i++) c = CRC[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function zip(files){
+    var enc = new TextEncoder(), parts = [], central = [], off = 0;
+    function u16(v){ return [v & 255, (v >> 8) & 255]; }
+    function u32(v){ return [v & 255, (v >> 8) & 255, (v >> 16) & 255, (v >>> 24) & 255]; }
+    files.forEach(function(f){
+      var name = enc.encode(f.name), data = typeof f.data === 'string' ? enc.encode(f.data) : f.data, crc = crc32(data);
+      var lh = [].concat(u32(0x04034b50), u16(20), u16(0x0800), u16(0), u16(0), u16(0x21), u32(crc), u32(data.length), u32(data.length), u16(name.length), u16(0));
+      parts.push(new Uint8Array(lh), name, data);
+      central.push({name:name, crc:crc, size:data.length, off:off});
+      off += lh.length + name.length + data.length;
+    });
+    var cdStart = off, cdSize = 0;
+    central.forEach(function(e){
+      var h = [].concat(u32(0x02014b50), u16(20), u16(20), u16(0x0800), u16(0), u16(0), u16(0x21), u32(e.crc), u32(e.size), u32(e.size), u16(e.name.length), u16(0), u16(0), u16(0), u16(0), u32(0), u32(e.off));
+      parts.push(new Uint8Array(h), e.name); cdSize += h.length + e.name.length;
+    });
+    parts.push(new Uint8Array([].concat(u32(0x06054b50), u16(0), u16(0), u16(central.length), u16(central.length), u32(cdSize), u32(cdStart), u16(0))));
+    return new Blob(parts, {type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  }
+
+  /* ---------- belge ---------- */
+  function build(dd){
+    dd = dd || {};
+    var ps = dd.pageSize, size = (typeof ps === 'object' && ps) ? [ps.width || 595.28, ps.height || 841.89] : (PAGES[String(ps || 'A4').toUpperCase()] || PAGES.A4);
+    var W = size[0], H = size[1];
+    if(dd.pageOrientation === 'landscape'){ var tmp = W; W = H; H = tmp; }
+    var pm = dd.pageMargins; var M = typeof pm === 'number' ? [pm,pm,pm,pm] : Array.isArray(pm) ? (pm.length === 2 ? [pm[0],pm[1],pm[0],pm[1]] : pm.length === 4 ? pm : [40,40,40,40]) : [40,40,40,40];
+    var st = dd.styles || {};
+    var ctx = {}; INH.forEach(function(k){ ctx[k] = undefined; });
+    var ds = dd.defaultStyle || {}; for(var k in ds) if(INH.indexOf(k) > -1) ctx[k] = ds[k];
+    if(!ctx.fontSize) ctx.fontSize = 12;
+    var S = {dd:dd, media:[], pageW:W};
+    var avail = W - M[0] - M[2];
+    var bodyXml = blocks(dd.content, ctx, st, avail, S);
+    var sect = '<w:sectPr><w:pgSz w:w="'+tw(W)+'" w:h="'+tw(H)+'"'+(W > H ? ' w:orient="landscape"' : '')+'/><w:pgMar w:top="'+tw(M[1])+'" w:right="'+tw(M[2])+'" w:bottom="'+tw(M[3])+'" w:left="'+tw(M[0])+'" w:header="360" w:footer="360" w:gutter="0"/></w:sectPr>';
+    var NS = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
+    var doc = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document '+NS+'><w:body>'+bodyXml+'<w:p/>'+sect+'</w:body></w:document>';
+    var f0 = fontName(ctx.font), sz0 = Math.round(ctx.fontSize * 2);
+    var styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="'+f0+'" w:hAnsi="'+f0+'" w:cs="'+f0+'" w:eastAsia="'+f0+'"/><w:sz w:val="'+sz0+'"/><w:szCs w:val="'+sz0+'"/><w:lang w:val="tr-TR"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style></w:styles>';
+    var rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdSt" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' +
+      S.media.map(function(m, i){ return '<Relationship Id="rIdImg'+(i + 1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/'+m.name+'"/>'; }).join('') + '</Relationships>';
+    var ct = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="jpg" ContentType="image/jpeg"/><Default Extension="gif" ContentType="image/gif"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>';
+    var root = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>';
+    var files = [{name:'[Content_Types].xml', data:ct}, {name:'_rels/.rels', data:root}, {name:'word/document.xml', data:doc}, {name:'word/styles.xml', data:styles}, {name:'word/_rels/document.xml.rels', data:rels}];
+    S.media.forEach(function(m){ files.push({name:'word/media/'+m.name, data:m.bytes}); });
+    return zip(files);
+  }
+  function indir(blob, ad){
+    var a = document.createElement('a'), url = URL.createObjectURL(blob);
+    a.href = url; a.download = ad; document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 1500);
+  }
+  function wordIndir(dd, name){
+    var ad = String(name || 'Rapor').replace(/\.pdf$/i, '').replace(/[\\\/:*?"<>|]+/g, '_') + '.docx';
+    indir(build(dd), ad);
+  }
+  window.wordDocxOlustur = build;
+
+  /* ---------- pdfMake'i yakala: Word modunda belge tanımı Word'e dönüştürülür ---------- */
+  window.__wordMod = false; var _zaman = null;
+  function hookla(){
+    if(typeof pdfMake === 'undefined' || pdfMake.__wordHook) return;
+    var orig = pdfMake.createPdf;
+    pdfMake.createPdf = function(dd){
+      if(!window.__wordMod) return orig.apply(pdfMake, arguments);
+      var f = function(name){ try{ wordIndir(dd, typeof name === 'string' ? name : null); }catch(e){ if(window.console) console.error(e); window.__wordHata = e; } };
+      return {download:f, open:function(){ f(); }, print:function(){ f(); }, getBlob:function(cb){ f(); }, getBuffer:function(cb){ f(); }, getBase64:function(cb){ f(); }, getDataUrl:function(cb){ f(); }};
+    };
+    pdfMake.__wordHook = true;
+  }
+  window.wordCalistir = function(fn, btn){
+    var kutu = btn && btn.closest ? btn.closest('.modal-box') : null;
+    function durumDuzelt(){
+      if(!kutu) return;
+      var l = kutu.querySelectorAll('.modal-status');
+      for(var i = 0; i < l.length; i++){ if(/PDF/.test(l[i].textContent)) l[i].textContent = l[i].textContent.replace(/PDF/g, 'Word'); }
+    }
+    hookla();
+    window.__wordHata = null; window.__wordMod = true;
+    clearTimeout(_zaman); _zaman = setTimeout(function(){ window.__wordMod = false; durumDuzelt(); }, 2500);
+    try{ fn(); }catch(e){ window.__wordMod = false; if(window.console) console.error(e); }
+    durumDuzelt();
+    if(window.__wordHata && kutu){ var s = kutu.querySelector('.modal-status'); if(s) s.textContent = 'Word oluşturulamadı.'; }
+  };
+
+  /* ---------- buton sıralarını Word eklenince sığdır ---------- */
+  function sigdir(){
+    var l = document.querySelectorAll('.modal-btn.word'), seen = [];
+    for(var i = 0; i < l.length; i++){
+      var p = l[i].parentNode; if(!p || seen.indexOf(p) > -1) continue; seen.push(p);
+      if(getComputedStyle(p).display !== 'grid') continue;
+      var n = 0; for(var j = 0; j < p.children.length; j++){ if(p.children[j].style.display !== 'none') n++; }
+      p.style.setProperty('--wc', n); p.style.setProperty('--wc2', n > 4 ? Math.ceil(n / 2) : n);
+      p.classList.add('modal-actions-fit');
+    }
+  }
+  sigdir();
 })();
 
 </script>
