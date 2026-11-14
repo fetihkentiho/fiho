@@ -4045,6 +4045,21 @@ textarea{flex:1;min-height:120px;resize:none;border:0}
 /* ---- Gelen / Giden: tıkla aç, tıkla kapat; ikisi de kapalıyken yazı bölümü büyür ---- */
 @media (max-width:700px){#left{height:auto;max-height:60%}#left:has(.sec.open){height:60%}}
 @media (min-width:701px){#left:not(:has(.sec.open)){align-self:flex-start;height:auto}}
+
+/* ---- PDF önizleme: A4 sayfa kaydırmasız sığar, tam ekran önizleme ---- */
+.pvx{flex:1;display:flex;flex-direction:column;min-height:0}
+.pvx.fb iframe{flex:1;width:100%;border:0;background:#fff;min-height:300px}
+.pvc{flex:1;min-height:260px;display:flex;align-items:center;justify-content:center;background:#8896a6;position:relative;overflow:hidden;padding:6px}
+.pvc canvas{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:zoom-in;flex:none}
+.pvm{position:absolute;left:0;right:0;top:45%;color:#fff;font-weight:700;text-align:center;padding:10px;pointer-events:none}
+.pvn{display:flex;gap:8px;justify-content:center;align-items:center;padding:4px;background:var(--lt);border-top:1px solid var(--bd)}
+.pvn button{padding:4px 12px;min-height:30px}
+#pvOv{position:fixed;inset:0;background:#3b4652;display:none;flex-direction:column;z-index:1000}
+#pvOv .ovt{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:6px 8px;padding-top:calc(6px + env(safe-area-inset-top,0px));background:#1b2733;color:#fff;font-weight:700}
+#pvOv .ovt button{background:#fff;color:#14578f;border:0;border-radius:6px;padding:6px 12px;font-weight:700;min-height:36px;min-width:38px}
+#pvOv .ovt span{display:inline-flex;gap:6px;align-items:center}
+#pvOv .ovb{flex:1;min-height:0;display:flex;overflow:auto;padding:8px;-webkit-overflow-scrolling:touch}
+#pvOv #ovCv{margin:auto;flex:none;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.5);touch-action:pan-x pan-y}
 &lt;/style&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
@@ -4132,9 +4147,9 @@ function drawDoc(){
  else if(prev&gt;-1&amp;&amp;cur.ekler[prev]){
   var e=cur.ekler[prev],u=blobUrl(e);
   h+=&#x27;&lt;div class=&quot;pv&quot;&gt;&lt;div class=&quot;ph&quot;&gt;&lt;b&gt;&#x27;+esc(e.ad)+&#x27;&lt;/b&gt;&lt;span&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Yeni sekmede aç / indir&lt;/a&gt; &lt;button data-x=&quot;1&quot;&gt;Kapat&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;&#x27;+
-  (e.tip==&quot;pdf&quot;?&#x27;&lt;iframe src=&quot;&#x27;+u+&#x27;&quot; title=&quot;PDF&quot;&gt;&lt;/iframe&gt;&#x27;:&#x27;&lt;div class=&quot;cd&quot;&gt;&#x27;+esc(e.ad)+&#x27; tarayıcıda önizlenemez.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Dosyayı aç / indir&lt;/a&gt;&lt;/div&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;}
+  (e.tip==&quot;pdf&quot;?&#x27;&lt;div class=&quot;pvx&quot; id=&quot;pvx&quot;&gt;&lt;div class=&quot;pvc&quot;&gt;&lt;canvas id=&quot;pvCv&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;pvm&quot; id=&quot;pvMsg&quot;&gt;Önizleme hazırlanıyor…&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;pvn&quot;&gt;&lt;button data-pg=&quot;-1&quot;&gt;‹&lt;/button&gt;&lt;span id=&quot;pvPn&quot;&gt;1 / 1&lt;/span&gt;&lt;button data-pg=&quot;1&quot;&gt;›&lt;/button&gt;&lt;button data-big=&quot;1&quot;&gt;⤢ Önizleme&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&#x27;:&#x27;&lt;div class=&quot;cd&quot;&gt;&#x27;+esc(e.ad)+&#x27; tarayıcıda önizlenemez.&lt;br&gt;&lt;br&gt;&lt;a href=&quot;&#x27;+u+&#x27;&quot; target=&quot;_blank&quot; download=&quot;&#x27;+esc(e.ad)+&#x27;&quot;&gt;Dosyayı aç / indir&lt;/a&gt;&lt;/div&gt;&#x27;)+&#x27;&lt;/div&gt;&#x27;}
  else h+=&#x27;&lt;textarea id=&quot;fi&quot; placeholder=&quot;Evrak içeriği&quot;&gt;&#x27;+esc(cur.icerik)+&#x27;&lt;/textarea&gt;&#x27;;
- d.innerHTML=h+&#x27;&lt;/div&gt;&#x27;}
+ d.innerHTML=h+&#x27;&lt;/div&gt;&#x27;;if(window.pvInit)pvInit()}
 function show(id){
  grab();
  cur=docs.filter(function(d){return d.id==id})[0]||null;
@@ -4249,6 +4264,90 @@ load();var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];s
       show(d?d.id:null);
     }
   },true);
+})();
+&lt;/script&gt;
+&lt;script&gt;
+(function(){
+  var cache={}, st={key:&#x27;&#x27;,page:1,n:1,pdf:null,z:1}, last=0;
+  function $(i){return document.getElementById(i)}
+  function bytes(e){var b=atob(e.url.split(&#x27;,&#x27;)[1]),u=new Uint8Array(b.length);for(var i=0;i&lt;b.length;i++)u[i]=b.charCodeAt(i);return u}
+  function load(e){var k=e.ad+e.url.length;return cache[k]||(cache[k]=pdfjsLib.getDocument({data:bytes(e)}).promise)}
+  function renderTo(cv,W,H,z,maxPx){
+    if(cv._rt){try{cv._rt.cancel()}catch(x){}}
+    var tok=cv._tok=(cv._tok||0)+1;
+    return st.pdf.getPage(st.page).then(function(pg){
+      if(tok!==cv._tok) return;
+      var vp=pg.getViewport({scale:1}),s=Math.min(W/vp.width,H/vp.height)*z;
+      var dpr=Math.min(window.devicePixelRatio||1,3),px=vp.width*s*dpr;if(px&gt;maxPx)dpr=dpr*maxPx/px;
+      var v=pg.getViewport({scale:s*dpr});
+      cv.width=Math.floor(v.width);cv.height=Math.floor(v.height);
+      cv.style.width=(vp.width*s)+&#x27;px&#x27;;cv.style.height=(vp.height*s)+&#x27;px&#x27;;
+      var rt=pg.render({canvasContext:cv.getContext(&#x27;2d&#x27;),viewport:v});cv._rt=rt;
+      return rt.promise.catch(function(){});
+    });
+  }
+  function draw(){
+    var cv=$(&#x27;pvCv&#x27;);if(!cv||!st.pdf)return;
+    var c=cv.parentNode,W=c.clientWidth-12,H=c.clientHeight-12;if(W&lt;30||H&lt;30)return;
+    renderTo(cv,W,H,1,3000).then(function(){var m=$(&#x27;pvMsg&#x27;);if(m)m.style.display=&#x27;none&#x27;});
+    var pn=$(&#x27;pvPn&#x27;);if(pn)pn.textContent=st.page+&#x27; / &#x27;+st.n;
+  }
+  function ovDraw(){
+    var o=$(&#x27;pvOv&#x27;);if(!o||o.style.display!==&#x27;flex&#x27;)return;
+    var b=$(&#x27;ovB&#x27;),cv=$(&#x27;ovCv&#x27;);
+    renderTo(cv,b.clientWidth-16,b.clientHeight-16,st.z,4200);
+    $(&#x27;ovPn&#x27;).textContent=st.page+&#x27; / &#x27;+st.n;$(&#x27;ovZ&#x27;).textContent=Math.round(st.z*100)+&#x27;%&#x27;;
+  }
+  function setPage(d){var p=Math.max(1,Math.min(st.n,st.page+d));if(p===st.page)return;st.page=p;draw();ovDraw()}
+  function setZ(z){st.z=Math.max(.5,Math.min(5,z));ovDraw()}
+  function ovOpen(){
+    if(!st.pdf)return;
+    var o=$(&#x27;pvOv&#x27;);
+    if(!o){
+      o=document.createElement(&#x27;div&#x27;);o.id=&#x27;pvOv&#x27;;
+      o.innerHTML=&#x27;&lt;div class=&quot;ovt&quot;&gt;&lt;button data-o=&quot;close&quot;&gt;✕ Kapat&lt;/button&gt;&lt;span&gt;&lt;button data-o=&quot;prev&quot;&gt;‹&lt;/button&gt;&lt;span id=&quot;ovPn&quot;&gt;&lt;/span&gt;&lt;button data-o=&quot;next&quot;&gt;›&lt;/button&gt;&lt;/span&gt;&lt;span&gt;&lt;button data-o=&quot;out&quot;&gt;−&lt;/button&gt;&lt;span id=&quot;ovZ&quot;&gt;&lt;/span&gt;&lt;button data-o=&quot;in&quot;&gt;+&lt;/button&gt;&lt;button data-o=&quot;fit&quot;&gt;Sığdır&lt;/button&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;ovb&quot; id=&quot;ovB&quot;&gt;&lt;canvas id=&quot;ovCv&quot;&gt;&lt;/canvas&gt;&lt;/div&gt;&#x27;;
+      document.body.appendChild(o);
+      o.addEventListener(&#x27;click&#x27;,function(e){
+        var b=e.target.closest(&#x27;[data-o]&#x27;);if(!b)return;var a=b.getAttribute(&#x27;data-o&#x27;);
+        if(a===&#x27;close&#x27;)ovClose();else if(a===&#x27;prev&#x27;)setPage(-1);else if(a===&#x27;next&#x27;)setPage(1);
+        else if(a===&#x27;in&#x27;)setZ(st.z*1.25);else if(a===&#x27;out&#x27;)setZ(st.z/1.25);else if(a===&#x27;fit&#x27;)setZ(1);
+      });
+      var ob=$(&#x27;ovB&#x27;),pt=null,tap=0;
+      function dist(e){var a=e.touches[0],b=e.touches[1];return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)}
+      ob.addEventListener(&#x27;touchstart&#x27;,function(e){if(e.touches.length===2)pt={d:dist(e),z:st.z,nz:st.z}},{passive:true});
+      ob.addEventListener(&#x27;touchmove&#x27;,function(e){
+        if(pt&amp;&amp;e.touches.length===2){e.preventDefault();pt.nz=Math.max(.5,Math.min(5,pt.z*dist(e)/pt.d));var cv=$(&#x27;ovCv&#x27;);cv.style.transformOrigin=&#x27;center center&#x27;;cv.style.transform=&#x27;scale(&#x27;+(pt.nz/st.z)+&#x27;)&#x27;}
+      },{passive:false});
+      ob.addEventListener(&#x27;touchend&#x27;,function(e){
+        if(pt&amp;&amp;e.touches.length&lt;2){var cv=$(&#x27;ovCv&#x27;);cv.style.transform=&#x27;&#x27;;st.z=pt.nz;pt=null;ovDraw();tap=0;return}
+        if(!pt&amp;&amp;e.touches.length===0&amp;&amp;e.changedTouches.length===1){var n=Date.now();if(n-tap&lt;300){setZ(st.z&lt;1.5?2.5:1);tap=0}else tap=n}
+      });
+      ob.addEventListener(&#x27;dblclick&#x27;,function(){setZ(st.z&lt;1.5?2.5:1)});
+    }
+    o.style.display=&#x27;flex&#x27;;st.z=1;ovDraw();
+  }
+  function ovClose(){var o=$(&#x27;pvOv&#x27;);if(o)o.style.display=&#x27;none&#x27;}
+  document.addEventListener(&#x27;keydown&#x27;,function(e){
+    var o=$(&#x27;pvOv&#x27;);if(!o||o.style.display!==&#x27;flex&#x27;)return;
+    if(e.key===&#x27;Escape&#x27;)ovClose();else if(e.key===&#x27;ArrowLeft&#x27;)setPage(-1);else if(e.key===&#x27;ArrowRight&#x27;)setPage(1);
+  });
+  $(&#x27;doc&#x27;).addEventListener(&#x27;click&#x27;,function(e){
+    var t=e.target;
+    var p=t.closest&amp;&amp;t.closest(&#x27;[data-pg]&#x27;);if(p){setPage(+p.getAttribute(&#x27;data-pg&#x27;));return}
+    if(t.closest&amp;&amp;(t.closest(&#x27;[data-big]&#x27;)||t.id===&#x27;pvCv&#x27;))ovOpen();
+  });
+  window.pvInit=function(){
+    var box=$(&#x27;pvx&#x27;);if(!box)return;
+    var e=(typeof cur!==&#x27;undefined&#x27;&amp;&amp;cur&amp;&amp;cur.ekler[prev])||null;if(!e||e.tip!==&#x27;pdf&#x27;)return;
+    if(!window.pdfjsLib){box.classList.add(&#x27;fb&#x27;);box.innerHTML=&#x27;&lt;iframe src=&quot;&#x27;+blobUrl(e)+&#x27;&quot; title=&quot;PDF&quot;&gt;&lt;/iframe&gt;&#x27;;return}
+    var k=e.ad+e.url.length;if(st.key!==k){st.key=k;st.page=1}
+    load(e).then(function(p){st.pdf=p;st.n=p.numPages;if(st.page&gt;st.n)st.page=st.n;draw()})
+     .catch(function(){var m=$(&#x27;pvMsg&#x27;);if(m)m.textContent=&#x27;PDF önizlenemedi. Yukarıdaki bağlantıyla açabilirsiniz.&#x27;});
+  };
+  var q=0;function again(){cancelAnimationFrame(q);q=requestAnimationFrame(function(){draw();ovDraw()})}
+  if(window.ResizeObserver)new ResizeObserver(again).observe($(&#x27;doc&#x27;));
+  window.addEventListener(&#x27;resize&#x27;,again);
+  window.pvInit();
 })();
 &lt;/script&gt;
 &lt;/body&gt;&lt;/html&gt;
