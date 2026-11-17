@@ -4060,11 +4060,13 @@ textarea{flex:1;min-height:120px;resize:none;border:0}
 #pvOv .ovt span{display:inline-flex;gap:6px;align-items:center}
 #pvOv .ovb{flex:1;min-height:0;display:flex;overflow:auto;padding:8px;-webkit-overflow-scrolling:touch}
 #pvOv #ovCv{margin:auto;flex:none;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.5);touch-action:pan-x pan-y}
+.hm.sv{width:auto;display:flex;gap:5px;align-items:center;padding:0 10px;font-weight:700;background:linear-gradient(#3fb67a,#1e8a55);border-color:#14683f}.hm.sv span{font-size:12px}
+.it .tx{flex:1;min-width:0}.it.warn{background:#f9b9b6}.it.warn:hover{background:#f4a29e}.it.warn.on{background:#f2908b}.wb{flex:none;align-self:center;margin-left:auto;width:22px;height:22px;border-radius:50%;border:1px solid;font:900 12px/1 Arial,sans-serif;cursor:pointer;padding:0}.wb.s0{background:#f5c518;color:#5a4300;border-color:#b58f00}.wb.s1{background:#2b6fc4;color:#fff;border-color:#1b4f93}.wb.s2{background:#1e9e55;color:#fff;border-color:#13703b}.wb.s3{background:#d9302c;color:#fff;border-color:#a21f1c}
 &lt;/style&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;&lt;div id=&quot;app&quot;&gt;
-&lt;div class=&quot;top&quot;&gt;&lt;button class=&quot;hm&quot; id=&quot;home&quot; title=&quot;Ana Sayfa&quot; aria-label=&quot;Ana Sayfa&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M3 11l9-8 9 8&quot;/&gt;&lt;path d=&quot;M5 10v10h5v-6h4v6h5V10&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;span id=&quot;st&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;top&quot;&gt;&lt;button class=&quot;hm&quot; id=&quot;home&quot; title=&quot;Ana Sayfa&quot; aria-label=&quot;Ana Sayfa&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M3 11l9-8 9 8&quot;/&gt;&lt;path d=&quot;M5 10v10h5v-6h4v6h5V10&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;button class=&quot;hm sv&quot; id=&quot;saveAll&quot; title=&quot;Tüm değişiklikleri kaydet&quot; aria-label=&quot;Kaydet&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M5 3h11l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z&quot;/&gt;&lt;path d=&quot;M8 3v5h7V3M8 21v-7h8v7&quot;/&gt;&lt;/svg&gt;&lt;span&gt;Kaydet&lt;/span&gt;&lt;/button&gt;&lt;span id=&quot;st&quot;&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;main&gt;
 &lt;aside id=&quot;left&quot;&gt;
  &lt;details class=&quot;fl&quot; open&gt;&lt;summary&gt;Filtreler&lt;/summary&gt;&lt;div class=&quot;fg&quot;&gt;
@@ -4111,8 +4113,30 @@ function say(m){$(&quot;st&quot;).textContent=m;setTimeout(function(){$(&quot;st
 function today(){var d=new Date();return d.getFullYear()+&quot;-&quot;+(&quot;0&quot;+(d.getMonth()+1)).slice(-2)+&quot;-&quot;+(&quot;0&quot;+d.getDate()).slice(-2)}
 function mon(ds){var d=new Date(ds+&quot;T00:00:00&quot;);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.getTime()}
 function grp(ds){if(!ds)return&quot;Tarihsiz&quot;;var n=Math.round((mon(today())-mon(ds))/6048e5);return n&lt;0?&quot;İleri Tarihli&quot;:n==0?&quot;Bu Hafta&quot;:n==1?&quot;Geçen Hafta&quot;:&quot;Daha Eski&quot;}
-function load(){try{var r=localStorage.getItem(&quot;ebys&quot;);docs=r?JSON.parse(r):seed.slice()}catch(e){docs=seed.slice()}if(!docs.length)docs=seed.slice();docs.forEach(function(d){if(!d.tur)d.tur=&quot;gelen&quot;})}
-function persist(){try{localStorage.setItem(&quot;ebys&quot;,JSON.stringify(docs));return true}catch(e){say(&quot;Depolama dolu: değişiklikler bu oturumda kalır&quot;);return false}}
+var IDBN=&quot;ebys-db&quot;,saveP=Promise.resolve(true);
+function idbOpen(){return new Promise(function(ok,no){try{var r=indexedDB.open(IDBN,1);r.onupgradeneeded=function(){r.result.createObjectStore(&quot;kv&quot;)};r.onsuccess=function(){ok(r.result)};r.onerror=function(){no(r.error)};r.onblocked=function(){no(new Error(&quot;blocked&quot;))}}catch(e){no(e)}})}
+function idbGet(k){return idbOpen().then(function(db){return new Promise(function(ok,no){var q=db.transaction(&quot;kv&quot;,&quot;readonly&quot;).objectStore(&quot;kv&quot;).get(k);q.onsuccess=function(){ok(q.result);db.close()};q.onerror=function(){no(q.error);db.close()}})})}
+function idbPut(k,v){return idbOpen().then(function(db){return new Promise(function(ok,no){var t=db.transaction(&quot;kv&quot;,&quot;readwrite&quot;);t.objectStore(&quot;kv&quot;).put(v,k);t.oncomplete=function(){ok(true);db.close()};t.onerror=function(){no(t.error);db.close()};t.onabort=function(){no(t.error);db.close()}})})}
+function loadDb(){
+ return idbGet(&quot;docs&quot;).then(function(v){
+  if(v){try{docs=JSON.parse(v)}catch(e){docs=[]}return}
+  var r=null;try{r=localStorage.getItem(&quot;ebys&quot;)}catch(e){}
+  docs=[];if(r){try{docs=JSON.parse(r)}catch(e){docs=[]}}
+  if(docs.length){var s=JSON.stringify(docs);return idbPut(&quot;docs&quot;,s).then(function(){return idbGet(&quot;docs&quot;)}).then(function(c){if(c===s){try{localStorage.removeItem(&quot;ebys&quot;)}catch(e){}}})}
+ }).catch(function(){
+  var r=null;try{r=localStorage.getItem(&quot;ebys&quot;)}catch(e){}
+  try{docs=r?JSON.parse(r):[]}catch(e){docs=[]}
+ }).then(function(){if(!docs.length)docs=seed.slice();docs.forEach(function(d){if(!d.tur)d.tur=&quot;gelen&quot;})})
+}
+function persist(){
+ var s=JSON.stringify(docs);
+ saveP=saveP.then(function(){return idbPut(&quot;docs&quot;,s)}).then(function(){return true}).catch(function(){
+  try{localStorage.setItem(&quot;ebys&quot;,s);return true}catch(e){say(&quot;Depolama dolu: değişiklikler bu oturumda kalır&quot;);return false}});
+ window.__saveP=saveP;return true}
+function dst(d){return d.durum!==undefined?d.durum:(d.uyari?3:0)}
+var DT=[&quot;Yeni: okunmadı (okundu için tıklayın)&quot;,&quot;Okundu (cevap verildi için tıklayın)&quot;,&quot;Cevap verildi (önemli için tıklayın)&quot;,&quot;Önemli: tekrar okunacak (okundu için tıklayın)&quot;];
+function WB(d){var s=dst(d);return &#x27;&lt;button class=&quot;wb s&#x27;+s+&#x27;&quot; data-flag=&quot;&#x27;+d.id+&#x27;&quot; title=&quot;&#x27;+DT[s]+&#x27;&quot;&gt;&#x27;+(s==3?&#x27;!&#x27;:&#x27;✓&#x27;)+&#x27;&lt;/button&gt;&#x27;}
+
 function sorted(){return docs.slice().sort(function(a,b){return a.tarih&lt;b.tarih?1:a.tarih&gt;b.tarih?-1:b.id-a.id})}
 function filt(t){
  var q=[0,1,2,3].map(function(i){return $(&quot;s&quot;+i).value.trim().toLowerCase()});
@@ -4123,7 +4147,7 @@ function box(t){
  var l=filt(t),h=&quot;&quot;,g=&quot;&quot;;
  l.forEach(function(d){
   var k=grp(d.tarih);if(k!=g){g=k;h+=&#x27;&lt;div class=&quot;gh&quot;&gt;&#x27;+k+&#x27;&lt;/div&gt;&#x27;}
-  h+=&#x27;&lt;div class=&quot;it&#x27;+(cur&amp;&amp;cur.id==d.id?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-id=&quot;&#x27;+d.id+&#x27;&quot;&gt;&lt;div class=&quot;ic&quot;&gt;&#x27;+FOLD+(d.ekler.length?&#x27;&lt;span class=&quot;bg&quot;&gt;&#x27;+d.ekler.length+&#x27;&lt;/span&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;/div&gt;&lt;div class=&quot;tx&quot;&gt;&lt;div class=&quot;r1&quot;&gt;&lt;b&gt;Konu: &#x27;+esc(d.konu)+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+fd(d.tarih)+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;+(d.aciklama?&#x27;&lt;div&gt;Açıklama: &#x27;+esc(d.aciklama)+&#x27;&lt;/div&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;div&gt;Sayı: &#x27;+esc(d.sayi)+&#x27;&lt;/div&gt;&lt;div&gt;Evrak Tarihi: &#x27;+fd(d.tarih)+&#x27;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#x27;});
+  h+=&#x27;&lt;div class=&quot;it&#x27;+(dst(d)==3?&quot; warn&quot;:&quot;&quot;)+(cur&amp;&amp;cur.id==d.id?&quot; on&quot;:&quot;&quot;)+&#x27;&quot; data-id=&quot;&#x27;+d.id+&#x27;&quot;&gt;&lt;div class=&quot;ic&quot;&gt;&#x27;+FOLD+(d.ekler.length?&#x27;&lt;span class=&quot;bg&quot;&gt;&#x27;+d.ekler.length+&#x27;&lt;/span&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;/div&gt;&lt;div class=&quot;tx&quot;&gt;&lt;div class=&quot;r1&quot;&gt;&lt;b&gt;Konu: &#x27;+esc(d.konu)+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+fd(d.tarih)+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;+(d.aciklama?&#x27;&lt;div&gt;Açıklama: &#x27;+esc(d.aciklama)+&#x27;&lt;/div&gt;&#x27;:&#x27;&#x27;)+&#x27;&lt;div&gt;Sayı: &#x27;+esc(d.sayi)+&#x27;&lt;/div&gt;&lt;div&gt;Evrak Tarihi: &#x27;+fd(d.tarih)+&#x27;&lt;/div&gt;&lt;/div&gt;&#x27;+WB(d)+&#x27;&lt;/div&gt;&#x27;});
  $(&quot;l_&quot;+t).innerHTML=h||&#x27;&lt;div class=&quot;empty&quot;&gt;Kayıt yok&lt;/div&gt;&#x27;;
  $(&quot;c_&quot;+t).textContent=&quot;(&quot;+l.length+&quot;)&quot;}
 function drawList(){box(&quot;gelen&quot;);box(&quot;giden&quot;)}
@@ -4235,7 +4259,7 @@ $(&quot;doc&quot;).onclick=function(ev){
  drawDoc()};
 document.querySelectorAll(&quot;.fg input&quot;).forEach(function(i){i.oninput=drawList;i.onkeydown=function(e){if(e.key==&quot;Enter&quot;)drawList()}});
 $(&quot;home&quot;).onclick=function(){try{parent.postMessage({ebys:&quot;home&quot;},&quot;*&quot;)}catch(x){}};
-load();var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];show(f0?f0.id:null);
+loadDb().then(function(){var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];show(f0?f0.id:null);if(window.pvInit)pvInit()});
 &lt;/script&gt;&lt;script&gt;
 (function(){
   var f=document.getElementById(&#x27;flds&#x27;); if(!f) return;
@@ -4348,6 +4372,29 @@ load();var f0=sorted().filter(function(d){return d.tur==&quot;gelen&quot;})[0];s
   if(window.ResizeObserver)new ResizeObserver(again).observe($(&#x27;doc&#x27;));
   window.addEventListener(&#x27;resize&#x27;,again);
   window.pvInit();
+})();
+&lt;/script&gt;
+&lt;script&gt;
+(function(){
+  var sv=document.getElementById(&#x27;saveAll&#x27;);
+  function kaydet(){try{grab()}catch(e){}persist()}
+  if(sv)sv.addEventListener(&#x27;click&#x27;,function(){
+    kaydet();
+    (window.__saveP||Promise.resolve(true)).then(function(ok){say(ok?&#x27;Tüm değişiklikler kaydedildi ✓&#x27;:&#x27;Kaydedilemedi: depolama dolu&#x27;)});
+  });
+  var L=document.getElementById(&#x27;left&#x27;);
+  if(L)L.addEventListener(&#x27;click&#x27;,function(ev){
+    var b=ev.target.closest&amp;&amp;ev.target.closest(&#x27;[data-flag]&#x27;);if(!b)return;
+    ev.stopPropagation();ev.preventDefault();
+    var id=+b.getAttribute(&#x27;data-flag&#x27;),d=docs.filter(function(x){return x.id==id})[0];if(!d)return;
+    var s=dst(d),n=s==0?1:s==1?2:s==2?3:1;d.durum=n;d.uyari=(n==3);kaydet();drawList();
+  },true);
+  var tm=0;function otomatik(){clearTimeout(tm);tm=setTimeout(kaydet,1200)}
+  var d=document.getElementById(&#x27;doc&#x27;),f=document.getElementById(&#x27;flds&#x27;);
+  if(d)d.addEventListener(&#x27;input&#x27;,otomatik);if(f)f.addEventListener(&#x27;input&#x27;,otomatik);
+  document.addEventListener(&#x27;visibilitychange&#x27;,function(){if(document.hidden)kaydet()});
+  window.addEventListener(&#x27;pagehide&#x27;,kaydet);
+  var h=document.getElementById(&#x27;home&#x27;);if(h)h.addEventListener(&#x27;click&#x27;,kaydet);
 })();
 &lt;/script&gt;
 &lt;/body&gt;&lt;/html&gt;
@@ -4924,7 +4971,10 @@ tick();setInterval(tick,1000);
       <button type="button" class="modal-btn excel" onClick="dvCikti('excel')">Excel</button>
       <input type="file" id="dvExcelDosya" accept=".xls,.xlsx,.pdf" style="display:none" onChange="dvEOkulYukle(event)">
     </div>
-    <div style="margin-top:8px;"><button type="button" class="modal-btn danger" style="width:100%;" onClick="tumunuSil('devamsizlik')">Tümünü Sil</button></div>
+    <div style="margin-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+      <button type="button" class="modal-btn pdf" onClick="dvTekTekKaydet()">Tek Tek Kaydet</button>
+      <button type="button" class="modal-btn danger" onClick="tumunuSil('devamsizlik')">Tümünü Sil</button>
+    </div>
     <div id="dvDurum" class="modal-status"></div>
   </div>
 </div>
@@ -8948,8 +8998,8 @@ tick();setInterval(tick,1000);
       var rr = 21 + sat;
       [[2, 'lt' + 'b', 0], [19, 'ltb', 1]].forEach(function(panel){
         var k = o.kayitlar[sat * 2 + panel[2]], c0 = panel[0];
-        ekle({r1: rr, c1: c0, r2: rr, c2: c0, b: 'ltb', text: k ? (sat * 2 + panel[2] + 1) + ')' : '', font: 'ARL', size: 8, h: 'left', v: 'bottom'});
-        var tarihP = {r1: rr, c1: c0 + 1, r2: rr, c2: c0 + 6, b: 'tb', font: 'ARL', size: 8, h: 'left', v: 'bottom'};
+        ekle({r1: rr, c1: c0, r2: rr, c2: c0 + 1, b: 'ltb', text: k ? (sat * 2 + panel[2] + 1) + '-' : '', font: 'ARL', size: 8, h: 'left', v: 'bottom'});
+        var tarihP = {r1: rr, c1: c0 + 2, r2: rr, c2: c0 + 6, b: 'tb', font: 'ARL', size: 8, h: 'left', v: 'bottom'};
         if(k){ tarihP.text = dvTarihMetni(k.t); tarihP.value = new Date(Date.UTC(+k.t.substring(0, 4), +k.t.substring(5, 7) - 1, +k.t.substring(8, 10))); tarihP.fmt = 'm/d/yyyy'; }
         ekle(tarihP);
         ekle({r1: rr, c1: c0 + 7, r2: rr, c2: c0 + 13, b: 'tb', text: k ? (DV_TUR[k.k] || k.k) : '', font: 'ARL', size: 8, h: 'left', v: 'bottom'});
@@ -9084,6 +9134,41 @@ tick();setInterval(tick,1000);
       dvPdfOlustur(liste).open();
       durum.textContent = liste.length + ' öğrencinin raporu yeni sekmede açıldı; oradan yazdırabilir veya kaydedebilirsiniz.';
     }catch(err){ durum.textContent = 'Rapor oluşturulamadı.'; }
+  }
+
+  /* ---- Tek tek kaydet: her öğrenci ayrı PDF (tek sayfa); dosya adı = sınıf numara ad soyad ---- */
+  function dvTekTekKaydet(){
+    var durum = document.getElementById('dvDurum');
+    var liste = dvRaporOgrencileri();
+    if(!liste.length){
+      durum.textContent = dvKayitlar().length ? 'Önce bir sınıf seçiniz (öğrenci seçmezseniz seçili sınıfın tüm öğrencileri ayrı ayrı kaydedilir).' : 'Önce e-Okul düğmesiyle devamsızlık PDF veya Excel dosyasını yükleyin.';
+      return;
+    }
+    if(typeof pdfMake === 'undefined'){ durum.textContent = 'Rapor oluşturulamadı (internet bağlantısını kontrol edin).'; return; }
+    var i = 0, adlar = {};
+    function dosyaAdi(o){
+      var ad = [o.sinif, o.no, o.ad].filter(function(x){ return String(x || '').trim(); }).join(' ');
+      ad = ad.replace(/[\\\/:*?"<>|]/g, '-').replace(/\s+/g, ' ').trim() || 'Ogrenci';
+      var baz = ad, n = 2;
+      while(adlar[ad.toLowerCase()]) ad = baz + ' (' + (n++) + ')';
+      adlar[ad.toLowerCase()] = true;
+      return ad + '.pdf';
+    }
+    function sonraki(){
+      if(i >= liste.length){
+        durum.textContent = liste.length + ' öğrencinin raporu ayrı ayrı kaydedildi (dosya adı: sınıf numara ad soyad).';
+        return;
+      }
+      var o = liste[i++];
+      durum.textContent = 'Kaydediliyor: ' + i + ' / ' + liste.length + ' – ' + o.ad;
+      try{
+        dvPdfOlustur([o]).getBlob(function(blob){
+          rapIndir(blob, dosyaAdi(o));
+          setTimeout(sonraki, 400);
+        });
+      }catch(err){ durum.textContent = 'Rapor oluşturulamadı: ' + o.ad; }
+    }
+    sonraki();
   }
 
   /* ================= ÖĞRENCİ DEVAMSIZLIK LİSTESİ SCRIPT ================= */
@@ -14043,11 +14128,15 @@ tick();setInterval(tick,1000);
 
   var YEDEK_KEYS = ['okulBilgiGirisi', 'ogretmenListesi', 'personelOzetListesi', 'gorevYeriBelgeleri', 'sinifListesi', 'ogrenciListesi', 'dersListesi', 'notKayitlari', 'sroListesi', 'skListesi', 'kulupOgrenciListesi', 'nakilDilekceBilgileri', 'nakilDilekceleri', 'mezuniyetDilekceleri', 'devamsizlikKayitlari', 'devamsizlikSinif', 'devamsizlikListesi', 'kurulListesi', 'kurulAyar', 'sorumlulukListesi', 'nufusBilgileri', 'ogrenciBilgileri', 'oddkSozlesmeleri', 'takdirTesekkurListesi', 'takdirTesekkurDonem', 'oddkSevkler', 'diplomaDokumu', 'diplomaKayitlari', 'eokulBilgiFormlari', 'servisKayitlari', 'okulServisListesi', 'anasayfaButonSirasi', 'zumreListesi', 'shokListesi', 'yillikPlanListesi', 'ozelEgitimListesi', 'yabanciUyrukluListesi', 'denemeSinavlari', 'ogretmenDersleri', 'sinifDersleri', 'veliTutanaklari', 'ogrenciTutanaklari', 'olayTutanaklari', 'dersProgramlari', 'sinifProgramlari', 'servisDenetimleri', 'girisListeKayitlari', 'hizliAramaRehberi_v3', 'nobet1_d', 'nobet1_m', 'nobet1_r', 'nobet1_b', 'nobet1_notes_v2', 'nobet1_cal_v1', 'nobet1_vukuat_v1', 'nobet1_ogr', 'ebys'];
   function yedekAl(){
+    (window.ebysIdbOku ? ebysIdbOku().catch(function(){ return null; }) : Promise.resolve(null)).then(function(d){ window.__ebysYedek = d; yedekAlIc_(); });
+  }
+  function yedekAlIc_(){
     var data = {};
     YEDEK_KEYS.forEach(function(k){
       var v = localStorage.getItem(k);
       if(v !== null) data[k] = JSON.parse(v);
     });
+    if(window.__ebysYedek && window.__ebysYedek.length) data.ebys = window.__ebysYedek;
     var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -14093,7 +14182,7 @@ tick();setInterval(tick,1000);
       if(!veri) throw new Error('GitHub deposunda (fetihkentiho/fiho) yedek dosyası bulunamadı.');
       if(!confirm('GitHub\'daki "' + ad + '" yedeği yüklenecek. Bu cihazdaki kayıtlı bilgilerin üzerine yazılır. Devam edilsin mi?')) return;
       var n = 0;
-      YEDEK_KEYS.forEach(function(k){ if(veri[k]){ localStorage.setItem(k, JSON.stringify(veri[k])); n++; } });
+      var _e = veri.ebys; YEDEK_KEYS.forEach(function(k){ if(k === 'ebys') return; if(veri[k]){ localStorage.setItem(k, JSON.stringify(veri[k])); n++; } }); if(_e){ n++; try{ await ebysIdbYaz(_e); }catch(x){ try{ localStorage.setItem('ebys', JSON.stringify(_e)); }catch(y){} } }
       alert('GitHub yedeği yüklendi (' + ad + ', ' + n + ' bölüm).');
       location.reload();
     }catch(err){
@@ -14109,11 +14198,15 @@ tick();setInterval(tick,1000);
     reader.onload = function(e){
       try{
         var data = JSON.parse(e.target.result);
+        var _e = data.ebys;
         YEDEK_KEYS.forEach(function(k){
+          if(k === 'ebys') return;
           if(data[k]) localStorage.setItem(k, JSON.stringify(data[k]));
         });
-        alert('Yedek yüklendi.');
-        location.reload();
+        (_e && window.ebysIdbYaz ? ebysIdbYaz(_e).catch(function(){ try{ localStorage.setItem('ebys', JSON.stringify(_e)); }catch(x){} }) : Promise.resolve()).then(function(){
+          alert('Yedek yüklendi.');
+          location.reload();
+        });
       }catch(err){ alert('Yedek okunamadı.'); }
     };
     reader.readAsText(file);
@@ -20991,6 +21084,16 @@ body.suruk-aktif{-webkit-user-select:none;user-select:none;cursor:grabbing;}
   <button type="button" id="altYedekAl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg><span>Yedek Al</span></button>
   <button type="button" id="altYedekYukle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span>Yedek Yükle</span></button>
 </div>
+<script>
+/* EBYS belgeleri: büyük dosyalar için IndexedDB (iç sayfa ile aynı veritabanı) */
+(function(){
+  var N='ebys-db';
+  function open(){return new Promise(function(ok,no){try{var r=indexedDB.open(N,1);r.onupgradeneeded=function(){r.result.createObjectStore('kv')};r.onsuccess=function(){ok(r.result)};r.onerror=function(){no(r.error)}}catch(e){no(e)}})}
+  window.ebysIdbOku=function(){return open().then(function(db){return new Promise(function(ok,no){var q=db.transaction('kv','readonly').objectStore('kv').get('docs');q.onsuccess=function(){db.close();try{ok(q.result?JSON.parse(q.result):null)}catch(e){ok(null)}};q.onerror=function(){db.close();no(q.error)}})})};
+  window.ebysIdbYaz=function(arr){return open().then(function(db){return new Promise(function(ok,no){var t=db.transaction('kv','readwrite');t.objectStore('kv').put(JSON.stringify(arr),'docs');t.oncomplete=function(){db.close();ok(true)};t.onerror=function(){db.close();no(t.error)};t.onabort=function(){db.close();no(t.error)}})})};
+})();
+
+</script>
 <script>
 (function(){
   var bar = document.getElementById('altMenu'), sheet = document.getElementById('altSheet');
